@@ -5,3 +5,5 @@
 - sudo pip install pyprind
 - sudo pip install numpy
 - sudo pip install matplotlib
+- sudo apt-get install libpng-dev
+- sudo apt-get install libfreetype6-dev
