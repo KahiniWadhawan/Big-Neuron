@@ -20,7 +20,25 @@
 
 #### Examples
 ##### Example 1
-##### Example 1
-##### Example 1
-##### Example 1
-##### Example 1
+![alt text](https://github.com/CUBigDataClass/Big-Neuron/blob/Tanvi-branch/Visualizations/WordCloud/my_twitter_wordcloud_1.png "Logo Title Text 1")
+
+##### Example 2
+![alt text](https://github.com/CUBigDataClass/Big-Neuron/blob/Tanvi-branch/Visualizations/WordCloud/my_twitter_wordcloud_2.png "Logo Title Text 1")
+
+##### Example 3
+![alt text](https://github.com/CUBigDataClass/Big-Neuron/blob/Tanvi-branch/Visualizations/WordCloud/my_twitter_wordcloud_3.png "Logo Title Text 1")
+
+##### Example 4
+![alt text](https://github.com/CUBigDataClass/Big-Neuron/blob/Tanvi-branch/Visualizations/WordCloud/my_twitter_wordcloud_4.png "Logo Title Text 1")
+
+##### Example 5
+![alt text](https://github.com/CUBigDataClass/Big-Neuron/blob/Tanvi-branch/Visualizations/WordCloud/my_twitter_wordcloud_5.png "Logo Title Text 1")
+
+##### Example 6
+![alt text](https://github.com/CUBigDataClass/Big-Neuron/blob/Tanvi-branch/Visualizations/WordCloud/my_twitter_wordcloud_6.png "Logo Title Text 1")
+
+##### Example 7
+![alt text](https://github.com/CUBigDataClass/Big-Neuron/blob/Tanvi-branch/Visualizations/WordCloud/my_twitter_wordcloud_7.png "Logo Title Text 1")
+
+##### Example 8
+![alt text](https://github.com/CUBigDataClass/Big-Neuron/blob/Tanvi-branch/Visualizations/WordCloud/my_twitter_wordcloud_8.png "Logo Title Text 1")
