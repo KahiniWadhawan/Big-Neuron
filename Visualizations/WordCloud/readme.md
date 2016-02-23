@@ -18,6 +18,7 @@
 - cloud_creator.py : Generate the cloud. Tweak visuals from here
 - Font/ : Contains all specific font files
 
+-
 #### Examples
 ##### Example 1
 ![alt text](https://github.com/CUBigDataClass/Big-Neuron/blob/Tanvi-branch/Visualizations/WordCloud/my_twitter_wordcloud_1.png "Logo Title Text 1")
