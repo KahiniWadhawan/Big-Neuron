@@ -1,4 +1,17 @@
 import tweepy
+import pymongo
+
+#-------------------------------------------------------------------
+# MongoDB setup
+#-------------------------------------------------------------------
+from pymongo import MongoClient
+client = MongoClient('localhost', 27017)
+# This creates a MongoDB database with the name tweets_database
+db = client.tweets_database
+# This creates a collection named tweets inside the database 'tweets_database'
+collection = db.tweets
+collection.create_index("id_str", unique=True)
+#-------------------------------------------------------------------
 
 #-------------------------------------------------------------------
 # Setup Tweepy auth and API object with Twitter application credentials
@@ -15,15 +28,15 @@ api = tweepy.API(auth)
 #---------------------------------------------------
 # Get the User object for Donald Trump
 user = api.get_user('realDonaldTrump')
-print user.screen_name
-print user.followers_count
+# print user.screen_name
+# print user.followers_count
 
-# P.S. API only allows to retrieve 200 tweets in one request
-tweets = api.user_timeline(screen_name='realDonaldTrump',count=200)
-print tweets.__class__
-for tweet in tweets:
-   print vars(tweet)
-   print tweet.text
-   # The id /id_str is the unique identifier for a tweet. We'll use id_str as it's unicode
-   print tweet.id_str
-   print "------------------"
+# # P.S. API only allows to retrieve 200 tweets in one request
+# tweets = api.user_timeline(screen_name='realDonaldTrump',count=200)
+# print tweets.__class__
+# for tweet in tweets:
+#    print vars(tweet)
+#    print tweet.text
+#    # The id /id_str is the unique identifier for a tweet. We'll use id_str as it's unicode
+#    print tweet.id_str
+#    print "------------------"
