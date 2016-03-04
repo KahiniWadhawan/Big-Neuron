@@ -2,6 +2,7 @@
 import json
 from watson_developer_cloud import ToneAnalyzerV3Beta as ToneAnalyzer
 
+#create Bluemix account to get service_username and service_password
 tone_analyzer = ToneAnalyzer(username=service_username,
                              password=service_password,
                              version='2016-02-11')
