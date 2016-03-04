@@ -1,13 +1,18 @@
 
-##### IBM Tone Analyzer 
+#### IBM Tone Analyzer 
 
-To use -
+#####To use -
+
+1. Install the watson-developer-cloud
 
 	pip install --upgrade watson-developer-cloud
 
-or
+OR
 
 	easy_install --upgrade watson-developer-cloud
+
+2. Create Bluemix account to get service_username and service_password and
+
 
 
 In order to test the tone of a text/tweet/phrase use the file 
