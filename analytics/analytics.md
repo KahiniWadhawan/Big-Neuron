@@ -3,7 +3,7 @@
 
 #####To use -
 
-1. Install the watson-developer-cloud
+Step 1 - Install the watson-developer-cloud
 
 	pip install --upgrade watson-developer-cloud
 
@@ -11,7 +11,7 @@ OR
 
 	easy_install --upgrade watson-developer-cloud
 
-2. Create Bluemix account to get service_username and service_password and
+Step 2 - Create Bluemix account to get service_username and service_password and
 
 
 
