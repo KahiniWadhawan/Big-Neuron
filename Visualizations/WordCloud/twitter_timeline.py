@@ -1,13 +1,3 @@
-#!/usr/bin/env python
-
-# Tested in Python 3
-
-# Sebastian Raschka, 2014
-# An interactive command line app for
-# downloading your personal twitter timeline.
-#
-# For help, execute
-# ./twitter_timeline.py --help
 
 import twitter
 from datetime import datetime
@@ -17,6 +7,7 @@ import sys
 import pandas as pd
 import pyprind as pp
 import oauth_info as auth # our local file with the OAuth infos
+from scipy.misc import imread
 
 class TimelineMiner(object):
     def __init__(self, access_token, access_secret, consumer_key, consumer_secret, user_name):
