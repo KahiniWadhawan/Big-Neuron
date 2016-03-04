@@ -2,8 +2,6 @@
 import json
 from watson_developer_cloud import ToneAnalyzerV3Beta as ToneAnalyzer
 
-service_username = "e431378c-5357-4528-8105-d24aa4002f29"
-service_password ="j2Gd9b2Ln7sg"
 tone_analyzer = ToneAnalyzer(username=service_username,
                              password=service_password,
                              version='2016-02-11')
