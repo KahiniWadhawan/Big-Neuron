@@ -1,3 +1,6 @@
+#-------------------------------------------------------------------------------
+#Author: Kahini Wadhawan
+#------------------------------------------------------------------------------
 # -*- coding: utf-8 -*-
 import json
 from watson_developer_cloud import ToneAnalyzerV3Beta as ToneAnalyzer
