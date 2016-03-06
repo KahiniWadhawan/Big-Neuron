@@ -59,3 +59,24 @@ class MyCorpus(object):
             for tokens in iter_docs(self.topdir, self.stoplist):
                 yield self.dictionary.doc2bow(tokens)
 
+
+def gen_bowModel():
+    #---------------------------------------------------------------------
+    # Creating dictionary from tokens generated from texts and
+    # store the dictionary, for future reference
+    #Corpus Streaming code for bulk of documents
+    #---------------------------------------------------------------------
+    corpus = MyCorpus(twitter_texts_DIR, stoplist)
+    dict_file_path = os.path.join(gensim_models_DIR, "twitterSearch.dict")
+    if os.path.isfile(dict_file_path):
+        os.remove(dict_file_path)
+    corpus.dictionary.save(dict_file_path)
+
+    #---------------------------------------------------------------------
+    #Saving corpus by serializing
+    #---------------------------------------------------------------------
+    corpus_file_path = os.path.join(gensim_models_DIR, "twitterSearch.mm")
+    if os.path.isfile(corpus_file_path):
+        os.remove(corpus_file_path)
+    corpora.MmCorpus.serialize(corpus_file_path, corpus)
+
