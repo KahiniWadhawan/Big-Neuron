@@ -23,8 +23,8 @@ collection.create_index("id_str", unique=True)
 # Setup Tweepy auth and API object with Twitter application credentials
 #-------------------------------------------------------------------
 # Twitter Application key and secret
-consumer_key = "BgJU5GvnsjFlachp6BTPbUvpU"
-consumer_secret = "5f3AS7hiyv82AuWgxqDfM7bGMTnaaK2t2oLx7vyYl6HFLUD1Hs"
+consumer_key = "fill---in--your--consumer_key"
+consumer_secret = "fill---in---your---consumer_key"
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 api = tweepy.API(auth)
 #-------------------------------------------------------------------
