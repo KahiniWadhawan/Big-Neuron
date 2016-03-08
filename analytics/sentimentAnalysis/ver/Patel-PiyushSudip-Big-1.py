@@ -3,7 +3,7 @@ from math import log
 fPosTrain="hotelPosT-train.txt"
 fNegTrain="hoteNegT-train.txt"
 fTestset="Twitter-test-set.txt"
-#fTestset="HW2-testset.txt"
+
 fExtraPosList="ExtraPosList.txt"
 fExtraNegList="ExtraNegList.txt"
 laplacianConstant=1
@@ -128,7 +128,7 @@ def probPOS(s1,s2):
 		for every in each:
 			gPosList.append(every)
 	lenVocab=len(s2)
-	#print "lenVocab in pos= ",lenVocab
+	print "lenVocab in pos= ",lenVocab
 	totalPOSWords=len(gPosList)
 	for each in s2:
 		dictPOS[each]= (gPosList.count(each) + 1.0) / (totalPOSWords+ float(lenVocab))
@@ -142,7 +142,7 @@ def probNEG(s1,s2):
 		for every in each:
 			gNegList.append(every)
 	lenVocab=len(s2)
-	#print "lenVocab in neg= ",lenVocab
+	print "lenVocab in neg= ",lenVocab
 
 	totalNEGWords=len(gNegList)
 	for each in s2:
@@ -156,22 +156,19 @@ def trainingSet(PNTest9):
 		testIdText.append([each[0]," ".join(each[1:])])
 	
 	return testIdText
+
+"""Function to create list data structure """	
 def classify(testIdText,totalPOSWords,totalNEGWords,lenVocab):
 	counter=0
 	count=0
-	#fgGoldStd=open("goldStandard.txt","r")
-	#gGoldStd=fgGoldStd.readlines()
-	#gGoldStd=gGoldStd.split()
-	#gGoldStd=gGoldStd[0].split()
-	#print len(gGoldStd)
-
+	
 	posOrNeg=""
 
 	PosVal=0.0
 	NegVal=0.0
 	notMatched=[]
 	for each in testIdText:
-		#print each
+		print each
 		
 		id_= each[0]
 		each[1]=each[1].split()
@@ -203,15 +200,9 @@ def classify(testIdText,totalPOSWords,totalNEGWords,lenVocab):
 		posOrNeg=""
 		PosVal=0.0
 		NegVal=0.0  
-	#print "percenttage = ", (count/50.0)*100.0
-	#print notMatched
+	print "percentage = ", (count/50.0)*100.0
+	print notMatched
 		
-
-
-
-
-
-
 
 if __name__ == '__main__':
 	PTrain,NTrain=getFiles(fPosTrain,fNegTrain) #Loads the files 
