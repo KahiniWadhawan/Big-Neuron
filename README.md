@@ -6,7 +6,11 @@
 
 ##### visualizations/  
 > wordcloud/  
-> d3-barchart
+> d3-barchart/
+ > simple
+ > interacyive legend
+> pie-chart
+> US Map
 
 ##### preprocessing/  
 ##### spark/  
