@@ -12,6 +12,8 @@
  - interactive legend
 
 > pie-chart
+ - 3D pie with animation
+ - donut chart with interactive legend
 
 > US Map
 
