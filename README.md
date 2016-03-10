@@ -6,10 +6,13 @@
 
 ##### visualizations/  
 > wordcloud/  
+
 > d3-barchart/
- > simple
- > interacyive legend
+ - simple
+ - interactive legend
+
 > pie-chart
+
 > US Map
 
 ##### preprocessing/  
