@@ -11,7 +11,7 @@ Date: 3/8/2016
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Step 1 - A Basic Pie Chart</title>
+    <title>Pie Chart Sentiment Analysis</title>
     <link rel="stylesheet" href="normalize.css">
     <style>
       .legend {                                                   
@@ -19,10 +19,17 @@ Date: 3/8/2016
       }                                                           
       rect {                                                      
         stroke-width: 2;                                          
-      }                                                           
+      }  
+
+      #heading {
+        position: relative;
+        top: 30px;
+        left: 130px;
+      }                                                         
     </style>
   </head>
   <body>
+    <div id="heading"><h2> Pie Chart: Document Tone-Emotion tone</h2></div>
     <div id="chart"></div>
     <script src="d3.v3.min.js"></script>
     <script>
@@ -38,13 +45,13 @@ Date: 3/8/2016
         ];
 
         var width = 600;
-        var height = 600;
+        var height = 450;
         var radius = Math.min(300, height) / 2;
         //variables for the legend
         var legendRectSize = 18;
         var legendSpacing = 4;
 
-        var color = d3.scale.category20b();   //Using the color brewer. For more https://bl.ocks.org/mbostock/5577023
+        var color = d3.scale.category20c();   //Using the color brewer. For more https://bl.ocks.org/mbostock/5577023
 
         var svg = d3.select('#chart')
           .append('svg')
@@ -89,6 +96,11 @@ Date: 3/8/2016
           .attr('height', legendRectSize)
           .style('fill', color)
           .style('stroke', color);
+
+        legend.append('text')
+          .attr('x', legendRectSize + legendSpacing)
+          .attr('y', legendRectSize - legendSpacing)
+          .text(function(d) { return d; });
 
       })(window.d3);
     </script>
