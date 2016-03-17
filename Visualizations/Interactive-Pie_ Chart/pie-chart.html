@@ -14,18 +14,27 @@ Date: 3/8/2016
     <title>Pie Chart Sentiment Analysis</title>
     <link rel="stylesheet" href="normalize.css">
     <style>
-      .legend {                                                   
-        font-size: 12px;                                          
-      }                                                           
-      rect {                                                      
-        stroke-width: 2;                                          
-      }  
 
       #heading {
+        font-size: 15px;
         position: relative;
         top: 30px;
         left: 130px;
-      }                                                         
+      }  
+
+      /* Legend styles*/
+      .legend {                                                   
+        font-size: 12px;                                          
+      }  
+
+      rect {
+        cursor: pointer;                           
+        stroke-width: 2;
+      }
+      rect.disabled {                              
+        fill: transparent !important;              
+      }  
+
     </style>
   </head>
   <body>
