@@ -1,5 +1,5 @@
 import tweepy
-import access_token_secret	#Import secret phrase module
+import TOKENS	#Import secret phrase module
 #Rerference API
 # http://tweepy.readthedocs.org/en/v3.5.0/api.html
 class Tweet:
