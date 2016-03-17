@@ -2,6 +2,7 @@ import tweepy
 from CassandraDriver import CassandraAPI
 from CassandraDriver import TOKENS
 from CassandraDriver import time
+from watson_developer_cloud import ToneAnalyzerV3Beta as ToneAnalyzer
 
 
 
@@ -83,11 +84,19 @@ class TweetAPI(CassandraAPI):
          print page
 
    def SearchAPI(self):
-      results = self.api.search(q="HarryPotter",lang="en",locale="en")
-      for i in results:          
-         print i.text
-         #print i.lang
-         raw_input("")
+      results = self.api.search(q="HarryPotter",count=100,lang="en",locale="en")
+      tone_analyzer = ToneAnalyzer(username=TOKENS.ibm_username,
+                             password=TOKENS.ibm_password,
+                             version='2016-02-11')
+      for i,each in enumerate(results):         
+         self.session.execute(
+            """
+            INSERT INTO Tweepy (counter, tweet, lang, sourcee, retweet_count, created_at, analytics)
+            VALUES (%s, %s, %s,%s, %s, %s, %s)
+            """,
+            (i, each.text, each.lang, each.source, each.retweet_count, str(each.created_at),str(tone_analyzer.tone(text=each.text)) )
+            )
+
       #Running this snippet will print all users you follow that themselves follow 
       #less than 300 people total - to exclude obvious spambots, 
       #for example - and will wait for 15 minutes each time it hits the rate limit.
@@ -111,8 +120,7 @@ for follower in limit_handled(tweepy.Cursor(api.followers).items()):
 
 if __name__ == "__main__":
    tweets =  TweetAPI()
-   tweets.TestSupport()
-
+   #tweets.TestSupport()
    tweets.Connect()
    tweets.SearchAPI()
 else:

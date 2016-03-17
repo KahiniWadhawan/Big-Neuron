@@ -4,10 +4,12 @@ class CassandraAPI(object):
 	def __init__(self):
 		from cassandra.cluster import Cluster
 		cluster = Cluster()
-		session = cluster.connect(TOKENS.cassandra_cluster)
+		self.session = cluster.connect(TOKENS.cassandra_cluster)
 
 	def TestSupport(self):		
 		self.aaa=10
+		print "Hello there"
+		exit()
 
 
 

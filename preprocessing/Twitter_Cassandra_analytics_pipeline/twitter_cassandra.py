@@ -2,7 +2,7 @@ import tweepy
 import time
 from cassandra.cluster import Cluster
 cluster = Cluster()
-session = cluster.connect('')
+session = cluster.connect('twitterdataset')
 
 consumer_key = "XaDHyTvQz4S4AZtYZ8ZRyTURJ"
 consumer_secret = "ytjcGMfAZ6AebykaN6ngHMxHoYHN45ZnCP7QHhzKq4SrDt7lFn"
@@ -13,6 +13,10 @@ tweets = tweepy.Cursor(api.user_timeline, screen_name='realDonaldTrump').items()
 
 for i,tweet in enumerate(tweets):
 	#session.execute("""insert into tweet_users (tweet_sno,tweet_text,tweet_created_at,tweet_favcount,tweet_lang,tweet_place) values('testing','testing','testing',1000,'testing','testing')""")
+	
+
+
+
 	session.execute("""
 		insert into tweet_users (tweet_sno,tweet_text,tweet_created_at,tweet_favcount,tweet_lang,tweet_place) values(str(i),str(tweet.text),str(tweet.created_at),int(tweet.favorite_count),'test','testing')
 		""")
@@ -42,3 +46,10 @@ for i,tweet in enumerate(tweets):
 	#print "tweet.truncated ",tweet.truncated
 	#print "tweet.user ",tweet.user
 	#raw_input()
+
+	for i,tweet in enumerate(tweets):
+		print type(tweet.text)
+		print type(tweet.lang)
+		print type(tweet.source)
+		print type(tweet.retweet_count)
+		print type(tweet.created_at)
