@@ -25,6 +25,9 @@ Using existing sophisticated visualization libraries to construct *creative* and
 ### Viz ideas
 - Wordmap
 - Bar-chart with interactive legend
+- Pie charts for Document Tone
+- US Map 
+- double-stacked barchart
 
 ### Goal: 4-5 concrete visualizations
 
