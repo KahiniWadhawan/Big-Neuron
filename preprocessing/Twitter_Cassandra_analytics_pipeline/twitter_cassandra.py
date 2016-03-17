@@ -2,7 +2,7 @@ import tweepy
 import time
 from cassandra.cluster import Cluster
 cluster = Cluster()
-session = cluster.connect('twitter_fetch1')
+session = cluster.connect('')
 
 consumer_key = "XaDHyTvQz4S4AZtYZ8ZRyTURJ"
 consumer_secret = "ytjcGMfAZ6AebykaN6ngHMxHoYHN45ZnCP7QHhzKq4SrDt7lFn"
@@ -16,7 +16,7 @@ for i,tweet in enumerate(tweets):
 	session.execute("""
 		insert into tweet_users (tweet_sno,tweet_text,tweet_created_at,tweet_favcount,tweet_lang,tweet_place) values(str(i),str(tweet.text),str(tweet.created_at),int(tweet.favorite_count),'test','testing')
 		""")
-	
+
 	#print type(tweet),"\n\n" ,dir(tweet),"\n\n----->",tweet.text
 	#print "tweet.text: ",tweet.text,type(tweet.text)
 	#print "tweet.author ",tweet.author
@@ -41,4 +41,4 @@ for i,tweet in enumerate(tweets):
 	#print "tweet.source_url ",tweet.source_url
 	#print "tweet.truncated ",tweet.truncated
 	#print "tweet.user ",tweet.user
-	raw_input()
+	#raw_input()
