@@ -1,3 +1,27 @@
+'''
+============================================================================
+Name        : Tweets_cassandra.py
+Author      : Piyush
+Contributer:
+Version     : 1
+Copyright   : DS
+Description : 
+This module  (documention from Tweepy) is the singular entry point for using many twitter api searchs which includes
+1. Getting Tweets from own timeline .
+2. Getting Tweets from Someone else's timeline.
+3. Searching Tweets based off of a keyword.
+4. Doing all of the above using pagination. (This will be useful when we do analytics in batch)
+5. Few more like, number of users you are following, number of users who follow you, 
+a script to followeveryone who follows you 
+
+I created this file so that we don't spend time looking over a functionality again.
+If you find somemore functionalies, Please Go ahead and make a functon for that. 
+
+But mention your name too in the function Description ( or just comment it) and 
+add yourself to the Contributer. (Maybe a little description of the function? ) 
+============================================================================
+'''
+
 import tweepy
 from CassandraDriver import CassandraAPI
 from CassandraDriver import TOKENS
