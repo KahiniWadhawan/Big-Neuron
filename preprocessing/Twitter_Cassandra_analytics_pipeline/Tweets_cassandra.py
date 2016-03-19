@@ -3,7 +3,7 @@
 Name        : Tweets_cassandra.py
 Author      : Piyush
 Contributer:
-Version     : 1
+Version     : 2
 Copyright   : DS
 Description : 
 This module  (documention from Tweepy) is the singular entry point for using many twitter api searchs which includes
@@ -24,6 +24,8 @@ add yourself to the Contributer. (Maybe a little description of the function? )
 
 
 import tweepy
+import sys
+
 from CassandraDriver import CassandraAPI
 from CassandraDriver import TOKENS
 from CassandraDriver import time
@@ -37,6 +39,7 @@ from CassandraDriver import time
 
 
 class TweetAPI(CassandraAPI):
+   
 
    def __init__(self):
       CassandraAPI.__init__(self)
@@ -44,12 +47,14 @@ class TweetAPI(CassandraAPI):
       self.consumer_secret = TOKENS.consumer_secret
       self.access_token=TOKENS.access_token
       self.access_token_secret=TOKENS.access_token_secret
+      self.tweetlist=[]
+      self.numb=0
 
 
    def Connect(self):   
     self.auth = tweepy.OAuthHandler(self.consumer_key, self.consumer_secret)
     self.auth.set_access_token(self.access_token, self.access_token_secret)
-    self.api = tweepy.API(self.auth)
+    self.api = tweepy.API(self.auth,wait_on_rate_limit=True,wait_on_rate_limit_notify=True,timeout=5)
    
    def TimelineTweet(self): # View timeline tweets
     public_tweets = self.api.home_timeline()
@@ -107,6 +112,7 @@ class TweetAPI(CassandraAPI):
     for page in tweepy.Cursor(self.api.user_timeline).pages(3):
       print page
 
+   # https://dev.twitter.com/rest/public/search
    def SearchAPI(self):
       results = self.api.search(q="HarryPotter",count=100,lang="en",locale="en")
       '''
@@ -122,32 +128,77 @@ class TweetAPI(CassandraAPI):
             """,
             (i, each.text, each.lang, each.source, each.retweet_count, str(each.created_at),str(self.tone_analyzer.tone(text=each.text)) )
             )
-
-    #Running this snippet will print all users you follow that themselves follow 
-    #less than 300 people total - to exclude obvious spambots, 
-    #for example - and will wait for 15 minutes each time it hits the rate limit.
-'''
-  def limit_handled(cursor):
-      while True:
-          try:
-              yield cursor.next()
-          except tweepy.RateLimitError:
-              time.sleep(15 * 60)
+   
 
 
-for follower in limit_handled(tweepy.Cursor(api.followers).items()):
-    if follower.friends_count < 300:
-        print follower.screen_name
+   def TestTimeOut(self):
+      #tweetlist=[]
+      for i in range(100000):
+         try:
+            results = self.api.search(q="Potter OR Khalifa OR Harry OR Dog OR Cat",lang="en",locale="en",count=100)
+            for every in results:
+               tweetlist.append(every.text)
 
-'''
+            print i, "--- >",len(tweetlist),"--->",len(set(tweetlist))
+         except:
+            print "sleeping ..."
+            time.sleep(15*60)
 
+         
+         
+         #print "bankai",len(results)
+         #print i, "----> ",  len(results)
+         #for each in results:
+         #   print each.text
+         #raw_input("")
+   def TestTimeout2(self):
+      
+      try:
+         for i,tweet in enumerate(tweepy.Cursor(self.api.search,q="Potter OR Khalifa OR Harry OR Dog OR Cat",lang="en",locale="en",count=100).items()):
+            print "i= ",i," ", "Tweet= ",tweet.text
+            self.tweetlist.append(tweet.text)
+            if (i%10==0):
+               print "TRY Length of tweets = ", len(self.tweetlist)
+               print "TRY Length of unique tweets = ",len(set(self.tweetlist)),"\n\n\n"
+               #raw_input("")
+         self.numb+=i
+         print "TRY (FOR) Numb = ",self.numb 
+         print "TRY (FOR) Length of tweets = ", len(self.tweetlist)
+         print "TRY (FOR) Length of unique tweets = ",len(set(self.tweetlist))
+
+      except:
+      '''        
+         print "EXCEPT Sleeping ..."
+         print "EXCEPT numb= ",self.numb
+         print "EXCEPT Length of tweets = ", len(self.tweetlist)
+         print "EXCEPT Length of unique tweets = ",len(set(self.tweetlist)),"\n\n\n"
+      '''
+
+         if(self.numb < 15000):
+            self.TestTimeout2()
+         #print "Unexpected error:", sys.exc_info()[0]
+      
+      finally:
+         self.tweetlist=[]
+         self.numb=0
+         print "FINALLY len(self.tweetlist)= ",len(self.tweetlist)
+         print "FINALLY numb = ", numb
+         
+         #self.TestTimeout2()
+
+
+      
 
 
 
 if __name__ == "__main__":
    tweets =  TweetAPI()
    tweets.Connect()
+   '''
    tweets.SearchAPI()
+   '''
+   tweets.TestTimeout2()
+
 else:
    print "Redo module load"
    exit(0)
