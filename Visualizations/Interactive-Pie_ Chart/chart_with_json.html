@@ -1,0 +1,98 @@
+<!-- 
+=======================
+Author: Tanvi Parikh
+Technology used: D3.js
+Date: 3/8/2016
+=======================
+-->
+
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Pie Chart Sentiment Analysis</title>
+    <link rel="stylesheet" href="normalize.css">
+    <style>
+
+      #heading {
+        font-size: 15px;
+        position: relative;
+        top: 30px;
+        left: 130px;
+      }  
+
+      /* Legend styles*/
+      .legend {                                                   
+        font-size: 12px;                                          
+      }  
+
+      rect {
+        cursor: pointer;                           
+        stroke-width: 2;
+      }
+      rect.disabled {                              
+        fill: transparent !important;              
+      }  
+
+    </style>
+  </head>
+  <body>
+    <div id="heading"><h2> Pie Chart: Document Tone-Emotion tone</h2></div>
+    <div id="pie_chart"></div>
+    <script src="d3.v3.min.js"></script>
+    <script>
+      var width = 550;          //width
+      var height = 350;        //height
+      var radius = 300/ 2;   //radius of the pie-chart
+      var color = d3.scale.category20b();    //builtin range of colors
+
+      var svg = d3.select('#pie_chart')        //create the SVG element inside the <body>
+      .append('svg')
+      .attr('width', width) //set the width and height of our visualization
+      .attr('height', height) // attributes of the <svg> tag
+      .append('g')              //create a group to hold our pie chart
+      .attr('transform', 'translate(' + (width / 2) + ',' + (height / 2) + ')');//move the center of the pie chart from 0, 0 to specified value
+
+      var total=0;    //total of the data 
+
+      //D3 processes the .json data
+      d3.json("sample_data.json", function(error, data) {
+
+        // logic to calculate total of data count value
+        for(var a=0;a<data.length;a++){
+          total=total+parseInt(data[a].count); 
+          console.log(total);
+        }
+
+        var pie_data=[];
+
+        //logic to calculate percentage data for the pie
+        for(var a=0;a<data.length;a++){ 
+          pie_data[a]=(data[a].count/total)*100;
+        }
+
+        // creating arc element.
+        var arc = d3.svg.arc().outerRadius(radius);
+        
+        //Given a list of values, it will create an arc data for us
+        //we must explicitly specify it to access the value of each element in our data array
+        var pie = d3.layout.pie()
+                  .value(function(d,i) { return pie_data[i]; })
+                  .sort(null);
+        
+        //set the color for each slice to be chosen, from the color defined in sample_data.json
+        //this creates the actual SVG path using the associated data (pie) with the arc drawing function
+        var path = svg.selectAll('path')
+                    .data(pie(data))
+                    .enter()
+                    .append('path')
+                    .attr('d', arc)
+                    .attr('fill', function(d, i) {
+                    return data[i].color;
+                    });
+
+        }); //end of the d3.json function
+</script>
+  </body>
+</html>
