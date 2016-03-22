@@ -10,6 +10,7 @@ Our big data project focuses on collecting, processing and analyzing Twitter dat
 * highlight 1
 * highlight 2
 * highlight 3
+ 
 REPLACE THIS TEXT WITH IMAGE OF PIPELINE.
 
 
