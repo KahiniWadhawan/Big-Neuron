@@ -6,10 +6,11 @@
 
 ## The Project
 
-Our big data project...:
+Our big data project focuses on collecting, processing and analyzing Twitter data to display visually number of Tweets about a particular topic/keyword and the sentiment toward said topic/keyword. 
 * highlight 1
 * highlight 2
 * highlight 3
+REPLACE THIS TEXT WITH IMAGE OF PIPELINE.
 
 
 ## The Team
