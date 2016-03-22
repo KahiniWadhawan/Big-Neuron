@@ -1,6 +1,6 @@
 # [Visit Our App](http://big-neuron.github.io) - [Big Neuron](http://big-neuron.github.io)
 
-[Big Neuron](http://big-neuron.github.io) is an interactive web app to allow the user to visualize big data collected and analyzed from Twitter based on the user's specified keyword.
+[Big Neuron](http://big-neuron.github.io) is an interactive web app that allows the user to visualize big data collected and analyzed from Twitter based on the user's specified keyword.
 
 
 ## The Project
