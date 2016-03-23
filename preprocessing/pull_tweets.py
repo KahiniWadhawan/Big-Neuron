@@ -4,27 +4,37 @@
 import tweepy
 import pymongo
 import time
+import json
+import sys
+sys.path.insert(0, '../analytics/sentimentAnalysis/')
+import analyze_tone
 
 #-------------------------------------------------------------------
 # MongoDB setup
 #-------------------------------------------------------------------
 from pymongo import MongoClient
 client = MongoClient('localhost', 27017)
+
 # This creates a MongoDB database with the name tweets_database
-db = client.tweets_database
+db = client.Big_Neuron
+
 # This creates a collection named tweets inside the database 'tweets_database'
-collection = db.tweets
+t_collection = db.tweets
+ts_collection = db.tweets_sentiments
+
 # Create a unique index on the field 'id_str' so that the tweets fetched from Twitter
 # are not duplicated in the MongoDB collection
-collection.create_index("id_str", unique=True)
+t_collection.create_index("id_str", unique=True)
+ts_collection.create_index("id_str", unique=True)
+
 #-------------------------------------------------------------------
 
 #-------------------------------------------------------------------
 # Setup Tweepy auth and API object with Twitter application credentials
 #-------------------------------------------------------------------
 # Twitter Application key and secret
-consumer_key = "BgJU5GvnsjFlachp6BTPbUvpU"
-consumer_secret = "5f3AS7hiyv82AuWgxqDfM7bGMTnaaK2t2oLx7vyYl6HFLUD1Hs"
+consumer_key = "fill--your---consumer--key"
+consumer_secret = "fill--your--consumer--secret"
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 api = tweepy.API(auth)
 #-------------------------------------------------------------------
@@ -43,7 +53,19 @@ user = api.get_user('realDonaldTrump')
 tweets = tweepy.Cursor(api.user_timeline, screen_name='realDonaldTrump').items()
 # tweets is an 'tweepy.cursor.ItemIterator' object
 for tweet in tweets:
-    collection.insert_one(tweet._json)
+    t_collection.insert_one(tweet._json)
+    t_id_str = tweet._json['id_str']
+    t_text = tweet._json['text']
+    #----------------------------------------------------------
+    # Calling IBM tone analyzer to get sentiment of the tweet
+    #----------------------------------------------------------
+    sentiment_str = analyze_tone.get_sentiment(t_text)
+    #adding tweets id_str to sentiment json
+    sentiment_json = json.loads(sentiment_str)
+    #inserting id_str
+    sentiment_json['id_str'.encode('utf-8')] = t_id_str.encode('utf-8')
+    #print("sentiment json keys:: ", sentiment_json.keys())
+    ts_collection.insert_one(sentiment_json)
 
 # TODO - The code below needs to be updated for the changes required to automatically
 # detect the last tweet saved and then call the Tweepy API for tweets with
