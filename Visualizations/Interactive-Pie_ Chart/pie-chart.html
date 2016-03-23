@@ -4,6 +4,9 @@ Author: Tanvi Parikh
 Technology used: D3.js
 Date: 3/8/2016
 =======================
+
+INPUT - console.log(json["document_tone"]["tone_categories"][0]["tones"][0])
+OUTPUT -  Object {tone_name: "Anger", score: 0.940634, tone_id: "anger"}
 -->
 
 
@@ -45,7 +48,8 @@ Date: 3/8/2016
       (function(d3) {
         'use strict';
 
-        var dataset = [
+
+       var dataset = [
           { label: 'Joy', count: 10 }, 
           { label: 'Sadness', count: 20 },
           { label: 'Disgust', count: 30 },
