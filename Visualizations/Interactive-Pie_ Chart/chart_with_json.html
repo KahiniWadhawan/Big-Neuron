@@ -45,7 +45,7 @@ Date: 3/8/2016
       var width = 550;          //width
       var height = 350;        //height
       var radius = 300/ 2;   //radius of the pie-chart
-      var color = d3.scale.category20b();    //builtin range of colors
+      var color = d3.scale.category20c();    //builtin range of colors
 
       var svg = d3.select('#pie_chart')        //create the SVG element inside the <body>
       .append('svg')
@@ -56,43 +56,58 @@ Date: 3/8/2016
 
       var total=0;    //total of the data 
 
-      //D3 processes the .json data
-      d3.json("sample_data.json", function(error, data) {
+      /*
+        tone.json structure
+        - document_tone
+          - tone_categories[]
+            - emotion_tone,tones[5]
+            - writing_tone, tones[5]
+            - social_tone, tones[5]
+        - sentences_tone
 
-        // logic to calculate total of data count value
-        for(var a=0;a<data.length;a++){
-          total=total+parseInt(data[a].count); 
-          console.log(total);
+      */
+      d3.json("tone.json", function(error, data) {
+
+        // Calculate the total for "emotion_tone"
+        for(var a=0; a<data["document_tone"]["tone_categories"][0]["tones"].length; a++)
+        {
+             m = data["document_tone"]["tone_categories"][0]["tones"][a]["score"]
+             total = total + m
         }
+        console.log(total)
 
-        var pie_data=[];
-
-        //logic to calculate percentage data for the pie
-        for(var a=0;a<data.length;a++){ 
-          pie_data[a]=(data[a].count/total)*100;
+        // Calculate percentage data for the pie
+        var pie_data = [];
+        for( var a=0; a<data["document_tone"]["tone_categories"][0]["tones"].length; a++)
+        {
+             pie_data[a] = ((data["document_tone"]["tone_categories"][0]["tones"][a]["score"]/total)*100)
         }
+        console.log(pie_data)
 
         // creating arc element.
         var arc = d3.svg.arc().outerRadius(radius);
+        console.log("works ..")
         
         //Given a list of values, it will create an arc data for us
         //we must explicitly specify it to access the value of each element in our data array
         var pie = d3.layout.pie()
                   .value(function(d,i) { return pie_data[i]; })
                   .sort(null);
-        
+        console.log("works ...")
+
         //set the color for each slice to be chosen, from the color defined in sample_data.json
         //this creates the actual SVG path using the associated data (pie) with the arc drawing function
         var path = svg.selectAll('path')
-                    .data(pie(data))
+                    .data(pie(pie_data))    //check this input!!
                     .enter()
                     .append('path')
                     .attr('d', arc)
-                    .attr('fill', function(d, i) {
-                    return data[i].color;
+                    .attr('fill', function(d, i) { 
+                    return color(i)
                     });
+        console.log("works ....")
 
         }); //end of the d3.json function
 </script>
-  </body>
+</body>
 </html>
