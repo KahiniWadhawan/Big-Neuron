@@ -1,9 +1,17 @@
 <!-- 
-=======================
+===============================
 Author: Tanvi Parikh
 Technology used: D3.js
-Date: 3/8/2016
-=======================
+Date: 3/24/2016
+********************************
+  tone.json structure
+  - document_tone
+    - tone_categories[]
+      - emotion_tone,tones[5]
+      - writing_tone, tones[5]
+      - social_tone, tones[5]
+  - sentences_tone
+*********************************** 
 -->
 
 
@@ -27,7 +35,7 @@ Date: 3/8/2016
         font-size: 12px;                                          
       }  
 
-      rect {
+      rect {              /* For interactive legend*/
         cursor: pointer;                           
         stroke-width: 2;
       }
@@ -35,17 +43,49 @@ Date: 3/8/2016
         fill: transparent !important;              
       }  
 
+      /* Tooltip*/
+      #tooltip {
+        position: absolute;
+        width: 100px;
+        height: auto;
+        padding: 10px;
+        background-color: white;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        border-radius: 10px;
+        -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+        -mox-box-shadow: 4px 4px 4px 10px rgba(0, 0, 0, 0.4);
+        box-shadow: 4px 4px 10px rbga(0, 0, 0, 0.4) pointer-events: none;
+      }
+      #tooltip.hidden {
+          opacity: 0;
+      }
+      #tooltip p {
+          margin: 0;
+          font-family: sans-serif;
+          font-size: 16px;
+          line-height: 20px;
+      }
+
     </style>
   </head>
   <body>
     <div id="heading"><h2> Pie Chart: Document Tone-Emotion tone</h2></div>
+    <div id="tooltip" class="hidden">
+      <!-- <p><strong>Important Label Heading</strong></p> -->
+      <p><span id="value">100</span>%</p>
+    </div>
     <div id="pie_chart"></div>
+
     <script src="d3.v3.min.js"></script>
     <script>
       var width = 550;          //width
       var height = 350;        //height
       var radius = 300/ 2;   //radius of the pie-chart
       var color = d3.scale.category20c();    //builtin range of colors
+      //variables for the legend
+      var legendRectSize = 18;
+      var legendSpacing = 4;
 
       var svg = d3.select('#pie_chart')        //create the SVG element inside the <body>
       .append('svg')
@@ -55,17 +95,7 @@ Date: 3/8/2016
       .attr('transform', 'translate(' + (width / 2) + ',' + (height / 2) + ')');//move the center of the pie chart from 0, 0 to specified value
 
       var total=0;    //total of the data 
-
-      /*
-        tone.json structure
-        - document_tone
-          - tone_categories[]
-            - emotion_tone,tones[5]
-            - writing_tone, tones[5]
-            - social_tone, tones[5]
-        - sentences_tone
-
-      */
+     
       d3.json("tone.json", function(error, data) {
 
         // Calculate the total for "emotion_tone"
@@ -86,16 +116,13 @@ Date: 3/8/2016
 
         // creating arc element.
         var arc = d3.svg.arc().outerRadius(radius);
-        console.log("works ..")
-        
+                
         //Given a list of values, it will create an arc data for us
         //we must explicitly specify it to access the value of each element in our data array
         var pie = d3.layout.pie()
                   .value(function(d,i) { return pie_data[i]; })
                   .sort(null);
-        console.log("works ...")
-
-        //set the color for each slice to be chosen, from the color defined in sample_data.json
+        
         //this creates the actual SVG path using the associated data (pie) with the arc drawing function
         var path = svg.selectAll('path')
                     .data(pie(pie_data))    //check this input!!
@@ -104,9 +131,45 @@ Date: 3/8/2016
                     .attr('d', arc)
                     .attr('fill', function(d, i) { 
                     return color(i)
+                    })
+                    .on("mouseover", function (d, i) {   // on mouse hover - launch the tooltip
+                    d3.select("#tooltip")
+                        .style("left", d3.event.pageX + "px")
+                        .style("top", d3.event.pageY + "px")
+                        .style("opacity", 1)
+                        .select("#value")
+                        .text(data["document_tone"]["tone_categories"][0]["tones"][i]["tone_name"] + " " + pie_data[i].toFixed(2));
+                    })
+                    .on("mouseout", function () {
+                    // Hide the tooltip
+                    d3.select("#tooltip")
+                        .style("opacity", 0);;
                     });
-        console.log("works ....")
+        
+        //code for legend
+        var legend = svg.selectAll('.legend')
+          .data(color.domain())
+          .enter()
+          .append('g')
+          .attr('class', 'legend')
+          .attr('transform', function(d, i) {     /* To modify the position of the legend */
+            var height = legendRectSize + legendSpacing ;
+            var offset =  height * color.domain().length / 2;
+            var horz = 10* legendRectSize;  // horizontal position from center of svg
+            var vert = i * height - 2*offset; // vertical position from the center of svg
+            return 'translate(' + horz + ',' + vert + ')';
+          });
 
+        legend.append('rect')
+          .attr('width', legendRectSize)
+          .attr('height', legendRectSize)
+          .style('fill', color)
+          .style('stroke', color);
+
+        legend.append('text')
+          .attr('x', legendRectSize + legendSpacing)
+          .attr('y', legendRectSize - legendSpacing)
+          .text(function(d,i) { return data["document_tone"]["tone_categories"][0]["tones"][i]["tone_name"]; });
         }); //end of the d3.json function
 </script>
 </body>
