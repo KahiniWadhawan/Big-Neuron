@@ -4076,14 +4076,19 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .nav-tabs > li > a {
   margin-right: 2px;
   line-height: 1.42857143;
-  border: 1px solid transparent;
+  border: 1px solid #ecf0f1;
   border-radius: 4px 4px 0 0;
 }
 .nav-tabs > li > a:hover {
   border-color: #ecf0f1 #ecf0f1 #ecf0f1;
 }
+.nav-tabs > li.active > a:hover{
+  color: #2c3e50;
+  background-color: #d9d9d9;
+  border-bottom-color: transparent;
+  cursor: default;
+}
 .nav-tabs > li.active > a,
-.nav-tabs > li.active > a:hover,
 .nav-tabs > li.active > a:focus {
   color: #2c3e50;
   background-color: #ffffff;
@@ -4204,7 +4209,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   }
 }
 .tab-content > .tab-pane {
-  display: none;
+  display:none;
 }
 .tab-content > .active {
   display: block;
