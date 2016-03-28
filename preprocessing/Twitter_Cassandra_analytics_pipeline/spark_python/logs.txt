@@ -36,3 +36,9 @@ AttributeError: 'list' object has no attribute 'reduce'
 18
 >>> reduce(lambda a, b: a if (a > b) else b, [5,4,8,13,6])
 13
+
+
+
+
+# MapReeduce for the workcount
+wordCounts = textFile.flatMap(lambda line: line.split()).map(lambda word: (word, 1)).reduceByKey(lambda a, b: a+b)
