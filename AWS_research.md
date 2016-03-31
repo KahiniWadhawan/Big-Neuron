@@ -45,6 +45,7 @@ Some Important Notes:
 
 Things to dig up more:- 
 1. What is our subscription plan - is it Free tier? 
+
 2. where to set EIP ??- elastic ip address - if you want to associate an ip address permanently with your instance. 
 3. IAM role?? 
 4. Additional charges apply for Cloudwatch - is it covered for us by grant? 
