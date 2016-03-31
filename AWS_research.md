@@ -1,10 +1,10 @@
 
 
-AWS Setup and Important Instructions 
+##AWS Setup and Important Instructions 
 
 Login - for developers - CLI tools and API access 
 
-Instructions for create, find, deploy and terminate an instance: 
+####Instructions for create, find, deploy and terminate an instance: 
 
 1. Login to AWS management console to get started. 
 2. Click Amazon EC2 icon 
@@ -20,7 +20,7 @@ Instructions for create, find, deploy and terminate an instance:
 
 ***donot forget to terminate it during our experiments to learn it as number of hours are limited. 
 
-Some Important Notes:
+####Some Important Notes:
 
 1. AWS EC2 provides elastic virtual hardware.
 2. It has pre-configured templates known as Amazon Machine Images AMI’s. These AMI templates can include just an operating system like Windows and Linux. 
@@ -29,9 +29,9 @@ Some Important Notes:
 1. Amazon linux is usually easier to support 
 3. Network - VPC one - generally the default 
 4. Its good to share key with team members - don’t get into the trouble of creating individual users and user mgmt. 
-5.		mv perm file to .ssh/ folder 
-6. 		chmod 400 .ssh/perm_file
-7. 		ssh -i path-to-key.perm -l c2_user publicIP_ofInstance 
+5.	>>mv perm file to .ssh/ folder 
+6. 	>>chmod 400 .ssh/perm_file
+7. 	>>ssh -i path-to-key.perm -l c2_user publicIP_ofInstance 
 8. for cron job - write crontab file - google up 
 9. chef tool - for securing oath access tokens - maintain a file 
 10. security group - one security group per team, edit inbound rules, 
@@ -43,7 +43,7 @@ Some Important Notes:
 16. revision history of instances - chef, puppet tools 
 
 
-Things to dig up more:- 
+####Things to dig up more:- 
 
 1. What is our subscription plan - is it Free tier? 
 2. where to set EIP ??- elastic ip address - if you want to associate an ip address permanently with your instance. 
