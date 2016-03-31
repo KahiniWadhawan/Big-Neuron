@@ -29,9 +29,9 @@ Login - for developers - CLI tools and API access
 1. Amazon linux is usually easier to support 
 3. Network - VPC one - generally the default 
 4. Its good to share key with team members - don’t get into the trouble of creating individual users and user mgmt. 
-5.	>>mv perm file to .ssh/ folder 
-6. 	>>chmod 400 .ssh/perm_file
-7. 	>>ssh -i path-to-key.perm -l c2_user publicIP_ofInstance 
+5.	mv perm file to .ssh/ folder 
+6. 	chmod 400 .ssh/perm_file
+7. 	ssh -i path-to-key.perm -l c2_user publicIP_ofInstance 
 8. for cron job - write crontab file - google up 
 9. chef tool - for securing oath access tokens - maintain a file 
 10. security group - one security group per team, edit inbound rules, 
