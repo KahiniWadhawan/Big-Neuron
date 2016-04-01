@@ -79,7 +79,7 @@
                     </div>
                     
                     <!-- CANDIDATE RADIO BUTTONS -->
-                    <form class="form-inline">	
+                    <form class="form-inline" id="idForm">	
                         <div class="form-group" style="padding-top: 35px; padding-bottom: 0">
                             <div class="radio-inline" style="font-size: 20px">
                                 <label><input type="radio" name="optradio" id="radio0" value="r0" style="width: 0.9em; height: 1em">  Clinton</label>
@@ -97,7 +97,7 @@
                                 <label><input type="radio" name="optradio" id="radio4" value="r4" style="width: 0.9em; height: 1em">Trump</label>
                             </div>
                         </div> 
-                        <button type="submit" class="btn btn-default" style="font-size: 20px; margin-top: 35px; margin-left: 35px">SUBMIT</button>
+                        <a href="" class="btn btn-default" style="font-size: 20px; margin-top: 35px; margin-left: 35px">SUBMIT</a>
                     </form> <!-- End: CANDIDATE RADIO BUTTONS -->             
                     
                     <!-- "OR" separator -->
@@ -500,7 +500,7 @@
           var selectvalue = $('input[name=optradio]:checked', '#idForm').val();
 
         if(selectvalue === "r0"){
-        window.open('http://www.google.com','_self');
+        window.open('clinton.html','_self');
         return true;
         }
         else if(selectvalue === "r1"){
