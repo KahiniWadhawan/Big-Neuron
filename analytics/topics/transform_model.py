@@ -10,6 +10,8 @@ import gensim
 import logging
 import os
 from gensim import corpora, models
+from operator import itemgetter
+import json
 
 # logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s',
 #                     level=logging.INFO)
@@ -51,4 +53,3 @@ def transform(model_val):
         #vector[0][1]....vector[topics_num-1][1] - docs - topic dist.
         fcoords.write("%6.4f\t%6.4f\n" % (vector[0][1], vector[1][1]))
     fcoords.close()
-
