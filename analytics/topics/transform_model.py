@@ -80,3 +80,44 @@ def transform(model_val):
 
     #returning trained model, can be used later
     return model
+
+
+def apply_model(model):
+    #text = "A blood cell, also called a hematocyte, is a cell produced by hematopoiesis and normally found in blood."
+
+    #----------------------------------------------------------------------------
+    # Loading tweets_single text file into text
+    #----------------------------------------------------------------------------
+    text_file_path = os.path.join(twitter_texts_DIR,'tweets_single.txt')
+    fp = open(text_file_path,'r')
+    text = fp.read()
+    #print('text is :: ', text)
+
+    #----------------------------------------------------------------------------
+    # transform text into the bag-of-words space
+    # Apply trained model to unseen document
+    #----------------------------------------------------------------------------
+    bow_vector = dictionary.doc2bow(tokenize(text))
+    #print([(dictionary[id], count) for id, count in bow_vector])
+    # transform into LDA space
+    lda_vector = model[bow_vector]
+
+    #-----------------------------------------------------------------------
+    # Update the trained model with online example that just came
+    #-----------------------------------------------------------------------
+    # model.update(other_corpus)
+
+    #--------------------------------------------------------------------------
+    # Getting statistics
+    #--------------------------------------------------------------------------
+    doc_topics_dist = lda_vector
+    print('lda_vector ::', lda_vector)
+    # print the document's single most prominent LDA topic
+    print('most prominent topic ::', model.print_topic(max(lda_vector,
+                                                    key=lambda item: item[1])[0]))
+    # print each topic and its top n words in the document
+    topics_words_dist = model.show_topics(num_topics=-1, num_words=topwords_num,
+                                               log=False, formatted=True)
+    print('show topics :: ', topics_words_dist)
+
+    gen_topics_dict(doc_topics_dist, topics_words_dist)
