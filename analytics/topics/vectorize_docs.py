@@ -17,13 +17,13 @@ from gensim import corpora, models
 #---------------------------------------------------------------------
 # Paths for texts dir, models_dir
 #---------------------------------------------------------------------
-twitter_texts_DIR = "../data/twitter_texts"
-gensim_models_DIR = "../data/gensim_models"
+twitter_texts_DIR = "data/twitter_texts"
+gensim_models_DIR = "data/gensim_models"
 stoplist = set(nltk.corpus.stopwords.words("english"))
 
 # #--------------------------------------------------------------------
 # # Gensim module code
-# # Logging the Gensim events
+# # Logging the Gensim event
 # #--------------------------------------------------------------------
 # logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
 
@@ -79,4 +79,8 @@ def gen_bowModel():
     if os.path.isfile(corpus_file_path):
         os.remove(corpus_file_path)
     corpora.MmCorpus.serialize(corpus_file_path, corpus)
+
+
+#testing
+gen_bowModel()
 
