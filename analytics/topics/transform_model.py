@@ -161,3 +161,29 @@ def gen_topics_dict(doc_topics_dist, topics_words_dist):
     #print('topics_dist_top :: ', topics_dist_top)
     gen_json(json_dict)
 
+
+def tokenize(text):
+    tokens = gensim.utils.tokenize(text, lowercase=True, deacc=True,
+                                        errors="ignore")
+    #print('tokens :: ', tokens)
+    return tokens
+
+
+def gen_json(json_dict):
+    # get json string from that dictionary
+    topics_json=json.dumps(json_dict)
+    print topics_json
+    #write json to file
+    file_path = os.path.join(json_DIR,'topics.json')  #revisit - to put politician name
+    write_tofile(file_path,topics_json)
+
+
+def write_tofile(file_path,text):
+    fp = open(file_path,'wb')
+    fp.write(text)
+    fp.close()
+
+
+#testing
+model = transform('lda')
+apply_model(model)
