@@ -1,0 +1,5 @@
+next propsed steps for sentiment analysis - 
+1. IBM Tone analyzer
+2. razortext
+3. Meltwater.
+4.Tweet stats
