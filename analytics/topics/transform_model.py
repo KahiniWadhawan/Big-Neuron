@@ -121,3 +121,43 @@ def apply_model(model):
     print('show topics :: ', topics_words_dist)
 
     gen_topics_dict(doc_topics_dist, topics_words_dist)
+
+
+def gen_topics_dict(doc_topics_dist, topics_words_dist):
+    doc_topics_dist.sort(key=itemgetter(1), reverse=True)
+    #take top_topics_num topics
+    doc_topics_dist_top = doc_topics_dist[:top_topics_num]
+
+    topics_words_dist_dict = {}
+    for tup in topics_words_dist:
+        words_prob = tup[1].split('+')
+        #print('words_prob :: ',words_prob)
+        topics_words_dist_dict[tup[0]] = words_prob
+    #print('topics_words_dist_dict :: ',topics_words_dist_dict)
+
+    topics_dist_top = {}
+    json_dict = {'name':"",'children':[]}   #this children - circle for all topics
+    for topic_tup in doc_topics_dist_top:
+        topic_dict = {}
+        print('topic id :: ',topic_tup[0])
+        #mapping topic and words
+        topic_words = topics_words_dist_dict[topic_tup[0]]
+        topic_name = topic_words[0].split('*')[1]
+        topic_dict['name'] = topic_name
+        topic_dict['children'] = []
+        #topics_dist_top[topic_tup[0]] = topics_words_dist_dict[topic_tup[0]]
+        for word_prob in topic_words:
+            word_dict = {}
+            word_size,word_name = word_prob.split('*')
+            word_dict['name'] = word_name
+            word_dict['size'] = float(word_size)
+            #append word_dict to topic_dict children list
+            topic_dict['children'].append(word_dict)
+
+        #append topic_dict to main json_dict children list
+        json_dict['children'].append(topic_dict)
+
+    #print('json dict :: ', json_dict)
+    #print('topics_dist_top :: ', topics_dist_top)
+    gen_json(json_dict)
+
