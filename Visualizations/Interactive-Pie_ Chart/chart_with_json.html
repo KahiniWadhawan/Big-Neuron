@@ -1,0 +1,176 @@
+<!-- 
+===============================
+Author: Tanvi Parikh
+Technology used: D3.js
+Date: 3/24/2016
+********************************
+  tone.json structure
+  - document_tone
+    - tone_categories[]
+      - emotion_tone,tones[5]
+      - writing_tone, tones[5]
+      - social_tone, tones[5]
+  - sentences_tone
+*********************************** 
+-->
+
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Pie Chart Sentiment Analysis</title>
+    <link rel="stylesheet" href="normalize.css">
+    <style>
+
+      #heading {
+        font-size: 15px;
+        position: relative;
+        top: 30px;
+        left: 130px;
+      }  
+
+      /* Legend styles*/
+      .legend {                                                   
+        font-size: 12px;                                          
+      }  
+
+      rect {              /* For interactive legend*/
+        cursor: pointer;                           
+        stroke-width: 2;
+      }
+      rect.disabled {                              
+        fill: transparent !important;              
+      }  
+
+      /* Tooltip*/
+      #tooltip {
+        position: absolute;
+        width: 100px;
+        height: auto;
+        padding: 10px;
+        background-color: white;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        border-radius: 10px;
+        -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+        -mox-box-shadow: 4px 4px 4px 10px rgba(0, 0, 0, 0.4);
+        box-shadow: 4px 4px 10px rbga(0, 0, 0, 0.4) pointer-events: none;
+      }
+      #tooltip.hidden {
+          opacity: 0;
+      }
+      #tooltip p {
+          margin: 0;
+          font-family: sans-serif;
+          font-size: 16px;
+          line-height: 20px;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div id="heading"><h2> Pie Chart: Document Tone-Emotion tone</h2></div>
+    <div id="tooltip" class="hidden">
+      <!-- <p><strong>Important Label Heading</strong></p> -->
+      <p><span id="value">100</span>%</p>
+    </div>
+    <div id="pie_chart"></div>
+
+    <script src="d3.v3.min.js"></script>
+    <script>
+      var width = 550;          //width
+      var height = 350;        //height
+      var radius = 300/ 2;   //radius of the pie-chart
+      var color = d3.scale.category20c();    //builtin range of colors
+      //variables for the legend
+      var legendRectSize = 18;
+      var legendSpacing = 4;
+
+      var svg = d3.select('#pie_chart')        //create the SVG element inside the <body>
+      .append('svg')
+      .attr('width', width) //set the width and height of our visualization
+      .attr('height', height) // attributes of the <svg> tag
+      .append('g')              //create a group to hold our pie chart
+      .attr('transform', 'translate(' + (width / 2) + ',' + (height / 2) + ')');//move the center of the pie chart from 0, 0 to specified value
+
+      var total=0;    //total of the data 
+     
+      d3.json("tone.json", function(error, data) {
+
+        // Calculate the total for "emotion_tone"
+        for(var a=0; a<data["document_tone"]["tone_categories"][0]["tones"].length; a++)
+        {
+             m = data["document_tone"]["tone_categories"][0]["tones"][a]["score"]
+             total = total + m
+        }
+        console.log(total)
+
+        // Calculate percentage data for the pie
+        var pie_data = [];
+        for( var a=0; a<data["document_tone"]["tone_categories"][0]["tones"].length; a++)
+        {
+             pie_data[a] = ((data["document_tone"]["tone_categories"][0]["tones"][a]["score"]/total)*100)
+        }
+        console.log(pie_data)
+
+        // creating arc element.
+        var arc = d3.svg.arc().outerRadius(radius);
+                
+        //Given a list of values, it will create an arc data for us
+        //we must explicitly specify it to access the value of each element in our data array
+        var pie = d3.layout.pie()
+                  .value(function(d,i) { return pie_data[i]; })
+                  .sort(null);
+        
+        //this creates the actual SVG path using the associated data (pie) with the arc drawing function
+        var path = svg.selectAll('path')
+                    .data(pie(pie_data))    //check this input!!
+                    .enter()
+                    .append('path')
+                    .attr('d', arc)
+                    .attr('fill', function(d, i) { 
+                    return color(i)
+                    })
+                    .on("mouseover", function (d, i) {   // on mouse hover - launch the tooltip
+                    d3.select("#tooltip")
+                        .style("left", d3.event.pageX + "px")
+                        .style("top", d3.event.pageY + "px")
+                        .style("opacity", 1)
+                        .select("#value")
+                        .text(data["document_tone"]["tone_categories"][0]["tones"][i]["tone_name"] + " " + pie_data[i].toFixed(2));
+                    })
+                    .on("mouseout", function () {
+                    // Hide the tooltip
+                    d3.select("#tooltip")
+                        .style("opacity", 0);;
+                    });
+        
+        //code for legend
+        var legend = svg.selectAll('.legend')
+          .data(color.domain())
+          .enter()
+          .append('g')
+          .attr('class', 'legend')
+          .attr('transform', function(d, i) {     /* To modify the position of the legend */
+            var height = legendRectSize + legendSpacing ;
+            var offset =  height * color.domain().length / 2;
+            var horz = 10* legendRectSize;  // horizontal position from center of svg
+            var vert = i * height - 2*offset; // vertical position from the center of svg
+            return 'translate(' + horz + ',' + vert + ')';
+          });
+
+        legend.append('rect')
+          .attr('width', legendRectSize)
+          .attr('height', legendRectSize)
+          .style('fill', color)
+          .style('stroke', color);
+
+        legend.append('text')
+          .attr('x', legendRectSize + legendSpacing)
+          .attr('y', legendRectSize - legendSpacing)
+          .text(function(d,i) { return data["document_tone"]["tone_categories"][0]["tones"][i]["tone_name"]; });
+        }); //end of the d3.json function
+</script>
+</body>
+</html>
