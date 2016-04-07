@@ -39,3 +39,21 @@ circle.parent:hover {
 circle.child {
   pointer-events: none;
 }
+
+    </style>
+  </head>
+  <body>
+    <h2>
+      Tweets topics<br>
+      of Election Candidates<br>
+
+      <select placeholder="username" id="select_in"
+              onchange='show(document.getElementById("select_in").value)'>
+        <option>select a user</option>
+        <option>BarackObama</option>
+        <option>topics</option>
+      </select>
+      <br />
+<!--       <input placeholder="type a user" id="text_in" type="text"></input>
+      <button onclick='show(document.getElementById("text_in").value)'>show</button> -->
+    </h2>
