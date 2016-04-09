@@ -5,6 +5,8 @@
     Pull tone.json generated for each tweet and render it into an interactive pie chart with legend
     Using DataLoader plugin to load external JSON data 
     The page needs to be loaded via web server (http://) in order to work properly.
+
+    Contains the simplistic form of a pie donut chart to simply understand it compatibility with our data
 -->
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
@@ -13,8 +15,10 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <title>Sentence Level Sentiment Analysis</title>
-        <script src="amcharts/amcharts.js" type="text/javascript"></script>
-        <script src="amcharts/pie.js" type="text/javascript"></script>
+        <!-- amCharts javascript sources -->
+        <script src="/amcharts/amcharts.js" type="text/javascript"></script>
+        <script type="text/javascript" src="http://www.amcharts.com/lib/3/pie.js"></script>
+        <script type="text/javascript" src="http://www.amcharts.com/lib/3/themes/chalk.js"></script>
         <script src="amcharts/plugins/dataloader/dataloader.min.js" type="text/javascript"></script>
 
         <style>
