@@ -13,7 +13,6 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <title>Sentence Level Sentiment Analysis</title>
-        <link rel="stylesheet" href="style.css" type="text/css">
         <script src="amcharts/amcharts.js" type="text/javascript"></script>
         <script src="amcharts/pie.js" type="text/javascript"></script>
         <script src="amcharts/plugins/dataloader/dataloader.min.js" type="text/javascript"></script>
@@ -21,7 +20,7 @@
         <script>
             AmCharts.makeChart("chartdiv", {
                 "type": "pie",
-                "dataProvider": [{
+                /*"dataProvider": [{
                     "country": "Czech Republic",
                         "litres": 156.9
                 }, {
@@ -42,14 +41,18 @@
                 }, {
                     "country": "Belgium",
                         "litres": 50
-                }],
+                }],*/
                 "titleField": "country",
                 "valueField": "litres",
                 "balloonText": "[[title]]<br><span style='font-size:14px'><b>[[value]]</b> ([[percents]]%)</span>",
                 "legend": {
-                    "align": "center",
-                    "markerType": "circle"
+                    "align": "right",
+                    "markerType": "square"
                 }
+                "dataLoader": {
+				    "url": "tone.json",
+				    "format": "json"
+				 }
 
             });
         </script>
