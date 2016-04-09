@@ -1,21 +1,26 @@
 [{
   "tone_name":"Anger",
-  "score":20,
-  "tone_id":"anger"
+  "score":2230,
+  "tone_id":"anger",
+  "score_new": 115
 },{
   "tone_name":"Disgust",
-  "score":20,
-  "tone_id":"disgust"
+  "score":2220,
+  "tone_id":"disgust",
+  "score_new": 215
 },{
   "tone_name":"Fear",
-  "score":20,
-  "tone_id":"fear"
+  "score":1020,
+  "tone_id":"fear",
+  "score_new": 166
 },{
   "tone_name":"Joy",
-  "score":20,
-  "tone_id":"joy"
+  "score":520,
+  "tone_id":"joy",
+  "score_new": 149
 },{
   "tone_name":"Sadness",
-  "score":20,
-  "tone_id":"sadness"
+  "score":120,
+  "tone_id":"sadness",
+  "score_new": 330
 }]

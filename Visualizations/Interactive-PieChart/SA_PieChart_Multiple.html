@@ -35,13 +35,14 @@
   <script>
     AmCharts.makeChart("chartdiv1", {
       "type": "pie",
+      "theme":"dark",
       "dataLoader": {
         "url": "data/pie2.json",
         "showCurtain": false
       },
-      "theme" :"dark",
+      
       "titleField": "tone_name",
-      "valueField": "score",
+      "valueField": "score_new",
       "balloonText": "[[title]]<br><span style='font-size:14px'><b>[[value]]</b> ([[percents]]%)</span>",
       "innerRadius": "30%",
       "legend": {
@@ -62,7 +63,7 @@
       },
       "titleField": "tone_name",
       "valueField": "score",
-      "balloonText": "[[title]]<br><span style='font-size:14px'><b>[[value]]</b> ([[percents]]%)</span>",
+      //"balloonText": "[[title]]<br><span style='font-size:14px'><b>[[value]]</b> ([[percents]]%)</span>",
       //"innerRadius": "30%",
       "legend": {
         "align": "center",
