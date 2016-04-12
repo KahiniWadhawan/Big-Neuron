@@ -23,3 +23,6 @@ function show(user){
   d3.json("json/"+ user + ".json", function(data) {
     node = root = data;
     var nodes = pack.nodes(root);
+
+  vis.selectAll("circle")
+      .data(nodes)
