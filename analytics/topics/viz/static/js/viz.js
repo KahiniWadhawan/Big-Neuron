@@ -27,3 +27,5 @@ function show(user){
   vis.selectAll("circle")
       .data(nodes)
       .enter().append("svg:circle")
+      .attr("class", function(d) { return d.children ? "parent" : "child"; })
+      .attr("cx", function(d) { return d.x; })
