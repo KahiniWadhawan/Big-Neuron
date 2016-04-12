@@ -35,3 +35,7 @@ function show(user){
 
    vis.selectAll("text")
         .data(nodes)
+      .enter().append("svg:text")
+        .attr("class", function(d) { return d.children ? "parent" : "child"; })
+        .attr("x", function(d) { return d.x; })
+        .attr("y", function(d) { return d.y; })
