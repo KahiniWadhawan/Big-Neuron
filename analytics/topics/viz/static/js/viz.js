@@ -32,3 +32,6 @@ function show(user){
       .attr("cy", function(d) { return d.y; })
       .attr("r", function(d) { return d.r; })
       .on("click", function(d) { return zoom(node == d ? root : d); });
+
+   vis.selectAll("text")
+        .data(nodes)
