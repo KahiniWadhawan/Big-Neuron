@@ -26,3 +26,4 @@ function show(user){
 
   vis.selectAll("circle")
       .data(nodes)
+      .enter().append("svg:circle")
