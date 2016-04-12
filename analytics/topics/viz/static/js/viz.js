@@ -12,3 +12,14 @@ var pack = d3.layout.pack()
     .size([r, r])
     .value(function(d) { return d.size; })
 
+
+function show(user){
+  d3.select("svg").remove();
+  var vis = d3.select("body").insert("svg:svg", "h2")
+    .attr("width", w)
+    .attr("height", h)
+    .append("svg:g")
+    .attr("transform", "translate(" + (w - r) / 2 + "," + (h - r) / 2 + ")");
+  d3.json("json/"+ user + ".json", function(data) {
+    node = root = data;
+    var nodes = pack.nodes(root);
