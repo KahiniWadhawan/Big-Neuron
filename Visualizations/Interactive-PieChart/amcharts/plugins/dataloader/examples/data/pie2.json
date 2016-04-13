@@ -1,0 +1,26 @@
+[{
+  "tone_name":"Anger",
+  "score":20,
+  "tone_id":"anger",
+  "score_new": 15
+},{
+  "tone_name":"Disgust",
+  "score":20,
+  "tone_id":"disgust",
+  "score_new": 25
+},{
+  "tone_name":"Fear",
+  "score":20,
+  "tone_id":"fear",
+  "score_new": 16
+},{
+  "tone_name":"Joy",
+  "score":20,
+  "tone_id":"joy",
+  "score_new": 14
+},{
+  "tone_name":"Sadness",
+  "score":20,
+  "tone_id":"sadness",
+  "score_new": 30
+}]

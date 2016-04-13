@@ -1,0 +1,121 @@
+<!-- 
+=======================
+Author: Tanvi Parikh
+Technology used: D3.js
+Date: 3/8/2016
+=======================
+
+INPUT - console.log(json["document_tone"]["tone_categories"][0]["tones"][0])
+OUTPUT -  Object {tone_name: "Anger", score: 0.940634, tone_id: "anger"}
+-->
+
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Pie Chart Sentiment Analysis</title>
+    <link rel="stylesheet" href="normalize.css">
+    <style>
+
+      #heading {
+        font-size: 15px;
+        position: relative;
+        top: 30px;
+        left: 130px;
+      }  
+
+      /* Legend styles*/
+      .legend {                                                   
+        font-size: 12px;                                          
+      }  
+
+      rect {
+        cursor: pointer;                           
+        stroke-width: 2;
+      }
+      rect.disabled {                              
+        fill: transparent !important;              
+      }  
+
+    </style>
+  </head>
+  <body>
+    <div id="heading"><h2> Pie Chart: Document Tone-Emotion tone</h2></div>
+    <div id="chart"></div>
+    <script src="d3.v3.min.js"></script>
+    <script>
+      (function(d3) {
+        'use strict';
+
+
+       var dataset = [
+          { label: 'Joy', count: 10 }, 
+          { label: 'Sadness', count: 20 },
+          { label: 'Disgust', count: 30 },
+          { label: 'Anger', count: 25 },
+          { label: 'Fear', count: 15 }
+        ];
+
+        var width = 600;
+        var height = 450;
+        var radius = Math.min(300, height) / 2;
+        //variables for the legend
+        var legendRectSize = 18;
+        var legendSpacing = 4;
+
+        var color = d3.scale.category20c();   //Using the color brewer. For more https://bl.ocks.org/mbostock/5577023
+
+        var svg = d3.select('#chart')
+          .append('svg')
+          .attr('width', width)
+          .attr('height', height)
+          .append('g')
+          .attr('transform', 'translate(' + (width / 2) + 
+            ',' + (height / 2) + ')');
+
+        var arc = d3.svg.arc()
+          .outerRadius(radius);
+
+        var pie = d3.layout.pie()   //Makes it a pie 
+          .value(function(d) { return d.count; })
+          .sort(null);
+
+        var path = svg.selectAll('path')
+          .data(pie(dataset))
+          .enter()
+          .append('path')
+          .attr('d', arc)
+          .attr('fill', function(d, i) { 
+            return color(d.data.label);
+          });
+
+        //code for legend
+        var legend = svg.selectAll('.legend')
+          .data(color.domain())
+          .enter()
+          .append('g')
+          .attr('class', 'legend')
+          .attr('transform', function(d, i) {     /* To modify the position of the legend */
+            var height = legendRectSize + legendSpacing ;
+            var offset =  height * color.domain().length / 2;
+            var horz = 12* legendRectSize;  // horizontal position from center of svg
+            var vert = i * height - 2*offset; // vertical position from the center of svg
+            return 'translate(' + horz + ',' + vert + ')';
+          });
+
+        legend.append('rect')
+          .attr('width', legendRectSize)
+          .attr('height', legendRectSize)
+          .style('fill', color)
+          .style('stroke', color);
+
+        legend.append('text')
+          .attr('x', legendRectSize + legendSpacing)
+          .attr('y', legendRectSize - legendSpacing)
+          .text(function(d) { return d; });
+
+      })(window.d3);
+    </script>
+  </body>
+</html>
