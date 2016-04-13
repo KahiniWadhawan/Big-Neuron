@@ -542,20 +542,3 @@ li.active a, li.active a:hover {
 .tab.active {
     display:block;
 }
-
-/*----- Radio Buttons -----*/
-.radio-form {
-    position: fixed;
-    display: block;
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
-.radio-form-label {
-    color: #2c3e50;
-    min-height: 21px;
-    padding-left: 20px;
-    margin-bottom: 20px;
-    font-weight: normal;
-    cursor: pointer;
-}

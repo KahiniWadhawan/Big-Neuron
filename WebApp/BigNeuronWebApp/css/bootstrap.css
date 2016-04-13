@@ -2647,6 +2647,12 @@ input[type="search"] {
   font-weight: normal;
   cursor: pointer;
 }
+
+/* MOD: For highlighting Tweets listed by radio buttons on
+ * sentence-level SA page.*/
+.radio label box {
+    background-color: #cccccc;
+}
 .radio input[type="radio"],
 .radio-inline input[type="radio"],
 .checkbox input[type="checkbox"],
