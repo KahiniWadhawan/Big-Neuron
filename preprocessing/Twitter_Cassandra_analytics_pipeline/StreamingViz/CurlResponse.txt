@@ -1,0 +1,9 @@
+GET http://localhost:5000/feed/word_count --json
+HTTP/1.0 200 OK
+Access-Control-Allow-Origin: *
+Content-Length: 96
+Content-Type: text/html; charset=utf-8
+Date: Wed, 30 Apr 2014 19:21:20 GMT
+Server: Werkzeug/0.9.4 Python/2.7.6
+
+{"de":8,"la":6,"atl\u00e9tico":6,"el":4,"madrid":4,"y":4,"vs":3,"masih":3,"champions":3,"0-0":3}
