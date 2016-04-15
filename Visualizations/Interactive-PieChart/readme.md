@@ -5,7 +5,7 @@
 #### Purpose
 To display results of sentiment analysis obtained from IBM Tone Analyzer. The pie charts will b used to depict the sentence-level sentiment analysis of each tweet. 
 
-< Add pipline image here >
+![alt tag](https://github.com/CUBigDataClass/Big-Neuron/blob/Tanvi-branch/Visualizations/Interactive-PieChart/Sentence-level-pipeline.png)
 
 #### Technologies 
  - D3.js
