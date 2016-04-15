@@ -1,5 +1,5 @@
 '''
-	Author: Tanvi Parikh
+	Author: Piyush Patel, Tanvi Parikh
 	Purpose: Customize the JSON produced by IBM tone analyser to a format acceptable by Amcharts for rendition
 
 	Current input:
@@ -63,3 +63,16 @@
 	  "tone_id":"sadness"
 	}]
 '''
+import json
+
+f = open("../data/tone.json", "r")
+
+a = f.read()
+a= eval (a)
+l1,l2,l3 =  a['document_tone']['tone_categories'][0]['tones'],a['document_tone']['tone_categories'][1]['tones'],a['document_tone']['tone_categories'][2]['tones']
+with open('emotions.json', 'w') as outfile:
+    json.dump(l1, outfile)
+with open('writing.json', 'w') as outfile:
+    json.dump(l2, outfile)
+with open('social.json', 'w') as outfile:
+    json.dump(l3, outfile)
