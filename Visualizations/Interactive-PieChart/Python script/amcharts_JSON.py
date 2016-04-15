@@ -1,8 +1,13 @@
 '''
 	Author: Piyush Patel, Tanvi Parikh
 	Purpose: Customize the JSON produced by IBM tone analyser to a format acceptable by Amcharts for rendition
+	Documentation:
+		This file will crunch the json from data/tone.json
+		And output three files
+			data/emotion.json
+			data/
 
-	Current input:
+	Example Current input:
 	{
 	   "document_tone":{
 	      "tone_categories":[
@@ -40,7 +45,7 @@
 	    }
 	}
 
-	Required Output:
+	Example Required Output:
 	[{
 	  "tone_name":"Anger",
 	  "score":20,
@@ -70,9 +75,9 @@ f = open("../data/tone.json", "r")
 a = f.read()
 a= eval (a)
 l1,l2,l3 =  a['document_tone']['tone_categories'][0]['tones'],a['document_tone']['tone_categories'][1]['tones'],a['document_tone']['tone_categories'][2]['tones']
-with open('emotions.json', 'w') as outfile:
+with open('../data/emotion.json', 'w') as outfile:
     json.dump(l1, outfile)
-with open('writing.json', 'w') as outfile:
+with open('../data/writing.json', 'w') as outfile:
     json.dump(l2, outfile)
-with open('social.json', 'w') as outfile:
+with open('../data/social.json', 'w') as outfile:
     json.dump(l3, outfile)
