@@ -23,7 +23,7 @@ def realtime():
 def select_candidate():
     if request.method == "POST":
 
-        radio = request.form['choice1'] #this retrieves which radio button was pressed
+        radio = request.form['candidate'] #this retrieves which radio button was pressed
 
         if radio == 'clinton':
             retVal = render_template("pages/clinton.html")
