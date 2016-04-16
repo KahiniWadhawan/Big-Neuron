@@ -83,10 +83,23 @@ def realtime():
 '''
     Renders the Follower's Network visualization for any candidate
 '''
-@app.route('/followers')
-def followers():
-    print "Inside followers " 
-    return none
+@app.route('/network')
+def network():
+    print "Inside network() function" 
+    cand = session['candidate']
+    print "In Sentence-level, session['candidate'] is - ", cand
+    if cand == 'clinton':
+        return render_template("pages/clinton/clinton_network.html")
+    elif cand == 'cruz':
+        return render_template("pages/cruz/cruz_network.html")
+    elif cand == 'kasich':
+        return render_template("pages/kasich/kasich_network.html")
+    elif cand == 'sanders':
+        return render_template("pages/sanders/sanders_network.html")
+    elif cand == 'trump':
+        return render_template("pages/trump/trump_network.html")
+    else:
+        print "Error in network(). Need to make an error page"
 
 '''
     Renders the Topic Modelling visualization for any candidate
