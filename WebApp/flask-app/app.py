@@ -106,8 +106,21 @@ def network():
 '''
 @app.route('/topic')
 def topic():
-    print " Inside Topic Modelling " 
-    return none
+    print "Inside topic() function" 
+    cand = session['candidate']
+    print "In Topic Modelling, session['candidate'] is - ", cand
+    if cand == 'clinton':
+        return render_template("pages/clinton/clinton_topicmodel.html")
+    elif cand == 'cruz':
+        return render_template("pages/cruz/cruz_topicmodel.html")
+    elif cand == 'kasich':
+        return render_template("pages/kasich/kasich_topicmodel.html")
+    elif cand == 'sanders':
+        return render_template("pages/sanders/sanders_topicmodel.html")
+    elif cand == 'trump':
+        return render_template("pages/trump/trump_topicmodel.html")
+    else:
+        print "Error in topic(). Need to make an error page"
 
 '''
     Renders the SA Sentence-level visualization for any candidate
