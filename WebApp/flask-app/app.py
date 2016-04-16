@@ -105,12 +105,25 @@ def tweetlevel():
     return none
 
 '''
-    Renders the SA All tweets visualization for any candidate
+    Renders the SA Document-level visualization for any candidate
 '''
 @app.route('/alltweet')
 def alltweet():
-    print "All tweets" 
-    return none
+    print "Inside All tweets functions" 
+    cand = session['candidate']
+    print "In Document-level, session['candidate'] is - ", cand
+    if cand == 'clinton':
+        return render_template("pages/clinton/clinton_sa_document.html")
+    elif cand == 'cruz':
+        return render_template("pages/cruz/cruz_sa_document.html")
+    elif cand == 'kasich':
+        return render_template("pages/kasich/kasich_sa_document.html")
+    elif cand == 'sanders':
+        return render_template("pages/sanders/sanders_sa_document.html")
+    elif cand == 'trump':
+        return render_template("pages/trump/trump_sa_document.html")
+    else:
+        print "Error in wordcloud(). Need to make an error page"
 
 if __name__ == '__main__':
     app.debug = True
