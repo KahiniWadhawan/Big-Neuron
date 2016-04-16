@@ -12,6 +12,7 @@
     <title>The Election Buzz on Cruz by Big Neuron</title>
 
     <!-- Bootstrap Core CSS - Uses Bootswatch Flatly Theme: http://bootswatch.com/flatly/ -->
+<<<<<<< HEAD
     <link href="../../css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
@@ -28,6 +29,18 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+=======
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="{{ url_for('static', filename='css/freelancer.css') }}" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="{{ url_for('static', filename='font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+
+>>>>>>> master
 
 </head>
 
@@ -92,22 +105,35 @@
             <div class="row">
                 <div class="col-sm-4">           
                     <!-- Word Cloud -->
+<<<<<<< HEAD
                     <a href="cruz_wordcloud.html" target="_blank">
                        <img id="myImg0" src="../../img/viz/wordcloud_sml.png" alt="placeholder" title="Tweet Word Cloud">
+=======
+                    <a href="{{ url_for('wordcloud') }}" target="_blank">
+                       <img id="myImg0" src="{{ url_for('static', filename='img/viz/wordcloud_sml.png') }}" alt="placeholder" title="Tweet Word Cloud">
+>>>>>>> master
                     </a>
                     
                 </div>
                 <div class="col-sm-4">
                     <!-- SA at document level -->
                     <a href="cruz_sa_document.html" target="_blank">
+<<<<<<< HEAD
                        <img id="myImg1" src="../../img/viz/barchart_sml.png" alt="placeholder" title="Twitter Sentiment Analysis">
+=======
+                       <img id="myImg1" src="{{ url_for('static', filename='img/viz/barchart_sml.png') }}" alt="placeholder" title="Twitter Sentiment Analysis">
+>>>>>>> master
                     </a>
                     
                 </div>
                 <div class="col-sm-4">
                     <!-- SA at sentence level -->
                     <a href="cruz_sa_sentence.html" target="_blank">
+<<<<<<< HEAD
                        <img id="myImg2" src="../../img/viz/piechart_sml.png" alt="placeholder" title="Tweet-Level Sentiment Analysis">
+=======
+                       <img id="myImg2" src="{{ url_for('static', filename='img/viz/piechart_sml.png') }}" alt="placeholder" title="Tweet-Level Sentiment Analysis">
+>>>>>>> master
                     </a>                   
                 </div>                
             </div>
@@ -117,19 +143,31 @@
                 <div class="col-sm-4">
                     <!-- Follower Network -->
                     <a href="cruz_network.html" target="_blank">
+<<<<<<< HEAD
                        <img id="myImg3" src="../../img/viz/network_sml.png" alt="placeholder" title="Twitter Follower Network">
+=======
+                       <img id="myImg3" src="{{ url_for('static', filename='img/viz/network_sml.png') }}" alt="placeholder" title="Twitter Follower Network">
+>>>>>>> master
                     </a>
                 </div>
                 <div class="col-sm-4">
                     <!-- Topic Modeling -->
                     <a href="cruz_topicmodel.html" target="_blank">
+<<<<<<< HEAD
                        <img id="myImg4" src="../../img/viz/topicmodel_sml.png" alt="placeholder" title="Tweet Topic Modeling">
+=======
+                       <img id="myImg4" src="{{ url_for('static', filename='img/viz/topicmodel_sml.png') }}" alt="placeholder" title="Tweet Topic Modeling">
+>>>>>>> master
                     </a>
                 </div>
                 <div class="col-sm-4">
                     <!-- Realtime SA -->
                     <a href="../../realtime.html" target="_blank">
+<<<<<<< HEAD
                        <img id="myImg5" src="../../img/viz/realtime_sml.png" alt="placeholder" title="Realtime Twitter Sentiment Analysis">
+=======
+                       <img id="myImg5" src="{{ url_for('static', filename='img/viz/realtime_sml.png') }}" alt="placeholder" title="Realtime Twitter Sentiment Analysis">
+>>>>>>> master
                     </a>                                      
                 </div>
                 <br>
@@ -184,6 +222,7 @@
             <i class="fa fa-chevron-up"></i>
         </a>
     </div>
+<<<<<<< HEAD
 
     
 
@@ -204,6 +243,27 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="../../js/freelancer.js"></script>
+=======
+   
+
+    <!-- jQuery -->
+    <script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+    <script src="{{ url_for('static', filename='js/classie.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/cbpAnimatedHeader.js') }}"></script>
+
+    <!-- Contact Form JavaScript -->
+    <script src="{{ url_for('static', filename='js/jqBootstrapValidation.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/contact_me.js') }}"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="{{ url_for('static', filename='js/freelancer.js') }}"></script>
+>>>>>>> master
 
 </body>
 

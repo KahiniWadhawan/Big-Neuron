@@ -1,47 +1,119 @@
-#! /usr/bin/python
+''' Authors - 
+        Jessica Lynch
+        Tanvi Parikh
+    Purpose - 
+        Integration of Flask with Webapp
+    Date - 
+        16th April, 2016
+'''
 
-# To change this license header, choose License Headers in Project Properties.
-# To change this template file, choose Tools | Templates
-# and open the template in the editor.
-
-__author__ = "Jessica"
+__author__ = "Jessica, Tanvi"
 __date__ = "$Apr 14, 2016 11:39:45 PM$"
 
-from flask import Flask, render_template, request
-from flask_bootstrap import Bootstrap 
+from flask import Flask, render_template, request, session, g
 
 app = Flask(__name__)
-Bootstrap( app )
 
+# Sessions variables are stored client side, on the users browser
+# the content of the variables is encrypted, so users can't
+# actually see it. They could edit it, but again, as the content
+# wouldn't be signed with this hash key, it wouldn't be valid
+# You need to set a scret key (random text) and keep it secret
+app.secret_key = 'F12Zr47j\3yX R~X@H!jmM]Lwf/,?KT'
+
+'''
+    Renders the dashboard.
+'''
 @app.route('/')
-def index():
+def home():
+    print "REQUEST from index---", request
     return render_template("index.html")
 
-@app.route('/realtime.html')
-def realtime():
-    return render_template("realtime.html")
+'''
+    Renders the landing dashboard for each candidate
+'''
+@app.route("/{{ request.form['candidate'] }}", methods = ["GET", "POST"])
 
-@app.route('/pages/clinton.html')
-def clinton():
-    return render_template( "pages/clinton.html" );
-@app.route("/candidatepage.html", methods = ["GET", "POST"])
 def select_candidate():
     if request.method == "POST":
 
         radio = request.form['candidate'] #this retrieves which radio button was pressed
 
+        session['candidate'] = radio
         if radio == 'clinton':
-            retVal = render_template("pages/clinton.html")
+            return render_template("pages/clinton/clinton.html", cand=radio)
         elif radio == 'cruz':
-            retVal = render_template("pages/cruz.html")
-        elif radio == 'C':
-            retVal = render_template("pages/kasich.html")
-        elif radio == 'D':
-            retVal = render_template("pages/sanders.html")
-        elif radio == 'E':
-            retVal = render_template("pages/trump.html")
-    return retVal
+            return render_template("pages/cruz/cruz.html")
+        elif radio == 'kasich':
+            return render_template("pages/kasich/kasich.html")
+        elif radio == 'sanders':
+            return render_template("pages/sanders/sanders.html")
+        elif radio == 'trump':
+            return render_template("pages/trump/trump.html")
+        else:
+            print "Error in select_candidate(). Need to make an error page"
+
+'''
+    Load visualizations from their respective candidate pages
+'''
+@app.route("/wordcloud", methods = ["GET", "POST"])
+def wordcloud():
+    print "Inside wordcloud()"
+    cand = session['candidate']
+    print "In wordcloud, session['candidate'] is - ", cand
+    if cand == 'clinton':
+        return render_template("pages/clinton/clinton_wordcloud.html")
+    elif cand == 'cruz':
+        return render_template("pages/cruz/cruz_wordcloud.html")
+    elif cand == 'kasich':
+        return render_template("pages/kasich/kasich_wordcloud.html")
+    elif cand == 'sanders':
+        return render_template("pages/sanders/sanders_wordcloud.html")
+    elif cand == 'trump':
+        return render_template("pages/trump/trump_wordcloud.html")
+    else:
+        print "Error in wordcloud(). Need to make an error page"
+        
+'''
+    Renders the realtime dashboard for any candidate
+'''
+@app.route('/realtime')
+def realtime():
+    print "REQUEST from realtime---", request
+    return render_template("realtime.html")
+
+'''
+    Renders the Follower's Network visualization for any candidate
+'''
+@app.route('/followers')
+def followers():
+    print "Inside followers " 
+    return none
+
+'''
+    Renders the Topic Modelling visualization for any candidate
+'''
+@app.route('/topic')
+def topic():
+    print " Inside Topic Modelling " 
+    return none
+
+'''
+    Renders the SA Sentence-level visualization for any candidate
+'''
+@app.route('/tweetlevel')
+def tweetlevel():
+    print "Inside Tweet Level" 
+    return none
+
+'''
+    Renders the SA All tweets visualization for any candidate
+'''
+@app.route('/alltweet')
+def alltweet():
+    print "All tweets" 
+    return none
 
 if __name__ == '__main__':
-    
-    app.run(debug=True)
+    app.debug = True
+    app.run()
