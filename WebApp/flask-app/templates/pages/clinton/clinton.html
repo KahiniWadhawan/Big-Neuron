@@ -37,7 +37,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#page-top" style="padding-left:20px">Big Neuron</a>
+                <a class="navbar-brand" href="{{ url_for('home') }}" style="padding-left:20px">Big Neuron</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -92,14 +92,14 @@
                 </div>
                 <div class="col-sm-4">
                     <!-- SA at document level -->
-                    <a href="clinton_sa_document.html" target="_blank">
+                    <a href="{{ url_for('alltweet') }}" target="_blank">
                        <img id="myImg1" src="{{ url_for('static', filename='img/viz/barchart_sml.png') }}" alt="placeholder" title="Twitter Sentiment Analysis">
                     </a>
                     
                 </div>
                 <div class="col-sm-4">
                     <!-- SA at sentence level -->
-                    <a href="clinton_sa_sentence.html" target="_blank">
+                    <a href="{{ url_for('tweetlevel') }}" target="_blank">
                        <img id="myImg2" src="{{ url_for('static', filename='img/viz/piechart_sml.png') }}" alt="placeholder" title="Tweet-Level Sentiment Analysis">
                     </a>                   
                 </div>                
@@ -109,13 +109,13 @@
             <div class="row" style="padding-top: 15px">
                 <div class="col-sm-4">
                     <!-- Follower Network -->
-                    <a href="clinton_network.html" target="_blank">
+                    <a href="{{ url_for('network') }}" target="_blank">
                        <img id="myImg3" src="{{ url_for('static', filename='img/viz/network_sml.png') }}" alt="placeholder" title="Twitter Follower Network">
                     </a>
                 </div>
                 <div class="col-sm-4">
                     <!-- Topic Modeling -->
-                    <a href="clinton_topicmodel.html" target="_blank">
+                    <a href="{{ url_for('topic') }}" target="_blank">
                        <img id="myImg4" src="{{ url_for('static', filename='img/viz/topicmodel_sml.png') }}" alt="placeholder" title="Tweet Topic Modeling">
                     </a>
                 </div>
