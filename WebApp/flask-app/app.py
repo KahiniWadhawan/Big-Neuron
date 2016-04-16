@@ -30,17 +30,9 @@ def home():
     return render_template("index.html")
 
 '''
-    Renders the realtime dashboard for any candidate
-'''
-@app.route('/realtime')
-def realtime():
-    print "REQUEST from realtime---", request
-    return render_template("realtime.html")
-
-'''
     Renders the landing dashboard for each candidate
 '''
-@app.route("/candidate", methods = ["GET", "POST"])
+@app.route("/{{ request.form['candidate'] }}", methods = ["GET", "POST"])
 def select_candidate():
     if request.method == "POST":
 
@@ -56,6 +48,8 @@ def select_candidate():
             return render_template("pages/sanders/sanders.html")
         elif radio == 'trump':
             return render_template("pages/trump/trump.html")
+        else:
+            print "Error in select_candidate(). Need to make an error page"
 
 '''
     Load visualizations from their respective candidate pages
@@ -63,14 +57,60 @@ def select_candidate():
 @app.route("/wordcloud", methods = ["GET", "POST"])
 def wordcloud():
     print "Inside wordcloud()"
-    r = session['candidate']
-    print "In wordcloud, request.candidate is - ", r
-
-    if r == 'clinton':
+    cand = session['candidate']
+    print "In wordcloud, session['candidate'] is - ", cand
+    if cand == 'clinton':
         return render_template("pages/clinton/clinton_wordcloud.html")
+    elif cand == 'cruz':
+        return render_template("pages/cruz/cruz_wordcloud.html")
+    elif cand == 'kasich':
+        return render_template("pages/kasich/kasich_wordcloud.html")
+    elif cand == 'sanders':
+        return render_template("pages/sanders/sanders_wordcloud.html")
+    elif cand == 'trump':
+        return render_template("pages/trump/trump_wordcloud.html")
     else:
-        print "ERROR"
-        pass
+        print "Error in wordcloud(). Need to make an error page"
+        
+'''
+    Renders the realtime dashboard for any candidate
+'''
+@app.route('/realtime')
+def realtime():
+    print "REQUEST from realtime---", request
+    return render_template("realtime.html")
+
+'''
+    Renders the Follower's Network visualization for any candidate
+'''
+@app.route('/followers')
+def followers():
+    print "Inside followers " 
+    return none
+
+'''
+    Renders the Topic Modelling visualization for any candidate
+'''
+@app.route('/topic')
+def topic():
+    print " Inside Topic Modelling " 
+    return none
+
+'''
+    Renders the SA Sentence-level visualization for any candidate
+'''
+@app.route('/tweetlevel')
+def tweetlevel():
+    print "Inside Tweet Level" 
+    return none
+
+'''
+    Renders the SA All tweets visualization for any candidate
+'''
+@app.route('/alltweet')
+def alltweet():
+    print "All tweets" 
+    return none
 
 if __name__ == '__main__':
     app.debug = True
