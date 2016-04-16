@@ -52,7 +52,7 @@ def select_candidate():
             print "Error in select_candidate(). Need to make an error page"
 
 '''
-    Load visualizations from their respective candidate pages
+    Load wordcloud visualization from their respective candidate pages
 '''
 @app.route("/wordcloud", methods = ["GET", "POST"])
 def wordcloud():
@@ -71,6 +71,27 @@ def wordcloud():
         return render_template("pages/trump/trump_wordcloud.html")
     else:
         print "Error in wordcloud(). Need to make an error page"
+
+'''
+    Load tweet (sentence) level visualizations from their respective candidate pages
+'''
+@app.route("/tweet_level", methods = ["GET", "POST"])
+def tweet_level():
+    print "Inside tweet_level()"
+    cand = session['candidate']
+    print "In tweet_level, session['candidate'] is - ", cand
+    if cand == 'clinton':
+        return render_template("pages/clinton/clinton_sa_sentence.html")
+    elif cand == 'cruz':
+        return render_template("pages/cruz/cruz_sa_sentence.html")
+    elif cand == 'kasich':
+        return render_template("pages/kasich/kasich_sa_sentence.html")
+    elif cand == 'sanders':
+        return render_template("pages/sanders/sanders_sa_sentence.html")
+    elif cand == 'trump':
+        return render_template("pages/trump/trump_sa_sentence.html")
+    else:
+        print "Error in tweet_level(). Need to make an error page"
         
 '''
     Renders the realtime dashboard for any candidate
