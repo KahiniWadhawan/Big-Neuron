@@ -101,8 +101,21 @@ def topic():
 '''
 @app.route('/tweetlevel')
 def tweetlevel():
-    print "Inside Tweet Level" 
-    return none
+    print "Inside All tweets functions" 
+    cand = session['candidate']
+    print "In Sentence-level, session['candidate'] is - ", cand
+    if cand == 'clinton':
+        return render_template("pages/clinton/clinton_sa_sentence.html")
+    elif cand == 'cruz':
+        return render_template("pages/cruz/cruz_sa_sentence.html")
+    elif cand == 'kasich':
+        return render_template("pages/kasich/kasich_sa_sentence.html")
+    elif cand == 'sanders':
+        return render_template("pages/sanders/sanders_sa_sentence.html")
+    elif cand == 'trump':
+        return render_template("pages/trump/trump_sa_sentence.html")
+    else:
+        print "Error in tweetlevel(). Need to make an error page"
 
 '''
     Renders the SA Document-level visualization for any candidate
@@ -123,7 +136,7 @@ def alltweet():
     elif cand == 'trump':
         return render_template("pages/trump/trump_sa_document.html")
     else:
-        print "Error in wordcloud(). Need to make an error page"
+        print "Error in alltweet(). Need to make an error page"
 
 if __name__ == '__main__':
     app.debug = True
