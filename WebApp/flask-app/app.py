@@ -87,7 +87,7 @@ def realtime():
 def network():
     print "Inside network() function" 
     cand = session['candidate']
-    print "In Sentence-level, session['candidate'] is - ", cand
+    print "In Follower's Network, session['candidate'] is - ", cand
     if cand == 'clinton':
         return render_template("pages/clinton/clinton_network.html")
     elif cand == 'cruz':
