@@ -33,10 +33,12 @@ def home():
     Renders the landing dashboard for each candidate
 '''
 @app.route("/{{ request.form['candidate'] }}", methods = ["GET", "POST"])
+
 def select_candidate():
     if request.method == "POST":
 
         radio = request.form['candidate'] #this retrieves which radio button was pressed
+
         session['candidate'] = radio
         if radio == 'clinton':
             return render_template("pages/clinton/clinton.html", cand=radio)
@@ -136,6 +138,3 @@ def alltweet():
 if __name__ == '__main__':
     app.debug = True
     app.run()
-
-
-
