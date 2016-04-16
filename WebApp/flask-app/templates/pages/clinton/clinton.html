@@ -12,22 +12,15 @@
     <title>The Election Buzz on Clinton by Big Neuron</title>
 
     <!-- Bootstrap Core CSS - Uses Bootswatch Flatly Theme: http://bootswatch.com/flatly/ -->
-    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="../../css/freelancer.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/freelancer.css') }}" rel="stylesheet">
 
     <!-- Custom Fonts -->
-    <link href="../../font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="{{ url_for('static', filename='font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
 
 </head>
 
@@ -93,21 +86,21 @@
                 <div class="col-sm-4">           
                     <!-- Word Cloud -->
                     <a href="clinton_wordcloud.html" target="_blank">
-                       <img id="myImg0" src="../../img/viz/wordcloud_sml.png" alt="placeholder" title="Tweet Word Cloud">
+                       <img id="myImg0" src="{{ url_for('static', filename='img/viz/wordcloud_sml.png') }}" alt="placeholder" title="Tweet Word Cloud">
                     </a>
                     
                 </div>
                 <div class="col-sm-4">
                     <!-- SA at document level -->
                     <a href="clinton_sa_document.html" target="_blank">
-                       <img id="myImg1" src="../../img/viz/barchart_sml.png" alt="placeholder" title="Twitter Sentiment Analysis">
+                       <img id="myImg1" src="{{ url_for('static', filename='img/viz/barchart_sml.png') }}" alt="placeholder" title="Twitter Sentiment Analysis">
                     </a>
                     
                 </div>
                 <div class="col-sm-4">
                     <!-- SA at sentence level -->
                     <a href="clinton_sa_sentence.html" target="_blank">
-                       <img id="myImg2" src="../../img/viz/piechart_sml.png" alt="placeholder" title="Tweet-Level Sentiment Analysis">
+                       <img id="myImg2" src="{{ url_for('static', filename='img/viz/piechart_sml.png') }}" alt="placeholder" title="Tweet-Level Sentiment Analysis">
                     </a>                   
                 </div>                
             </div>
@@ -117,19 +110,19 @@
                 <div class="col-sm-4">
                     <!-- Follower Network -->
                     <a href="clinton_network.html" target="_blank">
-                       <img id="myImg3" src="../../img/viz/network_sml.png" alt="placeholder" title="Twitter Follower Network">
+                       <img id="myImg3" src="{{ url_for('static', filename='img/viz/network_sml.png') }}" alt="placeholder" title="Twitter Follower Network">
                     </a>
                 </div>
                 <div class="col-sm-4">
                     <!-- Topic Modeling -->
                     <a href="clinton_topicmodel.html" target="_blank">
-                       <img id="myImg4" src="../../img/viz/topicmodel_sml.png" alt="placeholder" title="Tweet Topic Modeling">
+                       <img id="myImg4" src="{{ url_for('static', filename='img/viz/topicmodel_sml.png') }}" alt="placeholder" title="Tweet Topic Modeling">
                     </a>
                 </div>
                 <div class="col-sm-4">
                     <!-- Realtime SA -->
-                    <a href="../../realtime.html" target="_blank">
-                       <img id="myImg5" src="../../img/viz/realtime_sml.png" alt="placeholder" title="Realtime Twitter Sentiment Analysis">
+                    <a href="{{ url_for('realtime') }}" target="_blank">
+                       <img id="myImg5" src="{{ url_for('static', filename='img/viz/realtime_sml.png') }}" alt="placeholder" title="Realtime Twitter Sentiment Analysis">
                     </a>                                      
                 </div>
                 <br>
