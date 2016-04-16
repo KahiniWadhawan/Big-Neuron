@@ -8,18 +8,23 @@ __author__ = "Jessica"
 __date__ = "$Apr 14, 2016 11:39:45 PM$"
 
 from flask import Flask, render_template, request
+from flask_bootstrap import Bootstrap 
 
 app = Flask(__name__)
+Bootstrap( app )
 
 @app.route('/')
-def home():
+def index():
     return render_template("index.html")
 
-@app.route('/realtime')
+@app.route('/realtime.html')
 def realtime():
     return render_template("realtime.html")
 
-@app.route("/candidatepage", methods = ["GET", "POST"])
+@app.route('/pages/clinton.html')
+def clinton():
+    return render_template( "pages/clinton.html" );
+@app.route("/candidatepage.html", methods = ["GET", "POST"])
 def select_candidate():
     if request.method == "POST":
 
@@ -38,4 +43,5 @@ def select_candidate():
     return retVal
 
 if __name__ == '__main__':
+    
     app.run(debug=True)
