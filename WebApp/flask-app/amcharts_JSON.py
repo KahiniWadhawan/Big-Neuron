@@ -71,13 +71,22 @@
 import json
 
 f = open("static/data/tone.json", "r")
-
 a = f.read()
-a= eval (a)
-l1,l2,l3 =  a['document_tone']['tone_categories'][0]['tones'],a['document_tone']['tone_categories'][1]['tones'],a['document_tone']['tone_categories'][2]['tones']
+a = eval (a)
+l1,l2,l3 =  a['document_tone']['tone_categories'][0]['tones'], a['document_tone']['tone_categories'][1]['tones'], a['document_tone']['tone_categories'][2]['tones']
+
 with open('static/data/emotion.json', 'w') as outfile:
     json.dump(l1, outfile)
 with open('static/data/writing.json', 'w') as outfile:
     json.dump(l2, outfile)
 with open('static/data/social.json', 'w') as outfile:
     json.dump(l3, outfile)
+
+
+'''
+# Replace the above code with this code below -- need to NOT write to outfile and also need a contained function
+def amcharts_JSON(input):
+    data  = f.read(input)
+    a     = eval(data)
+    return a['document_tone']['tone_categories'][0]['tones'], a['document_tone']['tone_categories'][1]['tones'], a['document_tone']['tone_categories'][2]['tones']
+'''
