@@ -164,6 +164,14 @@ def alltweet():
     else:
         print "Error in alltweet(). Need to make an error page"
 
+
+'''
+    Get the data to be used for SA Sentence-level visualization for any candidate
+'''
+@app.route('/amcharts_JSON.py', methods = ["GET", "POST"])
+def amcharts_json():
+    return "amcharts_JSON.py"
+
 if __name__ == '__main__':
     app.debug = True
     app.run()
