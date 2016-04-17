@@ -81,3 +81,4 @@ with open('static/data/writing.json', 'w') as outfile:
     json.dump(l2, outfile)
 with open('static/data/social.json', 'w') as outfile:
     json.dump(l3, outfile)
+

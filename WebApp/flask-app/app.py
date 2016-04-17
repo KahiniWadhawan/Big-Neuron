@@ -10,7 +10,7 @@
 __author__ = "Jessica, Tanvi"
 __date__ = "$Apr 14, 2016 11:39:45 PM$"
 
-from flask import Flask, render_template, request, session, g
+from flask import Flask, render_template, request, session
 
 app = Flask(__name__)
 
@@ -164,12 +164,19 @@ def alltweet():
     else:
         print "Error in alltweet(). Need to make an error page"
 
+'''
+    Get and post SA Sentence-level visualization charts per Tweet
 
+@app.route('/SA_PieChart_Multiple.html', methods = ["GET", "POST"])
+def sa_piechart_multiple():
+    return render_template("viz/SA_PieChart_Multiple.html")
+'''
 '''
     Get the data to be used for SA Sentence-level visualization for any candidate
 '''
 @app.route('/amcharts_JSON.py', methods = ["GET", "POST"])
 def amcharts_json():
+    #return render_template( "amcharts_JSON.py" )
     return "amcharts_JSON.py"
 
 if __name__ == '__main__':
