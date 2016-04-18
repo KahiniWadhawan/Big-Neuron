@@ -127,18 +127,23 @@ def topic():
 '''
 @app.route('/tweetlevel')
 def tweetlevel():
-    print "Inside All tweets functions" 
+    print "Inside tweet level function" 
     cand = session['candidate']
     print "In Sentence-level, session['candidate'] is - ", cand
     if cand == 'clinton':
+        #get_tweet_list()
         return render_template("pages/clinton/clinton_sa_sentence.html")
     elif cand == 'cruz':
+        #get_tweet_list()
         return render_template("pages/cruz/cruz_sa_sentence.html")
     elif cand == 'kasich':
+        #get_tweet_list()
         return render_template("pages/kasich/kasich_sa_sentence.html")
     elif cand == 'sanders':
+        #get_tweet_list()
         return render_template("pages/sanders/sanders_sa_sentence.html")
     elif cand == 'trump':
+        #get_tweet_list()
         return render_template("pages/trump/trump_sa_sentence.html")
     else:
         print "Error in tweetlevel(). Need to make an error page"
@@ -148,7 +153,7 @@ def tweetlevel():
 '''
 @app.route('/alltweet')
 def alltweet():
-    print "Inside All tweets functions" 
+    print "Inside All tweets function" 
     cand = session['candidate']
     print "In Document-level, session['candidate'] is - ", cand
     if cand == 'clinton':
@@ -165,19 +170,58 @@ def alltweet():
         print "Error in alltweet(). Need to make an error page"
 
 '''
-    Get and post SA Sentence-level visualization charts per Tweet
+    Get list of 100 tweets in SA sentence level page for each candidate.
 
-@app.route('/SA_PieChart_Multiple.html', methods = ["GET", "POST"])
-def sa_piechart_multiple():
-    return render_template("viz/SA_PieChart_Multiple.html")
+@app.route('/create_tweet_list.py', methods = ["GET", "POST"])
+def get_tweet_visualization():
+    print "Inside get tweet list function" 
+    cand = session['candidate']
+    print "In get_tweet_list(), session['candidate'] is - ", cand
+    if cand == 'clinton':
+        11 = create_tweet_list(cand)
+        #iterate through list and if item is clicked on, call sa_piechart_multiple()
+        return
+    elif cand == 'cruz':
+        12 = create_tweet_list(cand)
+        #iterate through list and if item is clicked on, call sa_piechart_multiple()
+        return
+    elif cand == 'kasich':
+        13 = create_tweet_list(cand)
+        #iterate through list and if item is clicked on, call sa_piechart_multiple()
+        return
+    elif cand == 'sanders':
+        14 = create_tweet_list(cand)
+        #iterate through list and if item is clicked on, call sa_piechart_multiple()
+        return
+    elif cand == 'trump':
+        15 = create_tweet_list(cand)
+        #iterate through list and if item is clicked on, call sa_piechart_multiple()
+        return
+    else:
+        print "Error in get_tweet_list(). Need to make an error page"
 '''
+
 '''
-    Get the data to be used for SA Sentence-level visualization for any candidate
+    Get and post the data to be used for SA Sentence-level visualizations
 '''
 @app.route('/amcharts_JSON.py', methods = ["GET", "POST"])
 def amcharts_json():
-    #return render_template( "amcharts_JSON.py" )
     return "amcharts_JSON.py"
+
+'''
+    Get and post SA Sentence-level visualizations per Tweet
+'''
+@app.route('/SA_PieChart_Multiple', methods = ["GET", "POST"])
+def sa_piechart_multiple():
+    return render_template("viz/SA_PieChart_Multiple.html")
+
+'''
+    Create SA Sentence-level Tweet List per candidate
+'''
+@app.route('/TweetList/<candidate>', methods = ["GET", "POST"])
+def create_tweet_list(candidate):
+    return  "create_tweet_list.py" # this hasn't been written yet!!! Return: prints to outfile a list of 100 tweets based on candidate selected; this CANNOT be overwritten with each candidate selection made, so filename needs to be different.
+
 
 if __name__ == '__main__':
     app.debug = True
