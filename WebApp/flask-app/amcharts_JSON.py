@@ -84,17 +84,7 @@ with open('static/data/social.json', 'w') as outfile:
 '''
 
 def organize_dumpfiles(cand):
-    if cand == "clinton":
-        f1, f2, f3 = "static/data/clinton/emotion.json", "static/data/clinton/writing.json", "static/data/clinton/social.json"
-    elif cand == "cruz":
-        f1, f2, f3 = "static/data/cruz/emotion.json", "static/data/cruz/writing.json", "static/data/cruz/social.json"
-    elif cand == "kasich":
-        f1, f2, f3 = "static/data/kasich/emotion.json", "static/data/kasich/writing.json", "static/data/kasich/social.json"
-    elif cand == "sanders":
-        f1, f2, f3 = "static/data/sanders/emotion.json", "static/data/clinton/sanders.json", "static/data/sanders/social.json"
-    elif cand == "trump":
-        f1, f2, f3 = "static/data/trump/emotion.json", "static/data/trump/writing.json", "static/data/trump/social.json"
-    return f1, f2, f3
+    return "static/data/" + cand + "/emotion.json", "static/data/" + cand + "/writing.json", "static/data/" + cand + "/social.json"
 
 def dump(f1, f2, f3, l1, l2, l3):
     with open(f1, 'w') as outfile1:
@@ -110,27 +100,9 @@ def clean_json_data(rawData):
 
 
 def dump_json_data(cand, rawData):
-    if cand == "clinton":
-        emo, wri, soc = clean_json_data(rawData)
-        f1, f2, f3 = organize_dumpfiles("clinton")
-    elif cand == "cruz":
-        emo, wri, soc = clean_json_data(rawData)
-        f1, f2, f3 = organize_dumpfiles("cruz")
-        dump(f1, f2, f3, l1, l2, l3)
-    elif cand == "kasich":
-        emo, wri, soc = clean_json_data(rawData)
-        f1, f2, f3 = organize_dumpfiles("kasich")
-    elif cand == "sanders":
-        emo, wri, soc = clean_json_data(rawData)
-        f1, f2, f3 = organize_dumpfiles("sanders")
-    elif cand == "trump":
-        emo, wri, soc = clean_json_data(rawData)
-        f1, f2, f3 = organize_dumpfiles("trump")
-    else:
-        print "Error: Invalid candidate name."
-    
+    emo, wri, soc = clean_json_data(rawData)
+    f1, f2, f3 = organize_dumpfiles(cand)
     dump(f1, f2, f3, emo, wri, soc)
-        
         
 
 if __name__ == "__main__":

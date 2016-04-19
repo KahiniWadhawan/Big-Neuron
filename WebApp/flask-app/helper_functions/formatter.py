@@ -10,22 +10,18 @@ __date__ = "$Apr 19, 2016 12:18:04 AM$"
 
 def format_into_divs(cand):
     
-    fo = open(cand+"_divs.txt", 'a')
+    fo        = open(cand+"_divs.txt", 'w')
     tweetlist = open("tweetlist_filename.txt", 'r')  #if cand == "clinton":
     
     count = 0
     for tweet in tweetlist:
-        l0 = "    <div class=\"radio\">"
-        l1 = "        <label style=\"background-color: #cccccc; padding:3px 3px;\" id=\"lbl" + count + "\" onclick=\"changeVisualization()\">"
-        l2 = "            <input type=\"radio\" name=\"optionsRadios\" id=\"optionsRadios" + count + "\" value=\"option" + count + "\">" + tweet
-        l3 = "        </label>"
-        l4 = "    </div>"
+        l0 = "    <div class=\"radio\">\n"
+        l1 = "        <label style=\"background-color: #cccccc; padding:3px 3px;\" id=\"lbl" + count + "\" onclick=\"changeVisualization()\">\n"
+        l2 = "            <input type=\"radio\" name=\"optionsRadios\" id=\"optionsRadios" + count + "\" value=\"option" + count + "\">" + tweet + "\n"
+        l3 = "        </label>\n"
+        l4 = "    </div>\n"
         
-        fo.write(l0)
-        fo.write(l1)
-        fo.write(l2)
-        fo.write(l3)
-        fo.write(l4)
+        fo.write(l0 + l1 + l2 + l3 + l4)
         
         count+=1
 
@@ -33,8 +29,8 @@ def format_into_divs(cand):
 if __name__ == "__main__":
     candidates = ["clinton", "cruz", "kasich", "sanders", "trump"]
     
-    '''
     for cand in candidates:
         format_into_divs(cand)
-    '''
+    ''' TO DO: Need tweet list before you can do testing!!
     format_into_divs("clinton")
+    '''
