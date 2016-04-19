@@ -14,3 +14,11 @@ lang varchar,
 retweet_count bigint,
 created_at varchar,
 sentiments_json varchar);
+
+CREATE TABLE IF NOT EXISTS HillaryClinton (
+counter bigint primary key,
+tweet_text varchar,
+lang varchar,
+retweet_count bigint,
+created_at varchar,
+sentiments_json varchar);
