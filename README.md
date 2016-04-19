@@ -48,6 +48,10 @@ Big Data| Spring 2016 | University of Colorado Boulder | Professor: Gregory Gree
 
 ##### preprocessing/  
 ##### spark/  
+##### databases/ 
+> cassandra/
+
+> mongodb/
 
 ##### Required Software/Versions
 
