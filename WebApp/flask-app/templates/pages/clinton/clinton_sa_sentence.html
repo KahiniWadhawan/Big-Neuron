@@ -258,6 +258,57 @@
     
     
     <script type="text/javascript">
+        function displayTweetText(candidate) {
+            
+            var tweetlist = "<filename>.txt";
+            for(var line = 0; line < tweetlist.length; line++)
+            {
+                if(candidate === "clinton")
+                {
+
+                }
+                else if(candidate === "cruz")
+                {
+
+                }
+                else if(candidate === "kasich")
+                {
+
+                }
+                else if(candidate === "sanders")
+                {
+
+                }
+                else if(candidate === "trump")
+                {
+
+                }
+            } 
+        }
+        
+        function displayTweetViz(candidate) {
+            if(candidate === "clinton")
+            {
+                
+            }
+            else if(candidate === "cruz")
+            {
+                
+            }
+            else if(candidate === "kasich")
+            {
+                
+            }
+            else if(candidate === "sanders")
+            {
+                
+            }
+            else if(candidate === "trump")
+            {
+                
+            }
+        }
+        
         function changeBackgroundColor() {
             var labels = ["lbl0",  "lbl1",  "lbl2",  "lbl3",  "lbl4",  "lbl5",  "lbl6",  "lbl7",  "lbl8",  "lbl9", "lbl10", "lbl11", "lbl12", "lbl13", "lbl14", "lbl15", "lbl16", "lbl17", "lbl18", "lbl19"];
 
@@ -286,21 +337,13 @@
         }
         
         function changeVisualization() {
+            
             changeBackgroundColor();
             
-            //execute amcharts_JSON.py
-            $.ajax({
-                type: "GET",
-                cache: false,
-                url: "../../../amcharts_JSON.py",
-                success: function( msg ) {
-                    alert( msg );
-                }
-            })
-                    .done(function(msg){ alert( "done " + msg );}).fail(function(msg) { alert("failed " + msg);});
-            //alert( "Executed AJAX code.");
-            
             //update iFrame
+            displayTweetViz(candidate)
+            
+            
         }
     </script>
     
