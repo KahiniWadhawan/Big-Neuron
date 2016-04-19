@@ -164,6 +164,14 @@ def alltweet():
     else:
         print "Error in alltweet(). Need to make an error page"
 
+'''
+    Renders the realtime dashboard for any candidate
+'''
+@app.route('/SA_PieChart_Multiple')
+def sa_piechart_multiple():
+    return render_template("SA_PieChart_Multiple.html")
+
+
 if __name__ == '__main__':
     app.debug = True
     app.run()

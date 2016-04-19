@@ -83,8 +83,8 @@ with open('static/data/social.json', 'w') as outfile:
     json.dump(l3, outfile)
 '''
 
-def organize_dumpfiles(cand):
-    return "static/data/" + cand + "/emotion.json", "static/data/" + cand + "/writing.json", "static/data/" + cand + "/social.json"
+def organize_dumpfiles( fpath ):
+    return fpath + "/emotion.json", fpath + "/writing.json", fpath + "/social.json"
 
 def dump(f1, f2, f3, l1, l2, l3):
     with open(f1, 'w') as outfile1:
@@ -99,9 +99,9 @@ def clean_json_data(rawData):
     return a['document_tone']['tone_categories'][0]['tones'], a['document_tone']['tone_categories'][1]['tones'], a['document_tone']['tone_categories'][2]['tones']
 
 
-def dump_json_data(cand, rawData):
+def dump_json_data(fpath, rawData):
     emo, wri, soc = clean_json_data(rawData)
-    f1, f2, f3 = organize_dumpfiles(cand)
+    f1, f2, f3 = organize_dumpfiles(fpath)
     dump(f1, f2, f3, emo, wri, soc)
         
 
