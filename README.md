@@ -23,8 +23,10 @@ Big Data| Spring 2016 | University of Colorado Boulder | Professor: Gregory Gree
 
 ## Legacy
 ##### analytics/  
-> sentimentAnalysis/  
+> sentimentAnalysis/ 
+
 > topics/
+
 > networkAnalysis/
 
 ##### visualizations/  
