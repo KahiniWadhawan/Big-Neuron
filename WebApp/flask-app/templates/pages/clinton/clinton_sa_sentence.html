@@ -184,8 +184,10 @@
                         <!-- /.col-lg-6 (nested) -->
                         
                         <!-- Visualization display section -->
-                        <div class="col-lg-6" style="overflow-y:scroll; height:645px;">
-                            <h1 style="color: #000000;">Various Visualizations Will Be In This Column</h1>
+                        <div class="col-lg-6" id="viz-section" style="left:20px;">
+                            <iframe src="http://www.w3schools.com" width="900" height="645">
+                                Sorry your browser does not support inline frames.
+                            </iframe>
                         </div>
                         <!-- /.col-lg-6 (nested) -->
                         <!-- End: Visualization display section -->
@@ -259,27 +261,10 @@
     
     <script type="text/javascript">
                 
-        function displayTweetViz(candidate) {
-            if(candidate === "clinton")
-            {
-                
-            }
-            else if(candidate === "cruz")
-            {
-                
-            }
-            else if(candidate === "kasich")
-            {
-                
-            }
-            else if(candidate === "sanders")
-            {
-                
-            }
-            else if(candidate === "trump")
-            {
-                
-            }
+        function displayTweetViz(tweetID) {
+            //use tweetID which is path to directory where the three json files are located
+            //add the js script from the amchart.html pages here (don't forget to add style above)
+            //display chart in iFrame
         }
         
         function changeBackgroundColor() {
@@ -310,19 +295,16 @@
         }
         
         function changeVisualization() {
-            
+                        
             changeBackgroundColor();
             
-            //update iFrame
-            displayTweetViz(candidate)
+            //update iFrame --> MAY NEED TO HAVE SEPARATE ON CLICK FUNCTION - see displayTweetViz above - CALLED IN IFRAME SECTION (id="viz_section") and NOT grouped within changeVisualization
+            displayTweetViz("../../static/data/clinton/tweet1");
             
             
         }
     </script>
     
-    
-    
-
 </body>
 
 </html>
