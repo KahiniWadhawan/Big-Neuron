@@ -52,7 +52,24 @@ def get_user_tweets(username,num=None):
 
     return tweets
 
+#---------------------------------------------------------------------------
+# Insert all tweets returned by the Cursor API and store them in Cassandra
+# Access table by Candidate's name
+#---------------------------------------------------------------------------
+def insert_tweets_to_db(username):
+    #getting user tweets
+    tweets = get_user_tweets(username)
+    #setting up db
+    session = db_connect()
 
+    for tweet in tweets:
+        t_collection.insert_one(tweet._json)
+        session.execute("insert into tweet_users (tweet_sno, tweet_text," +
+		"tweet_created_at, tweet_favcount, tweet_lang, tweet_place)" +
+		"values(str(i), str(tweet.text), str(tweet.created_at), int(tweet.favorite_count)," +
+		"'test','testing')")
+
+       
 
 
 
