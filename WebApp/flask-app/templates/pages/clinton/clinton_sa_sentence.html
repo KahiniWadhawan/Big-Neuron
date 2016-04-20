@@ -66,16 +66,17 @@
                         <h2 style="padding-bottom:10px">Tweet-Level Sentiment Analysis for Hillary Clinton</h2>
                         <hr class="star-light">
                         <span class="skills">See the sentiment surrounding a single Tweet.</span>
+                        <!-- Button link to Realtime SA page-->
                     </div>
                     <div class="row">
                         <div class="col-lg-6" style="overflow-y:scroll; height:645px;">
                             <form role="form">
                                 <div class="form-group" >
                                     <div class="radio-button"  >
-                                        <div style="height:500px; color:#000000; text-align:left; padding-left:5px;">
+                                        <div style="color:#000000; text-align:left; padding-left:5px;">
                                             <div class="radio">
-                                                <label style="background-color: #cccccc; padding:3px 3px;" id="lbl0" onclick="changeVisualization()">
-                                                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">@HillaryClinton says she takes on Trump because "I don't want anybody...to think he speaks for anybody but himself"
+                                                <label style="background-color: #cccccc; padding:3px 3px;" id="lbl0" onclick="changeBackgroundColor()">
+                                                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1"><a href="{{ url_for('sa_piechart_multiple')  }}" target="viz">@HillaryClinton says she takes on Trump because "I don't want anybody...to think he speaks for anybody but himself"</a>
                                                 </label>
                                             </div>
                                             <div class="radio">
@@ -184,8 +185,8 @@
                         <!-- /.col-lg-6 (nested) -->
                         
                         <!-- Visualization display section -->
-                        <div class="col-lg-6" id="viz-section" style="left:20px;">
-                            <iframe src="http://www.w3schools.com" width="900" height="645">
+                        <div class="col-lg-6" style="left:20px;">
+                            <iframe name="viz" width="900" height="645">
                                 Sorry your browser does not support inline frames.
                             </iframe>
                         </div>
@@ -257,15 +258,8 @@
     
     <!-- Custom Theme JavaScript -->
     <script src="../../static/js/freelancer.js"></script>
-    
-    
+   
     <script type="text/javascript">
-                
-        function displayTweetViz(tweetID) {
-            //use tweetID which is path to directory where the three json files are located
-            //add the js script from the amchart.html pages here (don't forget to add style above)
-            //display chart in iFrame
-        }
         
         function changeBackgroundColor() {
             var labels = ["lbl0",  "lbl1",  "lbl2",  "lbl3",  "lbl4",  "lbl5",  "lbl6",  "lbl7",  "lbl8",  "lbl9", "lbl10", "lbl11", "lbl12", "lbl13", "lbl14", "lbl15", "lbl16", "lbl17", "lbl18", "lbl19"];
@@ -292,16 +286,6 @@
                     elmnt.style.backgroundColor = "lightgray"; 
                 }
             }
-        }
-        
-        function changeVisualization() {
-                        
-            changeBackgroundColor();
-            
-            //update iFrame --> MAY NEED TO HAVE SEPARATE ON CLICK FUNCTION - see displayTweetViz above - CALLED IN IFRAME SECTION (id="viz_section") and NOT grouped within changeVisualization
-            displayTweetViz("../../static/data/clinton/tweet1");
-            
-            
         }
     </script>
     

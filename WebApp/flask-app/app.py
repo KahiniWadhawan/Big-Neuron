@@ -167,9 +167,9 @@ def alltweet():
 '''
     Renders the realtime dashboard for any candidate
 '''
-@app.route('/SA_PieChart_Multiple')
+@app.route('/SA_PieChart_Multiple.html')
 def sa_piechart_multiple():
-    return render_template("SA_PieChart_Multiple.html")
+    return render_template("viz/SA_PieChart_Multiple.html")
 
 
 if __name__ == '__main__':
