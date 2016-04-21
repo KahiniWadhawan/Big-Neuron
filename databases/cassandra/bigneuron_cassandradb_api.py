@@ -58,18 +58,18 @@ def get_user_tweets(username,num=None):
 #---------------------------------------------------------------------------
 def insert_tweets_to_db(username):
     #getting user tweets
-    tweets = get_user_tweets(username)
+    tweets = get_user_tweets(username,1)
     #setting up db
     session = db_connect()
 
     for tweet in tweets:
-        t_collection.insert_one(tweet._json)
-        session.execute("insert into tweet_users (tweet_sno, tweet_text," +
-		"tweet_created_at, tweet_favcount, tweet_lang, tweet_place)" +
-		"values(str(i), str(tweet.text), str(tweet.created_at), int(tweet.favorite_count)," +
-		"'test','testing')")
+        print(tweet._json.keys())
+        # session.execute("insert into " + username + " (tweet_sno, tweet_text," +
+		# "tweet_created_at, tweet_favcount, tweet_lang, tweet_place)" +
+		# "values(str(tweet._json.id), str(tweet._json.text), str(tweet.created_at),
+        #int(tweet.favorite_count)," + "'test','testing')")
 
-       
+#insert_tweets_to_db('realDonaldTrump')
 
 
 
