@@ -76,6 +76,7 @@ function draw(data, bounds) {
 }
 
 function update() {
+    console.log(tags.length);
     layout.font('impact').spiral('archimedean');
     fontSize = d3.scale['sqrt']().range([10, 100]);
     if (tags.length){
