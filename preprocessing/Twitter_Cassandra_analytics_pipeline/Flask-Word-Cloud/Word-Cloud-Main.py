@@ -1,4 +1,4 @@
-from flask import Flask,request
+from flask import Flask,request,render_template
 
 app = Flask(__name__)
 
@@ -50,5 +50,14 @@ def show_post(post_id):
 
 '''
 '''
+@app.route('/Realtime')
+def index():
+	return "This is the index page for word cloud"%request.method
+
+@app.route('/WordCloud')
+def index():
+	return "This is the index page for word cloud"%request.method
+
+
 if __name__=="__main__":
 	app.run(debug=True)
