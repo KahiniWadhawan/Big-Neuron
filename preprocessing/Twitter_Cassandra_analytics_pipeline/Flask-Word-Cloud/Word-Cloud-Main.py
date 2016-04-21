@@ -14,7 +14,7 @@ def index():
 '''
 @app.route('/')
 def index():
-	return "This is the index page for word cloud"%request.method
+	return "This is the index page for word cloud"
 
 @app.route('/homepage',methods=['GET','POST'])
 def homepage():
@@ -51,13 +51,13 @@ def show_post(post_id):
 '''
 '''
 @app.route('/Realtime')
-def index():
-	return "This is the index page for word cloud"%request.method
+def Realtime():
+	return render_template("index.html")
 
 @app.route('/WordCloud')
-def index():
+def WordCloud():
 	return "This is the index page for word cloud"%request.method
 
 
 if __name__=="__main__":
-	app.run(debug=True)
+	app.run()
