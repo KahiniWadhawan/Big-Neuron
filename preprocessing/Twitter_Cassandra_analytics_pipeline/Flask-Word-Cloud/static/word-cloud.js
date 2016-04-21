@@ -1,11 +1,7 @@
+//http://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_onclick_win
 var fill = d3.scale.category20b();
-
-var w = window.innerWidth,
-        h = window.innerHeight;
-
-var max,
-        fontSize;
-
+var w = window.innerWidth,h = window.innerHeight;
+var max,fontSize;
 var layout = d3.layout.cloud()
         .timeInterval(Infinity)
         .size([w, h])
@@ -25,7 +21,8 @@ var vis = svg.append("g").attr("transform", "translate(" + [w >> 1, h >> 1] + ")
 
 update();
 
-window.onresize = function(event) {
+
+window.onclick = function(event) {
     update();
 };
 

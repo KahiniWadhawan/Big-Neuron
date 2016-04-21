@@ -50,13 +50,14 @@ def show_post(post_id):
 
 '''
 '''
+'''
 @app.route('/Realtime')
 def Realtime():
 	return render_template("index.html")
-
+'''
 @app.route('/WordCloud')
 def WordCloud():
-	return "This is the index page for word cloud"%request.method
+	return render_template("index.html")
 
 
 if __name__=="__main__":
