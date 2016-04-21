@@ -2,11 +2,21 @@ from flask import Flask,request
 
 app = Flask(__name__)
 
+'''
+@app.route('/')
+def index():
+	return "This is the index page for word cloud" %request.method
+'''
+'''
 @app.route('/')
 def index():
 	return "This is the index page for word cloud"
+'''
+@app.route('/')
+def index():
+	return "This is the index page for word cloud"%request.method
 
-@app.route('/homepage')
+@app.route('/homepage',methods=['GET','POST'])
 def homepage():
 	return "<h2>  Visualisation will be displayed here </h2>"
 
