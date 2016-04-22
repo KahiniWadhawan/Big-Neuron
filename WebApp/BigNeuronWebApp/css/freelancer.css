@@ -131,6 +131,8 @@ header .intro-text .skills {
         transition: padding .3s;
     }
 
+
+    /* the top-left floating branding*/
     .navbar-fixed-top .navbar-brand {
         position: relative;
         font-size: 2em;
@@ -161,7 +163,7 @@ header .intro-text .skills {
 
 @media(min-width:768px) {
     .navbar-fixed-bottom {
-        padding: 5px 0;
+        padding: 1px 0;
         -webkit-transition: padding .3s;
         -moz-transition: padding .3s;
         transition: padding .3s;
@@ -175,11 +177,12 @@ header .intro-text .skills {
     }
 
     .navbar-fixed-bottom.navbar-shrink {
-        padding: 10px 0;
+        padding: 2px 0;
     }
 
     .navbar-fixed-bottom.navbar-shrink .navbar-brand {
         font-size: 1.5em;
+
     }
 }
 
@@ -187,8 +190,14 @@ header .intro-text .skills {
     text-transform: uppercase;
     font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
     font-weight: 700;
-    height: 20px;
-  
+    min-height: 40px !important
+   
+}
+
+.nav>li>a {
+    position: relative;
+    display: block;
+    padding: 12px 15px 30px;
 }
 
 .navbar a:focus {
@@ -386,7 +395,9 @@ footer .footer-col {
 }
 
 footer .footer-below {
-    padding: 25px 0;
+    position: relative;
+    bottom: 40px;
+    padding: 5px 0;
     background-color: #233140;
 }
 
