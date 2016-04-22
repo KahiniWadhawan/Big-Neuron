@@ -44,8 +44,8 @@ Login - for developers - CLI tools and API access
 16. revision history of instances - chef, puppet tools 
 
 Connecting to an instance:
-For Windows see: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/putty.html
 
+For Windows see: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/putty.html
 For Linux see: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AccessingInstancesLinux.html
 
 
