@@ -46,6 +46,7 @@ Login - for developers - CLI tools and API access
 Connecting to an instance:
 
 For Windows see: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/putty.html
+
 For Linux see: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AccessingInstancesLinux.html
 
 
@@ -61,4 +62,4 @@ For Linux see: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AccessingInst
 7. Different Instance types??  
 
 'Research Done by Kahini Wadhawan'
-'Ammended by Michael Muehlbradt'
+'Amended by Michael Muehlbradt'
