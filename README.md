@@ -14,7 +14,7 @@ Big Data| Spring 2016 | University of Colorado Boulder | Professor: Gregory Gree
 
 ###Project Tools:
 + Data Source: Twitter Streaming Api
-+ Analytics tool: IBM Tone Analyzer
++ Analytics tool: IBM Tone Analyzer, Gensim for Topic Modelling, Networkx for Graph Analytics
 + Web Framework: Flask
 + Database: Mongo DB and Appache Cassandra
 + Cloud Computing Service: AWS
@@ -23,7 +23,11 @@ Big Data| Spring 2016 | University of Colorado Boulder | Professor: Gregory Gree
 
 ## Legacy
 ##### analytics/  
-> sentimentAnalysis/  
+> sentimentAnalysis/ 
+
+> topics/
+
+> networkAnalysis/
 
 ##### visualizations/  
 > wordcloud/  
@@ -38,8 +42,16 @@ Big Data| Spring 2016 | University of Colorado Boulder | Professor: Gregory Gree
 
 > US Map
 
+> D3 Zoomable Pack Layout for Topic Modelling 
+
+> D3 Force directed graph for Follower Network
+
 ##### preprocessing/  
 ##### spark/  
+##### databases/ 
+> cassandra/
+
+> mongodb/
 
 ##### Required Software/Versions
 
@@ -47,7 +59,7 @@ Big Data| Spring 2016 | University of Colorado Boulder | Professor: Gregory Gree
 
 > CQLSH v 5.0.1/
 
-> Apache Spark v???/
+> Apache Spark v/
 
 > Mongdb 3.2.3
 

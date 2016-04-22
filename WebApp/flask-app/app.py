@@ -10,7 +10,7 @@
 __author__ = "Jessica, Tanvi"
 __date__ = "$Apr 14, 2016 11:39:45 PM$"
 
-from flask import Flask, render_template, request, session, g
+from flask import Flask, render_template, request, session
 
 app = Flask(__name__)
 
@@ -127,7 +127,7 @@ def topic():
 '''
 @app.route('/tweetlevel')
 def tweetlevel():
-    print "Inside All tweets functions" 
+    print "Inside tweet level function" 
     cand = session['candidate']
     print "In Sentence-level, session['candidate'] is - ", cand
     if cand == 'clinton':
@@ -148,7 +148,7 @@ def tweetlevel():
 '''
 @app.route('/alltweet')
 def alltweet():
-    print "Inside All tweets functions" 
+    print "Inside All tweets function" 
     cand = session['candidate']
     print "In Document-level, session['candidate'] is - ", cand
     if cand == 'clinton':
@@ -163,6 +163,14 @@ def alltweet():
         return render_template("pages/trump/trump_sa_document.html")
     else:
         print "Error in alltweet(). Need to make an error page"
+
+'''
+    Renders the realtime dashboard for any candidate
+'''
+@app.route('/SA_PieChart_Multiple.html')
+def sa_piechart_multiple():
+    return render_template("viz/SA_PieChart_Multiple.html")
+
 
 if __name__ == '__main__':
     app.debug = True

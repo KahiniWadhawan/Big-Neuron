@@ -13,7 +13,8 @@ Login - for developers - CLI tools and API access
 5. choose an Instance type. - leave it the default. 
 6. click next - configure instance details.
 7. click add storage 
-8. click tag instance - but how to make the volume encrypted ?? Free tier subscription allows up to 30gb of SSD
+8. click tag instance  Free tier subscription allows up to 30gb of SSD
+      The root drive can not be encrypted.Any subsequent virtual drive can be fully encrypted
 9. setup security group - setup ssh rules to allow access from known IP addresses only. 
 10. Always back up your instance by - EBS - “root device type” = EBS, then its backed up. 
 11. Initializing instance after launching it may take some time - 2-3 minutes approx. 
@@ -42,6 +43,13 @@ Login - for developers - CLI tools and API access
 15. 	Always back up your instance by - EBS - “root device type” = EBS, then its backed up. 
 16. revision history of instances - chef, puppet tools 
 
+Connecting to an instance:
+
+For Windows see: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/putty.html
+
+For Linux see: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AccessingInstancesLinux.html
+
+
 
 ####Things to dig up more:- 
 
@@ -54,3 +62,4 @@ Login - for developers - CLI tools and API access
 7. Different Instance types??  
 
 'Research Done by Kahini Wadhawan'
+'Amended by Michael Muehlbradt'

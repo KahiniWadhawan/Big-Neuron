@@ -286,6 +286,17 @@ section.success a.active {
     }
 }
 
+
+#section_charts * {
+    z-index: 2;
+    background-color: #ffffff;
+}
+
+#section_about * {
+    z-index: 2;
+}
+
+
 .btn-outline {
     margin-top: 15px;
     border: solid 2px #fff;
