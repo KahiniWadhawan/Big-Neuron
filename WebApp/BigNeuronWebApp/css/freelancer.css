@@ -135,7 +135,7 @@ header .intro-text .skills {
     /* the top-left floating branding*/
     .navbar-fixed-top .navbar-brand {
         position: relative;
-        font-size: 2em;
+        font-size: 1.8em;
         left: 20px;
         top: 10px;
         -webkit-transition: all .3s;
@@ -147,10 +147,12 @@ header .intro-text .skills {
     }
 
     .navbar-fixed-top.navbar-shrink {
+        min-height: 5px;
         padding: 10px 0;
     }
 
     .navbar-fixed-top.navbar-shrink .navbar-brand {
+       
         font-size: 1.5em;
         background: black;
     }
@@ -397,6 +399,13 @@ footer .footer-col {
 footer .footer-below {
     position: relative;
     bottom: 40px;
+    padding: 5px 0;
+    background-color: #233140;
+}
+
+footer .footer-below-indep {
+    position: relative;
+    
     padding: 5px 0;
     background-color: #233140;
 }
