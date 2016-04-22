@@ -72,8 +72,20 @@
                         <div class="col-lg-6" style="overflow-y:scroll; height:645px;">
                             <form role="form">
                                 <div class="form-group" >
-                                    <div class="radio-button"  >
+                                    <div class="radio-button">
                                         <div style="color:#000000; text-align:left; padding-left:5px;">
+                                            {% for tweet in tweet_list %}
+                                            <div class="radio">
+                                                <label style="background-color: #cccccc; padding:3px 3px;" onclick="changeBackgroundColor()">
+                                                    <input type="radio"><a href="{{ url_for('tweetlevel')  }}">{{tweet}}</a>
+                                                </label>
+                                            </div>
+                                            {% endfor %}
+                                           <!--<div class="radio">
+                                                <label style="background-color: #cccccc; padding:3px 3px;" id="lbl0" onclick="changeBackgroundColor()">
+                                                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1"><a href="{{ url_for('sa_piechart_multiple')  }}" target="viz">@HillaryClinton says she takes on Trump because "I don't want anybody...to think he speaks for anybody but himself"</a>
+                                                </label>
+                                            </div>
                                             <div class="radio">
                                                 <label style="background-color: #cccccc; padding:3px 3px;" id="lbl0" onclick="changeBackgroundColor()">
                                                     <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1"><a href="{{ url_for('sa_piechart_multiple')  }}" target="viz">@HillaryClinton says she takes on Trump because "I don't want anybody...to think he speaks for anybody but himself"</a>
@@ -173,7 +185,7 @@
                                                 <label style="background-color:#cccccc; padding:3px 3px;" id="lbl19" onclick="changeBackgroundColor()">
                                                     <input type="radio" name="optionsRadios" id="optionsRadios20" value="option20">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. 
                                                 </label>
-                                            </div>
+                                            </div>-->
                                         </div>
 
                                     </div>

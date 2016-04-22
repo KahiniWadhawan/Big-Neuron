@@ -11,15 +11,21 @@ __author__ = "Jessica, Tanvi"
 __date__ = "$Apr 14, 2016 11:39:45 PM$"
 
 from flask import Flask, render_template, request, session
+import sys
+import os
 
 app = Flask(__name__)
-
 # Sessions variables are stored client side, on the users browser
 # the content of the variables is encrypted, so users can't
 # actually see it. They could edit it, but again, as the content
 # wouldn't be signed with this hash key, it wouldn't be valid
 # You need to set a scret key (random text) and keep it secret
 app.secret_key = 'F12Zr47j\3yX R~X@H!jmM]Lwf/,?KT'
+
+#sys.path.append(os.path.dirname(__file__) + r"/static/data/dummy_db.py")  #append path to db api module that has the method to get list of top tweets
+from dummy_db import get_jsons  #Do we have a tone analyzer module -or- are we inserting tweets by hand into IBM tone analyzer to get the json output?
+
+
 
 '''
     Renders the dashboard.
@@ -131,15 +137,29 @@ def tweetlevel():
     cand = session['candidate']
     print "In Sentence-level, session['candidate'] is - ", cand
     if cand == 'clinton':
-        return render_template("pages/clinton/clinton_sa_sentence.html")
+        #TO DO: get tweet list as a list of strings(eg: tweet_list) from db api function kahini wrote
+        #tweet_list = [User.load(db, uid) for uid in db] #however kahini loads it using her api
+        tweet_dict = get_jsons()
+        tweet_list = []
+        for key in tweet_dict:
+            tweet_list.append(tweet_dict[key])
+        return render_template("pages/clinton/clinton_sa_sentence.html", tweet_list=tweet_list)
     elif cand == 'cruz':
-        return render_template("pages/cruz/cruz_sa_sentence.html")
+        #TO DO: get tweet list as a list of strings(eg: tweet_list) from db api function kahini wrote
+        tweet_list = []
+        return render_template("pages/cruz/cruz_sa_sentence.html", tweet_list=tweet_list)
     elif cand == 'kasich':
-        return render_template("pages/kasich/kasich_sa_sentence.html")
+        #TO DO: get tweet list as a list of strings(eg: tweet_list) from db api function kahini wrote
+        tweet_list = [User.load(db, uid) for uid in db] #however kahini loads it using her api
+        return render_template("pages/kasich/kasich_sa_sentence.html", tweet_list=tweet_list)
     elif cand == 'sanders':
-        return render_template("pages/sanders/sanders_sa_sentence.html")
+        #TO DO: get tweet list as a list of strings(eg: tweet_list) from db api function kahini wrote
+        tweet_list = [User.load(db, uid) for uid in db] #however kahini loads it using her api
+        return render_template("pages/sanders/sanders_sa_sentence.html", tweet_list=tweet_list)
     elif cand == 'trump':
-        return render_template("pages/trump/trump_sa_sentence.html")
+        #TO DO: get tweet list as a list of strings(eg: tweet_list) from db api function kahini wrote
+        tweet_list = [User.load(db, uid) for uid in db] #however kahini loads it using her api
+        return render_template("pages/trump/trump_sa_sentence.html", tweet_list=tweet_list)
     else:
         print "Error in tweetlevel(). Need to make an error page"
 
