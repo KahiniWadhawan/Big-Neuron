@@ -134,12 +134,8 @@ def insert_data_table_tweets(candname):
     session = db_connect()
 
     for tweet in tweets:
-        print('in for::',tweet.text)
-        #print(tweet._json.keys())
-        # session.execute("insert into " + username + " (tweet_sno, tweet_text," +
-		# "tweet_created_at, tweet_favcount, tweet_lang, tweet_place)" +
-		# "values(str(tweet._json.id), str(tweet._json.text), str(tweet.created_at),
-        #int(tweet.favorite_count)," + "'test','testing')")
+        #print('in for::',tweet.text)
+
         #below method returns date format - 2016-04-22 23:33:20
         #date_time = str(tweet.created_at).split()
         #the below method returns date format -  u'Fri Apr 22 23:33:20 +0000 2016'
@@ -164,6 +160,7 @@ def insert_data_table_tweets(candname):
 def prepare_tweets_query(candname, tweet):
     #creating table name
     table_name = candname + '_tweets'
+
     tweets_query = "insert into " + table_name + "(" + \
                 "tweet_id, " \
                 "tweet_text, " \
@@ -185,17 +182,6 @@ def prepare_tweets_query(candname, tweet):
     print(tweets_query)
     return tweets_query
 
-# tweet_id varchar primary key,
-# created_at varchar,
-# tone_json text,
-# emotion_json text,
-# writing_json text,
-# social_json text,
-# anger_score double,
-# joy_score double,
-# fear_score double,
-# sadness_score double,
-# disgust_score double
 
 def prepare_sentencelevel_query(candname,tweet):
     #creating table name
@@ -214,7 +200,7 @@ def prepare_sentencelevel_query(candname,tweet):
 
     #processing and getting emotion scores
     emotion_scores_dict = get_emotion_scores(emotion_json)
-    
+
     sentencelevel_query = "insert into " + table_name + "(" + \
                 "tweet_id," \
                 "created_at, " \
