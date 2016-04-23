@@ -1,5 +1,5 @@
 var tags = [
-{"key": "Cat", "value": 26}, 
+ 
 {"key": "fish", "value": 19}, 
 {"key": "things", "value": 18}, 
 {"key": "look", "value": 16}, 
