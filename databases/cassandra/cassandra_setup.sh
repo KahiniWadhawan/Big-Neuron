@@ -15,28 +15,34 @@ USE TwitterDataSet;
 #Tables for Donal Trump
 #------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS realDonaldTrump_tweets (
-counter bigint primary key,
+tweet_id bigint primary key,
 tweet_text varchar,
 lang varchar,
 retweet_count bigint,
-created_at varchar,
-sentiments_json varchar);
+created_at timestamp);
+
+#--------------------------------------------------------
+#Sentence Level and Doc level analysis tables are merged
+#-------------------------------------------------------
 
 CREATE TABLE IF NOT EXISTS realDonaldTrump_sentencelevel (
-counter bigint primary key,
-tweet_text varchar,
-lang varchar,
-retweet_count bigint,
-created_at varchar,
-sentiments_json varchar);
+tweet_id bigint primary key,
+created_at timestamp,
+tone_json text,
+emotion_json text,
+writing_json text,
+social_json text,
+anger_score double,
+joy_score double,
+fear_score double,
+sadness_score double,
+disgust_score double);
 
-CREATE TABLE IF NOT EXISTS realDonaldTrump_wordcloud (
-counter bigint primary key,
-tweet_text varchar,
-lang varchar,
-retweet_count bigint,
-created_at varchar,
-sentiments_json varchar);
+#CREATE TABLE IF NOT EXISTS realDonaldTrump_wordcloud (
+#counter bigint primary key,
+#tweet_text varchar,
+#lang varchar,
+#retweet_count bigint);
 
 CREATE TABLE IF NOT EXISTS realDonaldTrump_topics (
 counter bigint primary key,
