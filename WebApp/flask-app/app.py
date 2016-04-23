@@ -148,7 +148,7 @@ def tweetlevel():
 '''
 @app.route('/alltweet')
 def alltweet():
-    print "Inside All tweets function" 
+    print "Inside All tweets - Document-level function" 
     cand = session['candidate']
     print "In Document-level, session['candidate'] is - ", cand
     if cand == 'clinton':
