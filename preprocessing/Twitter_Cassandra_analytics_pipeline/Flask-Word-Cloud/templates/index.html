@@ -3,6 +3,8 @@
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
+        <script type="text/javascript" src="/static/tags.js"></script>    
+
 -->
 <html>
     <head>
@@ -11,33 +13,70 @@ and open the template in the editor.
         <script type="text/javascript" src="/static/d3.js"></script>
         <script type="text/javascript" src="/static/d3.layout.cloud.js"></script>
         <script type="text/javascript" src="/static/jquery.min.js"></script>
-        <script type="text/javascript" src="/static/tags.js"></script>    
+        <script type="text/javascript">
+            var tags = [             
+            {"key": "fish", "value": 19}, 
+            {"key": "things", "value": 18}, 
+            {"key": "look", "value": 16}, 
+            {"key": "two", "value": 15}, 
+            {"key": "like", "value": 14}, 
+            {"key": "hat", "value": 14}, 
+            {"key": "Oh", "value": 13}, 
+            {"key": "mother", "value": 12}, 
+            {"key": "One", "value": 12}, 
+            {"key": "Now", "value": 12}, 
+            {"key": "Thing", "value": 12}, 
+            {"key": "house", "value": 10}, 
+            {"key": "fun", "value": 9}, 
+            {"key": "know", "value": 9}, 
+            {"key": "good", "value": 9}, 
+            {"key": "saw", "value": 9}, 
+            {"key": "bump", "value": 8}, 
+            {"key": "hold", "value": 7}, 
+            {"key": "fear", "value": 6}, 
+            {"key": "game", "value": 6}, 
+            {"key": "play", "value": 6}, 
+            {"key": "Sally", "value": 6}, 
+            {"key": "wet", "value": 6}, 
+            {"key": "little", "value": 6}, 
+            {"key": "box", "value": 6}, 
+            {"key": "came", "value": 6}, 
+            {"key": "away", "value": 6}, 
+            {"key": "sit", "value": 5}, 
+            {"key": "ran", "value": 5}, 
+            {"key": "big", "value": 5}, 
+            {"key": "something", "value": 5}, 
+            {"key": "put", "value": 5}];
+        </script>
     </head>
     <body>
         <div id="vis"></div>
         <script type="text/javascript" src="/static/word-cloud.js"></script>
-    
+        <div id="demo"><h2>Let AJAX change this text</h2></div>
+        <button type="button" onclick="loadDoc()">Change Content</button>
+    <script type="text/javascript">
+
+  function loadDoc() {
+              var xhttp = new XMLHttpRequest();
+              xhttp.onreadystatechange = function() {
+                if (xhttp.readyState == 4 && xhttp.status == 200) {
+                  document.getElementById("demo").innerHTML = xhttp.responseText;
+                }
+              };
+
+             xhttp.open("GET", "/static/data.json?something="+Math.random().toString(), true);
+
+            xhttp.send();
+            }
 
 
 
-    <div id="demo"><h2>Let AJAX change this text</h2></div>
 
-    <button type="button" onclick="loadDoc()">Change Content</button>
-    <script>
-    function loadDoc() {
-      var xhttp = new XMLHttpRequest();
-      xhttp.onreadystatechange = function() {
-        if (xhttp.readyState == 4 && xhttp.status == 200) {
-          document.getElementById("demo").innerHTML = xhttp.responseText;
 
-        }
-      };
 
-     xhttp.open("GET", "/static/data.json?something="+Math.random().toString(), true);
 
-  xhttp.send();
-}
-</script>
+
+    </script>>
 </body>
 </html>
 

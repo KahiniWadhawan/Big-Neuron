@@ -13,6 +13,7 @@ var layout = d3.layout.cloud()
         })
         .on("end", draw);
 
+//vis covers the whole screen
 var svg = d3.select("#vis").append("svg")
         .attr("width", w)
         .attr("height", h);
@@ -44,7 +45,7 @@ function draw(data, bounds) {
                 return d.text.toLowerCase();
             });
     text.transition()
-            .duration(1000)
+            .duration(2000)
             .attr("transform", function(d) {
                 return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
             })
@@ -79,9 +80,13 @@ function draw(data, bounds) {
 function update() {
     //var tags= ""
      //tags = JSON.parse(tags1)
-    console.log("Length = "+tags.length);
-    console.log("3"+tags);
-    
+    for (var i = 0; i<tags.length;i++)
+    {
+        console.log(tags[i])
+        console.log(typeof tags[i])
+    }
+
+
     layout.font('impact').spiral('archimedean');
     fontSize = d3.scale['sqrt']().range([10, 100]);
     if (tags.length){
