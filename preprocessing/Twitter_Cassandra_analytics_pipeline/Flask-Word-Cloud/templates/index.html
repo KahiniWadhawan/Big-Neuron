@@ -19,7 +19,7 @@
  AmCharts.ready(function () {
                 // SERIAL CHART
                 chart = new AmCharts.AmSerialChart();
-                chart.dataProvider = chartData;
+                chart.dataProvider = chartData1;
                 chart.categoryField = "year";
                 // this single line makes the chart a bar chart,
                 // try to set it to false - your bars will turn to columns
@@ -61,6 +61,50 @@
                 chart.write("chartdiv");
             });
 
+ AmCharts.ready(function () {
+                // SERIAL CHART
+                chart = new AmCharts.AmSerialChart();
+                chart.dataProvider = chartData2;
+                chart.categoryField = "year";
+                // this single line makes the chart a bar chart,
+                // try to set it to false - your bars will turn to columns
+                chart.rotate = true;
+                // the following two lines makes chart 3D
+                chart.depth3D = 20;
+                chart.angle = 30;
+
+                // AXES
+                // Category
+                var categoryAxis = chart.categoryAxis;
+                categoryAxis.gridPosition = "start";
+                categoryAxis.axisColor = "#DADADA";
+                categoryAxis.fillAlpha = 1;
+                categoryAxis.gridAlpha = 0;
+                categoryAxis.fillColor = "#FAFAFA";
+
+                // value
+                var valueAxis = new AmCharts.ValueAxis();
+                valueAxis.axisColor = "#DADADA";
+                valueAxis.title = "Income in millions, USD";
+                valueAxis.gridAlpha = 0.1;
+                chart.addValueAxis(valueAxis);
+
+                // GRAPH
+                var graph = new AmCharts.AmGraph();
+                graph.title = "Income";
+                graph.valueField = "income";
+                graph.type = "column";
+                graph.balloonText = "Income in [[category]]:[[value]]";
+                graph.lineAlpha = 0;
+                graph.fillColors = "#bf1c25";
+                graph.fillAlphas = 1;
+                chart.addGraph(graph);
+
+                chart.creditsPosition = "top-right";
+
+                // WRITE
+                chart.write("chartdiv");
+            });
 
 </script>>
 
@@ -73,8 +117,11 @@
             <br><br><br><br>
             <p> Hi wassssup </p>
         </div>
-        <div id="chartdiv" style="width: 500px; height: 600px;"></div>
-   
+        <div class="row">
+
+            <div id="chartdiv1" style="width: 500px; height: 600px;"></div>
+            <div id="chartdiv2" style="width: 500px; height: 600px;"></div>
+        </div>   
 </body>
 </html>
 
