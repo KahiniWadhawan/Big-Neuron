@@ -44,22 +44,15 @@ disgust_score double);
 #lang varchar,
 #retweet_count bigint);
 
+#revisit - decide on fields
 CREATE TABLE IF NOT EXISTS realDonaldTrump_topics (
-counter bigint primary key,
-tweet_text varchar,
-lang varchar,
-retweet_count bigint,
-created_at varchar,
-sentiments_json varchar);
+time_duration primary key,  #could be maintained by week
+topics_json text);
 
+#revisit - decide on fields
 CREATE TABLE IF NOT EXISTS realDonaldTrump_graph (
-counter bigint primary key,
-tweet_text varchar,
-lang varchar,
-retweet_count bigint,
-created_at varchar,
-sentiments_json varchar);
-
+till_time timestamp primary key,
+graph_json text);
 
 
 CREATE TABLE IF NOT EXISTS HillaryClinton (
