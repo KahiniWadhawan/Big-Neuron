@@ -23,6 +23,7 @@ update();
 
 
 window.onclick = function(event) {
+
     update();
 };
 
@@ -76,7 +77,11 @@ function draw(data, bounds) {
 }
 
 function update() {
-    console.log(tags.length);
+    //var tags= ""
+     //tags = JSON.parse(tags1)
+    console.log("Length = "+tags.length);
+    console.log("3"+tags);
+    
     layout.font('impact').spiral('archimedean');
     fontSize = d3.scale['sqrt']().range([10, 100]);
     if (tags.length){

@@ -1,6 +1,5 @@
-var tags = [
- 
-{"key": "fish", "value": 19}, 
+[
+
 {"key": "things", "value": 18}, 
 {"key": "look", "value": 16}, 
 {"key": "two", "value": 15}, 
@@ -31,4 +30,4 @@ var tags = [
 {"key": "ran", "value": 5}, 
 {"key": "big", "value": 5}, 
 {"key": "something", "value": 5}, 
-{"key": "put", "value": 5}];
+{"key": "put", "value": 5}]
