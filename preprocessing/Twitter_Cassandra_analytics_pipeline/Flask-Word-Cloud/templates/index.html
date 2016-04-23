@@ -1,5 +1,40 @@
 <!DOCTYPE html>
 <!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+        <script type="text/javascript" src="/static/tags.js"></script> 
+           
+
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <script type="text/javascript" src="/static/d3.js"></script>
+        <script type="text/javascript" src="/static/d3.layout.cloud.js"></script>
+        <script type="text/javascript" src="/static/jquery.min.js"></script>
+       
+        
+<script type="text/javascript">
+  
+
+        </script>
+    </head>
+    <body>
+        <div id="vis"></div>
+        <script type="text/javascript" src="/static/word-cloud.js"></script>
+
+   
+</body>
+</html>
+
+
+
+
+<!--
+        <script type="text/javascript" src="/static/tags.js"></script>    
+
 Reference
 https://github.com/shprink/d3js-wordcloud
 To change this license header, choose License Headers in Project Properties.
@@ -8,34 +43,48 @@ and open the template in the editor.
  <script type="text/javascript" src="/static/tags.js"></script>
                     <script type="text/javascript" src="/static/word-cloud.js"></script>
 -->
+<!--
+
 <html>
     <head>
         <title>TODO supply a title</title>
         <meta charset="UTF-8"> 
         <script type="text/javascript" src="/static/d3.js"></script>
         <script type="text/javascript" src="/static/d3.layout.cloud.js"></script>
-        <script type="text/javascript" src="/static/tags.js"></script>    
+        <script type="text/javascript" src="/static/jquery.min.js"></script>
+        <script type="text/javascript" src="/static/word-cloud.js"></script>
+
+       
+
     </head>
     <body>
         <div id="vis"></div>  
             <script type="text/javascript">
-            function getScript(url) {
-    e = document.createElement('script');
-    e.src = url;
-    document.body.appendChild(e);
-}
+            function getScript() 
+                {
+                    e = document.createElement('script');
+                    e.src = url1;
+                    document.body.appendChild(e);
+                    $.get("/static/data.json", function(json) {
+                    console.log(json); // this will show the info it in firebug console
+                    tags = JSON.parse(json);
+                    console.log(tags);
+                },'text');
+                   
+                }
             </script>  
-
-
             <script type="text/javascript">
-                getScript('/static/word-cloud.js');
+
+                getScript();
 
             </script>
             <script type="text/javascript">
                 window.onclick = getScript;
+
             </script>
 
 
 
     </body>
 </html>
+-->
