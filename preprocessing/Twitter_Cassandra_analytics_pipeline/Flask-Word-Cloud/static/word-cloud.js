@@ -22,22 +22,65 @@ var vis = svg.append("g").attr("transform", "translate(" + [w >> 1, h >> 1] + ")
 
 //update();
 var tags="Dummy"
+var chart;
+
+var chartData = 
+            [
+                {
+                    "year": 2000,
+                    "income": 1
+                },
+                {
+                    "year": 2006,
+                    "income": 1
+                },
+                {
+                    "year": 2007,
+                    "income": 1
+                },
+                {
+                    "year": 2008,
+                    "income": 1
+                },
+                {
+                    "year": 2009,
+                    "income": 1
+                }
+            ];
 // This function calls the update function on window click
 window.onclick = function(event) {
 
             var xhttp = new XMLHttpRequest();
+            var xhttp2 = new XMLHttpRequest();
+
             xhttp.onreadystatechange = function() {
                 if (xhttp.readyState == 4 && xhttp.status == 200) {
                   var temp= xhttp.responseText
                   tags= eval(temp)
                 }
               };
+
+            xhttp2.onreadystatechange = function() {
+            if (xhttp2.readyState == 4 && xhttp2.status == 200) {
+                var temp1=xhttp2.responseText
+                chartData = eval(temp1)
+
+            }
+          };
             xhttp.open("GET", "/static/data.json?something="+(Math.random()*10).toString(), true);
+            xhttp2.open("GET", "/static/testdata.json?something="+(Math.random()*10).toString(), true);
+
             xhttp.send();
+            xhttp2.send();
+
+
      
 
     update();
+    update1();
 };
+
+
 
 //This function is related with the transition of the text on clicking the window.
 function draw(data, bounds) {
@@ -101,4 +144,54 @@ function update() {
         fontSize.domain([+tags[tags.length - 1].value || 1, +tags[0].value]);
     }
     layout.stop().words(tags).start();
+}
+
+function update1() {
+
+
+
+                // SERIAL CHART
+                chart = new AmCharts.AmSerialChart();
+                chart.dataProvider = chartData;
+                chart.categoryField = "year";
+                // this single line makes the chart a bar chart,
+                // try to set it to false - your bars will turn to columns
+                chart.rotate = true;
+                // the following two lines makes chart 3D
+                chart.depth3D = 20;
+                chart.angle = 30;
+
+                // AXES
+                // Category
+                var categoryAxis = chart.categoryAxis;
+                categoryAxis.gridPosition = "start";
+                categoryAxis.axisColor = "#DADADA";
+                categoryAxis.fillAlpha = 1;
+                categoryAxis.gridAlpha = 0;
+                categoryAxis.fillColor = "#FAFAFA";
+
+                // value
+                var valueAxis = new AmCharts.ValueAxis();
+                valueAxis.axisColor = "#DADADA";
+                valueAxis.title = "Income in millions, USD";
+                valueAxis.gridAlpha = 0.1;
+                chart.addValueAxis(valueAxis);
+
+                // GRAPH
+                var graph = new AmCharts.AmGraph();
+                graph.title = "Income";
+                graph.valueField = "income";
+                graph.type = "column";
+                graph.balloonText = "Income in [[category]]:[[value]]";
+                graph.lineAlpha = 0;
+                graph.fillColors = "#bf1c25";
+                graph.fillAlphas = 1;
+                chart.addGraph(graph);
+
+                chart.creditsPosition = "top-right";
+
+                // WRITE
+                chart.write("chartdiv");
+        
+    
 }
