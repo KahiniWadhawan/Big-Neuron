@@ -17,7 +17,7 @@ USE TwitterDataSet;
 Tables for Donal Trump
 ------------------------------------------------------------ */
 CREATE TABLE IF NOT EXISTS realDonaldTrump_tweets (
-tweet_id bigint primary key,
+tweet_id varchar primary key,
 tweet_text varchar,
 lang varchar,
 retweet_count bigint,
@@ -28,7 +28,7 @@ Sentence Level and Doc level analysis tables are merged
 ---------------------------------------------------------- */
 
 CREATE TABLE IF NOT EXISTS realDonaldTrump_sentencelevel (
-tweet_id bigint primary key,
+tweet_id varchar primary key,
 created_at timestamp,
 tone_json text,
 emotion_json text,
@@ -64,7 +64,7 @@ graph_json text);
 Tables for HillaryClinton
 --------------------------------------------------------- */
 CREATE TABLE IF NOT EXISTS HillaryClinton_tweets (
-tweet_id bigint primary key,
+tweet_id varchar primary key,
 tweet_text varchar,
 lang varchar,
 retweet_count bigint,
@@ -75,7 +75,7 @@ Sentence Level and Doc level analysis tables are merged
 ---------------------------------------------------------- */
 
 CREATE TABLE IF NOT EXISTS HillaryClinton_sentencelevel (
-tweet_id bigint primary key,
+tweet_id varchar primary key,
 created_at timestamp,
 tone_json text,
 emotion_json text,
@@ -109,7 +109,7 @@ Tables for BernieSanders
 --------------------------------------------------------- */
 
 CREATE TABLE IF NOT EXISTS BernieSanders_tweets (
-tweet_id bigint primary key,
+tweet_id varchar primary key,
 tweet_text varchar,
 lang varchar,
 retweet_count bigint,
@@ -120,7 +120,7 @@ Sentence Level and Doc level analysis tables are merged
 ---------------------------------------------------------- */
 
 CREATE TABLE IF NOT EXISTS BernieSanders_sentencelevel (
-tweet_id bigint primary key,
+tweet_id varchar primary key,
 created_at timestamp,
 tone_json text,
 emotion_json text,
@@ -155,7 +155,7 @@ Tables for tedcruz
 -------------------------------------------------------- */
 
 CREATE TABLE IF NOT EXISTS tedcruz_tweets (
-tweet_id bigint primary key,
+tweet_id varchar primary key,
 tweet_text varchar,
 lang varchar,
 retweet_count bigint,
@@ -166,7 +166,7 @@ Sentence Level and Doc level analysis tables are merged
 ---------------------------------------------------------- */
 
 CREATE TABLE IF NOT EXISTS tedcruz_sentencelevel (
-tweet_id bigint primary key,
+tweet_id varchar primary key,
 created_at timestamp,
 tone_json text,
 emotion_json text,
@@ -201,7 +201,7 @@ Tables for JohnKasich
 --------------------------------------------------------- */
 
 CREATE TABLE IF NOT EXISTS JohnKasich_tweets (
-tweet_id bigint primary key,
+tweet_id varchar primary key,
 tweet_text varchar,
 lang varchar,
 retweet_count bigint,
@@ -212,7 +212,7 @@ Sentence Level and Doc level analysis tables are merged
 --------------------------------------------------------- */
 
 CREATE TABLE IF NOT EXISTS JohnKasich_sentencelevel (
-tweet_id bigint primary key,
+tweet_id varchar primary key,
 created_at timestamp,
 tone_json text,
 emotion_json text,
