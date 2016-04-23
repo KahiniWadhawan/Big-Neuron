@@ -9,7 +9,7 @@ import json
 import time
 import os
 import sys
-import analyze_tone
+from analyze_tone import IBMToneAnalyzer
 
 from cassandra.cluster import Cluster
 
@@ -56,16 +56,17 @@ def get_user_tweets(username,num=None):
 
 
 # this function processes tone of tweet by calling IBM Tone Analyzer
-def call_ibmToneAnalyzer():
-    
+def call_ibmToneAnalyzer(tweet_text):
+    toneAnalyzer = IBMToneAnalyzer()
+    tone_json = toneAnalyzer.get_sentiment(tweet_text)
+    return tone_json
+
 
 #---------------------------------------------------------------------------
 # Insert all tweets returned by the Cursor API and store them in Cassandra
 # Access table by Candidate's name
 #---------------------------------------------------------------------------
 def insert_data_table_tweets(candname):
-    #creating table name
-    table_name = candname + '_tweets'
     #getting user tweets
     tweets = get_user_tweets(candname,10)
     #setting up db
@@ -89,8 +90,18 @@ def insert_data_table_tweets(candname):
         # month = date_time[1]
         # year = date_time[5]
         # time = date_time[3]
+        #inserting to tweets table
 
-        query = "insert into " + table_name + "(" + \
+        session.execute(tweets_query)
+
+        #inserting data to Sentencelevel table
+
+
+
+def prepare_tweets_query(candname, tweet):
+    #creating table name
+    table_name = candname + '_tweets'
+    tweets_query = "insert into " + table_name + "(" + \
                 "tweet_id, " \
                 "tweet_text, " \
                 "lang, " \
@@ -108,9 +119,37 @@ def insert_data_table_tweets(candname):
                 # str(time) + "', '" + \
                 #");"
 
-        print(query)
-        session.execute(query)
+    print(tweets_query)
+    return tweets_query
 
+def prepare_sentencelevel_query(candname,tweet):
+    #creating table name
+    table_name = candname + '_sentencelevel'
+    
+    sentencelevel_query = "insert into " + table_name + "(" + \
+                "tweet_id, " \
+                "tweet_text, " \
+                "lang, " \
+                "retweet_count, " \
+                "created_at) " + "values('" + \
+                str(tweet.id_str.encode('utf-8')) + "', '" + \
+                str(tweet.text.encode('utf-8')) + "', '" + \
+                str(tweet.lang) + "', " + \
+                str(tweet.retweet_count) + ", '" + \
+                str(tweet.created_at) + "'" \
+                ");"
+                # str(day) + "', '" + \
+                # str(month) + "', '" + \
+                # str(year) + "', '" + \
+                # str(time) + "', '" + \
+                #");"
+
+    print(sentencelevel_query)
+    return sentencelevel_query
+
+
+#def prepare_topics_query():
+#def prepare_graph_query():
 
 
 
