@@ -69,7 +69,9 @@ def gen_EWS_json(tone_json):
     #tone_json is json structure
     #f = open("../data/tone.json", "r")
     #a = f.read()
-    a= tone_json
+
+    a= json.loads(tone_json)
+
     l1,l2,l3 =  a['document_tone']['tone_categories'][0]['tones'],\
                 a['document_tone']['tone_categories'][1]['tones'],\
                 a['document_tone']['tone_categories'][2]['tones']
@@ -77,6 +79,7 @@ def gen_EWS_json(tone_json):
     emotion_json = l1
     writing_json = l2
     social_json = l3
+
 
     return (emotion_json,writing_json,social_json)
 
@@ -116,7 +119,6 @@ def get_emotion_scores(emotion_json):
     #emotion score dict  - key = emotion name, val = score
     emotion_scores_dict = {}
     for elem in emotion_json:
-         print elem
          emotion_scores_dict[elem['tone_name']] = elem['score']
 
     print ('emotion_scores_dict :: ',emotion_scores_dict)
@@ -129,7 +131,7 @@ def get_emotion_scores(emotion_json):
 #---------------------------------------------------------------------------
 def insert_data_table_tweets(candname):
     #getting user tweets
-    tweets = get_user_tweets(candname,10)
+    tweets = get_user_tweets(candname,2)
     #setting up db
     session = db_connect()
 
@@ -179,7 +181,7 @@ def prepare_tweets_query(candname, tweet):
                 # str(time) + "', '" + \
                 #");"
 
-    print(tweets_query)
+    print('tweets_query', tweets_query)
     return tweets_query
 
 
@@ -227,7 +229,7 @@ def prepare_sentencelevel_query(candname,tweet):
                 ");"
 
 
-    print(sentencelevel_query)
+    print('sentencelevel_query :: ', sentencelevel_query)
     return sentencelevel_query
 
 
