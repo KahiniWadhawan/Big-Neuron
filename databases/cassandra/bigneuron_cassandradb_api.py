@@ -1,13 +1,15 @@
-#-----------------------------------------------------------
+#--------------------------------------------------------------------
 #Author: Kahini Wadhawan
 # This file provides Big Neuron cassandra db access functions
-#-----------------------------------------------------------
+#revisit : put try - except blocks for exception - refer gen_graph.py
+#----------------------------------------------------------------------
 
 import tweepy
 import json
 import time
 import os
 import sys
+import analyze_tone
 
 from cassandra.cluster import Cluster
 
@@ -51,6 +53,11 @@ def get_user_tweets(username,num=None):
         tweets = tweepy.Cursor(api.user_timeline, screen_name=username).items(num)
 
     return tweets
+
+
+# this function processes tone of tweet by calling IBM Tone Analyzer
+def call_ibmToneAnalyzer():
+    
 
 #---------------------------------------------------------------------------
 # Insert all tweets returned by the Cursor API and store them in Cassandra
@@ -103,6 +110,9 @@ def insert_data_table_tweets(candname):
 
         print(query)
         session.execute(query)
+
+
+
 
 insert_data_table_tweets('realDonaldTrump')
 
