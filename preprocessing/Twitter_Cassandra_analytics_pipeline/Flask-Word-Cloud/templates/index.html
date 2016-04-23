@@ -12,34 +12,33 @@ and open the template in the editor.
         <script type="text/javascript" src="/static/d3.layout.cloud.js"></script>
         <script type="text/javascript" src="/static/jquery.min.js"></script>
         <script type="text/javascript" src="/static/tags.js"></script>    
-
-
     </head>
     <body>
         <div id="vis"></div>
         <script type="text/javascript" src="/static/word-cloud.js"></script>
-    </body>
+    
 
 
 
     <div id="demo"><h2>Let AJAX change this text</h2></div>
 
-<button type="button" onclick="loadDoc()">Change Content</button>
-<script>
-function loadDoc() {
-  var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function() {
-    if (xhttp.readyState == 4 && xhttp.status == 200) {
-      document.getElementById("demo").innerHTML = xhttp.responseText;
+    <button type="button" onclick="loadDoc()">Change Content</button>
+    <script>
+    function loadDoc() {
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+        if (xhttp.readyState == 4 && xhttp.status == 200) {
+          document.getElementById("demo").innerHTML = xhttp.responseText;
 
-    }
-  };
+        }
+      };
 
      xhttp.open("GET", "/static/data.json?something="+Math.random().toString(), true);
 
   xhttp.send();
 }
 </script>
+</body>
 </html>
 
 
