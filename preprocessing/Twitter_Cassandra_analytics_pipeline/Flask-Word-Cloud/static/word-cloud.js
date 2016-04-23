@@ -22,6 +22,31 @@ var vis = svg.append("g").attr("transform", "translate(" + [w >> 1, h >> 1] + ")
 
 //update();
 var tags="Dummy"
+var chart;
+
+var chartData = 
+            [
+                {
+                    "year": 2000,
+                    "income": 1
+                },
+                {
+                    "year": 2006,
+                    "income": 1
+                },
+                {
+                    "year": 2007,
+                    "income": 1
+                },
+                {
+                    "year": 2008,
+                    "income": 1
+                },
+                {
+                    "year": 2009,
+                    "income": 1
+                }
+            ];
 // This function calls the update function on window click
 window.onclick = function(event) {
 
