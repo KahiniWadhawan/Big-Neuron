@@ -11,8 +11,7 @@ __author__ = "Jessica, Tanvi"
 __date__ = "$Apr 14, 2016 11:39:45 PM$"
 
 from flask import Flask, render_template, request, session
-import sys
-import os
+import collections
 
 app = Flask(__name__)
 # Sessions variables are stored client side, on the users browser
@@ -135,14 +134,10 @@ def topic():
 def tweetlevel():
     print "Inside tweet level function" 
     cand = session['candidate']
+    tweet_num = 3
     print "In Sentence-level, session['candidate'] is - ", cand
     if cand == 'clinton':
-        #TO DO: get tweet list as a list of strings(eg: tweet_list) from db api function kahini wrote
-        #tweet_list = [User.load(db, uid) for uid in db] #however kahini loads it using her api
-        tweet_dict = get_jsons()
-        tweet_list = []
-        for key in tweet_dict:
-            tweet_list.append(tweet_dict[key])
+        tweet_list = get_tweet_list( cand, tweet_num )
         return render_template("pages/clinton/clinton_sa_sentence.html", tweet_list=tweet_list)
     elif cand == 'cruz':
         #TO DO: get tweet list as a list of strings(eg: tweet_list) from db api function kahini wrote
@@ -190,6 +185,23 @@ def alltweet():
 @app.route('/SA_PieChart_Multiple.html')
 def sa_piechart_multiple():
     return render_template("viz/SA_PieChart_Multiple.html")
+
+
+############### Helper Functions #################
+'''
+    Fetch raw json data from db
+    Parameter(s): candidate (Candidate name)
+    Return: List of Tuples, specifically [(tweet_id, tweet_text), ...]    
+'''
+def get_tweet_list( candidate, tweet_num ):
+    tweet_dict = get_jsons( candidate, tweet_num )
+    tweet_list = []
+    counter = 0
+    for key in tweet_dict:
+        tweet_list.append((counter, tweet_dict[key]))
+        counter += 1
+    
+    return tweet_list
 
 
 if __name__ == '__main__':

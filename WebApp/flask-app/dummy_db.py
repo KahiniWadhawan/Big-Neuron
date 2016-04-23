@@ -7,6 +7,7 @@
 __author__ = "Jessica"
 __date__ = "$Apr 21, 2016 9:18:10 PM$"
 
-def get_jsons():
-    return {"trump_00": "tweet tweet tweet", "trump_01": "tweet tweet tweet" , "trump_02": "tweet tweet tweet"}
- 
+def get_jsons( candidate, tweet_num):
+    if (candidate != "" and tweet_num > 0):
+        return {"0": "tweet tweet tweet", "1": "tweet tweet tweet" , "2": "tweet tweet tweet"}
+    

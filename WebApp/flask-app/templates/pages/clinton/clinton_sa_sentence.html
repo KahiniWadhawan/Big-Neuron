@@ -76,8 +76,8 @@
                                         <div style="color:#000000; text-align:left; padding-left:5px;">
                                             {% for tweet in tweet_list %}
                                             <div class="radio">
-                                                <label style="background-color: #cccccc; padding:3px 3px;" onclick="changeBackgroundColor()">
-                                                    <input type="radio"><a href="{{ url_for('tweetlevel')  }}">{{tweet}}</a>
+                                                <label style="background-color: #cccccc; padding:3px 3px;" id= "{{tweet[0]}}" onclick="changeBackgroundColor()">
+                                                    <input type="radio" name="optionsRadios"><a href="{{ url_for('tweetlevel')  }}">{{tweet[1]}}</a>
                                                 </label>
                                             </div>
                                             {% endfor %}
@@ -198,9 +198,9 @@
                         
                         <!-- Visualization display section -->
                         <div class="col-lg-6" style="left:20px;">
-                            <iframe name="viz" width="900" height="645">
+                            <!--<iframe name="viz" width="900" height="645">
                                 Sorry your browser does not support inline frames.
-                            </iframe>
+                            </iframe>-->
                         </div>
                         <!-- /.col-lg-6 (nested) -->
                         <!-- End: Visualization display section -->
@@ -274,7 +274,8 @@
     <script type="text/javascript">
         
         function changeBackgroundColor() {
-            var labels = ["lbl0",  "lbl1",  "lbl2",  "lbl3",  "lbl4",  "lbl5",  "lbl6",  "lbl7",  "lbl8",  "lbl9", "lbl10", "lbl11", "lbl12", "lbl13", "lbl14", "lbl15", "lbl16", "lbl17", "lbl18", "lbl19"];
+            var labels = ["0",  "1",  "2"];
+            //var labels = ["lbl0",  "lbl1",  "lbl2",  "lbl3",  "lbl4",  "lbl5",  "lbl6",  "lbl7",  "lbl8",  "lbl9", "lbl10", "lbl11", "lbl12", "lbl13", "lbl14", "lbl15", "lbl16", "lbl17", "lbl18", "lbl19"];
 
             var radios = document.getElementsByName( "optionsRadios" );
             if( radios === null )

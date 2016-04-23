@@ -3,14 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Jessica/Documents/GitHub/Big-Neuron/WebApp/flask-app/helper_functions/formatter.py</file>
-            <file>file:/C:/Users/Jessica/Documents/GitHub/Big-Neuron/WebApp/flask-app/static/css/freelancer.css</file>
+            <file>file:/C:/Users/Jessica/Documents/GitHub/Big-Neuron/WebApp/flask-app/dummy_db.py</file>
             <file>file:/C:/Users/Jessica/Documents/GitHub/Big-Neuron/WebApp/flask-app/build_data_files.py</file>
-            <file>file:/C:/Users/Jessica/Documents/GitHub/Big-Neuron/WebApp/flask-app/amcharts_JSON.py</file>
             <file>file:/C:/Users/Jessica/Documents/GitHub/Big-Neuron/WebApp/flask-app/templates/pages/clinton/clinton_sa_sentence.html</file>
-            <file>file:/C:/Users/Jessica/Documents/GitHub/Big-Neuron/WebApp/flask-app/templates/viz/SA_PieChart_Multiple.html</file>
             <file>file:/C:/Users/Jessica/Documents/GitHub/Big-Neuron/WebApp/flask-app/templates/pages/clinton/clinton_network.html</file>
-            <file>file:/C:/Users/Jessica/Documents/GitHub/Big-Neuron/WebApp/flask-app/templates/pages/clinton/clinton_topicmodel.html</file>
             <file>file:/C:/Users/Jessica/Documents/GitHub/Big-Neuron/WebApp/flask-app/app.py</file>
             <file>file:/C:/Users/Jessica/Documents/GitHub/Big-Neuron/WebApp/flask-app/templates/index.html</file>
         </group>
