@@ -143,13 +143,51 @@ till_time timestamp primary key,
 graph_json text);
 
 
-CREATE TABLE IF NOT EXISTS tedcruz (
-counter bigint primary key,
+#------------------------------------------------------
+#Tables for tedcruz
+#------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS tedcruz_tweets (
+tweet_id bigint primary key,
 tweet_text varchar,
 lang varchar,
 retweet_count bigint,
-created_at varchar,
-sentiments_json varchar);
+created_at timestamp);
+
+#--------------------------------------------------------
+#Sentence Level and Doc level analysis tables are merged
+#-------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS tedcruz_sentencelevel (
+tweet_id bigint primary key,
+created_at timestamp,
+tone_json text,
+emotion_json text,
+writing_json text,
+social_json text,
+anger_score double,
+joy_score double,
+fear_score double,
+sadness_score double,
+disgust_score double);
+
+#CREATE TABLE IF NOT EXISTS tedcruz_wordcloud (
+#counter bigint primary key,
+#tweet_text varchar,
+#lang varchar,
+#retweet_count bigint);
+
+#revisit - decide on fields
+CREATE TABLE IF NOT EXISTS tedcruz_topics (
+time_duration primary key,  #could be maintained by week
+topics_json text);
+
+#revisit - decide on fields
+CREATE TABLE IF NOT EXISTS tedcruz_graph (
+till_time timestamp primary key,
+graph_json text);
+
+
 
 CREATE TABLE IF NOT EXISTS JohnKasich(
 counter bigint primary key,
