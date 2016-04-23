@@ -22,12 +22,12 @@ var vis = svg.append("g").attr("transform", "translate(" + [w >> 1, h >> 1] + ")
 
 update();
 
-
+// This function calls the update function on window click
 window.onclick = function(event) {
-
     update();
 };
 
+//This function is related with the transition of the text on clicking the window.
 function draw(data, bounds) {
     var w = window.innerWidth,
         h = window.innerHeight;
@@ -77,9 +77,10 @@ function draw(data, bounds) {
     vis.transition().attr("transform", "translate(" + [w >> 1, h >> 1] + ")scale(" + scale + ")");
 }
 
+// This function is responsible for pulling the updated JSON file from the server.
 function update() {
     //var tags= ""
-     //tags = JSON.parse(tags1)
+    //tags = JSON.parse(tags1)
     for (var i = 0; i<tags.length;i++)
     {
         console.log(tags[i])
