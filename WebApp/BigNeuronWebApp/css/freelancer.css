@@ -149,6 +149,7 @@ header .intro-text .skills {
     .navbar-fixed-top.navbar-shrink {
         min-height: 5px;
         padding: 10px 0;
+        background: black;
     }
 
     .navbar-fixed-top.navbar-shrink .navbar-brand {
@@ -204,6 +205,7 @@ header .intro-text .skills {
 
 .navbar a:focus {
     outline: 0;
+    background: black;
 }
 
 .navbar .navbar-nav {
