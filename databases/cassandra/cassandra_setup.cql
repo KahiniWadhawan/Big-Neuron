@@ -14,14 +14,18 @@ CREATE KEYSPACE IF NOT EXISTS TwitterDataSet WITH replication = {'class': 'Simpl
 USE TwitterDataSet;
 
 /* ------------------------------------------------------------
-Tables for Donal Trump
+Tables for Donald Trump
 ------------------------------------------------------------ */
 CREATE TABLE IF NOT EXISTS realDonaldTrump_tweets (
 tweet_id varchar primary key,
 tweet_text varchar,
 lang varchar,
 retweet_count bigint,
-created_at timestamp);
+created_at varchar
+/*day varchar,
+month varchar,
+year varchar,
+time varchar*/);
 
 /* --------------------------------------------------------
 Sentence Level and Doc level analysis tables are merged
@@ -68,7 +72,11 @@ tweet_id varchar primary key,
 tweet_text varchar,
 lang varchar,
 retweet_count bigint,
-created_at timestamp);
+created_at varchar
+/*,day varchar,
+month varchar,
+year varchar,
+time varchar*/);
 
 /* --------------------------------------------------------
 Sentence Level and Doc level analysis tables are merged
@@ -113,7 +121,11 @@ tweet_id varchar primary key,
 tweet_text varchar,
 lang varchar,
 retweet_count bigint,
-created_at timestamp);
+created_at varchar
+/*,day varchar,
+month varchar,
+year varchar,
+time varchar*/);
 
 /* --------------------------------------------------------
 Sentence Level and Doc level analysis tables are merged
@@ -159,7 +171,11 @@ tweet_id varchar primary key,
 tweet_text varchar,
 lang varchar,
 retweet_count bigint,
-created_at timestamp);
+created_at varchar
+/*,day varchar,
+month varchar,
+year varchar,
+time varchar*/);
 
 /* --------------------------------------------------------
 Sentence Level and Doc level analysis tables are merged
@@ -205,7 +221,11 @@ tweet_id varchar primary key,
 tweet_text varchar,
 lang varchar,
 retweet_count bigint,
-created_at timestamp);
+created_at varchar
+/*,day varchar,
+month varchar,
+year varchar,
+time varchar*/);
 
 /* --------------------------------------------------------
 Sentence Level and Doc level analysis tables are merged
