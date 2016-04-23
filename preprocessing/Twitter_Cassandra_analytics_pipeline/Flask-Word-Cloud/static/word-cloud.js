@@ -87,6 +87,7 @@ function draw(data, bounds) {
             });
 
     vis.transition().attr("transform", "translate(" + [w >> 1, h >> 1] + ")scale(" + scale + ")");
+    text.exit.remove();
 }
 
 // This function is responsible for pulling the updated JSON file from the server.
