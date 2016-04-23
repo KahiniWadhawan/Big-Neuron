@@ -1,10 +1,11 @@
-/* -------------------------------------------------------
+/* ---------------------------------------------------------------------
 Author: Kahini
 This script creates keyspace and tables for db setup
 DBSchema: Tables are maintained candidate per se
 One General table for Tweets and 4 Tables for each analysis
 Table naming convention: candidateName_analysis
-----------------------------------------------------------
+Usage: run this command in cqlsh: SOURCE 'path-to-/cassandra_setup.cql'
+-------------------------------------------------------------------------
 */
 
 CREATE KEYSPACE IF NOT EXISTS TwitterDataSet WITH replication = {'class': 'SimpleStrategy',
