@@ -24,16 +24,15 @@ var vis = svg.append("g").attr("transform", "translate(" + [w >> 1, h >> 1] + ")
 var tags="Dummy"
 // This function calls the update function on window click
 window.onclick = function(event) {
+
             var xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function() {
                 if (xhttp.readyState == 4 && xhttp.status == 200) {
                   var temp= xhttp.responseText
-                  console.log("In Head2"+ tags)
                   tags= eval(temp)
-                  console.log("tag -s  "+typeof temp)
                 }
               };
-            xhttp.open("GET", "/static/data.json?something="+Math.random().toString(), true);
+            xhttp.open("GET", "/static/data.json?something="+(Math.random()*10).toString(), true);
             xhttp.send();
      
 
@@ -52,7 +51,7 @@ function draw(data, bounds) {
             w / Math.abs(bounds[0].x - w / 2),
             h / Math.abs(bounds[1].y - h / 2),
             h / Math.abs(bounds[0].y - h / 2)) / 2 : 1;
-
+    console.log("scale = "+scale)
     var text = vis.selectAll("text")
             .data(data, function(d) {
                 return d.text.toLowerCase();
@@ -75,7 +74,7 @@ function draw(data, bounds) {
             })
             .style("opacity", 1e-6)
             .transition()
-            .duration(1000)
+            .duration(2000)
             .style("opacity", 1);
     text.style("font-family", function(d) {
         return d.font;
@@ -92,21 +91,13 @@ function draw(data, bounds) {
 
 // This function is responsible for pulling the updated JSON file from the server.
 function update() {
-    //var tags= ""
-    //tags = JSON.parse(tags1)
-    /*
-    for (var i = 0; i<tags.length;i++)
-    {
-        console.log(tags[i])
-        console.log(typeof tags[i])
-    }
-*/
-console.log("word-cloud"+tags)
+    console.log("tags.length"+tags.length)
+    console.log("word-cloud"+tags)
     layout.font('impact').spiral('archimedean');
-    fontSize = d3.scale['sqrt']().range([10, 100]);
+    fontSize = d3.scale['sqrt']().range([30,70]);   //This is to change the range of font size
+    console.log("fontSize = "+fontSize)
     if (tags.length){
         fontSize.domain([+tags[tags.length - 1].value || 1, +tags[0].value]);
     }
     layout.stop().words(tags).start();
-    layout.on("end", draw)
 }
