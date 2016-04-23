@@ -51,7 +51,7 @@ function draw(data, bounds) {
             w / Math.abs(bounds[0].x - w / 2),
             h / Math.abs(bounds[1].y - h / 2),
             h / Math.abs(bounds[0].y - h / 2)) / 2 : 1;
-    console.log("scale = "+scale)
+    //console.log("scale = "+scale)
     var text = vis.selectAll("text")
             .data(data, function(d) {
                 return d.text.toLowerCase();
@@ -92,11 +92,11 @@ function draw(data, bounds) {
 
 // This function is responsible for pulling the updated JSON file from the server.
 function update() {
-    console.log("tags.length"+tags.length)
-    console.log("word-cloud"+tags)
-    layout.font('impact').spiral('archimedean');
+    //console.log("tags.length"+tags.length)
+    //console.log("word-cloud"+tags)
+    layout.font('impact').spiral('rectangular');
     fontSize = d3.scale['sqrt']().range([30,70]);   //This is to change the range of font size
-    console.log("fontSize = "+fontSize)
+    //console.log("fontSize = "+fontSize)
     if (tags.length){
         fontSize.domain([+tags[tags.length - 1].value || 1, +tags[0].value]);
     }
