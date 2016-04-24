@@ -283,9 +283,57 @@ def gen_doclevel_json(candname):
     resultSet  = session.execute(select_query)
     print ('resultSet:: ',resultSet)
     #processing resultset for date:scores
+    anger_score_dict = {}
+    joy_score_dict = {}
+    sadness_score_dict = {}
+    disgust_score_dict = {}
+    fear_score_dict = {}
     for row in resultSet:
         #print row
-        print row.twitterdataset_cus_group_and_total_date__anger_score
+        print row.twitterdataset_cus_group_and_total_date__anger_score.keys(),\
+            row.twitterdataset_cus_group_and_total_date__anger_score.values()
+
+        anger_score_dict[row.twitterdataset_cus_group_and_total_date__anger_score.keys()[0]] = \
+            row.twitterdataset_cus_group_and_total_date__anger_score.values()[0]
+        joy_score_dict[row.twitterdataset_cus_group_and_total_date__joy_score.keys()[0]] = \
+            row.twitterdataset_cus_group_and_total_date__joy_score.values()[0]
+        sadness_score_dict[row.twitterdataset_cus_group_and_total_date__sadness_score.keys()[0]] = \
+            row.twitterdataset_cus_group_and_total_date__sadness_score.values()[0]
+        fear_score_dict[row.twitterdataset_cus_group_and_total_date__fear_score.keys()[0]] = \
+            row.twitterdataset_cus_group_and_total_date__fear_score.values()[0]
+        disgust_score_dict[row.twitterdataset_cus_group_and_total_date__disgust_score.keys()[0]] = \
+            row.twitterdataset_cus_group_and_total_date__disgust_score.values()[0]
+
+    print 'anger_score_dict', anger_score_dict
+    print 'anger_score_dict', joy_score_dict
+    print 'anger_score_dict', sadness_score_dict
+    print 'anger_score_dict', fear_score_dict
+    print 'disgust_score_dict', disgust_score_dict
+
+
+    #Now we have got all emotion score dicts with day-wise data
+    #generating doc level json format required by visualization
+    doc_json = []
+    for date_key,anger_score in anger_score_dict.iteritems():
+        temp = {}
+        joy_score = joy_score_dict[date_key]
+        sadness_score = sadness_score_dict[date_key]
+        fear_score = fear_score_dict[date_key]
+        disgust_score = disgust_score_dict[date_key]
+        temp["anger"] = anger_score
+        temp["joy"] = joy_score
+        temp["sadness"] = sadness_score
+        temp["fear"] = fear_score
+        temp["disgust"] = disgust_score
+        temp["day"] = date_key
+
+        doc_json.append(temp)
+
+    print doc_json
+
+    return doc_json
+
+
 
 
 gen_doclevel_json('realDonaldTrump')
