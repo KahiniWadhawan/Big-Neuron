@@ -265,6 +265,7 @@ insert_data_table_tweets('realDonaldTrump')
 #this function creates per week collective tweets json for doclevel visualization
 #It aggregates all 5 emotion scores for a collection of tweets to return average score
 #select c_group_and_total(created_at, anger_score) from realDonaldTrump_sentencelevel
+#Revisit - do we need to store doc_json in db???
 def gen_doclevel_json(candname):
     table_name = candname + '_sentencelevel'
     #setting up db
@@ -333,12 +334,19 @@ def gen_doclevel_json(candname):
 
     return doc_json
 
+#testing
+#gen_doclevel_json('realDonaldTrump')
 
 
+#getting top tweets based on retweet_count
+def get_tweet_list(candname,num=20):
+    tweets_dict = {}
+    #revisit - "ORDER BY is only supported when the partition key is
+    # restricted by an EQ or an IN."
+    return tweets_dict
 
-gen_doclevel_json('realDonaldTrump')
-
-
-
+#this function returns tone_json, writing_json, emotion_json and social_json
+def get_tweet_tones(candname,tweet_id):
+    
 
 
