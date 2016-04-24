@@ -11,7 +11,6 @@ __author__ = "Jessica, Tanvi"
 __date__ = "$Apr 14, 2016 11:39:45 PM$"
 
 from flask import Flask, render_template, request, session
-import collections
 
 app = Flask(__name__)
 # Sessions variables are stored client side, on the users browser
@@ -22,9 +21,10 @@ app = Flask(__name__)
 app.secret_key = 'F12Zr47j\3yX R~X@H!jmM]Lwf/,?KT'
 
 #sys.path.append(os.path.dirname(__file__) + r"/static/data/dummy_db.py")  #append path to db api module that has the method to get list of top tweets
-from dummy_db import get_jsons  #Do we have a tone analyzer module -or- are we inserting tweets by hand into IBM tone analyzer to get the json output?
+from dummy_db import get_tweets, get_jsons  #Do we have a tone analyzer module -or- are we inserting tweets by hand into IBM tone analyzer to get the json output?
 
-
+############### GLOBAL VARIABLES ###############
+INIT_TWEETLEVEL = False
 
 '''
     Renders the dashboard.
@@ -128,36 +128,38 @@ def topic():
         print "Error in topic(). Need to make an error page"
 
 '''
-    Renders the SA Sentence-level visualization for any candidate
+    Renders the Sentence-level SA page for candidate selected
 '''
 @app.route('/tweetlevel')
 def tweetlevel():
     print "Inside tweet level function" 
-    cand = session['candidate']
-    tweet_num = 3
+    retVal      = None
+    cand        = session['candidate']
+    tweet_num   = 3 #for testing; will change to 20 when db api methods are finished and available
     print "In Sentence-level, session['candidate'] is - ", cand
-    if cand == 'clinton':
+    if cand in ['clinton', 'cruz', 'kasich', 'sanders', 'trump']:
+        fpath = "pages/%s/%s_sa_sentence.html" % (cand, cand)
         tweet_list = get_tweet_list( cand, tweet_num )
-        return render_template("pages/clinton/clinton_sa_sentence.html", tweet_list=tweet_list)
-    elif cand == 'cruz':
-        #TO DO: get tweet list as a list of strings(eg: tweet_list) from db api function kahini wrote
-        tweet_list = []
-        return render_template("pages/cruz/cruz_sa_sentence.html", tweet_list=tweet_list)
-    elif cand == 'kasich':
-        #TO DO: get tweet list as a list of strings(eg: tweet_list) from db api function kahini wrote
-        tweet_list = [User.load(db, uid) for uid in db] #however kahini loads it using her api
-        return render_template("pages/kasich/kasich_sa_sentence.html", tweet_list=tweet_list)
-    elif cand == 'sanders':
-        #TO DO: get tweet list as a list of strings(eg: tweet_list) from db api function kahini wrote
-        tweet_list = [User.load(db, uid) for uid in db] #however kahini loads it using her api
-        return render_template("pages/sanders/sanders_sa_sentence.html", tweet_list=tweet_list)
-    elif cand == 'trump':
-        #TO DO: get tweet list as a list of strings(eg: tweet_list) from db api function kahini wrote
-        tweet_list = [User.load(db, uid) for uid in db] #however kahini loads it using her api
-        return render_template("pages/trump/trump_sa_sentence.html", tweet_list=tweet_list)
+        retVal = render_template(fpath, tweet_list=tweet_list)
     else:
-        print "Error in tweetlevel(). Need to make an error page"
+        retVal = "Error in tweetlevel()."
+    return retVal
 
+'''
+    Ensures proper json files are stored for Sentence-level SA Amcharts chart per candidate tweet
+'''
+@app.route('/change_viz_by_id', methods=['GET','POST'])
+def change_viz_by_id():
+    retVal = None
+    cand = session['candidate']
+    tweet_id = request.args['id']
+    if cand in ['clinton', 'cruz', 'kasich', 'sanders', 'trump']:
+        get_jsons(cand, tweet_id)
+        retVal = ""
+    else:
+        retVal = "Error in tweetlevel()."
+    return retVal
+    
 '''
     Renders the SA Document-level visualization for any candidate
 '''
@@ -179,22 +181,15 @@ def alltweet():
     else:
         print "Error in alltweet(). Need to make an error page"
 
-'''
-    Renders the realtime dashboard for any candidate
-'''
-@app.route('/SA_PieChart_Multiple.html')
-def sa_piechart_multiple():
-    return render_template("viz/SA_PieChart_Multiple.html")
-
 
 ############### Helper Functions #################
 '''
-    Fetch raw json data from db
-    Parameter(s): candidate (Candidate name)
+    Fetch tweet dictionary from db
+    Parameter(s): candidate (Type: string; Descr: Candidate name), tweet_num (Type: int; Descr: Number of tweets in dictionary, e.g. 20)
     Return: List of Tuples, specifically [(tweet_id, tweet_text), ...]    
 '''
 def get_tweet_list( candidate, tweet_num ):
-    tweet_dict = get_jsons( candidate, tweet_num )
+    tweet_dict = get_tweets( candidate, tweet_num )
     tweet_list = []
     counter = 0
     for key in tweet_dict:
@@ -202,6 +197,15 @@ def get_tweet_list( candidate, tweet_num ):
         counter += 1
     
     return tweet_list
+
+''' [THIS ONE MAY NOT BE NEEDED]
+    Fetch raw tweet json data from db
+    Parameter(s): candidate (Type: string; Descr: Candidate name), tweet_id (Type: string; Descr: Tweet identifier)
+    This will change likely --> Return: Tuple, specifically (tweet_id, tweet_text, ...)   
+'''
+#def get_data( candidate, tweet_id ):
+#    return get_jsons( candidate, tweet_id )
+
 
 
 if __name__ == '__main__':

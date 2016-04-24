@@ -84,7 +84,7 @@ with open('static/data/social.json', 'w') as outfile:
 '''
 
 def organize_dumpfiles( fpath ):
-    return fpath + "/emotion.json", fpath + "/writing.json", fpath + "/social.json"
+    return fpath + "/emotion1.json", fpath + "/writing1.json", fpath + "/social1.json"
 
 def dump(f1, f2, f3, l1, l2, l3):
     with open(f1, 'w') as outfile1:
