@@ -582,10 +582,11 @@ Fade content bs-carousel with hero headers
 /********************************/
 .fade-carousel {
     position: relative;
-    height: 100vh;
+    height: 80vh;
 }
 .fade-carousel .carousel-inner .item {
-    height: 100vh;
+    height: 80vh;
+    opacity: 0.9;
 }
 .fade-carousel .carousel-indicators > li {
     margin: 0 2px;
