@@ -345,8 +345,34 @@ def get_tweet_list(candname,num=20):
     # restricted by an EQ or an IN."
     return tweets_dict
 
-#this function returns tone_json, writing_json, emotion_json and social_json
+#this function returns a dictionary of tone_json, writing_json, emotion_json and social_json
 def get_tweet_tones(candname,tweet_id):
-    
+    table_name = candname + '_sentencelevel'
+    #setting up db
+    session = db_connect()
+
+    select_query = "select " + \
+                "tone_json, " \
+                "writing_json, " \
+                "emotion_json, " \
+                "social_json" \
+                " from " + table_name + \
+                " where tweet_id = '" + tweet_id + "'" + \
+                ";"
+
+    print 'select_query ::',select_query
+    resultSet  = session.execute(select_query)
+
+    result_jsons = {}
+    for row in resultSet:
+        result_jsons['tone_json'] = json.loads(row.tone_json)
+        result_jsons['writing_json'] = json.loads(row.writing_json)
+        result_jsons['emotion_json'] = json.loads(row.emotion_json)
+        result_jsons['social_json'] = json.loads(row.social_json)
+
+    #print 'result_jsons', result_jsons
+
+    return result_jsons
 
 
+get_tweet_tones('realDonaldTrump','724237889886904320')
