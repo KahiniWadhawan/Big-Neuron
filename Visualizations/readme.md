@@ -36,5 +36,5 @@ Using existing sophisticated visualization libraries to construct *creative* and
 - D3 Zoomable Pack Layout for Topic Modelling
 - D3 Force directed graph for Follower Network
 
-### Goal: 4-5 concrete visualizations
+### Goal: 6 concrete visualizations
 
