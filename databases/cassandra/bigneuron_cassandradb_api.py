@@ -121,7 +121,7 @@ def get_emotion_scores(emotion_json):
     for elem in emotion_json:
          emotion_scores_dict[elem['tone_name']] = elem['score']
 
-    print ('emotion_scores_dict :: ',emotion_scores_dict)
+    #print ('emotion_scores_dict :: ',emotion_scores_dict)
     return emotion_scores_dict
 
 
@@ -129,27 +129,13 @@ def get_emotion_scores(emotion_json):
 # Insert all tweets returned by the Cursor API and store them in Cassandra
 # Access table by Candidate's name
 #---------------------------------------------------------------------------
-def insert_data_table_tweets(candname):
+def insert_data_to_table(candname):
     #getting user tweets
     tweets = get_user_tweets(candname,2)
     #setting up db
     session = db_connect()
 
     for tweet in tweets:
-        #print('in for::',tweet.text)
-
-        #below method returns date format - 2016-04-22 23:33:20
-        #date_time = str(tweet.created_at).split()
-        #the below method returns date format -  u'Fri Apr 22 23:33:20 +0000 2016'
-        # print('tweet timestamp :: ', tweet._json['created_at'])
-        # print(date_time)
-        #storing - date and timestamps as string
-        #string comparison's can compare time and date easily
-        # day = date_time[2]
-        # month = date_time[1]
-        # year = date_time[5]
-        # time = date_time[3]
-
         #inserting to tweets table
         tweets_query = prepare_tweets_query(candname,tweet)
         session.execute(tweets_query)
@@ -162,6 +148,7 @@ def insert_data_table_tweets(candname):
 def prepare_tweets_query(candname, tweet):
     #creating table name
     table_name = candname + '_tweets'
+
     datetime_lst = str(tweet.created_at).encode('utf-8').split()
     date = datetime_lst[0]
     time = datetime_lst[1]
@@ -182,11 +169,6 @@ def prepare_tweets_query(candname, tweet):
                 str(date) + "', '" + \
                 str(time) + "'" \
                 ");"
-                # str(day) + "', '" + \
-                # str(month) + "', '" + \
-                # str(year) + "', '" + \
-                # str(time) + "', '" + \
-                #");"
 
     print('tweets_query', tweets_query)
     return tweets_query
@@ -255,7 +237,11 @@ def prepare_sentencelevel_query(candname,tweet):
 
 
 
-insert_data_table_tweets('realDonaldTrump')
+insert_data_to_table('realDonaldTrump')
+# insert_data_to_table('HillaryClinton')
+# insert_data_to_table('BernieSanders')
+# insert_data_to_table('tedcruz')
+# insert_data_to_table('JohnKasich')
 
 
 #--------------------------------------------------------------------------------
@@ -283,16 +269,18 @@ def gen_doclevel_json(candname):
     print 'select_query ::',select_query
     resultSet  = session.execute(select_query)
     print ('resultSet:: ',resultSet)
+
     #processing resultset for date:scores
     anger_score_dict = {}
     joy_score_dict = {}
     sadness_score_dict = {}
     disgust_score_dict = {}
     fear_score_dict = {}
+
     for row in resultSet:
         #print row
-        print row.twitterdataset_cus_group_and_total_date__anger_score.keys(),\
-            row.twitterdataset_cus_group_and_total_date__anger_score.values()
+        # print row.twitterdataset_cus_group_and_total_date__anger_score.keys(),\
+        #     row.twitterdataset_cus_group_and_total_date__anger_score.values()
 
         anger_score_dict[row.twitterdataset_cus_group_and_total_date__anger_score.keys()[0]] = \
             row.twitterdataset_cus_group_and_total_date__anger_score.values()[0]
@@ -305,11 +293,11 @@ def gen_doclevel_json(candname):
         disgust_score_dict[row.twitterdataset_cus_group_and_total_date__disgust_score.keys()[0]] = \
             row.twitterdataset_cus_group_and_total_date__disgust_score.values()[0]
 
-    print 'anger_score_dict', anger_score_dict
-    print 'anger_score_dict', joy_score_dict
-    print 'anger_score_dict', sadness_score_dict
-    print 'anger_score_dict', fear_score_dict
-    print 'disgust_score_dict', disgust_score_dict
+    # print 'anger_score_dict', anger_score_dict
+    # print 'anger_score_dict', joy_score_dict
+    # print 'anger_score_dict', sadness_score_dict
+    # print 'anger_score_dict', fear_score_dict
+    # print 'disgust_score_dict', disgust_score_dict
 
 
     #Now we have got all emotion score dicts with day-wise data
@@ -330,7 +318,7 @@ def gen_doclevel_json(candname):
 
         doc_json.append(temp)
 
-    print doc_json
+    #print doc_json
 
     return doc_json
 
@@ -344,6 +332,7 @@ def get_tweet_list(candname,num=20):
     #revisit - "ORDER BY is only supported when the partition key is
     # restricted by an EQ or an IN."
     return tweets_dict
+
 
 #this function returns a dictionary of tone_json, writing_json, emotion_json and social_json
 def get_tweet_tones(candname,tweet_id):
@@ -374,5 +363,5 @@ def get_tweet_tones(candname,tweet_id):
 
     return result_jsons
 
-
-get_tweet_tones('realDonaldTrump','724237889886904320')
+#testing
+#get_tweet_tones('realDonaldTrump','724237889886904320')

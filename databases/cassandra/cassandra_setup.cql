@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS realDonaldTrump_graph (
 till_time timestamp primary key,
 graph_json text);
 
-/*
+
 /* ------------------------------------------------------
 Tables for HillaryClinton
 --------------------------------------------------------- */
@@ -287,5 +287,3 @@ CREATE TABLE IF NOT EXISTS JohnKasich_graph (
 till_time timestamp primary key,
 graph_json text);
 
-
-*/
