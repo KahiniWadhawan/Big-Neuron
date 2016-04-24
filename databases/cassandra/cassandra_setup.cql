@@ -21,7 +21,9 @@ tweet_id varchar primary key,
 tweet_text varchar,
 lang varchar,
 retweet_count bigint,
-created_at varchar
+created_at varchar,
+date varchar,
+time varchar
 /*day varchar,
 month varchar,
 year varchar,
@@ -33,7 +35,9 @@ Sentence Level and Doc level analysis tables are merged
 
 CREATE TABLE IF NOT EXISTS realDonaldTrump_sentencelevel (
 tweet_id varchar primary key,
-created_at timestamp,
+created_at varchar,
+date varchar,
+time varchar,
 tone_json text,
 emotion_json text,
 writing_json text,
@@ -72,7 +76,9 @@ tweet_id varchar primary key,
 tweet_text varchar,
 lang varchar,
 retweet_count bigint,
-created_at varchar
+created_at varchar,
+date varchar,
+time varchar
 /*,day varchar,
 month varchar,
 year varchar,
