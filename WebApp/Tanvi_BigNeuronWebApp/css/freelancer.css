@@ -83,11 +83,11 @@ header {
     text-align: center;
     color: #fff;
     background: #18bc9c;
-    height: 1015px;
+   /* height: 1015px;*/
 }
 
 header .container {
-    padding-top: 100px;
+   /* padding-top: 100px;*/
     padding-bottom: 50px;
 }
 
@@ -131,27 +131,42 @@ header .intro-text .skills {
         transition: padding .3s;
     }
 
+
+    /* the top-left floating branding*/
     .navbar-fixed-top .navbar-brand {
-        font-size: 2em;
+        position: relative;
+        font-size: 1.8em;
+        left: 20px;
+        top: 10px;
         -webkit-transition: all .3s;
         -moz-transition: all .3s;
         transition: all .3s;
         opacity: 0.7;
+        background: black;
+        padding: 20px 20px;
     }
 
     .navbar-fixed-top.navbar-shrink {
+        min-height: 5px;
         padding: 10px 0;
+        background: black;
     }
 
     .navbar-fixed-top.navbar-shrink .navbar-brand {
+       
         font-size: 1.5em;
+        background: black;
     }
+}
+
+#brand-div{
+    background: black;
 }
 
 
 @media(min-width:768px) {
     .navbar-fixed-bottom {
-        padding: 5px 0;
+        padding: 1px 0;
         -webkit-transition: padding .3s;
         -moz-transition: padding .3s;
         transition: padding .3s;
@@ -165,11 +180,12 @@ header .intro-text .skills {
     }
 
     .navbar-fixed-bottom.navbar-shrink {
-        padding: 10px 0;
+        padding: 2px 0;
     }
 
     .navbar-fixed-bottom.navbar-shrink .navbar-brand {
         font-size: 1.5em;
+
     }
 }
 
@@ -177,10 +193,19 @@ header .intro-text .skills {
     text-transform: uppercase;
     font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
     font-weight: 700;
+    min-height: 40px !important
+   
+}
+
+.nav>li>a {
+    position: relative;
+    display: block;
+    padding: 12px 15px 30px;
 }
 
 .navbar a:focus {
     outline: 0;
+    background: black;
 }
 
 .navbar .navbar-nav {
@@ -189,11 +214,6 @@ header .intro-text .skills {
 
 .navbar .navbar-nav li a:focus {
     outline: 0;
-}
-
-.navbar-default,
-.navbar-inverse {
-    border: 0;
 }
 
 section {
@@ -285,17 +305,6 @@ section.success a.active {
         margin: 0 0 30px;
     }
 }
-
-
-#section_charts * {
-    z-index: 2;
-    background-color: #ffffff;
-}
-
-#section_about * {
-    z-index: 2;
-}
-
 
 .btn-outline {
     margin-top: 15px;
@@ -390,7 +399,16 @@ footer .footer-col {
 }
 
 footer .footer-below {
-    padding: 25px 0;
+    position: relative;
+    bottom: 40px;
+    padding: 5px 0;
+    background-color: #233140;
+}
+
+footer .footer-below-indep {
+    position: relative;
+    
+    padding: 5px 0;
     background-color: #233140;
 }
 
@@ -542,8 +560,8 @@ li.active a, li.active a:hover {
 .tab-content {
     padding:15px;
     border-radius:3px;
-    //box-shadow:-1px 1px 1px rgba(0,0,0,0.15);
-    //background:#fff;
+    box-shadow:-1px 1px 1px rgba(0,0,0,0.15);
+    background:#fff;
 }
 
 .tab {
