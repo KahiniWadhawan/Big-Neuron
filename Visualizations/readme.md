@@ -2,9 +2,15 @@
 
 Using existing sophisticated visualization libraries to construct *creative* and *interactive* graphs,  infographics for parsed tweets from analytics engine. 
 
-## Primary Contributors
+## Primary UX Contributors
 #### 1. Tanvi Parikh
 #### 2. Jessica Lynch
+
+## Visualization Contributors
+#### 1. Tanvi Parikh - Document Level, Sentence Level 
+#### 2. Piyush Patel - WordCloud, RealTime 
+#### 3. Kahini Wadhawan - Topic Modelling, Follower Network 
+
 
 ### Tools
 - iPython notebook
