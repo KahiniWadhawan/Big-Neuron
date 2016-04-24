@@ -17,23 +17,24 @@ Using existing sophisticated visualization libraries to construct *creative* and
 - Balsamiq mockups
 - Axure mockups
 
-### Technologies Proposed
+### Technologies Used
 - D3.js
 - Visual.ly
-- Matplotlib
-- pandas 
-- Express.js or Node.js
+- jQuery
+- Amcharts
 - HTML5/CSS
 - Bootstrap
-- Heroku toolbelt
+- AWS web services 
 
 -
 ### Viz ideas
 - Wordmap
 - Bar-chart with interactive legend
 - Pie charts for Document Tone
-- US Map 
+- US Map
 - double-stacked barchart
+- D3 Zoomable Pack Layout for Topic Modelling
+- D3 Force directed graph for Follower Network
 
 ### Goal: 4-5 concrete visualizations
 
