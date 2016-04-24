@@ -83,11 +83,11 @@ header {
     text-align: center;
     color: #fff;
     background: #18bc9c;
-    height: 1015px;
+   /* height: 1015px;*/
 }
 
 header .container {
-    padding-top: 100px;
+   /* padding-top: 100px;*/
     padding-bottom: 50px;
 }
 
