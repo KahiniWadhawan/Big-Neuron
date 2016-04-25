@@ -132,22 +132,22 @@ def get_emotion_scores(emotion_json):
 #---------------------------------------------------------------------------
 def insert_data_to_table(candname):
     #getting user tweets
-    tweets = get_user_tweets(candname,4)
+    tweets = get_user_tweets(candname,40)
     #setting up db
     session = db_connect()
 
     for tweet in tweets:
         #inserting to tweets table
         # try:
-        tweets_query = prepare_tweets_query(candname,tweet)
-        session.execute(tweets_query)
+        tweets_bound = prepare_tweets_query(candname,tweet,session)
+        session.execute(tweets_bound)
         # except
-        #inserting data to Sentencelevel table
-        sentencelevel_query = prepare_sentencelevel_query(candname,tweet)
-        session.execute(sentencelevel_query)
+        # #inserting data to Sentencelevel table
+        # sentencelevel_bound = prepare_sentencelevel_query(candname,tweet,session)
+        # session.execute(sentencelevel_bound)
 
 
-def prepare_tweets_query(candname, tweet):
+def prepare_tweets_query(candname, tweet,session):
     #creating table name
     table_name = candname + '_tweets'
 
@@ -164,21 +164,26 @@ def prepare_tweets_query(candname, tweet):
                 "retweet_count, " \
                 "created_at, " \
                 "date, " \
-                "time) " + "values('" + \
-                str(tweet.id_str.encode('utf-8')) + "','" + \
-                str(tweet.text.encode('utf-8')) + "', '" + \
-                str(tweet.lang) + "', " + \
-                str(tweet.retweet_count) + ", '" + \
-                str(tweet.created_at) + "', '" + \
-                str(date) + "', '" + \
-                str(time) + "'" \
-                ");"
+                "time) " + " VALUES " \
+                 "(?, ?, ?, ?, ?, ?, ?)"
 
-    print('tweets_query', tweets_query)
-    return tweets_query
+    prepared = session.prepare(tweets_query)
+
+    bound = prepared.bind((str(tweet.id_str.encode('utf-8')),
+                           str(tweet.text.encode('utf-8')),
+                           str(tweet.lang),
+                           tweet.retweet_count,
+                           str(tweet.created_at),
+                           str(date),
+                           str(time) ))
 
 
-def prepare_sentencelevel_query(candname,tweet):
+    print('tweets_query', bound)
+
+    return bound
+
+
+def prepare_sentencelevel_query(candname,tweet,session):
     #creating table name
     table_name = candname + '_sentencelevel'
 
@@ -494,7 +499,7 @@ def get_tweet_tones(candname,tweet_id,file_path):
 
 
 #testing all functions here in a sequence
-#insert_data_to_table('realDonaldTrump')
+insert_data_to_table('realDonaldTrump')
 #insert_data_to_table('HillaryClinton')
 # insert_data_to_table('BernieSanders')
 # insert_data_to_table('tedcruz')
