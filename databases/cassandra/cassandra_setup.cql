@@ -34,7 +34,7 @@ Sentence Level and Doc level analysis tables are merged
 ---------------------------------------------------------- */
 
 CREATE TABLE IF NOT EXISTS realDonaldTrump_sentencelevel (
-tweet_id varchar primary key,
+tweet_id varchar,
 created_at varchar,
 date varchar,
 time varchar,
@@ -46,7 +46,9 @@ anger_score double,
 joy_score double,
 fear_score double,
 sadness_score double,
-disgust_score double);
+disgust_score double,
+PRIMARY KEY (tweet_id,date));
+//revisit
 
 /*
 CREATE TABLE IF NOT EXISTS realDonaldTrump_wordcloud (
