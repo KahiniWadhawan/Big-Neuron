@@ -15,7 +15,7 @@ var pack = d3.layout.pack()
 
 function show(user){
   d3.select("svg").remove();
-  var vis = d3.select("body").insert("svg:svg", "h2")
+  var vis = d3.select("#topicm").insert("svg:svg", "h2")
     .attr("width", w)
     .attr("height", h)
     .append("svg:g")
