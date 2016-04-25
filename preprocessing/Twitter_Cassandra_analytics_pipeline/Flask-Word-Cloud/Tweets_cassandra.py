@@ -143,6 +143,7 @@ class TweetAPI(CassandraAPI):
       
       try:
          for i,tweet in enumerate(tweepy.Cursor(self.api.search,q="Donald OR Trump OR DonaldTrump OR Donald trump OR trump ",lang="en",locale="en",count=100).items()):
+            '''
             print "i= ",i," ", "Tweet= ",tweet.text
             self.tweetlist.append(tweet.text)
             print dir(tweet)
@@ -153,7 +154,8 @@ class TweetAPI(CassandraAPI):
             print tweet.geo
             print tweet.place
             break
-
+            '''
+            print i
             #break
             #if (i%10==0):
             #print "TRY Length of tweets = ", len(self.tweetlist)
@@ -187,12 +189,11 @@ class TweetAPI(CassandraAPI):
 
 
    def WordCloud(self,name):
-      try:
 
-         for i,tweet in enumerate(tweepy.Cursor(self.api.search,q="Donald OR Trump OR DonaldTrump OR Donald trump OR trump ",lang="en",locale="en",count=100).items()):
-            print  "Inside try"
-            print len(tweet)
-            break
+      
+      try:
+         for i,tweet in enumerate(tweepy.Cursor(self.api.search,q=str(name),lang="en",locale="en",count=100).items()):
+            '''
             print "i= ",i," ", "Tweet= ",tweet.text
             self.tweetlist.append(tweet.text)
             print dir(tweet)
@@ -203,21 +204,49 @@ class TweetAPI(CassandraAPI):
             print tweet.geo
             print tweet.place
             break
+            '''
+            print i
+            #break
+            #if (i%10==0):
+            #print "TRY Length of tweets = ", len(self.tweetlist)
+            self.numb=i
+            #print "TRY Length of unique tweets = ",len(set(self.tweetlist))            
+            #print "TRY Numb = ",self.numb,"\n\n\n"
+               #raw_input("")
+         #self.numb+=i
+         #print "TRY (FOR) Numb = ",self.numb 
+         #print "TRY (FOR) Length of tweets = ", len(self.tweetlist)
+         #print "TRY (FOR) Length of unique tweets = ",len(set(self.tweetlist))
+
       except:
+
+         #print "EXCEPT Sleeping ..."
+         #print "EXCEPT numb= ",self.numb
+         #print "EXCEPT Length of tweets = ", len(self.tweetlist)
+         #print "EXCEPT Length of unique tweets = ",len(set(self.tweetlist)),"\n\n\n"
+
          if(len(set(self.tweetlist)) < 15000):
-            self.SearchAPI()
+            self.WordCloud(name)
+
+         #print "Unexpected error:", sys.exc_info()[0]
+      
       finally:
-         #print "FINALLY len(self.tweetlist)= ",len(self.tweetlist)
-         #print "FINALLY numb = ", self.numb
+         print "FINALLY len(self.tweetlist)= ",len(self.tweetlist)
+         print "FINALLY numb = ", self.numb
          self.tweetlist=[]
-         self.numb=0    
+         self.numb=0
+         #self.TestTimeout2()
+
+
+
+
+
 if __name__ == "__main__":
    tweets =  TweetAPI()
    tweets.Connect()
    #tweets.TestIBM()
    #tweets.SearchAPI()
-   #tweets.WordCloud('Trump')
-   thread.start_new_thread(tweets.Caller,('Trump',))
+   tweets.WordCloud("Donald OR Trump OR DonaldTrump OR Donald trump OR trump ")
 
 
 else:
