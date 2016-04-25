@@ -3,7 +3,7 @@
 ![alt tag](https://github.com/CUBigDataClass/Big-Neuron/blob/Tanvi-branch/analytics/topic.png)
 
 ### Topic Modelling 
-![alt tag](https://github.com/CUBigDataClass/Big-Neuron/blob/Tanvi-branch/analytics/network.png)
+![alt tag](https://github.com/CUBigDataClass/Big-Neuron/blob/Tanvi-branch/analytics/follower.png)
 
 
 #### IBM Tone Analyzer 
