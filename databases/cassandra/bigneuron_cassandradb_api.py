@@ -138,9 +138,10 @@ def insert_data_to_table(candname):
 
     for tweet in tweets:
         #inserting to tweets table
-        tweets_query = prepare_tweets_query(candname,tweet)
-        session.execute(tweets_query)
-
+        try:
+            tweets_query = prepare_tweets_query(candname,tweet)
+            session.execute(tweets_query)
+        except
         #inserting data to Sentencelevel table
         sentencelevel_query = prepare_sentencelevel_query(candname,tweet)
         session.execute(sentencelevel_query)
@@ -154,6 +155,8 @@ def prepare_tweets_query(candname, tweet):
     date = datetime_lst[0]
     time = datetime_lst[1]
 
+    print 'tweet :: ',tweet.text
+
     tweets_query = "insert into " + table_name + "(" + \
                 "tweet_id, " \
                 "tweet_text, " \
@@ -162,7 +165,7 @@ def prepare_tweets_query(candname, tweet):
                 "created_at, " \
                 "date, " \
                 "time) " + "values('" + \
-                str(tweet.id_str.encode('utf-8')) + "', '" + \
+                str(tweet.id_str.encode('utf-8')) + "','" + \
                 str(tweet.text.encode('utf-8')) + "', '" + \
                 str(tweet.lang) + "', " + \
                 str(tweet.retweet_count) + ", '" + \
@@ -171,7 +174,7 @@ def prepare_tweets_query(candname, tweet):
                 str(time) + "'" \
                 ");"
 
-    #print('tweets_query', tweets_query)
+    print('tweets_query', tweets_query)
     return tweets_query
 
 
@@ -236,13 +239,6 @@ def prepare_sentencelevel_query(candname,tweet):
 #def prepare_topics_query():
 #def prepare_graph_query():
 
-
-
-insert_data_to_table('realDonaldTrump')
-# insert_data_to_table('HillaryClinton')
-# insert_data_to_table('BernieSanders')
-# insert_data_to_table('tedcruz')
-# insert_data_to_table('JohnKasich')
 
 
 #--------------------------------------------------------------------------------
@@ -379,12 +375,12 @@ def gen_doclevel_json(candname, file_path):
     print doc_json
 
     #writing doc_json to provided file_path
-    f =
+    with open(os.path.join(file_path,'doc.json'), 'wb') as outfile:
+            json.dump(doc_json, outfile)
 
-    return doc_json
 
-#testing
-gen_doclevel_json('realDonaldTrump')
+    #return doc_json
+
 
 
 #getting top tweets based on retweet_count
@@ -452,8 +448,6 @@ def get_tweet_list(candname,num=20):
     print tweets_dict
     return tweets_dict
 
-#testing
-#get_tweet_list('realDonaldTrump',2)
 
 #this function returns a dictionary of tone_json, writing_json, emotion_json and social_json
 #revisit - ask Jessica - write to path or return json dict
@@ -476,16 +470,37 @@ def get_tweet_tones(candname,tweet_id,file_path):
 
     result_jsons = {}
     for row in resultSet:
-        tone_json = json.loads(row.tone_json)
+        # tone_json = json.loads(row.tone_json)
+        # with open(os.path.join(file_path,'tone.json'), 'wb') as outfile:
+        #     json.dump(tone_json, outfile)
+
         writing_json = json.loads(row.writing_json)
+        with open(os.path.join(file_path,'writing.json'), 'wb') as outfile:
+            json.dump(writing_json, outfile)
+
         emotion_json = json.loads(row.emotion_json)
+        with open(os.path.join(file_path,'emotion.json'), 'wb') as outfile:
+            json.dump(emotion_json, outfile)
+
         social_json = json.loads(row.social_json)
+        with open(os.path.join(file_path,'social.json'), 'wb') as outfile:
+            json.dump(social_json, outfile)
+
 
     #print 'result_jsons', result_jsons
 
-    return result_jsons
+    #return result_jsons
 
-#testing
+
+#testing all functions here in a sequence
+insert_data_to_table('realDonaldTrump')
+# insert_data_to_table('HillaryClinton')
+# insert_data_to_table('BernieSanders')
+# insert_data_to_table('tedcruz')
+# insert_data_to_table('JohnKasich')
+
+gen_doclevel_json('realDonaldTrump','/data')
+#get_tweet_list('realDonaldTrump',2)
 #get_tweet_tones('realDonaldTrump','724237889886904320')
 
 
