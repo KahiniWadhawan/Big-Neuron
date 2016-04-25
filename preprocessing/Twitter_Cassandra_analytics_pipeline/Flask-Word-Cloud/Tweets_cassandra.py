@@ -68,7 +68,7 @@ class TweetAPI(CassandraAPI):
 		print user.screen_name
 		print user.followers_count
 		for friend in user.friends():
-   			print friend.screen_name
+         print friend.screen_name
 
    def Pagination(self):
 		for friend in tweepy.Cursor(self.api.friends).items():
