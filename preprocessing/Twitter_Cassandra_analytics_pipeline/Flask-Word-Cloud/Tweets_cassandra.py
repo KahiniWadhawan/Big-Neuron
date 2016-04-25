@@ -29,7 +29,8 @@ import sys
 from CassandraDriver import CassandraAPI
 from CassandraDriver import TOKENS
 from CassandraDriver import time
-
+import thread
+import time
 
 
 #Import secret phrase module
@@ -135,7 +136,10 @@ class TweetAPI(CassandraAPI):
          #for each in results:
          #   print each.text
          #raw_input("")
+
+
    def SearchAPI(self):
+
       
       try:
          for i,tweet in enumerate(tweepy.Cursor(self.api.search,q="Donald OR Trump OR DonaldTrump OR Donald trump OR trump ",lang="en",locale="en",count=100).items()):
@@ -179,19 +183,42 @@ class TweetAPI(CassandraAPI):
          print "FINALLY numb = ", self.numb
          self.tweetlist=[]
          self.numb=0
-         
-         
-         
          #self.TestTimeout2()
-   
 
 
+   def WordCloud(self,name):
+      try:
 
+         for i,tweet in enumerate(tweepy.Cursor(self.api.search,q="Donald OR Trump OR DonaldTrump OR Donald trump OR trump ",lang="en",locale="en",count=100).items()):
+            print  "Inside try"
+            print len(tweet)
+            break
+            print "i= ",i," ", "Tweet= ",tweet.text
+            self.tweetlist.append(tweet.text)
+            print dir(tweet)
+            print tweet.text
+            print tweet.possibly_sensitive
+            print tweet.coordinates
+            print tweet.favorite_count
+            print tweet.geo
+            print tweet.place
+            break
+      except:
+         if(len(set(self.tweetlist)) < 15000):
+            self.SearchAPI()
+      finally:
+         #print "FINALLY len(self.tweetlist)= ",len(self.tweetlist)
+         #print "FINALLY numb = ", self.numb
+         self.tweetlist=[]
+         self.numb=0    
 if __name__ == "__main__":
    tweets =  TweetAPI()
    tweets.Connect()
    #tweets.TestIBM()
-   tweets.SearchAPI()
+   #tweets.SearchAPI()
+   #tweets.WordCloud('Trump')
+   thread.start_new_thread(tweets.Caller,('Trump',))
+
 
 else:
    print "Redo module load"
