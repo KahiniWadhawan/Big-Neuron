@@ -17,14 +17,12 @@ app = Flask(__name__)
 # the content of the variables is encrypted, so users can't
 # actually see it. They could edit it, but again, as the content
 # wouldn't be signed with this hash key, it wouldn't be valid
-# You need to set a scret key (random text) and keep it secret
+# You need to set a secret key (random text) and keep it secret
 app.secret_key = 'F12Zr47j\3yX R~X@H!jmM]Lwf/,?KT'
 
 #sys.path.append(os.path.dirname(__file__) + r"/static/data/dummy_db.py")  #append path to db api module that has the method to get list of top tweets
 from dummy_db import get_tweet_list, get_tweet_tones  #Do we have a tone analyzer module -or- are we inserting tweets by hand into IBM tone analyzer to get the json output?
 
-############### GLOBAL VARIABLES ###############
-INIT_TWEETLEVEL = False
 
 '''
     Renders the dashboard.
@@ -39,22 +37,16 @@ def home():
 '''
 @app.route("/{{ request.form['candidate'] }}", methods = ["GET", "POST"])
 def select_candidate():
+    retVal = None
     if request.method == "POST":
-
         radio = request.form['candidate'] #this retrieves which radio button was pressed
         session['candidate'] = radio
-        if radio == 'clinton':
-            return render_template("pages/clinton/clinton.html", cand=radio)
-        elif radio == 'cruz':
-            return render_template("pages/cruz/cruz.html")
-        elif radio == 'kasich':
-            return render_template("pages/kasich/kasich.html")
-        elif radio == 'sanders':
-            return render_template("pages/sanders/sanders.html")
-        elif radio == 'trump':
-            return render_template("pages/trump/trump.html")
+        if radio in ['clinton', 'cruz', 'kasich', 'sanders', 'trump']:
+            fpath = "pages/%s/%s.html" % (radio, radio)
+            retVal = render_template(fpath, cand=radio)
         else:
-            print "Error in select_candidate(). Need to make an error page"
+            retVal = "Error in select_candidate(). Need to make an error page"
+    return retVal
 
 '''
     Load visualizations from their respective candidate pages
@@ -62,21 +54,17 @@ def select_candidate():
 @app.route("/wordcloud", methods = ["GET", "POST"])
 def wordcloud():
     print "Inside wordcloud()"
-    cand = session['candidate']
+    retVal = None
+    cand   = session['candidate']
     print "In wordcloud, session['candidate'] is - ", cand
-    if cand == 'clinton':
-        return render_template("pages/clinton/clinton_wordcloud.html")
-    elif cand == 'cruz':
-        return render_template("pages/cruz/cruz_wordcloud.html")
-    elif cand == 'kasich':
-        return render_template("pages/kasich/kasich_wordcloud.html")
-    elif cand == 'sanders':
-        return render_template("pages/sanders/sanders_wordcloud.html")
-    elif cand == 'trump':
-        return render_template("pages/trump/trump_wordcloud.html")
+    if cand in ['clinton', 'cruz', 'kasich', 'sanders', 'trump']:
+        fpath = "pages/%s/%s_wordcloud.html" % (cand, cand)
+        retVal = render_template(fpath)
     else:
-        print "Error in wordcloud(). Need to make an error page"
-        
+        retVal = "Error in topic(). Need to make an error page"
+    return retVal
+
+    
 '''
     Renders the realtime dashboard for any candidate
 '''
@@ -90,42 +78,34 @@ def realtime():
 '''
 @app.route('/network')
 def network():
-    print "Inside network() function" 
-    cand = session['candidate']
+    print "Inside network() function"
+    retVal = None
+    cand   = session['candidate']
     print "In Follower's Network, session['candidate'] is - ", cand
-    if cand == 'clinton':
-        return render_template("pages/clinton/clinton_network.html")
-    elif cand == 'cruz':
-        return render_template("pages/cruz/cruz_network.html")
-    elif cand == 'kasich':
-        return render_template("pages/kasich/kasich_network.html")
-    elif cand == 'sanders':
-        return render_template("pages/sanders/sanders_network.html")
-    elif cand == 'trump':
-        return render_template("pages/trump/trump_network.html")
+    if cand in ['clinton', 'cruz', 'kasich', 'sanders', 'trump']:
+        fpath = "pages/%s/%s_network.html" % (cand, cand)
+        retVal = render_template(fpath)
     else:
-        print "Error in network(). Need to make an error page"
+        retVal = "Error in topic(). Need to make an error page"
+    return retVal
+
 
 '''
     Renders the Topic Modelling visualization for any candidate
 '''
 @app.route('/topic')
 def topic():
-    print "Inside topic() function" 
-    cand = session['candidate']
+    print "Inside topic() function"
+    retVal = None
+    cand   = session['candidate']
     print "In Topic Modelling, session['candidate'] is - ", cand
-    if cand == 'clinton':
-        return render_template("pages/clinton/clinton_topicmodel.html")
-    elif cand == 'cruz':
-        return render_template("pages/cruz/cruz_topicmodel.html")
-    elif cand == 'kasich':
-        return render_template("pages/kasich/kasich_topicmodel.html")
-    elif cand == 'sanders':
-        return render_template("pages/sanders/sanders_topicmodel.html")
-    elif cand == 'trump':
-        return render_template("pages/trump/trump_topicmodel.html")
+    if cand in ['clinton', 'cruz', 'kasich', 'sanders', 'trump']:
+        fpath = "pages/%s/%s_topicmodel.html" % (cand, cand)
+        retVal = render_template(fpath)
     else:
-        print "Error in topic(). Need to make an error page"
+        retVal = "Error in topic(). Need to make an error page"
+    return retVal
+
 
 '''
     Renders the Sentence-level SA page for candidate selected
