@@ -582,10 +582,10 @@ Fade content bs-carousel with hero headers
 /********************************/
 .fade-carousel {
     position: relative;
-    height: 80vh;
+    height: 100vh;
 }
 .fade-carousel .carousel-inner .item {
-    height: 80vh;
+    height: 100vh;
     opacity: 0.9;
 }
 .fade-carousel .carousel-indicators > li {
@@ -605,7 +605,7 @@ Fade content bs-carousel with hero headers
 /********************************/
 .hero {
     position: absolute;
-    top: 50%;
+    top: 10%;
     left: 50%;
     z-index: 5;
     color: #fff;
@@ -618,8 +618,9 @@ Fade content bs-carousel with hero headers
            -o-transform: translate3d(-50%,-50%,0);
               transform: translate3d(-50%,-50%,0);
 }
-.hero h1 {
-    font-size: 6em;    
+.hero h2 {
+    font-size: 3em;    
+    opacity: 0.6;
     font-weight: bold;
     margin: 0;
     padding: 0;
