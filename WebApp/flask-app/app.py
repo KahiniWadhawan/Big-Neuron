@@ -139,7 +139,7 @@ def tweetlevel():
     print "In Sentence-level, session['candidate'] is - ", cand
     if cand in ['clinton', 'cruz', 'kasich', 'sanders', 'trump']:
         fpath = "pages/%s/%s_sa_sentence.html" % (cand, cand)
-        tweet_list = get_tweet_list( cand, tweet_num )
+        tweet_list = get_tweets( cand, tweet_num )
         retVal = render_template(fpath, tweet_list=tweet_list)
     else:
         retVal = "Error in tweetlevel()."
@@ -190,8 +190,8 @@ def alltweet():
     Parameter(s): candidate (Type: string; Descr: Candidate name), tweet_num (Type: int; Descr: Number of tweets in dictionary, e.g. 20)
     Return: List of Tuples, specifically [(tweet_id, tweet_text), ...]    
 '''
-def get_tweet_list( candidate, tweet_num ):
-    tweet_dict = get_tweets( candidate, tweet_num )
+def get_tweets( candidate, tweet_num ):
+    tweet_dict = get_tweet_list( candidate, tweet_num )
     tweet_list = []
     counter = 0
     for key in tweet_dict:
