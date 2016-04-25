@@ -32,7 +32,7 @@ from CassandraDriver import time
 import thread
 import time
 
-
+Repetations = 300
 #Import secret phrase module
 
 #Reference API
@@ -50,6 +50,8 @@ class TweetAPI(CassandraAPI):
       self.access_token_secret=TOKENS.access_token_secret
       self.tweetlist=[]
       self.numb=0
+      self.repetations = 100
+
 
 
    def Connect(self):		
@@ -139,7 +141,6 @@ class TweetAPI(CassandraAPI):
 
 
    def SearchAPI(self):
-
       
       try:
          for i,tweet in enumerate(tweepy.Cursor(self.api.search,q="Donald OR Trump OR DonaldTrump OR Donald trump OR trump ",lang="en",locale="en",count=100).items()):
@@ -188,57 +189,74 @@ class TweetAPI(CassandraAPI):
          #self.TestTimeout2()
 
 
-   def WordCloud(self,name):
-
-      
+   def WordCloud(self,name,Politician_name):
+      if(Politician_name=="donaldtrumpttl"):
+         self.insert_tweets = self.session.prepare("INSERT INTO donaldtrumpttl (tweet_id, tweet_text, lang, retweet_count, created_at, deviceused, possibly_sensitive, coordinates, fav_cout, geo, place) VALUES(?,?,?,?,?,?,?,?,?,?,?)")
+      values=None
+      executestmt=None
+           
       try:
+
          for i,tweet in enumerate(tweepy.Cursor(self.api.search,q=str(name),lang="en",locale="en",count=100).items()):
-            '''
-            print "i= ",i," ", "Tweet= ",tweet.text
-            self.tweetlist.append(tweet.text)
-            print dir(tweet)
-            print tweet.text
-            print tweet.possibly_sensitive
-            print tweet.coordinates
-            print tweet.favorite_count
-            print tweet.geo
-            print tweet.place
-            break
-            '''
-            print i
-            #break
-            #if (i%10==0):
-            #print "TRY Length of tweets = ", len(self.tweetlist)
-            self.numb=i
-            #print "TRY Length of unique tweets = ",len(set(self.tweetlist))            
-            #print "TRY Numb = ",self.numb,"\n\n\n"
-               #raw_input("")
-         #self.numb+=i
-         #print "TRY (FOR) Numb = ",self.numb 
-         #print "TRY (FOR) Length of tweets = ", len(self.tweetlist)
-         #print "TRY (FOR) Length of unique tweets = ",len(set(self.tweetlist))
+            print "Inside for ",i
 
+            if(i>1 and  (i%(self.repetations) ==0)):
+               print "...Computing..."
+            if (i==1):
+               break
+               values=[]
+               executestmt=None
+              
+            print tweet.id, type(tweet.id)
+            
+            print tweet.text,type(tweet.text.replace("'",""))
+            
+            print tweet.lang,type(tweet.lang)
+            
+            print tweet.retweet_count,type(tweet.retweet_count)
+
+            print tweet.created_at,type(tweet.created_at)
+
+
+            print tweet.source_url,type(tweet.source_url)
+
+            
+            print tweet.possibly_sensitive,type(tweet.possibly_sensitive)
+            '''
+            print tweet.coordinates,type(tweet.coordinates)
+            print tweet.fav_cout,type(tweet.fav_cout)
+            print tweet.geo,type(tweet.geo)
+            print tweet.place,type(tweet.place)
+            
+
+
+            values.append(tweet.id)
+            values.append(tweet.text.replace("'",""))
+            values.append(tweet.lang.replace("'",""))
+            values.append(tweet.retweet_count)
+            values.append(tweet.created_at)
+            values.append(tweet.source_url.replace("'",""))
+            values.append(tweet.possibly_sensitive.replace("'",""))
+            values.append(str(tweet.coordinates).replace("'",""))
+            values.append(tweet.fav_cout.replace("'",""))
+            values.append(tweet.geo.replace("'",""))
+            values.append(tweet.place.replace("'",""))
+
+            binding_stmt = self.insert_tweets.bind(values)
+            print "Before execute ",i
+            executestmt.execute(binding_stmt)
+            '''
+            
       except:
-
-         #print "EXCEPT Sleeping ..."
-         #print "EXCEPT numb= ",self.numb
-         #print "EXCEPT Length of tweets = ", len(self.tweetlist)
-         #print "EXCEPT Length of unique tweets = ",len(set(self.tweetlist)),"\n\n\n"
-
-         if(len(set(self.tweetlist)) < 15000):
-            self.WordCloud(name)
-
-         #print "Unexpected error:", sys.exc_info()[0]
-      
+         print "Inside except ",i
+         if(len(set(self.tweetlist)) < 100000):
+            self.WordCloud(name,Politician_name)
       finally:
-         print "FINALLY len(self.tweetlist)= ",len(self.tweetlist)
-         print "FINALLY numb = ", self.numb
+         #print "Inside finally ",i
+         #print "FINALLY len(self.tweetlist)= ",len(self.tweetlist)
+         #print "FINALLY numb = ", self.numb
          self.tweetlist=[]
-         self.numb=0
          #self.TestTimeout2()
-
-
-
 
 
 if __name__ == "__main__":
@@ -246,7 +264,7 @@ if __name__ == "__main__":
    tweets.Connect()
    #tweets.TestIBM()
    #tweets.SearchAPI()
-   tweets.WordCloud("Donald OR Trump OR DonaldTrump OR Donald trump OR trump ")
+   tweets.WordCloud("Donald OR Trump OR DonaldTrump OR Donald trump OR trump ","donaldtrumpttl")  #REMOVE THE BREAK STATEMENT
 
 
 else:

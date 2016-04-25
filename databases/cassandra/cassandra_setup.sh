@@ -67,12 +67,7 @@ tweet_text varchar,
 lang varchar,
 retweet_count bigint,
 created_at timestamp,
-deviceused varchar,
-possibly_sensitive varchar,
-coordinates varchar,
-fav_cout varchar,
-geo varchar,
-place varchar
+fav_cout varchar
 );
 
 
@@ -136,12 +131,7 @@ tweet_text varchar,
 lang varchar,
 retweet_count bigint,
 created_at timestamp,
-deviceused varchar,
-possibly_sensitive varchar,
-coordinates varchar,
-fav_cout varchar,
-geo varchar,
-place varchar
+fav_cout varchar
 );
 
 
@@ -203,14 +193,8 @@ tweet_text varchar,
 lang varchar,
 retweet_count bigint,
 created_at timestamp,
-deviceused varchar,
-possibly_sensitive varchar,
-coordinates varchar,
-fav_cout varchar,
-geo varchar,
-place varchar
+fav_cout varchar
 );
-
 
 
 
@@ -273,12 +257,7 @@ tweet_text varchar,
 lang varchar,
 retweet_count bigint,
 created_at timestamp,
-deviceused varchar,
-possibly_sensitive varchar,
-coordinates varchar,
-fav_cout varchar,
-geo varchar,
-place varchar
+fav_cout varchar
 );
 
 
@@ -338,12 +317,7 @@ tweet_text varchar,
 lang varchar,
 retweet_count bigint,
 created_at timestamp,
-deviceused varchar,
-possibly_sensitive varchar,
-coordinates varchar,
-fav_cout varchar,
-geo varchar,
-place varchar
+fav_cout varchar
 );
 
 
