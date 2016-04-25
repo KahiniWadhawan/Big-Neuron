@@ -191,7 +191,7 @@ class TweetAPI(CassandraAPI):
 
    def WordCloud(self,name,Politician_name):
       if(Politician_name=="donaldtrumpttl"):
-         self.insert_tweets = self.session.prepare("INSERT INTO donaldtrumpttl (tweet_id, lang, tweet_text, created_at,fav_cout) VALUES(?,?,?,?,?)")
+         self.insert_tweets = self.session.prepare("INSERT INTO donaldtrumpttl (tweet_id, lang, tweet_text, created_at, retweet_count) VALUES(?,?,?,?,?)")
       values=None
       executestmt=None
            
@@ -203,7 +203,7 @@ class TweetAPI(CassandraAPI):
             if(i>1 and  (i%(self.repetations) ==0)):
                print "...Computing..."
             if (i==1):
-               break
+               #break
                values=[]
                executestmt=None
               
@@ -212,11 +212,12 @@ class TweetAPI(CassandraAPI):
             print tweet.text,type(tweet.text.replace("'",""))
             
             
-            print tweet.retweet_count,type(tweet.retweet_count)
+            print tweet.lang,type(tweet.lang)
 
             print tweet.created_at,type(tweet.created_at)
 
             print tweet.retweet_count,type(tweet.retweet_count)
+            print "\n\n\n",i
 
 
 
