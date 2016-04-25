@@ -69,7 +69,7 @@ CREATE TABLE IF NOT EXISTS realDonaldTrump_graph (
 till_time timestamp primary key,
 graph_json text);
 
-
+/*
 /* ------------------------------------------------------
 Tables for HillaryClinton
 --------------------------------------------------------- */
@@ -91,7 +91,7 @@ Sentence Level and Doc level analysis tables are merged
 ---------------------------------------------------------- */
 
 CREATE TABLE IF NOT EXISTS HillaryClinton_sentencelevel (
-tweet_id varchar primary key,
+tweet_id varchar,
 created_at varchar,
 date varchar,
 time varchar,
@@ -103,7 +103,8 @@ anger_score double,
 joy_score double,
 fear_score double,
 sadness_score double,
-disgust_score double);
+disgust_score double,
+PRIMARY KEY (tweet_id,date));
 
 /*
 CREATE TABLE IF NOT EXISTS HillaryClinton_wordcloud (
@@ -146,7 +147,7 @@ Sentence Level and Doc level analysis tables are merged
 ---------------------------------------------------------- */
 
 CREATE TABLE IF NOT EXISTS BernieSanders_sentencelevel (
-tweet_id varchar primary key,
+tweet_id varchar,
 created_at varchar,
 date varchar,
 time varchar,
@@ -158,7 +159,8 @@ anger_score double,
 joy_score double,
 fear_score double,
 sadness_score double,
-disgust_score double);
+disgust_score double,
+PRIMARY KEY (tweet_id,date));
 
 /*
 CREATE TABLE IF NOT EXISTS BernieSanders_wordcloud (
@@ -201,7 +203,7 @@ Sentence Level and Doc level analysis tables are merged
 ---------------------------------------------------------- */
 
 CREATE TABLE IF NOT EXISTS tedcruz_sentencelevel (
-tweet_id varchar primary key,
+tweet_id varchar,
 created_at varchar,
 date varchar,
 time varchar,
@@ -213,7 +215,8 @@ anger_score double,
 joy_score double,
 fear_score double,
 sadness_score double,
-disgust_score double);
+disgust_score double,
+PRIMARY KEY (tweet_id,date));
 
 /*
 CREATE TABLE IF NOT EXISTS tedcruz_wordcloud (
@@ -256,7 +259,7 @@ Sentence Level and Doc level analysis tables are merged
 ---------------------------------------------------------- */
 
 CREATE TABLE IF NOT EXISTS JohnKasich_sentencelevel (
-tweet_id varchar primary key,
+tweet_id varchar,
 created_at varchar,
 date varchar,
 time varchar,
@@ -268,7 +271,8 @@ anger_score double,
 joy_score double,
 fear_score double,
 sadness_score double,
-disgust_score double);
+disgust_score double,
+PRIMARY KEY (tweet_id,date));
 
 /*
 CREATE TABLE IF NOT EXISTS JohnKasich_wordcloud (
@@ -289,3 +293,4 @@ CREATE TABLE IF NOT EXISTS JohnKasich_graph (
 till_time timestamp primary key,
 graph_json text);
 
+*/
