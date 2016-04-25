@@ -24,7 +24,7 @@
       pointer-events: none;
       font: 10px sans-serif;
     }
-     header {
+     header{
         background: linear-gradient(25deg, #013467, #044689, #0052a5, #cc172a, #960c1a, #650912);
         background-size: 300% 300%;
 
@@ -98,7 +98,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="intro-text" style="padding-bottom: 5px">
-                        <h2 style="padding-bottom:5px">Tweet Topic Modeling for Donald Trump</h2>
+                        <h2 style="padding-bottom:5px">Follower's network for Donald Trump</h2>
                         <hr class="star-light">
                                                
                     </div>
@@ -117,7 +117,7 @@
                         var force = d3.layout.force()
                             .gravity(0.05)
                             .distance(150)
-                            .charge(-100)
+                            .charge(-200)
                             .size([width, height]);
 
                         d3.json("static/data/trump_network.json", function(error, json) {
@@ -189,12 +189,7 @@
         
     </header>
 
-
-
-
-
-
-   
 </body>
 
 </html>
+      
