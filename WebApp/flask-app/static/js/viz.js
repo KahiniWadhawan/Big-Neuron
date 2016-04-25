@@ -1,8 +1,8 @@
 /** The d3 visualization. **/
 
-var w = 1280,
-    h = 800,
-    r = 720,
+var w = window.innerWidth,
+    h = window.innerHeight,
+    r = 680,
     x = d3.scale.linear().range([0, r]),
     y = d3.scale.linear().range([0, r]),
     node,
