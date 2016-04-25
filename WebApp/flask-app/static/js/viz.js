@@ -1,8 +1,8 @@
 /** The d3 visualization. **/
 
-var w = 1280,
-    h = 800,
-    r = 720,
+var w = window.innerWidth,
+    h = window.innerHeight,
+    r = 680,
     x = d3.scale.linear().range([0, r]),
     y = d3.scale.linear().range([0, r]),
     node,
@@ -15,12 +15,12 @@ var pack = d3.layout.pack()
 
 function show(user){
   d3.select("svg").remove();
-  var vis = d3.select("body").insert("svg:svg", "h2")
+  var vis = d3.select("#topicm").insert("svg:svg", "h2")
     .attr("width", w)
     .attr("height", h)
     .append("svg:g")
     .attr("transform", "translate(" + (w - r) / 2 + "," + (h - r) / 2 + ")");
-  d3.json("json/"+ user + ".json", function(data) {
+  d3.json("static/data/"+ user + "_topics.json", function(data) {
     node = root = data;
     var nodes = pack.nodes(root);
 

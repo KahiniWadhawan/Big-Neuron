@@ -1,4 +1,8 @@
 
+### Topic Modelling 
+![alt tag](https://github.com/CUBigDataClass/Big-Neuron/blob/Tanvi-branch/analytics/topic.png)
+
+
 #### IBM Tone Analyzer 
 
 #####To use -
@@ -18,3 +22,5 @@ Step 2 - Create Bluemix account to get service_username and service_password. On
 In order to test the tone of a text/tweet/phrase use the file 
 	
 	python analyze-tone.py
+
+
