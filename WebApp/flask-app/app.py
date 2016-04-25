@@ -21,7 +21,7 @@ app = Flask(__name__)
 app.secret_key = 'F12Zr47j\3yX R~X@H!jmM]Lwf/,?KT'
 
 #sys.path.append(os.path.dirname(__file__) + r"/static/data/dummy_db.py")  #append path to db api module that has the method to get list of top tweets
-from dummy_db import get_tweets, get_jsons  #Do we have a tone analyzer module -or- are we inserting tweets by hand into IBM tone analyzer to get the json output?
+from dummy_db import get_tweet_list, get_tweet_tones  #Do we have a tone analyzer module -or- are we inserting tweets by hand into IBM tone analyzer to get the json output?
 
 ############### GLOBAL VARIABLES ###############
 INIT_TWEETLEVEL = False
@@ -150,11 +150,12 @@ def tweetlevel():
 '''
 @app.route('/change_viz_by_id', methods=['GET','POST'])
 def change_viz_by_id():
-    retVal = None
-    cand = session['candidate']
+    retVal   = None
+    cand     = session['candidate']
     tweet_id = request.args['id']
+    fpath    = "static/data/"
     if cand in ['clinton', 'cruz', 'kasich', 'sanders', 'trump']:
-        get_jsons(cand, tweet_id)
+        get_tweet_tones(cand, tweet_id, fpath)
         retVal = ""
     else:
         retVal = "Error in tweetlevel()."
@@ -180,6 +181,7 @@ def alltweet():
         return render_template("pages/trump/trump_sa_document.html")
     else:
         print "Error in alltweet(). Need to make an error page"
+
 
 
 ############### Helper Functions #################

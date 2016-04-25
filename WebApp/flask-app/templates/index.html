@@ -34,6 +34,35 @@
 
 <body id="page-top" class="index">
 
+    <!-- Navigation 
+    <nav class="navbar navbar-default navbar-fixed-bottom">
+        <!-- Brand and toggle get grouped for better mobile display 
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{{ url_for('home')}}" style="padding-left: 20px">Big Neuron</a>
+        </div> -->
+
+        <!-- Collect the nav links, forms, and other content for toggling 
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right" style="padding-right: 20px">
+                <li class="hidden">
+                    <a href="#page-top"></a>
+                </li>
+                <li class="page-scroll">
+                    <a href="#about">About</a>
+                </li>
+                <li class="page-scroll">
+                    <a href="#contact">Contact</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse 
+    </nav> -->
     <!-- Navigation -->
     <!-- TOP Nav Bar -->
     <nav class="navbar navbar-default navbar-fixed-top" style="padding-right: 20px; background: #2c3e50">
@@ -59,25 +88,7 @@
         <!-- /.navbar-collapse -->
     </nav>
 
-    <!-- BOTTOM Nav bar -->
-    <nav class="navbar navbar-default navbar-fixed-bottom">
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav navbar-right" style="height: 20px;padding-right: 20px">
-                 <li class="page-scroll">
-                    <a href="#about">About</a>
-                </li>
-                <li class="page-scroll">
-                    <a href="#team">Team</a>
-                </li>
-            </ul>
-            
-        </div>
-        <!-- /.navbar-collapse -->
-    </nav>
-    
-    
-     
+
     <!-- Header -->
     <header>
         <div class="container">
@@ -140,47 +151,58 @@
             </div>
             <div class="row">
                 <div class="col-sm-4 portfolio-item">
-                    <a href="#teammateModal1" class="portfolio-link" data-toggle="modal">
+                    <a href="" class="portfolio-link">
                         <div class="caption">
                             <div class="caption-content">
-                                <i class="fa fa-search-plus fa-3x"></i>
+                                <h3 style="margin-top:60px; font-size:40px">Tanvi<br>Parikh</h3>
                             </div>
                         </div>
-                        <img src="static/img/team/generic.png" class="img-responsive" alt="">
+                        <img src="{{ url_for('static', filename='img/team/tanvi.png') }}"  class="img-responsive" alt="">
                     </a>
                 </div>
                 <div class="col-sm-4 portfolio-item">
-                    <a href="#teammateModal2" class="portfolio-link" data-toggle="modal">
+                    <a href="" class="portfolio-link">
                         <div class="caption">
                             <div class="caption-content">
-                                <i class="fa fa-search-plus fa-3x"></i>
+                                <h3 style="margin-top:60px; font-size:40px">Piyush<br>Patel</h3>
                             </div>
                         </div>
-                        <img src="static/img/team/generic.png" class="img-responsive" alt="">
+                        <img src="{{ url_for('static', filename='img/team/piyush.png') }}" class="img-responsive" alt="">
                     </a>
                 </div>
                 <div class="col-sm-4 portfolio-item">
-                    <a href="#teammateModal3" class="portfolio-link" data-toggle="modal">
+                    <a href="" class="portfolio-link">
                         <div class="caption">
                             <div class="caption-content">
-                                <i class="fa fa-search-plus fa-3x"></i>
+                                <h3 style="margin-top:60px; font-size:40px">Kahini<br>Wadhawa</h3>
                             </div>
                         </div>
-                        <img src="static/img/team/generic.png" class="img-responsive" alt="">
+                        <img src="{{ url_for('static', filename='img/team/kahini.png') }}"  class="img-responsive" alt="">
                     </a>
                 </div>
                 <div class="col-sm-4 portfolio-item">
-                    <a href="#teammateModal4" class="portfolio-link" data-toggle="modal">
+                    <a href="" class="portfolio-link">
                         <div class="caption">
                             <div class="caption-content">
-                                <i class="fa fa-search-plus fa-3x"></i>
+                                <h3 style="margin-top:60px; font-size:40px">Jessica<br>Lynch</h3>
                             </div>
                         </div>
-                        <img src="static/img/team/generic.png" class="img-responsive" alt="">
+                        <img src="{{ url_for('static', filename='img/team/jessica.png') }}"  class="img-responsive" alt="">
                     </a>
                 </div>
                 <div class="col-sm-4 portfolio-item">
-                    <a href="#teammateModal5" class="portfolio-link" data-toggle="modal">
+                    <a href="" class="portfolio-link">
+                        <div class="caption">
+                            <div class="caption-content">
+                                <h3 style="margin-top:60px; font-size:40px">Michael<br>Muehlbradt</h3>
+                            </div>
+                        </div>
+                        <img src="{{ url_for('static', filename='img/team/generic.png') }}"  class="img-responsive" alt="">
+                    </a>
+                </div>
+                <!-- Original div per teammate -->
+                <!--div class="col-sm-4 portfolio-item">
+                    <a href="" class="portfolio-link" data-toggle="modal">
                         <div class="caption">
                             <div class="caption-content">
                                 <i class="fa fa-search-plus fa-3x"></i>
@@ -188,7 +210,7 @@
                         </div>
                         <img src="static/img/team/generic.png" class="img-responsive" alt="">
                     </a>
-                </div>
+                </div-->
                 
             </div>
         </div>
@@ -456,20 +478,7 @@
                             <img src="img/team/generic.png" class="img-responsive img-centered" alt="">
                             <p>Use this area to deliver your personal elevator pitch/ personal branding.</p>
                             <p><a href="">LinkedIn Page or Personal Website<br><br></a></p>
-                            <!--<ul class="list-inline item-details">
-                                <li>Highlight 1
-                                    <strong><a href="http://startbootstrap.com">link</a>
-                                    </strong>
-                                </li>
-                                <li>Highlight 2
-                                    <strong><a href="http://startbootstrap.com">link</a>
-                                    </strong>
-                                </li>
-                                <li>Highlight 3
-                                    <strong><a href="http://startbootstrap.com">link</a>
-                                    </strong>
-                                </li>
-                            </ul>-->
+
                             <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
                         </div>
                     </div>

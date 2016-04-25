@@ -8,16 +8,16 @@ from amcharts_JSON import dump_json_data
 __author__ = "Jessica"
 __date__ = "$Apr 21, 2016 9:18:10 PM$"
 
-def get_tweets( candidate, tweet_num):
+
+def get_tweet_list( candidate, tweet_num):
     if (candidate != "" and tweet_num > 0):
         return {"0": "tweet tweet tweet", "1": "tweet tweet tweet" , "2": "tweet tweet tweet"}
 
 
-def get_jsons( candidate, tweet_id):
+def get_tweet_tones( candidate, tweet_id, fpath):
     print "entering get_jsons()"
     print "tweetID is: %s" % tweet_id
-    fpath = "static/data/"
-    fo = open("static/data/tone.json", "r")
+    fo = open(fpath + "tone.json", "r")
     data = fo.read()
     
     if (candidate != "" and tweet_id != ""):
