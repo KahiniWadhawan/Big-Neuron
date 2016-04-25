@@ -3,22 +3,17 @@
 
 <head>
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
     <title>The Election Buzz on Clinton by Big Neuron</title>
 
     <!-- Bootstrap Core CSS - Uses Bootswatch Flatly Theme: http://bootswatch.com/flatly/ -->
-    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="{{ url_for('static', filename='css/freelancer.css') }}" rel="stylesheet">
+    <link href="../../css/freelancer.css" rel="stylesheet">
+    <link href="../../css/hover.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
-    <link href="{{ url_for('static', filename='font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="../../font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
 
@@ -73,48 +68,47 @@
                 </div>
             </div>
             
-            <!-- Visualization Grid Section (Modal) -->
             <div class="row">
                 <div class="col-sm-4">           
                     <!-- Word Cloud -->
-                    <a href="{{ url_for('wordcloud') }}" target="_blank">
-                        <img class="circular--square hvr-buzz-out" id="myImg0" src="{{ url_for('static', filename='img/viz/wc.png') }}" alt="placeholder" title="Tweet Word Cloud">
+                    <a href="trump_wordcloud.html" target="_blank">
+                       <img class="circular--square hvr-buzz-out" id="myImg0" src="../../img/viz/wc.png" width="200px" height="200px" alt="placeholder" title="Tweet Word Cloud">
                     </a>
                     
                 </div>
                 <div class="col-sm-4">
                     <!-- SA at document level -->
-                    <a href="{{ url_for('alltweet') }}" target="_blank">
-                       <img class="circular--square hvr-buzz-out" id="myImg1" src="{{ url_for('static', filename='img/viz/doc-level.png') }}" alt="placeholder" title="Twitter Sentiment Analysis">
+                    <a href="trump_sa_document.html" target="_blank">
+                       <img class="circular--square hvr-buzz-out" id="myImg1" src="../../img/viz/doc-level.png" width="200px" height="200px" alt="placeholder" title="Twitter Sentiment Analysis">
                     </a>
                     
                 </div>
                 <div class="col-sm-4">
                     <!-- SA at sentence level -->
-                    <a href="{{ url_for('tweetlevel') }}" target="_blank">
-                       <img class="circular--square hvr-buzz-out" id="myImg2" src="{{ url_for('static', filename='img/viz/tweet-level.png') }}" alt="placeholder" title="Tweet-Level Sentiment Analysis">
+                    <a href="trump_sa_sentence.html" target="_blank">
+                       <img class="circular--square hvr-buzz-out" id="myImg2" src="../../img/viz/tweet-level.png" width="200px" height="200px" alt="placeholder" title="Tweet-Level Sentiment Analysis">
                     </a>                   
-                </div>                
+                </div>                 
             </div>
             <!-- /row --> 
             
             <div class="row" style="padding-top: 15px">
                 <div class="col-sm-4">
                     <!-- Follower Network -->
-                    <a href="{{ url_for('network') }}" target="_blank">
-                       <img class="circular--square hvr-buzz-out" id="myImg3" src="{{ url_for('static', filename='img/viz/network-f.png') }}" alt="placeholder" title="Twitter Follower Network">
+                    <a href="trump_network.html" target="_blank">
+                       <img class="circular--square hvr-buzz-out" id="myImg3" src="../../img/viz/network-f.png" width="200px" height="200px" alt="placeholder" title="Twitter Follower Network">
                     </a>
                 </div>
                 <div class="col-sm-4">
                     <!-- Topic Modeling -->
-                    <a href="{{ url_for('topic') }}" target="_blank">
-                       <img class="circular--square hvr-buzz-out" id="myImg4" src="{{ url_for('static', filename='img/viz/topic-m.png') }}" alt="placeholder" title="Tweet Topic Modeling">
+                    <a href="trump_topicmodel.html" target="_blank">
+                       <img class="circular--square hvr-buzz-out" id="myImg4" src="../../img/viz/topic-m.png" width="200px" height="200px" alt="placeholder" title="Tweet Topic Modeling">
                     </a>
                 </div>
                 <div class="col-sm-4">
                     <!-- Realtime SA -->
-                    <a href="{{ url_for('realtime') }}" target="_blank">
-                       <img class="circular--square hvr-buzz-out" id="myImg5" src="{{ url_for('static', filename='img/viz/realtime.png') }}" alt="placeholder" title="Realtime Twitter Sentiment Analysis">
+                    <a href="../../realtime.html" target="_blank">
+                       <img class="circular--square hvr-buzz-out" id="myImg5" src="../../img/viz/realtime.png" width="200px" height="200px" alt="placeholder" title="Realtime Twitter Sentiment Analysis">
                     </a>                                      
                 </div>
                 <br>
@@ -122,11 +116,11 @@
             <!-- /row --> 
         </div>
         <!-- /container -->          
-
-       
+        
     </header>
 
-    <!-- Footer -->
+   
+   <!-- Footer -->
     <footer class="text-center">
         <div class="footer-below-indep">
              <div class="row">
@@ -144,6 +138,8 @@
             <i class="fa fa-chevron-up"></i>
         </a>
     </div>
+
+    
 
     <!-- jQuery -->
     <script src="../../js/jquery.js"></script>
