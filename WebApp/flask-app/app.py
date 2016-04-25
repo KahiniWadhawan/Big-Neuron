@@ -89,15 +89,15 @@ def network():
     cand = session['candidate']
     print "In Follower's Network, session['candidate'] is - ", cand
     if cand == 'clinton':
-        return render_template("pages/clinton/clinton_network.html")
+        return render_template("pages/clinton/clinton_network.html", cand=cand)
     elif cand == 'cruz':
-        return render_template("pages/cruz/cruz_network.html")
+        return render_template("pages/cruz/cruz_network.html", cand=cand)
     elif cand == 'kasich':
-        return render_template("pages/kasich/kasich_network.html")
+        return render_template("pages/kasich/kasich_network.html", cand=cand)
     elif cand == 'sanders':
-        return render_template("pages/sanders/sanders_network.html")
+        return render_template("pages/sanders/sanders_network.html", cand=cand)
     elif cand == 'trump':
-        return render_template("pages/trump/trump_network.html")
+        return render_template("pages/trump/trump_network.html", cand=cand)
     else:
         print "Error in network(). Need to make an error page"
 
