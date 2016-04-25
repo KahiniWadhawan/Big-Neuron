@@ -79,9 +79,15 @@
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav navbar-right" style="padding-right: 20px; ">
+            <ul class="nav navbar-nav navbar-right" style="padding-right: 20px">
                 <li class="hidden">
                     <a href="#page-top"></a>
+                </li>
+                <li class="page-scroll">
+                    <a href="#about">About</a>
+                </li>
+                <li class="page-scroll">
+                    <a href="#contact">Contact</a>
                 </li>
             </ul>
         </div>
@@ -143,7 +149,7 @@
     <!-- Team Member Portfolio Grid Section -->
     <section id="about">
         <div class="container">
-            <div class="row">
+            <div class="row" style="padding-bottom: 30px;">
                 <div class="col-lg-12 text-center">
                     <h2>The Team</h2>
                     <hr class="star-primary">
@@ -151,50 +157,52 @@
             </div>
             <div class="row">
                 <div class="col-sm-4 portfolio-item">
-                    <a href="" class="portfolio-link">
+                    <a target="_blank" href="https://www.linkedin.com/in/tanviparikh91" class="portfolio-link">
                         <div class="caption">
                             <div class="caption-content">
-                                <h3 style="margin-top:60px; font-size:40px">Tanvi<br>Parikh</h3>
+                                <h4 style="margin-top:150px; font-size:24px">Tanvi Parikh</h4>
                             </div>
                         </div>
                         <img src="{{ url_for('static', filename='img/team/tanvi.png') }}"  class="img-responsive" alt="">
                     </a>
                 </div>
                 <div class="col-sm-4 portfolio-item">
-                    <a href="" class="portfolio-link">
+                    <a target="_blank" href="https://www.linkedin.com/in/piyushpatel90" class="portfolio-link">
                         <div class="caption">
                             <div class="caption-content">
-                                <h3 style="margin-top:60px; font-size:40px">Piyush<br>Patel</h3>
+                                <h4 style="margin-top:150px; font-size:24px">Piyush Patel</h4>
                             </div>
                         </div>
                         <img src="{{ url_for('static', filename='img/team/piyush.png') }}" class="img-responsive" alt="">
                     </a>
                 </div>
                 <div class="col-sm-4 portfolio-item">
-                    <a href="" class="portfolio-link">
+                    <a target="_blank" href="https://www.linkedin.com/in/kahiniwadhawan" class="portfolio-link">
                         <div class="caption">
                             <div class="caption-content">
-                                <h3 style="margin-top:60px; font-size:40px">Kahini<br>Wadhawa</h3>
+                                <h4 style="margin-top:150px; font-size:24px">Kahini Wadhawan</h4>
                             </div>
                         </div>
                         <img src="{{ url_for('static', filename='img/team/kahini.png') }}"  class="img-responsive" alt="">
                     </a>
                 </div>
+            </div> <!-- ./row -->
+            <div class="row" style="width: 100%; margin-left: 190px">
                 <div class="col-sm-4 portfolio-item">
-                    <a href="" class="portfolio-link">
+                    <a target="_blank" href="https://www.linkedin.com/in/jessicalynchcsci" class="portfolio-link">
                         <div class="caption">
                             <div class="caption-content">
-                                <h3 style="margin-top:60px; font-size:40px">Jessica<br>Lynch</h3>
+                                <h4 style="margin-top:150px; font-size:24px">Jessica Lynch</h4>
                             </div>
                         </div>
                         <img src="{{ url_for('static', filename='img/team/jessica.png') }}"  class="img-responsive" alt="">
                     </a>
                 </div>
                 <div class="col-sm-4 portfolio-item">
-                    <a href="" class="portfolio-link">
+                    <a target="_blank" href="https://www.linkedin.com/in/michael-muehlbradt-22642011b" class="portfolio-link">
                         <div class="caption">
                             <div class="caption-content">
-                                <h3 style="margin-top:60px; font-size:40px">Michael<br>Muehlbradt</h3>
+                                <h4 style="margin-top:150px; font-size:24px">Michael Muehlbradt</h4>
                             </div>
                         </div>
                         <img src="{{ url_for('static', filename='img/team/generic.png') }}"  class="img-responsive" alt="">
@@ -212,7 +220,7 @@
                     </a>
                 </div-->
                 
-            </div>
+            </div> <!-- ./row -->
         </div>
     </section>
 
