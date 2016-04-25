@@ -118,7 +118,7 @@ def topic():
     elif cand == 'sanders':
         return render_template("pages/sanders/sanders_topicmodel.html")
     elif cand == 'trump':
-        return render_template("pages/trump/trump_topicmodel.html")
+        return render_template("pages/trump/trump_topicmodel.html", cand=cand)
     else:
         print "Error in topic(). Need to make an error page"
 

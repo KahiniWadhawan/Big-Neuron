@@ -20,7 +20,7 @@ function show(user){
     .attr("height", h)
     .append("svg:g")
     .attr("transform", "translate(" + (w - r) / 2 + "," + (h - r) / 2 + ")");
-  d3.json("json/"+ user + ".json", function(data) {
+  d3.json("static/data/"+ user + "_topics.json", function(data) {
     node = root = data;
     var nodes = pack.nodes(root);
 
