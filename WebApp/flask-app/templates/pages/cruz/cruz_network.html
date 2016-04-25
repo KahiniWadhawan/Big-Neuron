@@ -3,15 +3,7 @@
 
 <head>
 
-    <!-- opacity: 0.7; -->
-    
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>The Election Buzz on Cruz by Big Neuron</title>
+    <title>The Election Buzz on Trump by Big Neuron</title>
 
     <!-- Bootstrap Core CSS - Uses Bootswatch Flatly Theme: http://bootswatch.com/flatly/ -->
     <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
@@ -23,19 +15,68 @@
     <link href="{{ url_for('static', filename='font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <style>
+    .link {
+      stroke: #ccc;
+    }
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    .node text {
+      pointer-events: none;
+      font: 10px sans-serif;
+    }
+     header{
+        background: linear-gradient(25deg, #013467, #044689, #0052a5, #cc172a, #960c1a, #650912);
+        background-size: 300% 300%;
 
+        -webkit-animation: USflagintense 25s ease infinite;
+        -moz-animation: USflagintense 25s ease infinite;
+        -o-animation: USflagintense 25s ease infinite;
+        animation: USflagintense 25s ease infinite;
+        }
+        /* Animations */
+        @-webkit-keyframes USflagintense {
+            0%{background-position:70% 0%}
+            50%{background-position:31% 100%}
+            100%{background-position:70% 0%}
+        }
+        @-moz-keyframes USflagintense {
+            0%{background-position:70% 0%}
+            50%{background-position:31% 100%}
+            100%{background-position:70% 0%}
+        }
+        @-o-keyframes USflagintense {
+            0%{background-position:70% 0%}
+            50%{background-position:31% 100%}
+            100%{background-position:70% 0%}
+        }
+        @keyframes USflagintense { 
+            0%{background-position:70% 0%}
+            50%{background-position:31% 100%}
+            100%{background-position:70% 0%}
+        
+       }
+    </style>
+    <script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+    <script src="{{ url_for('static', filename='js/classie.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/cbpAnimatedHeader.js') }}"></script>
+    
+
+    <!-- Custom Theme JavaScript -->
+    <script src="{{ url_for('static', filename='js/freelancer.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/d3.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/d3.layout.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/network.js') }}"></script>
+    
 </head>
 
-<body id="page-top" class="index">
-
-    <!-- Navigation -->
+<body >
+  <!-- Navigation -->
     <nav class="navbar navbar-default navbar-fixed-top">
  
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -53,17 +94,90 @@
 
     <!-- Header -->
     <header style="height: 1000px">
-        <div class="container" style="width: 100%; padding-left:50px; padding-right:50px;">
+        <div class="container" style="width: 100%;height:100%">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="intro-text" style="padding-bottom: 5px">
-                        <h2 style="padding-bottom:5px">Twitter Follower Network for Ted Cruz</h2>
+                        <h2 style="padding-bottom:5px">Follower's network for Ted Cruz</h2>
                         <hr class="star-light">
-                        <!--span class="skills">Optional description goes here.</span-->
+                                               
                     </div>
                     <div class="row">
-                        
-                        
+                         <div id="network" style="width:100%;height:100%">
+                        <script src="//d3js.org/d3.v3.min.js"></script>
+                        <script>
+
+                        var width = window.innerWidth,
+                            height = window.innerHeight;
+
+                        var svg = d3.select("#network").append("svg")
+                            .attr("width", width)
+                            .attr("height", height);
+
+                        var force = d3.layout.force()
+                            .gravity(0.05)
+                            .distance(150)
+                            .charge(-200)
+                            .size([width, height]);
+
+                        d3.json("static/data/cruz_network.json", function(error, json) {
+                          if (error) throw error;
+
+                          force
+                              .nodes(json.nodes)
+                              .links(json.links)
+                              .start();
+
+                          var link = svg.selectAll(".link")
+                              .data(json.links)
+                            .enter().append("line")
+                              .attr("class", "link");
+
+                          //var border=10;
+                          //var bordercolor='black';
+                          var node = svg.selectAll(".node")
+                              .data(json.nodes)
+                            .enter().append("g")
+                              .attr("class", "node")
+                              .call(force.drag);
+
+                          /*node.append("text")
+                              .attr("dx", 12)
+                              .attr("dy", ".35em")
+                              .text(function(d) { return d.name });
+                          */
+
+                          node.append("image")
+                              //.attr("xlink:href", "https://github.com/favicon.ico")
+                              .attr("xlink:href", function(d) { return d.profile_image_url; })
+                             /*.attr("xlink:href", function(d) {
+                               var rnd = Math.floor(Math.random() * 64 + 1);
+                               var imagePath = "http://www.bigbiz.com/bigbiz/icons/ultimate/Comic/Comic"
+                                   + rnd.toString() + ".gif";
+                               console.Log(imagePath);
+                              return imagePath;
+                              })*/
+                              .attr("x", -8)
+                              .attr("y", -8)
+                              .attr("width", 27)
+                              .attr("height", 27);
+                              //.style("stroke", bordercolor)
+                              //.style("stroke-width", border);
+
+
+                          force.on("tick", function() {
+                            link.attr("x1", function(d) { return d.source.x; })
+                                .attr("y1", function(d) { return d.source.y; })
+                                .attr("x2", function(d) { return d.target.x; })
+                                .attr("y2", function(d) { return d.target.y; });
+
+                            node.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+                          });
+                        });
+
+                        </script>
+                        </div>
+                      
                     </div>
                     <!-- /.row (nested) -->
                 </div>
@@ -75,62 +189,7 @@
         
     </header>
 
-    <!-- Footer -->
-    <footer class="text-center">
-        <div class="footer-above">
-            <div class="container">
-                <div class="row">
-                    <div class="footer-col col-md-4">
-                        <h3>Location</h3>
-                        <p>University of Colorado<br>Boulder, CO  80309</p>
-                    </div>
-                    <div class="footer-col col-md-4">
-                        <h3>Share Our App</h3>
-                        <ul class="list-inline">
-                            <li>
-                                <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-facebook"></i></a>
-                            </li>
-                            <li>
-                                <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-google-plus"></i></a>
-                            </li>
-                            <li>
-                                <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-twitter"></i></a>
-                            </li>
-                            <li>
-                                <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-linkedin"></i></a>
-                            </li>
-                            <li>
-                                <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-dribbble"></i></a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="footer-col col-md-4">
-                        <p><br><br><br>Copyright &copy; Big Neuron 2016</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-    
-
-    <!-- jQuery -->
-    <script src="../../js/jquery.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="../../js/bootstrap.min.js"></script>
-
-    <!-- Plugin JavaScript -->
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
-    <script src="../../js/classie.js"></script>
-    <script src="../../js/cbpAnimatedHeader.js"></script>
-
-    <!-- Contact Form JavaScript -->
-    <script src="../../js/jqBootstrapValidation.js"></script>
-    <script src="../../js/contact_me.js"></script>
-
-    <!-- Custom Theme JavaScript -->
-    <script src="../../js/freelancer.js"></script>
-
 </body>
 
 </html>
+      
