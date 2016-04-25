@@ -132,16 +132,16 @@ def get_emotion_scores(emotion_json):
 #---------------------------------------------------------------------------
 def insert_data_to_table(candname):
     #getting user tweets
-    tweets = get_user_tweets(candname,20)
+    tweets = get_user_tweets(candname,4)
     #setting up db
     session = db_connect()
 
     for tweet in tweets:
         #inserting to tweets table
-        try:
-            tweets_query = prepare_tweets_query(candname,tweet)
-            session.execute(tweets_query)
-        except
+        # try:
+        tweets_query = prepare_tweets_query(candname,tweet)
+        session.execute(tweets_query)
+        # except
         #inserting data to Sentencelevel table
         sentencelevel_query = prepare_sentencelevel_query(candname,tweet)
         session.execute(sentencelevel_query)
@@ -374,7 +374,7 @@ def gen_doclevel_json(candname, file_path):
 
     print doc_json
 
-    #writing doc_json to provided file_path
+    #writing doc_json to provided file_path - revisit not writing
     with open(os.path.join(file_path,'doc.json'), 'wb') as outfile:
             json.dump(doc_json, outfile)
 
@@ -493,14 +493,42 @@ def get_tweet_tones(candname,tweet_id,file_path):
 
 
 #testing all functions here in a sequence
-insert_data_to_table('realDonaldTrump')
-# insert_data_to_table('HillaryClinton')
+#insert_data_to_table('realDonaldTrump')
+#insert_data_to_table('HillaryClinton')
 # insert_data_to_table('BernieSanders')
 # insert_data_to_table('tedcruz')
 # insert_data_to_table('JohnKasich')
 
-gen_doclevel_json('realDonaldTrump','/data')
+#gen_doclevel_json('realDonaldTrump','/data')
+#gen_doclevel_json('HillaryClinton','data/')
 #get_tweet_list('realDonaldTrump',2)
 #get_tweet_tones('realDonaldTrump','724237889886904320')
 
 
+#--------------------------------
+#testing
+#---------------------------------
+
+# def test(candname):
+#     #getting user tweets
+#     tweets = get_user_tweets(candname,6)
+#     #setting up db
+#     session = db_connect()
+#
+#     for i,tweet in enumerate(tweets):
+#         print ('processing tweet :: ',i)
+#         session.execute("""
+#             insert into tweet_users (tweet_id,tweet_text,lang,
+#             retweet_count,created_at) values(str(tweet.id_str),
+#             str(tweet.text),str(tweet.lang),tweet.retweet_count,
+#             str(tweet.created_at))
+#             """)
+#         for i,tweet in enumerate(tweets):
+#             print type(tweet.text)
+#             print type(tweet.lang)
+#             print type(tweet.source)
+#             print type(tweet.retweet_count)
+#             print type(tweet.created_at)
+
+
+#test('HillaryClinton')
