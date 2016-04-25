@@ -63,11 +63,11 @@ class TweetAPI(CassandraAPI):
 		    raw_input("")
 	
    def UserFollower(self):	# Get followers list, friend list
-		#user = self.api.get_user('sivapalakurthi')
-		user = self.api.get_user('sivapalakurthi')
-		print user.screen_name
-		print user.followers_count
-		for friend in user.friends():
+      #user = self.api.get_user('sivapalakurthi')
+      user = self.api.get_user('sivapalakurthi')
+      print user.screen_name
+      print user.followers_count
+      for friend in user.friends():
          print friend.screen_name
 
    def Pagination(self):
@@ -122,6 +122,7 @@ class TweetAPI(CassandraAPI):
             for every in results:
                tweetlist.append(every.text)
 
+
             print i, "--- >",len(tweetlist),"--->",len(set(tweetlist))
          except:
             print "sleeping ..."
@@ -137,9 +138,19 @@ class TweetAPI(CassandraAPI):
    def SearchAPI(self):
       
       try:
-         for i,tweet in enumerate(tweepy.Cursor(self.api.search,q="Donald OR Trump OR DonaldTrump OR Donald trump",lang="en",locale="en",count=100).items()):
+         for i,tweet in enumerate(tweepy.Cursor(self.api.search,q="Donald OR Trump OR DonaldTrump OR Donald trump OR trump ",lang="en",locale="en",count=100).items()):
             print "i= ",i," ", "Tweet= ",tweet.text
             self.tweetlist.append(tweet.text)
+            print dir(tweet)
+            print tweet.text
+            print tweet.possibly_sensitive
+            print tweet.coordinates
+            print tweet.favorite_count
+            print tweet.geo
+            print tweet.place
+            break
+
+            #break
             #if (i%10==0):
             #print "TRY Length of tweets = ", len(self.tweetlist)
             self.numb=i
@@ -179,8 +190,8 @@ class TweetAPI(CassandraAPI):
 if __name__ == "__main__":
    tweets =  TweetAPI()
    tweets.Connect()
-   tweets.TestIBM()
-   #tweets.SearchAPI()
+   #tweets.TestIBM()
+   tweets.SearchAPI()
 
 else:
    print "Redo module load"
