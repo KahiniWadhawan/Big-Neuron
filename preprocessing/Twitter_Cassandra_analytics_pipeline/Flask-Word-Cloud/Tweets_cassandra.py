@@ -191,7 +191,7 @@ class TweetAPI(CassandraAPI):
 
    def WordCloud(self,name,Politician_name):
       if(Politician_name=="donaldtrumpttl"):
-         self.insert_tweets = self.session.prepare("INSERT INTO donaldtrumpttl (tweet_id, tweet_text, lang, retweet_count, created_at, deviceused, possibly_sensitive, coordinates, fav_cout, geo, place) VALUES(?,?,?,?,?,?,?,?,?,?,?)")
+         self.insert_tweets = self.session.prepare("INSERT INTO donaldtrumpttl (tweet_id, lang, tweet_text, created_at,fav_cout) VALUES(?,?,?,?,?)")
       values=None
       executestmt=None
            
@@ -211,23 +211,21 @@ class TweetAPI(CassandraAPI):
             
             print tweet.text,type(tweet.text.replace("'",""))
             
-            print tweet.lang,type(tweet.lang)
             
             print tweet.retweet_count,type(tweet.retweet_count)
 
             print tweet.created_at,type(tweet.created_at)
 
+            print tweet.retweet_count,type(tweet.retweet_count)
 
-            print tweet.source_url,type(tweet.source_url)
+
+
 
             
-            print tweet.possibly_sensitive,type(tweet.possibly_sensitive)
             '''
-            print tweet.coordinates,type(tweet.coordinates)
+
             print tweet.fav_cout,type(tweet.fav_cout)
-            print tweet.geo,type(tweet.geo)
-            print tweet.place,type(tweet.place)
-            
+
 
 
             values.append(tweet.id)

@@ -66,8 +66,7 @@ tweet_id bigint primary key,
 tweet_text varchar,
 lang varchar,
 retweet_count bigint,
-created_at timestamp,
-fav_cout varchar
+created_at timestamp
 );
 
 
@@ -130,8 +129,7 @@ tweet_id bigint primary key,
 tweet_text varchar,
 lang varchar,
 retweet_count bigint,
-created_at timestamp,
-fav_cout varchar
+created_at timestamp
 );
 
 
@@ -192,8 +190,7 @@ tweet_id bigint primary key,
 tweet_text varchar,
 lang varchar,
 retweet_count bigint,
-created_at timestamp,
-fav_cout varchar
+created_at timestamp
 );
 
 
@@ -256,8 +253,8 @@ tweet_id bigint primary key,
 tweet_text varchar,
 lang varchar,
 retweet_count bigint,
-created_at timestamp,
-fav_cout varchar
+created_at timestamp
+
 );
 
 
@@ -316,8 +313,7 @@ tweet_id bigint primary key,
 tweet_text varchar,
 lang varchar,
 retweet_count bigint,
-created_at timestamp,
-fav_cout varchar
+created_at timestamp
 );
 
 
