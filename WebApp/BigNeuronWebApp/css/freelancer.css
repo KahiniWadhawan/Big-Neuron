@@ -17,7 +17,9 @@ p.small {
 }
 
 a,
-a:hover,
+a:hover{
+    color: red;
+}
 a:focus,
 a:active,
 a.active {
@@ -63,7 +65,7 @@ hr.star-light {
 
 hr.star-light:after {
     color: #fff;
-    background-color: #18bc9c;
+    background-color:#003163;
 }
 
 hr.star-primary {
@@ -82,7 +84,7 @@ hr.star-primary:after {
 header {
     text-align: center;
     color: #fff;
-    background: black;
+    background: #003163;
    /* height: 1015px;*/
 }
 
@@ -141,7 +143,7 @@ header .intro-text .skills {
         -webkit-transition: all .3s;
         -moz-transition: all .3s;
         transition: all .3s;
-        opacity: 0.7;
+        /*opacity: 0.7;*/
         background: black;
         padding: 20px 20px;
     }
@@ -153,7 +155,6 @@ header .intro-text .skills {
     }
 
     .navbar-fixed-top.navbar-shrink .navbar-brand {
-       
         font-size: 1.5em;
         background: black;
     }
@@ -227,7 +228,7 @@ section h2 {
 
 section.success {
     color: #fff;
-    background: #18bc9c;
+    background: red;
 }
 
 section.success a,
@@ -332,7 +333,7 @@ section.success a.active {
 .btn-outline:active,
 .btn-outline.active {
     border: solid 2px #fff;
-    color: #18bc9c;
+    color: red;
     background: #fff;
 }
 
@@ -385,7 +386,7 @@ section.success a.active {
 }
 
 .floating-label-form-group-with-focus label {
-    color: #18bc9c;
+    color: red;
 }
 
 form .row:first-child .floating-label-form-group {
@@ -402,7 +403,7 @@ footer h3 {
 
 footer .footer-above {
     padding-top: 25px;
-    background-color: #18bc9c;
+    background-color: red;
     padding-bottom: 50px;
 }
 
@@ -462,6 +463,10 @@ footer .footer-below-indep {
     outline: 0;
 }
 
+#team{
+    background-color: #860d19; 
+
+}
 .teammate-modal .modal-content {
     padding: 100px 0;
     min-height: 100%;
@@ -717,4 +722,12 @@ Fade content bs-carousel with hero headers
 }
 @media screen and (max-width: 640px){
     .hero h1 { font-size: 4em; }    
+}
+
+/* Circular images */
+.circular--square {
+  border-top-left-radius: 50% 50%;
+  border-top-right-radius: 50% 50%;
+  border-bottom-right-radius: 50% 50%;
+  border-bottom-left-radius: 50% 50%;
 }
