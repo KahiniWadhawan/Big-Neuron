@@ -9,6 +9,7 @@ import json
 import time
 import os
 import sys
+import operator
 from analyze_tone import IBMToneAnalyzer
 
 from cassandra.cluster import Cluster
@@ -131,7 +132,7 @@ def get_emotion_scores(emotion_json):
 #---------------------------------------------------------------------------
 def insert_data_to_table(candname):
     #getting user tweets
-    tweets = get_user_tweets(candname,2)
+    tweets = get_user_tweets(candname,20)
     #setting up db
     session = db_connect()
 
@@ -170,7 +171,7 @@ def prepare_tweets_query(candname, tweet):
                 str(time) + "'" \
                 ");"
 
-    print('tweets_query', tweets_query)
+    #print('tweets_query', tweets_query)
     return tweets_query
 
 
@@ -228,7 +229,7 @@ def prepare_sentencelevel_query(candname,tweet):
                 ");"
 
 
-    print('sentencelevel_query :: ', sentencelevel_query)
+    #print('sentencelevel_query :: ', sentencelevel_query)
     return sentencelevel_query
 
 
@@ -252,7 +253,7 @@ insert_data_to_table('realDonaldTrump')
 #It aggregates all 5 emotion scores for a collection of tweets to return average score
 #select c_group_and_total(created_at, anger_score) from realDonaldTrump_sentencelevel
 #Revisit - do we need to store doc_json in db???
-def gen_doclevel_json(candname):
+def gen_doclevel_json(candname, file_path):
     table_name = candname + '_sentencelevel'
     #setting up db
     session = db_connect()
@@ -268,7 +269,7 @@ def gen_doclevel_json(candname):
 
     print 'select_query ::',select_query
     resultSet  = session.execute(select_query)
-    print ('resultSet:: ',resultSet)
+    #print ('resultSet:: ',resultSet)
 
     #processing resultset for date:scores
     anger_score_dict = {}
@@ -282,48 +283,108 @@ def gen_doclevel_json(candname):
         # print row.twitterdataset_cus_group_and_total_date__anger_score.keys(),\
         #     row.twitterdataset_cus_group_and_total_date__anger_score.values()
 
-        anger_score_dict[row.twitterdataset_cus_group_and_total_date__anger_score.keys()[0]] = \
-            row.twitterdataset_cus_group_and_total_date__anger_score.values()[0]
-        joy_score_dict[row.twitterdataset_cus_group_and_total_date__joy_score.keys()[0]] = \
-            row.twitterdataset_cus_group_and_total_date__joy_score.values()[0]
-        sadness_score_dict[row.twitterdataset_cus_group_and_total_date__sadness_score.keys()[0]] = \
-            row.twitterdataset_cus_group_and_total_date__sadness_score.values()[0]
-        fear_score_dict[row.twitterdataset_cus_group_and_total_date__fear_score.keys()[0]] = \
-            row.twitterdataset_cus_group_and_total_date__fear_score.values()[0]
-        disgust_score_dict[row.twitterdataset_cus_group_and_total_date__disgust_score.keys()[0]] = \
-            row.twitterdataset_cus_group_and_total_date__disgust_score.values()[0]
+        # anger_score_dict[row.twitterdataset_cus_group_and_total_date__anger_score.keys()[0]] = \
+        #     row.twitterdataset_cus_group_and_total_date__anger_score.values()[0]
+        # joy_score_dict[row.twitterdataset_cus_group_and_total_date__joy_score.keys()[0]] = \
+        #     row.twitterdataset_cus_group_and_total_date__joy_score.values()[0]
+        # sadness_score_dict[row.twitterdataset_cus_group_and_total_date__sadness_score.keys()[0]] = \
+        #     row.twitterdataset_cus_group_and_total_date__sadness_score.values()[0]
+        # fear_score_dict[row.twitterdataset_cus_group_and_total_date__fear_score.keys()[0]] = \
+        #     row.twitterdataset_cus_group_and_total_date__fear_score.values()[0]
+        # disgust_score_dict[row.twitterdataset_cus_group_and_total_date__disgust_score.keys()[0]] = \
+        #     row.twitterdataset_cus_group_and_total_date__disgust_score.values()[0]
 
-    # print 'anger_score_dict', anger_score_dict
-    # print 'anger_score_dict', joy_score_dict
-    # print 'anger_score_dict', sadness_score_dict
-    # print 'anger_score_dict', fear_score_dict
-    # print 'disgust_score_dict', disgust_score_dict
+        for key,val in row.twitterdataset_cus_group_and_total_date__anger_score.iteritems():
+            anger_score_dict[key] = val
+
+        for key,val in row.twitterdataset_cus_group_and_total_date__joy_score.iteritems():
+            joy_score_dict[key] = val
+
+        for key,val in row.twitterdataset_cus_group_and_total_date__sadness_score.iteritems():
+            sadness_score_dict[key] = val
+
+        for key,val in row.twitterdataset_cus_group_and_total_date__fear_score.iteritems():
+            fear_score_dict[key] = val
+
+        for key,val in row.twitterdataset_cus_group_and_total_date__disgust_score.iteritems():
+            disgust_score_dict[key] = val
+
+
+
+    print 'anger_score_dict', anger_score_dict
+    print 'anger_score_dict', joy_score_dict
+    print 'anger_score_dict', sadness_score_dict
+    print 'anger_score_dict', fear_score_dict
+    print 'disgust_score_dict', disgust_score_dict
 
 
     #Now we have got all emotion score dicts with day-wise data
     #generating doc level json format required by visualization
+    #revisit - normalize sum/no.of days, put day number - 1,2,3 ...
     doc_json = []
-    for date_key,anger_score in anger_score_dict.iteritems():
+    date_list = [i for i in anger_score_dict.keys()]
+    print 'date_list', date_list
+
+    #sort date_list - increasing order
+    date_list.sort()
+
+    #number of days
+    num_tweets_date_dict = {}
+    #select count (tweet_id) from
+    # realDonaldTrump_sentencelevel where date = '2016-04-24' ALLOW FILTERING;
+    for date in date_list:
+        select_query = "select " + \
+                "count(tweet_id)" \
+                 " from " + table_name + \
+                " where date = '" + date + "'" + \
+                " ALLOW FILTERING " + \
+                ";"
+
+        print 'num of tweets per day query:: ', select_query
+        resultSet  = session.execute(select_query)
+        for row in resultSet:
+            #print row
+            num_tweets_date_dict[date] = row.system_count_tweet_id
+
+        print 'num_tweets_date_dict',num_tweets_date_dict
+
+
+    for date_key,anger_s in anger_score_dict.iteritems():
         temp = {}
-        joy_score = joy_score_dict[date_key]
-        sadness_score = sadness_score_dict[date_key]
-        fear_score = fear_score_dict[date_key]
-        disgust_score = disgust_score_dict[date_key]
-        temp["anger"] = anger_score
-        temp["joy"] = joy_score
-        temp["sadness"] = sadness_score
-        temp["fear"] = fear_score
-        temp["disgust"] = disgust_score
-        temp["day"] = date_key
+        anger_score = anger_s/float(num_tweets_date_dict[date])
+        joy_score = joy_score_dict[date_key]/float(num_tweets_date_dict[date])
+        sadness_score = sadness_score_dict[date_key]/float(num_tweets_date_dict[date])
+        fear_score = fear_score_dict[date_key]/float(num_tweets_date_dict[date])
+        disgust_score = disgust_score_dict[date_key]/float(num_tweets_date_dict[date])
+
+        #converting scores to %ges for pie-chart viz
+        total_score = anger_score + joy_score + sadness_score + fear_score + disgust_score
+        anger_score_norm = (anger_score/float(total_score)) * 100
+        joy_score_norm = (joy_score/float(total_score)) * 100
+        sadness_score_norm = (sadness_score/float(total_score)) * 100
+        fear_score_norm = (fear_score/float(total_score)) * 100
+        disgust_score_norm = (disgust_score/float(total_score)) * 100
+
+        temp["anger"] = anger_score_norm
+        temp["joy"] = joy_score_norm
+        temp["sadness"] = sadness_score_norm
+        temp["fear"] = fear_score_norm
+        temp["disgust"] =disgust_score_norm
+        #inserting date index in sorted date_list instead of its value
+        #temp["day"] = date_key
+        temp["day"] = date_list.index(date_key) + 1
 
         doc_json.append(temp)
 
-    #print doc_json
+    print doc_json
+
+    #writing doc_json to provided file_path
+    f =
 
     return doc_json
 
 #testing
-#gen_doclevel_json('realDonaldTrump')
+gen_doclevel_json('realDonaldTrump')
 
 
 #getting top tweets based on retweet_count
@@ -331,11 +392,72 @@ def get_tweet_list(candname,num=20):
     tweets_dict = {}
     #revisit - "ORDER BY is only supported when the partition key is
     # restricted by an EQ or an IN."
+
+    table_name = candname + '_tweets'
+    #setting up db
+    session = db_connect()
+
+    select_query = "select " + \
+                "tweet_id, " \
+                "retweet_count " \
+                " from " + table_name + \
+                ";"
+
+    print 'select_query ::',select_query
+    resultSet  = session.execute(select_query)
+
+    temp = {}
+    tweets_count = 0
+    for row in resultSet:
+        tweets_count +=1
+        temp[row.tweet_id] = row.retweet_count
+
+    #sorting dict to get top tweets with retweet_count
+    sorted_temp = sorted(temp.items(), key=operator.itemgetter(1), reverse=True)
+    print 'sorted_temp', sorted_temp
+    if num < tweets_count:
+        top_tweets = sorted_temp[:num]
+
+    print 'top_tweets',top_tweets
+
+    #making top tweet_id's list to pass on to select query
+    top_tweets_id_str = ""
+    count = 0
+    for tup in top_tweets:
+        count +=1
+        print 'tup', tup
+        if count == 1:
+            top_tweets_id_str =  "'" + tup[0]
+        else:
+            top_tweets_id_str += "','" + tup[0]
+
+    top_tweets_id_str += "'"
+    print 'top_tweets_id_str :: ',top_tweets_id_str
+
+    #fetching text for top tweets
+    select_query = "select " + \
+                "tweet_id, " \
+                "tweet_text " \
+                " from " + table_name + \
+                " where tweet_id in (" + top_tweets_id_str + ")" + \
+                ";"
+
+    print 'select_query ::',select_query
+    resultSet  = session.execute(select_query)
+
+    #preparing tweets_dict containing tweet_id and text to be used by WebApp
+    for row in resultSet:
+        tweets_dict[row.tweet_id] = row.tweet_text
+
+    print tweets_dict
     return tweets_dict
 
+#testing
+#get_tweet_list('realDonaldTrump',2)
 
 #this function returns a dictionary of tone_json, writing_json, emotion_json and social_json
-def get_tweet_tones(candname,tweet_id):
+#revisit - ask Jessica - write to path or return json dict
+def get_tweet_tones(candname,tweet_id,file_path):
     table_name = candname + '_sentencelevel'
     #setting up db
     session = db_connect()
@@ -349,15 +471,15 @@ def get_tweet_tones(candname,tweet_id):
                 " where tweet_id = '" + tweet_id + "'" + \
                 ";"
 
-    print 'select_query ::',select_query
+    #print 'select_query ::',select_query
     resultSet  = session.execute(select_query)
 
     result_jsons = {}
     for row in resultSet:
-        result_jsons['tone_json'] = json.loads(row.tone_json)
-        result_jsons['writing_json'] = json.loads(row.writing_json)
-        result_jsons['emotion_json'] = json.loads(row.emotion_json)
-        result_jsons['social_json'] = json.loads(row.social_json)
+        tone_json = json.loads(row.tone_json)
+        writing_json = json.loads(row.writing_json)
+        emotion_json = json.loads(row.emotion_json)
+        social_json = json.loads(row.social_json)
 
     #print 'result_jsons', result_jsons
 
@@ -365,3 +487,5 @@ def get_tweet_tones(candname,tweet_id):
 
 #testing
 #get_tweet_tones('realDonaldTrump','724237889886904320')
+
+
