@@ -110,13 +110,13 @@ def topic():
     cand = session['candidate']
     print "In Topic Modelling, session['candidate'] is - ", cand
     if cand == 'clinton':
-        return render_template("pages/clinton/clinton_topicmodel.html")
+        return render_template("pages/clinton/clinton_topicmodel.html", cand=cand)
     elif cand == 'cruz':
-        return render_template("pages/cruz/cruz_topicmodel.html")
+        return render_template("pages/cruz/cruz_topicmodel.html", cand=cand)
     elif cand == 'kasich':
-        return render_template("pages/kasich/kasich_topicmodel.html")
+        return render_template("pages/kasich/kasich_topicmodel.html", cand=cand)
     elif cand == 'sanders':
-        return render_template("pages/sanders/sanders_topicmodel.html")
+        return render_template("pages/sanders/sanders_topicmodel.html", cand=cand)
     elif cand == 'trump':
         return render_template("pages/trump/trump_topicmodel.html", cand=cand)
     else:
