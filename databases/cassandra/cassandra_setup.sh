@@ -1,5 +1,5 @@
 #-------------------------------------------------------
-#Author: Kahini
+#Author: Kahini | Piyush
 #This script creates keyspace and tables for db setup
 #DBSchema: Tables are maintained candidate per se
 #One General table for Tweets and 4 Tables for each analysis
@@ -55,6 +55,27 @@ till_time timestamp primary key,
 graph_json text);
 
 
+
+
+
+#------------------------------------------------------------
+#Tables for Donald Trump Time to live tweets
+#------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS DonaldTrumpTTL (
+tweet_id bigint primary key,
+tweet_text varchar,
+lang varchar,
+retweet_count bigint,
+created_at timestamp
+);
+
+
+
+
+
+
+
+
 #------------------------------------------------------
 #Tables for HillaryClinton
 #------------------------------------------------------
@@ -97,6 +118,24 @@ topics_json text);
 CREATE TABLE IF NOT EXISTS HillaryClinton_graph (
 till_time timestamp primary key,
 graph_json text);
+
+
+
+#------------------------------------------------------------
+#Tables for HillaryClinton Time to live tweets
+#------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS HillaryClintonTTL (
+tweet_id bigint primary key,
+tweet_text varchar,
+lang varchar,
+retweet_count bigint,
+created_at timestamp
+);
+
+
+
+
+
 
 #------------------------------------------------------
 #Tables for BernieSanders
@@ -141,6 +180,21 @@ topics_json text);
 CREATE TABLE IF NOT EXISTS BernieSanders_graph (
 till_time timestamp primary key,
 graph_json text);
+
+
+#------------------------------------------------------------
+#Tables for BernieSanders Time to live tweets
+#------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS BernieSandersTTL (
+tweet_id bigint primary key,
+tweet_text varchar,
+lang varchar,
+retweet_count bigint,
+created_at timestamp
+);
+
+
+
 
 
 #------------------------------------------------------
@@ -188,6 +242,24 @@ till_time timestamp primary key,
 graph_json text);
 
 
+
+
+
+#------------------------------------------------------------
+#Tables for tedcruz Time to live tweets
+#------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS TedCruzTTL (
+tweet_id bigint primary key,
+tweet_text varchar,
+lang varchar,
+retweet_count bigint,
+created_at timestamp
+
+);
+
+
+
+
 #------------------------------------------------------
 #Tables for JohnKasich
 #------------------------------------------------------
@@ -231,6 +303,18 @@ topics_json text);
 CREATE TABLE IF NOT EXISTS JohnKasich_graph (
 till_time timestamp primary key,
 graph_json text);
+
+
+#------------------------------------------------------------
+#Tables for JohnKasich Time to live tweets
+#------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS JohnKasichTTL (
+tweet_id bigint primary key,
+tweet_text varchar,
+lang varchar,
+retweet_count bigint,
+created_at timestamp
+);
 
 
 

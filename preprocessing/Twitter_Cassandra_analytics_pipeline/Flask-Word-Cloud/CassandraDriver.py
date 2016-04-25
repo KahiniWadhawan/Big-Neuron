@@ -21,7 +21,7 @@ class CassandraAPI(IBMToneAnalyzer):
 	def __init__(self):
 		IBMToneAnalyzer.__init__(self)
 		from cassandra.cluster import Cluster
-		cluster = Cluster()
+		cluster = Cluster() 
 		self.session = cluster.connect(TOKENS.cassandra_cluster)
 
 	def TestSupport(self):		
