@@ -31,8 +31,9 @@ from CassandraDriver import TOKENS
 from CassandraDriver import time
 import thread
 import time
+from pyspark import SparkContext
+from nltk.corpus import stopwords
 
-Repetations = 300
 #Import secret phrase module
 
 #Reference API
@@ -189,61 +190,64 @@ class TweetAPI(CassandraAPI):
          #self.TestTimeout2()
 
 
-   def WordCloud(self,name,Politician_name):
-      if(Politician_name=="donaldtrumpttl"):
+   def WordCloud(self,twitter_tags_list,politician_table):
+      if(politician_table=="donaldtrumpttl"):
          self.prepared_insert_tweets = self.session.prepare("INSERT INTO donaldtrumpttl (tweet_id, lang, tweet_text, created_at, retweet_count) VALUES(?,?,?,?,?)")
       values=[]
       executestmt=None
         
-   #try:
+      try:
 
-      for i,tweet in enumerate(tweepy.Cursor(self.api.search,q=str(name),lang="en",locale="en",count=100).items()):
-         print "Inside for ",i
+         for i,tweet in enumerate(tweepy.Cursor(self.api.search,q=str(twitter_tags_list),lang="en",locale="en",count=100).items()):
+            print "Inside for ",i
 
-         if(i>1 and  (i%(self.repetations) ==0)):
-            print "...Computing..."
-         print tweet.id, type(tweet.id)
-         print tweet.lang,type(tweet.lang)
-         print tweet.text,type(tweet.text.replace("'",""))
-         print tweet.created_at,type(tweet.created_at)
-         print tweet.retweet_count,type(tweet.retweet_count)
-         print "\n\n\n"
+            if(i>1 and  (i%(self.repetations) == 0)):
+               print "...Computing..."
+            print tweet.id, type(tweet.id)
+            print tweet.lang,type(tweet.lang)
+            print tweet.text,type(tweet.text.replace("'",""))
+            print tweet.created_at,type(tweet.created_at)
+            print tweet.retweet_count,type(tweet.retweet_count)
+            print "\n\n\n"
 
 
-         values=[]
-         values.append(tweet.id)
-         values.append(tweet.lang.replace("'",""))
-         values.append(tweet.text.replace("'",""))            
-         values.append(tweet.created_at)
-         values.append(tweet.retweet_count)
+            values=[]
+            values.append(tweet.id)
+            values.append(tweet.lang.replace("'",""))
+            values.append(tweet.text.replace("'",""))            
+            values.append(tweet.created_at)
+            values.append(tweet.retweet_count)
 
-         binding_stmt = self.prepared_insert_tweets.bind(values)
-         #print "Before execute ",i
-         executestmt=self.session.execute(binding_stmt)
+            binding_stmt = self.prepared_insert_tweets.bind(values)
+            #print "Before execute ",i
+            executestmt=self.session.execute(binding_stmt)
+            
          
-         
-   #except:
-      #print "Inside except ",i
-      if(len(set(self.tweetlist)) < 100000):
-         self.WordCloud(name,Politician_name)
-   #finally:
-      #print "Inside finally ",i
-      #print "FINALLY len(self.tweetlist)= ",len(self.tweetlist)
-      #print "FINALLY numb = ", self.numb
-      self.tweetlist=[]
-      #self.TestTimeout2()
+      except:
+         #print "Inside except ",i
+         if(len(set(self.tweetlist)) < 100000):
+            self.WordCloud(twitter_tags_list,politician_table)
+      finally:
+         #print "Inside finally ",i
+         #print "FINALLY len(self.tweetlist)= ",len(self.tweetlist)
+         #print "FINALLY numb = ", self.numb
+         self.tweetlist=[]
+         #self.TestTimeout2()
 
 
 if __name__ == "__main__":
-   print "This module can be called on it's own but it won't use spark functionalities. "
-   print " Import this module into Apache spark code."
    tweets =  TweetAPI()
    tweets.Connect()
    #tweets.TestIBM()
    #tweets.SearchAPI()
+
+   logFile = "/home/piyush/Big-neuron/Big-Neuron/preprocessing/Twitter_Cassandra_analytics_pipeline/Flask-Word-Cloud/static/data.json"  # Should be some file on the server
+   sc = SparkContext("local", "Simple App")
+   logData = sc.textFile(logFile).cache()
+   numAs = logData.filter(lambda s: 'a' in s).count()
+   numBs = logData.filter(lambda s: 'b' in s).count()
+   print("Lines with a: %i, lines with b: %i" % (numAs, numBs))
+   
+
    tweets.WordCloud("Donald OR Trump OR DonaldTrump OR Donald trump OR trump ","donaldtrumpttl")  #REMOVE THE BREAK STATEMENT
 
-
-else:
-   print "Redo module load"
-   exit(0)
