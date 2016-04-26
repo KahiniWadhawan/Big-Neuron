@@ -132,22 +132,22 @@ def get_emotion_scores(emotion_json):
 #---------------------------------------------------------------------------
 def insert_data_to_table(candname):
     #getting user tweets
-    tweets = get_user_tweets(candname,4)
+    tweets = get_user_tweets(candname,40)
     #setting up db
     session = db_connect()
 
     for tweet in tweets:
         #inserting to tweets table
         # try:
-        tweets_query = prepare_tweets_query(candname,tweet)
-        session.execute(tweets_query)
+        tweets_bound = prepare_tweets_query(candname,tweet,session)
+        session.execute(tweets_bound)
         # except
-        #inserting data to Sentencelevel table
-        sentencelevel_query = prepare_sentencelevel_query(candname,tweet)
-        session.execute(sentencelevel_query)
+        # #inserting data to Sentencelevel table
+        # sentencelevel_bound = prepare_sentencelevel_query(candname,tweet,session)
+        # session.execute(sentencelevel_bound)
 
 
-def prepare_tweets_query(candname, tweet):
+def prepare_tweets_query(candname, tweet,session):
     #creating table name
     table_name = candname + '_tweets'
 
@@ -164,21 +164,26 @@ def prepare_tweets_query(candname, tweet):
                 "retweet_count, " \
                 "created_at, " \
                 "date, " \
-                "time) " + "values('" + \
-                str(tweet.id_str.encode('utf-8')) + "','" + \
-                str(tweet.text.encode('utf-8')) + "', '" + \
-                str(tweet.lang) + "', " + \
-                str(tweet.retweet_count) + ", '" + \
-                str(tweet.created_at) + "', '" + \
-                str(date) + "', '" + \
-                str(time) + "'" \
-                ");"
+                "time) " + " VALUES " \
+                 "(?, ?, ?, ?, ?, ?, ?)"
 
-    print('tweets_query', tweets_query)
-    return tweets_query
+    prepared = session.prepare(tweets_query)
+
+    bound = prepared.bind((str(tweet.id_str.encode('utf-8')),
+                           str(tweet.text.encode('utf-8')),
+                           str(tweet.lang),
+                           tweet.retweet_count,
+                           str(tweet.created_at),
+                           str(date),
+                           str(time) ))
 
 
-def prepare_sentencelevel_query(candname,tweet):
+    print('tweets_query', bound)
+
+    return bound
+
+
+def prepare_sentencelevel_query(candname,tweet,session):
     #creating table name
     table_name = candname + '_sentencelevel'
 
@@ -249,6 +254,7 @@ def prepare_sentencelevel_query(candname,tweet):
 #It aggregates all 5 emotion scores for a collection of tweets to return average score
 #select c_group_and_total(created_at, anger_score) from realDonaldTrump_sentencelevel
 #Revisit - do we need to store doc_json in db???
+#revisit - get tweets between - current(time) - 5 weeks prior
 def gen_doclevel_json(candname, file_path):
     table_name = candname + '_sentencelevel'
     #setting up db
@@ -493,7 +499,7 @@ def get_tweet_tones(candname,tweet_id,file_path):
 
 
 #testing all functions here in a sequence
-#insert_data_to_table('realDonaldTrump')
+insert_data_to_table('realDonaldTrump')
 #insert_data_to_table('HillaryClinton')
 # insert_data_to_table('BernieSanders')
 # insert_data_to_table('tedcruz')
@@ -509,26 +515,59 @@ def get_tweet_tones(candname,tweet_id,file_path):
 #testing
 #---------------------------------
 
-# def test(candname):
-#     #getting user tweets
-#     tweets = get_user_tweets(candname,6)
-#     #setting up db
-#     session = db_connect()
+def test(candname):
+    table_name = candname + '_tweets'
+    #getting user tweets
+    tweets = get_user_tweets(candname,20)
+    #setting up db
+    session = db_connect()
+
+#     prepare(statement)[source]
+# Prepares a query string, returning a PreparedStatement instance which can be used as follows:
 #
-#     for i,tweet in enumerate(tweets):
-#         print ('processing tweet :: ',i)
-#         session.execute("""
-#             insert into tweet_users (tweet_id,tweet_text,lang,
-#             retweet_count,created_at) values(str(tweet.id_str),
-#             str(tweet.text),str(tweet.lang),tweet.retweet_count,
-#             str(tweet.created_at))
-#             """)
-#         for i,tweet in enumerate(tweets):
-#             print type(tweet.text)
-#             print type(tweet.lang)
-#             print type(tweet.source)
-#             print type(tweet.retweet_count)
-#             print type(tweet.created_at)
+# >>> session = cluster.connect("mykeyspace")
+# >>> query = "INSERT INTO users (id, name, age) VALUES (?, ?, ?)"
+# >>> prepared = session.prepare(query)
+# >>> session.execute(prepared, (user.id, user.name, user.age))
+# Or you may bind values to the prepared statement ahead of time:
+#
+# >>> prepared = session.prepare(query)
+# >>> bound_stmt = prepared.bind((user.id, user.name, user.age))
+# >>> session.execute(bound_stmt)
+# Of course, prepared statements may (and should) be reused:
+#
+# >>> prepared = session.prepare(query)
+# >>> for user in users:
+# ...     bound = prepared.bind((user.id, user.name, user.age))
+# ...     session.execute(bound)
 
 
-#test('HillaryClinton')
+    query = "INSERT INTO " + table_name + \
+            "(tweet_id, " \
+            "tweet_text, " \
+            "lang, " \
+            "retweet_count, " \
+            "created_at," \
+            "date," \
+            "time" \
+            ") VALUES " \
+            "(?, ?, ?, ?, ?, ?, ?)"
+
+    prepared = session.prepare(query)
+
+    for i,tweet in enumerate(tweets):
+        print ('processing tweet :: ',i)
+
+        datetime_lst = str(tweet.created_at).encode('utf-8').split()
+        date = datetime_lst[0]
+        time = datetime_lst[1]
+
+        bound = prepared.bind((str(tweet.id_str.encode('utf-8')), str(tweet.text.encode('utf-8')),
+                               str(tweet.lang),tweet.retweet_count,
+                               str(tweet.created_at),date,time))
+        print 'bound :: ',bound
+        session.execute(bound)
+
+
+
+test('HillaryClinton')
