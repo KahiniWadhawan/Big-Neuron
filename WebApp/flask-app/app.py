@@ -162,6 +162,7 @@ def tweetlevel():
 
 
 '''
+    For tweetlevel()
     Ensures proper json files are stored for Sentence-level SA Amcharts chart per candidate tweet
 '''
 @app.route('/change_viz_by_id', methods=['GET','POST'])
@@ -204,6 +205,7 @@ def alltweet():
 
 ############### Helper Functions #################
 '''
+    For tweetlevel()
     Fetch tweet dictionary from db
     Parameter(s): candidate (Type: string; Descr: Candidate name), tweet_num (Type: int; Descr: Number of tweets in dictionary, e.g. 20)
     Return: List of Tuples, specifically [(tweet_id, tweet_text), ...]
