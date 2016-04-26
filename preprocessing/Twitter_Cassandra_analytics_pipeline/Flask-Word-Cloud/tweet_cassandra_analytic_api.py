@@ -25,7 +25,6 @@ add yourself to the Contributer. (Maybe a little description of the function? )
 
 import tweepy
 import sys
-
 from CassandraDriver import CassandraAPI
 from CassandraDriver import TOKENS
 from CassandraDriver import time
@@ -191,25 +190,47 @@ class TweetAPI(CassandraAPI):
 
 
    def WordCloud(self,twitter_tags_list,politician_table):
+      logFile = "/home/piyush/Big-neuron/Big-Neuron/preprocessing/Twitter_Cassandra_analytics_pipeline/Flask-Word-Cloud/static/data.json"  # Should be some file on the server
+      sc = SparkContext("local", "Simple App")
+      logData = sc.textFile(logFile).cache()
+      numAs = logData.filter(lambda s: 'a' in s).count()
+      numBs = logData.filter(lambda s: 'b' in s).count()
+      print("Lines with a: %i, lines with b: %i" % (numAs, numBs))
+
+
       if(politician_table=="donaldtrumpttl"):
          self.prepared_insert_tweets = self.session.prepare("INSERT INTO donaldtrumpttl (tweet_id, lang, tweet_text, created_at, retweet_count) VALUES(?,?,?,?,?) USING TTL 3600")
          self.prepared_retrive_tweets = self.session.prepare("SELECT * FROM donaldtrumpttl")
+      elif(politician_table=="hillaryclintonttl"):
+         self.prepared_insert_tweets = self.session.prepare("INSERT INTO hillaryclintonttl (tweet_id, lang, tweet_text, created_at, retweet_count) VALUES(?,?,?,?,?) USING TTL 3600")
+         self.prepared_retrive_tweets = self.session.prepare("SELECT * FROM hillaryclintonttl")
+      elif(politician_table=="berniesandersttl"):
+         self.prepared_insert_tweets = self.session.prepare("INSERT INTO berniesandersttl (tweet_id, lang, tweet_text, created_at, retweet_count) VALUES(?,?,?,?,?) USING TTL 3600")
+         self.prepared_retrive_tweets = self.session.prepare("SELECT * FROM berniesandersttl")
+      elif(politician_table=="tedcruzttl"):
+         self.prepared_insert_tweets = self.session.prepare("INSERT INTO tedcruzttl (tweet_id, lang, tweet_text, created_at, retweet_count) VALUES(?,?,?,?,?) USING TTL 3600")
+         self.prepared_retrive_tweets = self.session.prepare("SELECT * FROM tedcruzttl")
+      elif(politician_table=="johnkasichttl"):
+         self.prepared_insert_tweets = self.session.prepare("INSERT INTO johnkasichttl (tweet_id, lang, tweet_text, created_at, retweet_count) VALUES(?,?,?,?,?) USING TTL 3600")
+         self.prepared_retrive_tweets = self.session.prepare("SELECT * FROM johnkasichttl")
       values=[]
       executestmt=None
-        
+      rows=None
+   
       try:
-
          for i,tweet in enumerate(tweepy.Cursor(self.api.search,q=str(twitter_tags_list),lang="en",locale="en",count=100).items()):
             print "Inside for ",i
-
             if(i>1 and  (i%(self.repetations) == 0)):
-
-
-               
-
+               if(politician_table=="donaldtrumpttl"):
+                  rows = self.session.execute("SELECT tweet_text FROM donaldtrumpttl LIMIT 3")
+                  for each in rows:
+                     print each
+               break
 
 
                pass
+
+
             print tweet.id, type(tweet.id)
             print tweet.lang,type(tweet.lang)
             print tweet.text,type(tweet.text.replace("'",""))
@@ -247,14 +268,14 @@ if __name__ == "__main__":
    tweets.Connect()
    #tweets.TestIBM()
    #tweets.SearchAPI()
-
+   '''
    logFile = "/home/piyush/Big-neuron/Big-Neuron/preprocessing/Twitter_Cassandra_analytics_pipeline/Flask-Word-Cloud/static/data.json"  # Should be some file on the server
    sc = SparkContext("local", "Simple App")
    logData = sc.textFile(logFile).cache()
    numAs = logData.filter(lambda s: 'a' in s).count()
    numBs = logData.filter(lambda s: 'b' in s).count()
-   print("Lines with a: %i, lines with b: %i" % (numAs, numBs))
-   
 
+   print("Lines with a: %i, lines with b: %i" % (numAs, numBs))
+   '''
    tweets.WordCloud("Donald OR Trump OR DonaldTrump OR Donald trump OR trump ","donaldtrumpttl")  #REMOVE THE BREAK STATEMENT
 
