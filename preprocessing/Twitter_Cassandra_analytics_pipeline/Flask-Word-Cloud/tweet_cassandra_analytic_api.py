@@ -192,7 +192,8 @@ class TweetAPI(CassandraAPI):
 
    def WordCloud(self,twitter_tags_list,politician_table):
       if(politician_table=="donaldtrumpttl"):
-         self.prepared_insert_tweets = self.session.prepare("INSERT INTO donaldtrumpttl (tweet_id, lang, tweet_text, created_at, retweet_count) VALUES(?,?,?,?,?)")
+         self.prepared_insert_tweets = self.session.prepare("INSERT INTO donaldtrumpttl (tweet_id, lang, tweet_text, created_at, retweet_count) VALUES(?,?,?,?,?) USING TTL 3600")
+         self.prepared_retrive_tweets = self.session.prepare("SELECT * FROM donaldtrumpttl")
       values=[]
       executestmt=None
         
@@ -202,7 +203,13 @@ class TweetAPI(CassandraAPI):
             print "Inside for ",i
 
             if(i>1 and  (i%(self.repetations) == 0)):
-               print "...Computing..."
+
+
+               
+
+
+
+               pass
             print tweet.id, type(tweet.id)
             print tweet.lang,type(tweet.lang)
             print tweet.text,type(tweet.text.replace("'",""))
