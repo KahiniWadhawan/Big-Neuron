@@ -35,6 +35,10 @@ import time
 from pyspark import SparkContext
 from nltk.corpus import stopwords
 import json
+#from __future__ import print_function
+import sys
+from operator import add
+from operator import itemgetter
 #Import secret phrase module
 
 #Reference API
@@ -52,7 +56,7 @@ class TweetAPI(CassandraAPI):
       self.access_token_secret=TOKENS.access_token_secret
       self.tweetlist=[]
       self.numb=0
-      self.repetations = 30
+      self.repetations = 10
 
       
 
@@ -196,34 +200,38 @@ class TweetAPI(CassandraAPI):
    def WordCloud(self,twitter_tags_list,politician_table,repeat):
       if(repeat == "NO"):
       
-         logFile = "/home/piyush/Big-neuron/Big-Neuron/preprocessing/Twitter_Cassandra_analytics_pipeline/Flask-Word-Cloud/static/data.json"  # Should be some file on the server
+         #logFile = "/home/piyush/Big-neuron/Big-Neuron/preprocessing/Twitter_Cassandra_analytics_pipeline/Flask-Word-Cloud/static/data.json"  # Should be some file on the server
          sc = SparkContext("local", "Simple App")
-         logData = sc.textFile(logFile).cache()
-         numAs = logData.filter(lambda s: 'a' in s).count()
-         numBs = logData.filter(lambda s: 'b' in s).count()
+         #logData = sc.textFile(logFile).cache()
+         #numAs = logData.filter(lambda s: 'a' in s).count()
+         #numBs = logData.filter(lambda s: 'b' in s).count()
+         
          #print("Lines with a: %i, lines with b: %i" % (numAs, numBs))
       
 
 
       if(politician_table=="donaldtrumpttl"):
          self.prepared_insert_tweets = self.session.prepare("INSERT INTO donaldtrumpttl (tweet_id, lang, tweet_text, created_at, retweet_count) VALUES(?,?,?,?,?) USING TTL 3600")
-         self.prepared_retrive_tweets = self.session.prepare("SELECT * FROM donaldtrumpttl LIMIT 100")
+         #self.prepared_retrive_tweets = self.session.prepare("SELECT * FROM donaldtrumpttl LIMIT 100")
       elif(politician_table=="hillaryclintonttl"):
          self.prepared_insert_tweets = self.session.prepare("INSERT INTO hillaryclintonttl (tweet_id, lang, tweet_text, created_at, retweet_count) VALUES(?,?,?,?,?) USING TTL 3600")
-         self.prepared_retrive_tweets = self.session.prepare("SELECT * FROM hillaryclintonttl LIMIT 100")
+         #self.prepared_retrive_tweets = self.session.prepare("SELECT * FROM hillaryclintonttl LIMIT 100")
       elif(politician_table=="berniesandersttl"):
          self.prepared_insert_tweets = self.session.prepare("INSERT INTO berniesandersttl (tweet_id, lang, tweet_text, created_at, retweet_count) VALUES(?,?,?,?,?) USING TTL 3600")
-         self.prepared_retrive_tweets = self.session.prepare("SELECT * FROM berniesandersttl LIMIT 100")
+         #self.prepared_retrive_tweets = self.session.prepare("SELECT * FROM berniesandersttl LIMIT 100")
       elif(politician_table=="tedcruzttl"):
          self.prepared_insert_tweets = self.session.prepare("INSERT INTO tedcruzttl (tweet_id, lang, tweet_text, created_at, retweet_count) VALUES(?,?,?,?,?) USING TTL 3600")
-         self.prepared_retrive_tweets = self.session.prepare("SELECT * FROM tedcruzttl LIMIT 100")
+         #self.prepared_retrive_tweets = self.session.prepare("SELECT * FROM tedcruzttl LIMIT 100")
       elif(politician_table=="johnkasichttl"):
          self.prepared_insert_tweets = self.session.prepare("INSERT INTO johnkasichttl (tweet_id, lang, tweet_text, created_at, retweet_count) VALUES(?,?,?,?,?) USING TTL 3600")
-         self.prepared_retrive_tweets = self.session.prepare("SELECT * FROM johnkasichttl LIMIT 100")
+         #self.prepared_retrive_tweets = self.session.prepare("SELECT * FROM johnkasichttl LIMIT 100")
       values=[]
       executestmt=None
       rows=None
+      #rows_wordcloud=None
       textlist=None
+      textlist_wordcloud=None
+      ftextlist_wordcloud_bigfile= open("/home/piyush/Big-neuron/Big-Neuron/preprocessing/Twitter_Cassandra_analytics_pipeline/Flask-Word-Cloud/static/BigWordCloudFile.txt","w")
       IBMToneJSON=None
       WordCloudJSON=None
 
@@ -232,34 +240,60 @@ class TweetAPI(CassandraAPI):
          print "Inside for ",i         
          textlist=[]
          rows=None
+         #rows_wordcloud=None
          IBMToneJSON=None
          WordCloudJSON=None
          if(i>2 and  (i%(self.repetations) == 0)):         
             if(politician_table=="donaldtrumpttl"):
-               rows = self.session.execute("SELECT tweet_text FROM donaldtrumpttl")
+               rows = self.session.execute("SELECT tweet_text FROM donaldtrumpttl LIMIT 100")
+               #rows_wordcloud = self.session.execute("SELECT tweet_text FROM donaldtrumpttl")
             elif(politician_table=="hillaryclintonttl"):
-               rows = self.session.execute("SELECT tweet_text FROM hillaryclintonttl")
+               rows = self.session.execute("SELECT tweet_text FROM hillaryclintonttl LIMIT 100")
+               #rows_wordcloud = self.session.execute("SELECT tweet_text FROM hillaryclintonttl")
             elif(politician_table=="berniesandersttl"):
-               rows = self.session.execute("SELECT tweet_text FROM berniesandersttl")
+               rows = self.session.execute("SELECT tweet_text FROM berniesandersttl LIMIT 100")
+               #rows_wordcloud = self.session.execute("SELECT tweet_text FROM berniesandersttl")
             elif(politician_table=="tedcruzttl"):
-               rows = self.session.execute("SELECT tweet_text FROM tedcruzttl")
+               rows = self.session.execute("SELECT tweet_text FROM tedcruzttl LIMIT 100")
+               #rows_wordcloud = self.session.execute("SELECT tweet_text FROM tedcruzttl")
             elif(politician_table=="johnkasichttl"):
-               rows = self.session.execute("SELECT tweet_text FROM johnkasichttl")            
+               rows = self.session.execute("SELECT tweet_text FROM johnkasichttl LIMIT 100")
+               #rows_wordcloud = self.session.execute("SELECT tweet_text FROM johnkasichttl")            
             
             IBMToneJSON=None
             WordCloudJSON=None
             if(len(textlist)!=0):
                textlist=[]
             for each in rows:
-               #print each
                textlist.append(each['tweet_text'])
+
+
             #Filter
-            textlist= (" ").join(textlist)
+            textlist= (" ").join(textlist).lower()
+            textlist_wordcloud= textlist
             textlist = re.sub(r'(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:\'".,<>?«»“”‘’]))', '', textlist)
-            
             IBMToneJSON = eval(json.dumps(self.tone_analyzer.tone(text=textlist)))
-            #print IBMToneJSON['document_tone']['tone_categories'][0]['tones']
-            WordCloudJSON = [word for word in textlist if word not in stopwords.words('english')]
+            stop = stopwords.words('english')
+            textlist_wordcloud =[i for i in textlist_wordcloud.split() if i not in stop]
+                       
+            textlist_wordcloud= (" ").join(textlist_wordcloud)
+            ftextlist_wordcloud_bigfile.write(textlist_wordcloud.encode('utf-8'))
+            textlist_wordcloud=[]
+
+            lines = sc.textFile("/home/piyush/Big-neuron/Big-Neuron/preprocessing/Twitter_Cassandra_analytics_pipeline/Flask-Word-Cloud/static/BigWordCloudFile.txt")
+            counts = lines.flatMap(lambda x: x.split(' ')) \
+                  .map(lambda x: (x, 1)) \
+                  .reduceByKey(add)
+            output = counts.collect()
+            output=sorted(output, key=itemgetter(1))
+            output = output[:20]
+            
+
+
+            WordCloudJSON_1=open("/home/piyush/Big-neuron/Big-Neuron/preprocessing/Twitter_Cassandra_analytics_pipeline/Flask-Word-Cloud/static/data.json","w")
+            each4_list_names=[]
+            each4_list_numbers=[]
+
 
 
             #Anger, Disgust, Fear, Joy, Sadness
@@ -277,15 +311,11 @@ class TweetAPI(CassandraAPI):
             each3_list_numbers=[]
 
 
-            WordCloudJSON_1=open("data.json","w")
-            '''
-            [{"key": "fish", "value": 11},{"key": "things", "value": 12},{"key": "look", "value": 13}]
-            '''
 
 
-
-
-
+            for (word, count) in output:
+               each4_list_names.append(word)
+               each4_list_numbers.append(count)
 
             #print IBMToneJSON['document_tone']['tone_categories'][2]['tones']
             #exit()
@@ -312,6 +342,41 @@ class TweetAPI(CassandraAPI):
 
             IBMToneJSON_3.write('['+'{"year":"Openness", "income": ' +str(each3_list_numbers[0])+ ' },'+ '{"year":"Conscientiousness", "income": ' +str(each3_list_numbers[1])+ ' },'+'{"year":"Extraversion", "income": ' +str(each3_list_numbers[2])+ ' },'+ '{"year":"Agreeableness", "income": ' +str(each3_list_numbers[3])+ ' },'+ '{"year":"Emotional Range", "income": ' +str(each3_list_numbers[4])+ ' }'+']' )            
             IBMToneJSON_3.close()
+
+            WordCloudJSON_1.write('['+'{"key": \"'  + (each4_list_names[0]).replace("\"","").encode('utf-8')+'\", "value": ' +str(each4_list_numbers[0])+ ' },')
+            WordCloudJSON_1.write('{"key": \" '  + (each4_list_names[1]).replace("\"","").encode('utf-8')+'\" , "value": ' +str(each4_list_numbers[1])+ ' },')
+            WordCloudJSON_1.write('{"key": \" '  + (each4_list_names[2]).replace("\"","").encode('utf-8')+'\" , "value": ' +str(each4_list_numbers[2])+ ' },')
+            WordCloudJSON_1.write('{"key": \" '  + (each4_list_names[3]).replace("\"","").encode('utf-8')+'\" , "value": ' +str(each4_list_numbers[3])+ ' },')
+            WordCloudJSON_1.write('{"key": \" '  + (each4_list_names[4]).replace("\"","").encode('utf-8')+'\" , "value": ' +str(each4_list_numbers[4])+ ' },')
+            WordCloudJSON_1.write('{"key": \" '  + (each4_list_names[5]).replace("\"","").encode('utf-8')+'\" , "value": ' +str(each4_list_numbers[5])+ ' },')
+            WordCloudJSON_1.write('{"key": \" '  + (each4_list_names[6]).replace("\"","").encode('utf-8')+'\" , "value": ' +str(each4_list_numbers[6])+ ' },')
+            WordCloudJSON_1.write('{"key": \" '  + (each4_list_names[7]).replace("\"","").encode('utf-8')+'\" , "value": ' +str(each4_list_numbers[7])+ ' },')
+            WordCloudJSON_1.write('{"key": \" '  + (each4_list_names[8]).replace("\"","").encode('utf-8')+'\" , "value": ' +str(each4_list_numbers[8])+ ' },')
+            WordCloudJSON_1.write('{"key": \" '  + (each4_list_names[9]).replace("\"","").encode('utf-8')+'\" , "value": ' +str(each4_list_numbers[9])+ ' },')
+            WordCloudJSON_1.write('{"key": \" '  + (each4_list_names[10]).replace("\"","").encode('utf-8')+'\" , "value": ' +str(each4_list_numbers[10])+ ' },')
+            WordCloudJSON_1.write('{"key": \" '  + (each4_list_names[11]).replace("\"","").encode('utf-8')+'\" , "value": ' +str(each4_list_numbers[11])+ ' },')
+            WordCloudJSON_1.write('{"key": \" '  + (each4_list_names[12]).replace("\"","").encode('utf-8')+'\" , "value": ' +str(each4_list_numbers[12])+ ' },')
+            WordCloudJSON_1.write('{"key": \" '  + (each4_list_names[13]).replace("\"","").encode('utf-8')+'\" , "value": ' +str(each4_list_numbers[13])+ ' },')
+            WordCloudJSON_1.write('{"key": \" '  + (each4_list_names[14]).replace("\"","").encode('utf-8')+'\" , "value": ' +str(each4_list_numbers[14])+ ' },')
+            WordCloudJSON_1.write('{"key": \" '  + (each4_list_names[15]).replace("\"","").encode('utf-8')+'\" , "value": ' +str(each4_list_numbers[15])+ ' },')
+            WordCloudJSON_1.write('{"key": \" '  + (each4_list_names[16]).replace("\"","").encode('utf-8')+'\" , "value": ' +str(each4_list_numbers[16])+ ' },')
+            WordCloudJSON_1.write('{"key": \" '  + (each4_list_names[17]).replace("\"","").encode('utf-8')+'\" , "value": ' +str(each4_list_numbers[17])+ ' },')
+            WordCloudJSON_1.write('{"key": \" '  + (each4_list_names[18]).replace("\"","").encode('utf-8')+'\" , "value": ' +str(each4_list_numbers[18])+ ' },')
+            WordCloudJSON_1.write('{"key": \" '  + (each4_list_names[19]).replace("\"","").encode('utf-8')+'\" , "value": ' +str(each4_list_numbers[19])+ ' }]')
+            WordCloudJSON_1.close()
+            #time.sleep(10)
+      
+
+
+
+
+
+
+
+            '''
+            [{"key": "fish", "value": 11},{"key": "things", "value": 12},{"key": "look", "value": 13}]
+            '''
+
 
             #[{"year": "Anger","income": 23.5},{"year": "Disgust","income": 26.2},{"year": "Fear","income": 30.1},{"year": "Joy","income": 29.5},{"year": "Sadness","income": 24.6}]
 
