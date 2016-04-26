@@ -207,19 +207,19 @@ class TweetAPI(CassandraAPI):
 
       if(politician_table=="donaldtrumpttl"):
          self.prepared_insert_tweets = self.session.prepare("INSERT INTO donaldtrumpttl (tweet_id, lang, tweet_text, created_at, retweet_count) VALUES(?,?,?,?,?) USING TTL 3600")
-         self.prepared_retrive_tweets = self.session.prepare("SELECT * FROM donaldtrumpttl")
+         self.prepared_retrive_tweets = self.session.prepare("SELECT * FROM donaldtrumpttl LIMIT 100")
       elif(politician_table=="hillaryclintonttl"):
          self.prepared_insert_tweets = self.session.prepare("INSERT INTO hillaryclintonttl (tweet_id, lang, tweet_text, created_at, retweet_count) VALUES(?,?,?,?,?) USING TTL 3600")
-         self.prepared_retrive_tweets = self.session.prepare("SELECT * FROM hillaryclintonttl")
+         self.prepared_retrive_tweets = self.session.prepare("SELECT * FROM hillaryclintonttl LIMIT 100")
       elif(politician_table=="berniesandersttl"):
          self.prepared_insert_tweets = self.session.prepare("INSERT INTO berniesandersttl (tweet_id, lang, tweet_text, created_at, retweet_count) VALUES(?,?,?,?,?) USING TTL 3600")
-         self.prepared_retrive_tweets = self.session.prepare("SELECT * FROM berniesandersttl")
+         self.prepared_retrive_tweets = self.session.prepare("SELECT * FROM berniesandersttl LIMIT 100")
       elif(politician_table=="tedcruzttl"):
          self.prepared_insert_tweets = self.session.prepare("INSERT INTO tedcruzttl (tweet_id, lang, tweet_text, created_at, retweet_count) VALUES(?,?,?,?,?) USING TTL 3600")
-         self.prepared_retrive_tweets = self.session.prepare("SELECT * FROM tedcruzttl")
+         self.prepared_retrive_tweets = self.session.prepare("SELECT * FROM tedcruzttl LIMIT 100")
       elif(politician_table=="johnkasichttl"):
          self.prepared_insert_tweets = self.session.prepare("INSERT INTO johnkasichttl (tweet_id, lang, tweet_text, created_at, retweet_count) VALUES(?,?,?,?,?) USING TTL 3600")
-         self.prepared_retrive_tweets = self.session.prepare("SELECT * FROM johnkasichttl")
+         self.prepared_retrive_tweets = self.session.prepare("SELECT * FROM johnkasichttl LIMIT 100")
       values=[]
       executestmt=None
       rows=None
@@ -259,21 +259,58 @@ class TweetAPI(CassandraAPI):
             
             IBMToneJSON = eval(json.dumps(self.tone_analyzer.tone(text=textlist)))
             #print IBMToneJSON['document_tone']['tone_categories'][0]['tones']
+            WordCloudJSON = [word for word in textlist if word not in stopwords.words('english')]
+
 
             #Anger, Disgust, Fear, Joy, Sadness
             IBMToneJSON_1= open("/home/piyush/Big-neuron/Big-Neuron/preprocessing/Twitter_Cassandra_analytics_pipeline/Flask-Word-Cloud/static/testdata1.json","w")
             each1_list_names=[]
             each1_list_numbers=[]
-            IBMToneJSON_2= open("testdata2.json","w")
-            IBMToneJSON_3= open("testdata3.json","w")
-            for each1 in IBMToneJSON['document_tone']['tone_categories'][0]['tones']:
-               each1_list_names.append(each1['tone_name'])
-               each1_list_numbers.append(each1['score'])
+
+
+            IBMToneJSON_2= open("/home/piyush/Big-neuron/Big-Neuron/preprocessing/Twitter_Cassandra_analytics_pipeline/Flask-Word-Cloud/static/testdata2.json","w")
+            each2_list_names=[]
+            each2_list_numbers=[]
+
+            IBMToneJSON_3= open("/home/piyush/Big-neuron/Big-Neuron/preprocessing/Twitter_Cassandra_analytics_pipeline/Flask-Word-Cloud/static/testdata3.json","w")
+            each3_list_names=[]
+            each3_list_numbers=[]
+
+
+            WordCloudJSON_1=open("data.json","w")
+            '''
+            [{"key": "fish", "value": 11},{"key": "things", "value": 12},{"key": "look", "value": 13}]
+            '''
+
+
+
+
+
+
+            #print IBMToneJSON['document_tone']['tone_categories'][2]['tones']
+            #exit()
+            for each in IBMToneJSON['document_tone']['tone_categories'][0]['tones']:
+               each1_list_names.append(each['tone_name'])
+               each1_list_numbers.append(each['score'])
             
+            for each in IBMToneJSON['document_tone']['tone_categories'][1]['tones']:
+               each2_list_names.append(each['tone_name'])
+               each2_list_numbers.append(each['score'])
+
+            for each in IBMToneJSON['document_tone']['tone_categories'][2]['tones']:
+               each3_list_names.append(each['tone_name'])
+               each3_list_numbers.append(each['score'])
+
+
+
             #IBMToneJSON_1.write( '[{ \"year\" : \" "+each1['tone_name']+" \", "" '    )   
-            IBMToneJSON_1.write('['+'{"year":"Anger", "income": ' +str(each1_list_numbers[0])+ ' },'+ '{"year":"Anger", "income": ' +str(each1_list_numbers[1])+ ' },'+'{"year":"Anger", "income": ' +str(each1_list_numbers[2])+ ' },'+ '{"year":"Anger", "income": ' +str(each1_list_numbers[3])+ ' },'+ '{"year":"Anger", "income": ' +str(each1_list_numbers[4])+ ' }'+']' )            
+            IBMToneJSON_1.write('['+'{"year":"Anger", "income": ' +str(each1_list_numbers[0])+ ' },'+ '{"year":"Disgust", "income": ' +str(each1_list_numbers[1])+ ' },'+'{"year":"Fear", "income": ' +str(each1_list_numbers[2])+ ' },'+ '{"year":"Joy", "income": ' +str(each1_list_numbers[3])+ ' },'+ '{"year":"Saddness", "income": ' +str(each1_list_numbers[4])+ ' }'+']' )            
             IBMToneJSON_1.close()
+
+            IBMToneJSON_2.write('['+'{"year":"Analytical", "income": ' +str(each2_list_numbers[0])+ ' },'+ '{"year":"Confident", "income": ' +str(each2_list_numbers[1])+ ' },'+'{"year":"Tentative", "income": ' +str(each2_list_numbers[2])+ ' }'+']' )            
             IBMToneJSON_2.close()
+
+            IBMToneJSON_3.write('['+'{"year":"Openness", "income": ' +str(each3_list_numbers[0])+ ' },'+ '{"year":"Conscientiousness", "income": ' +str(each3_list_numbers[1])+ ' },'+'{"year":"Extraversion", "income": ' +str(each3_list_numbers[2])+ ' },'+ '{"year":"Agreeableness", "income": ' +str(each3_list_numbers[3])+ ' },'+ '{"year":"Emotional Range", "income": ' +str(each3_list_numbers[4])+ ' }'+']' )            
             IBMToneJSON_3.close()
 
             #[{"year": "Anger","income": 23.5},{"year": "Disgust","income": 26.2},{"year": "Fear","income": 30.1},{"year": "Joy","income": 29.5},{"year": "Sadness","income": 24.6}]
