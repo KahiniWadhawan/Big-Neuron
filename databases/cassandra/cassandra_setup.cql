@@ -113,7 +113,17 @@ joy_score double,
 fear_score double,
 sadness_score double,
 disgust_score double,
+analytical_score double,
+confident_score double,
+tentative_score double,
+openness_score double,
+conscientiousness_score double,
+extraversion_score double,
+agreeableness_score double,
+emotionalrange_score double,
 PRIMARY KEY (tweet_id,date));
+//revisit
+
 
 /*
 CREATE TABLE IF NOT EXISTS HillaryClinton_wordcloud (
@@ -133,6 +143,7 @@ topics_json text);
 CREATE TABLE IF NOT EXISTS HillaryClinton_graph (
 till_time timestamp primary key,
 graph_json text);
+
 
 
 /* ------------------------------------------------------
@@ -169,7 +180,17 @@ joy_score double,
 fear_score double,
 sadness_score double,
 disgust_score double,
+analytical_score double,
+confident_score double,
+tentative_score double,
+openness_score double,
+conscientiousness_score double,
+extraversion_score double,
+agreeableness_score double,
+emotionalrange_score double,
 PRIMARY KEY (tweet_id,date));
+//revisit
+
 
 /*
 CREATE TABLE IF NOT EXISTS BernieSanders_wordcloud (
@@ -189,6 +210,8 @@ topics_json text);
 CREATE TABLE IF NOT EXISTS BernieSanders_graph (
 till_time timestamp primary key,
 graph_json text);
+
+
 
 
 /* ------------------------------------------------------
@@ -225,7 +248,17 @@ joy_score double,
 fear_score double,
 sadness_score double,
 disgust_score double,
+analytical_score double,
+confident_score double,
+tentative_score double,
+openness_score double,
+conscientiousness_score double,
+extraversion_score double,
+agreeableness_score double,
+emotionalrange_score double,
 PRIMARY KEY (tweet_id,date));
+//revisit
+
 
 /*
 CREATE TABLE IF NOT EXISTS tedcruz_wordcloud (
@@ -281,7 +314,17 @@ joy_score double,
 fear_score double,
 sadness_score double,
 disgust_score double,
+analytical_score double,
+confident_score double,
+tentative_score double,
+openness_score double,
+conscientiousness_score double,
+extraversion_score double,
+agreeableness_score double,
+emotionalrange_score double,
 PRIMARY KEY (tweet_id,date));
+//revisit
+
 
 /*
 CREATE TABLE IF NOT EXISTS JohnKasich_wordcloud (
@@ -301,3 +344,5 @@ topics_json text);
 CREATE TABLE IF NOT EXISTS JohnKasich_graph (
 till_time timestamp primary key,
 graph_json text);
+
+
