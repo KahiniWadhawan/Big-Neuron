@@ -316,7 +316,8 @@ def prepare_sentencelevel_query(candname,tweet,session):
 #select c_group_and_total(created_at, anger_score) from realDonaldTrump_sentencelevel
 #Revisit - do we need to store doc_json in db???
 #revisit - get tweets between - current(time) - 5 weeks prior
-def gen_doclevel_json(candname, file_path):
+
+def gen_doclevel_emotion_json(candname, file_path):
     table_name = candname + '_sentencelevel'
     #setting up db
     session = db_connect()
@@ -342,21 +343,6 @@ def gen_doclevel_json(candname, file_path):
     fear_score_dict = {}
 
     for row in resultSet:
-        #print row
-        # print row.twitterdataset_cus_group_and_total_date__anger_score.keys(),\
-        #     row.twitterdataset_cus_group_and_total_date__anger_score.values()
-
-        # anger_score_dict[row.twitterdataset_cus_group_and_total_date__anger_score.keys()[0]] = \
-        #     row.twitterdataset_cus_group_and_total_date__anger_score.values()[0]
-        # joy_score_dict[row.twitterdataset_cus_group_and_total_date__joy_score.keys()[0]] = \
-        #     row.twitterdataset_cus_group_and_total_date__joy_score.values()[0]
-        # sadness_score_dict[row.twitterdataset_cus_group_and_total_date__sadness_score.keys()[0]] = \
-        #     row.twitterdataset_cus_group_and_total_date__sadness_score.values()[0]
-        # fear_score_dict[row.twitterdataset_cus_group_and_total_date__fear_score.keys()[0]] = \
-        #     row.twitterdataset_cus_group_and_total_date__fear_score.values()[0]
-        # disgust_score_dict[row.twitterdataset_cus_group_and_total_date__disgust_score.keys()[0]] = \
-        #     row.twitterdataset_cus_group_and_total_date__disgust_score.values()[0]
-
         for key,val in row.twitterdataset_cus_group_and_total_date__anger_score.iteritems():
             anger_score_dict[key] = val
 
@@ -422,6 +408,8 @@ def gen_doclevel_json(candname, file_path):
 
         #converting scores to %ges for pie-chart viz
         total_score = anger_score + joy_score + sadness_score + fear_score + disgust_score
+        if total_score == 0:
+            total_score = 1
         anger_score_norm = (anger_score/float(total_score)) * 100
         joy_score_norm = (joy_score/float(total_score)) * 100
         sadness_score_norm = (sadness_score/float(total_score)) * 100
@@ -448,7 +436,115 @@ def gen_doclevel_json(candname, file_path):
 
     #writing doc_json to provided file_path - revisit not writing
     #revisit - permission denied to write file
-    with open(os.path.join(file_path,'doc.json'), 'wb') as outfile:
+    with open(os.path.join(file_path,'doc_emotion.json'), 'wb') as outfile:
+            json.dump(doc_json, outfile)
+    outfile.close()
+
+    #return doc_json
+
+
+def gen_doclevel_writing_json(candname, file_path):
+    table_name = candname + '_sentencelevel'
+    #setting up db
+    session = db_connect()
+
+    select_query = "select " + \
+                "cus_group_and_total(date, analytical_score)," \
+                "cus_group_and_total(date, confident_score)," \
+                "cus_group_and_total(date, tentative_score)" \
+                " from " + table_name + \
+                ";"
+
+    print 'select_query ::',select_query
+    resultSet  = session.execute(select_query)
+    #print ('resultSet:: ',resultSet)
+
+    #processing resultset for date:scores
+    analytical_score_dict = {}
+    confident_score_dict = {}
+    tentative_score_dict = {}
+
+    for row in resultSet:
+
+        for key,val in row.twitterdataset_cus_group_and_total_date__analytical_score.iteritems():
+            analytical_score_dict[key] = val
+
+        for key,val in row.twitterdataset_cus_group_and_total_date__confident_score.iteritems():
+            confident_score_dict[key] = val
+
+        for key,val in row.twitterdataset_cus_group_and_total_date__tentative_score.iteritems():
+            tentative_score_dict[key] = val
+
+
+    print 'analytical_score_dict', analytical_score_dict
+    print 'confident_score_dict', confident_score_dict
+    print 'tentative_score_dict', tentative_score_dict
+
+
+    #Now we have got all emotion score dicts with day-wise data
+    #generating doc level json format required by visualization
+    #revisit - normalize sum/no.of days, put day number - 1,2,3 ...
+    doc_json = []
+    date_list = [i for i in analytical_score_dict.keys()]
+    print 'date_list', date_list
+
+    #sort date_list - increasing order
+    date_list.sort()
+
+    #number of days
+    num_tweets_date_dict = {}
+    #select count (tweet_id) from
+    # realDonaldTrump_sentencelevel where date = '2016-04-24' ALLOW FILTERING;
+    for date in date_list:
+        select_query = "select " + \
+                "count(tweet_id)" \
+                 " from " + table_name + \
+                " where date = '" + date + "'" + \
+                " ALLOW FILTERING " + \
+                ";"
+
+        print 'num of tweets per day query:: ', select_query
+        resultSet  = session.execute(select_query)
+        for row in resultSet:
+            #print row
+            num_tweets_date_dict[date] = row.system_count_tweet_id
+
+        print 'num_tweets_date_dict',num_tweets_date_dict
+
+
+    for date_key,analytical_s in analytical_score_dict.iteritems():
+        temp = {}
+        analytical_score = analytical_s/float(num_tweets_date_dict[date])
+        confident_score = confident_score_dict[date_key]/float(num_tweets_date_dict[date])
+        tentative_score = tentative_score_dict[date_key]/float(num_tweets_date_dict[date])
+
+        #converting scores to %ges for pie-chart viz
+        total_score = analytical_score + confident_score + tentative_score
+        if total_score == 0:
+            total_score = 1
+        analytical_score_norm = (analytical_score/float(total_score)) * 100
+        confident_score_norm = (confident_score/float(total_score)) * 100
+        tentative_score_norm = (tentative_score/float(total_score)) * 100
+
+        temp["analytical"] = round(analytical_score_norm,2)
+        temp["confident"] = round(confident_score_norm,2)
+        temp["tentative"] = round(tentative_score_norm,2)
+        #inserting date index in sorted date_list instead of its value
+        #temp["day"] = date_key
+        temp["day"] = date_list.index(date_key) + 1
+
+        doc_json.append(temp)
+
+    print doc_json
+
+    #sorting doc_json - ordering it on day value
+    doc_json.sort(key=operator.itemgetter('day'))
+
+    print 'doc_json sorted :: ', doc_json
+
+    #writing doc_json to provided file_path - revisit not writing
+    #revisit - permission denied to write file
+    with open(os.path.join(file_path,'doc_writing.json'), 'wb') as outfile:
             json.dump(doc_json, outfile)
     outfile.close()
 
@@ -569,13 +665,14 @@ def get_tweet_tones(candname,tweet_id,file_path):
 
 
 #testing all functions here in a sequence
-insert_data_to_table('realDonaldTrump')
+#insert_data_to_table('realDonaldTrump')
 #insert_data_to_table('HillaryClinton')
 # insert_data_to_table('BernieSanders')
 # insert_data_to_table('tedcruz')
 # insert_data_to_table('JohnKasich')
 
-#gen_doclevel_json('realDonaldTrump','data/')
+gen_doclevel_emotion_json('realDonaldTrump','data/')
+gen_doclevel_writing_json('realDonaldTrump','data/')
 #gen_doclevel_json('HillaryClinton','data/')
 #get_tweet_list('realDonaldTrump',2)
 #get_tweet_tones('realDonaldTrump','722967660833722369','data/')
