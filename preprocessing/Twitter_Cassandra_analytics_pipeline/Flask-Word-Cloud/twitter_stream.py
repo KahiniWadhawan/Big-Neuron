@@ -14,6 +14,7 @@ class StdOutListener(tweepy.StreamListener,IBMToneAnalyzer):
         IBMToneAnalyzer.__init__(self)
 
 
+
     def on_data(self, data):
         # Twitter returns data in JSON format - we need to decode it first
         decoded = json.loads(data)
@@ -21,12 +22,23 @@ class StdOutListener(tweepy.StreamListener,IBMToneAnalyzer):
         # Also, we convert UTF-8 to ASCII ignoring all bad characters sent by users
         print '@%s: %s' % (decoded['user']['screen_name'], decoded['text'].encode('ascii', 'ignore'))
         tweet=decoded['text'].encode('ascii', 'ignore')
+        IBMToneJSON=None
+        IBMToneJSON = self.tone_analyzer.tone(text=tweet)
+        IBMToneJSON_1= open("/home/piyush/Big-neuron/Big-Neuron/preprocessing/Twitter_Cassandra_analytics_pipeline/Flask-Word-Cloud/static/realtimesentiment.json","w")
+        TwitterRealtimef=open("/home/piyush/Big-neuron/Big-Neuron/preprocessing/Twitter_Cassandra_analytics_pipeline/Flask-Word-Cloud/static/realtimetwitter.json","w")
+        each1_list_names=[]
+        each1_list_numbers=[]
+        TwitterRealtimef.write(tweet.encode('utf-8'))
+        for each in IBMToneJSON['document_tone']['tone_categories'][0]['tones']:
+               each1_list_names.append(each['tone_name'])
+               each1_list_numbers.append(each['score'])
+        IBMToneJSON_1.write('['+'{"year":"Anger", "income": ' +str(each1_list_numbers[0])+ ' },'+ '{"year":"Disgust", "income": ' +str(each1_list_numbers[1])+ ' },'+'{"year":"Fear", "income": ' +str(each1_list_numbers[2])+ ' },'+ '{"year":"Joy", "income": ' +str(each1_list_numbers[3])+ ' },'+ '{"year":"Saddness", "income": ' +str(each1_list_numbers[4])+ ' }'+']' )            
 
-        
-        #print(self.tone_analyzer.tone(text=tweet))
 
-        f=open("/home/piyush/Big-neuron/Big-Neuron/preprocessing/Twitter_Cassandra_analytics_pipeline/Flask-Word-Cloud/static/realtimetwitter.json","w")
-        f.write(tweet.encode('utf-8'))
+
+
+        IBMToneJSON_1.close()
+        TwitterRealtimef.close()
 
         return True
 
@@ -34,7 +46,7 @@ class StdOutListener(tweepy.StreamListener,IBMToneAnalyzer):
         print status
 
 if __name__ == '__main__':
-
+    IBMToneJSON_1= open("/home/piyush/Big-neuron/Big-Neuron/preprocessing/Twitter_Cassandra_analytics_pipeline/Flask-Word-Cloud/static/realtimesentiment.json","w")
     l = StdOutListener()
     auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
     auth.set_access_token(access_token, access_token_secret)
