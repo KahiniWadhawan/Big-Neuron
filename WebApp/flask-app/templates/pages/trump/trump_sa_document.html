@@ -157,7 +157,13 @@
                     "angle": 30,
                     "depth3D": 30,
                     "startDuration": 0,
+                    "backgroundColor":"white",
                     "categoryField":"day",
+                    /*"autoMargins": false,
+                    "marginBottom": 5,
+                    "marginLeft": 5,
+                    "marginRight": 5,
+                    "marginTop": 5,*/
                     "categoryAxis": {
                         "gridPosition": "start",
                         "gridAlpha":0.2,
@@ -172,9 +178,10 @@
                     "graphs": [
                         {
                             //
-                            "balloonText": "[[title]] - [[category]]:[[value]]",
+                            "balloonText": "[[title]] - Day [[category]]: <b>[[value]] </b>",
                             "id": "AmGraph-1",
                             "title": "Analytical",
+                            //"bullet": "round",
                             "type": "column",
                             "valueField": "analytical",
                             "lineAlpha":0,
@@ -182,9 +189,10 @@
                             "fillAlphas": 1
                         },
                         {
-                            "balloonText": "[[title]] of [[category]]:[[value]]",
+                           "balloonText": "[[title]] - Day [[category]]: <b>[[value]] </b>",
                             "id": "AmGraph-2",
                             "title": "Confident",
+                            //"bullet": "round",
                             "type": "column",
                             "valueField": "confident",
                             "lineAlpha":0,
@@ -192,12 +200,13 @@
                             "fillAlphas": 1
                         },
                         {
-                            "balloonText": "[[title]] of [[category]]:[[value]]",
+                            "balloonText": "[[title]] - Day [[category]]: <b>[[value]] </b>",
                             "id": "AmGraph-3",
                             "title": "Tentative",
+                            //"bullet": "round",
                             "type": "column",
                             "valueField": "tentative",
-                            "lineAlpha":0,
+                            "lineAlpha":1,
                             /*"lineColor":"blue",*/
                             "fillAlphas": 1
                         }
@@ -205,7 +214,7 @@
                     "valueAxes": [
                         {
                             "id": "ValueAxis-1",
-                            "stackType": "100%",
+                            "stackType": "3d",
                             "gridAlpha":0.2,
                             "gridColor":"black",
                             "axisColor":"black",
@@ -390,9 +399,10 @@
                         <hr class="star-light">
                         <!--span class="skills">Optional description goes here.</span-->
                     </div>
-                    <div id="xyz" style="background-color:white;">
+                    <div id="xyz" >
                          <center><h1> Emotion Tone </h1></center>
-                        <div id="emotion" style="width: 100%; height:600px"></div>
+                         <br><br><br>
+                        <div id="emotion" style="background-color:white;width: 100%; height:600px"></div>
 
                     </div>  
                  </div>
@@ -401,7 +411,7 @@
             <!-- End: /row -->   
             <div class="row">
                 <center><h1> Writing Tone </h1></center>
-                <div id="writing" style="width: 100%; height: 600px"></div>
+                <div id="writing" style="background-color:white;width: 100%; height: 600px"></div>
             </div> 
 
             <div class="row">
