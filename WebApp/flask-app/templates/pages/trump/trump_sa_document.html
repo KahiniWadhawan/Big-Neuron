@@ -156,7 +156,7 @@
                     "type": "serial",
                     "angle": 30,
                     "depth3D": 30,
-                    "startDuration": 0,
+                    "startDuration": 1,
                     "backgroundColor":"white",
                     "categoryField":"day",
                     /*"autoMargins": false,
@@ -254,7 +254,7 @@
                     "categoryField": "category",
                     "angle": 30,
                     "depth3D": 30,
-                    "startDuration": 1.2,
+                    "startDuration": 0.8,
                     "categoryField":"day",
                     "colors": [ 
                         
@@ -276,71 +276,71 @@
                       },
                     "graphs": [
                             //Add all the 5 graphs here
-                            // Anger Graph
+                            // Openness Graph
                             {   
-                            "balloonText": "Day : <b>[[category]]</b>  Anger: <b>[[value]]</b>",
+                            "balloonText": "Day : <b>[[category]]</b>  Openness: <b>[[value]]</b>",
                             "fillAlphas": 1,
                             "id": "AmGraph-1",
-                            "title": "Anger",
+                            "title": "Openness",
                             "type": "column",
-                            "valueField": "anger",
+                            "valueField": "openness_score",
                             /*"fillColors": "teal",
                             "borderAlpha":1,
                             "borderColor": "transparent", */  
                             "fillAlphas": 1
 
                         },
-                        // Digust Graph
+                        // Concientiousness Graph
                         {
-                            "balloonText": "Day : <b>[[category]]</b>  Disgust: <b>[[value]]</b>",
+                            "balloonText": "Day : <b>[[category]]</b>  Concientiousness: <b>[[value]]</b>",
                             "fillAlphas": 1,
                             "id": "AmGraph-2",
-                            "title": "Disgust",
+                            "title": "Concientiousness",
                             "type": "column",
-                            "valueField": "disgust",
+                            "valueField": "conscientiousness_score",
                             "lineAlpha":0,
                             /*"lineColor":"purple",*/
                             "fillAlphas": 1
                         },
-                        // Sadness Graph
+                        // Extraversion Graph
                         {
-                            "balloonText": "Day : <b>[[category]]</b> Sadness: <b>[[value]]</b>",
+                            "balloonText": "Day : <b>[[category]]</b> Extraversion: <b>[[value]]</b>",
                             "fillAlphas": 1,
                             "id": "AmGraph-3",
-                            "title": "Sadness",
+                            "title": "Extraversion",
                             "type": "column",
-                            "valueField": "sadness",
+                            "valueField": "extraversion_score",
                             "lineAlpha":0,
                             /*"lineColor":"green",*/
                             "fillAlphas": 1
                         },
-                        // Fear Graph
+                        // Agreeableness Graph
                         {
-                            "balloonText": "Day : <b>[[category]]</b>  Fear: <b>[[value]]</b>",
+                            "balloonText": "Day : <b>[[category]]</b>  Agreeableness: <b>[[value]]</b>",
                             "fillAlphas": 1,
                             "id": "AmGraph-4",
-                            "title": "Fear",
+                            "title": "Agreeableness",
                             "type": "column",
-                            "valueField": "fear",
+                            "valueField": "agreeableness_score",
                             "lineAlpha":0,
                             /*"lineColor":"yellow",*/
                             "fillAlphas": 1
                         },
-                        // Joy Graph
+                        // Emotional-range Graph
                         {
-                            "balloonText": "Day : <b>[[category]]</b>  Joy: <b>[[value]]</b>",
+                            "balloonText": "Day : <b>[[category]]</b>  Emotionalrange: <b>[[value]]</b>",
                             "fillAlphas": 1,
                             "id": "AmGraph-5",
-                            "title": "Joy",
+                            "title": "Emotionalrange",
                             "type": "column",
-                            "valueField": "joy",
+                            "valueField": "emotionalrange_score",
                             "lineAlpha":0,
                             /*"lineColor":"blue",*/
                             "fillAlphas": 1
                         }
                     ],  //end of the graphs definition
                     "valueAxes":  [{
-                            "stackType":"3d", // This line makes chart 3D stacked (columns are placed one behind another)
+                            "stackType":"100%", // This line makes chart 3D stacked (columns are placed one behind another)
                             "gridAlpha":0.2,
                             "gridColor":"black",
                             "axisColor":"black",
@@ -390,7 +390,7 @@
     </nav>
 
     <!-- Header -->
-    <header style="height: 2300px">
+    <header style="height: 2500px">
         <div class="container" style="width: 100%; padding-left:50px; padding-right:50px;">
             <div class="row">
                 <div class="col-lg-12" >
@@ -416,13 +416,12 @@
 
             <div class="row">
                 <center><h1> Social Tone </h1></center>
-                 <div id="social" style="width: 100%; height:400px"></div>         
+                 <div id="social" style="width: 100%; height:700px"></div>         
              </div>
         </div>
         <!-- End: /.container -->
    
     </header>
-
 
 
     <!-- Footer -->
