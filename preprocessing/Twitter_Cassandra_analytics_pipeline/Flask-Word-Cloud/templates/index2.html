@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+
 <html>
     <head>
         <title>TODO supply a title</title>
@@ -9,7 +11,11 @@
         <script src="/static/amcharts.js" type="text/javascript"></script>
         <script src="/static/serial.js" type="text/javascript"></script>
 
+
 <script type="text/javascript">
+    
+
+
  AmCharts.ready(function () {
                 // SERIAL CHART
                 chart = new AmCharts.AmSerialChart();
@@ -34,7 +40,7 @@
                 // value
                 var valueAxis = new AmCharts.ValueAxis();
                 valueAxis.axisColor = "#DADADA";
-                valueAxis.title = "Emotion summary (probability)";
+                valueAxis.title = "Income in millions, USD";
                 valueAxis.gridAlpha = 0.1;
                 chart.addValueAxis(valueAxis);
 
@@ -52,32 +58,27 @@
                 chart.creditsPosition = "top-right";
 
                 // WRITE
-                chart.write("chartdiv4");
+                chart.write("chartdiv1");
             });
+
+
+
+
+
 </script>
 
 
 </head>
 <body>
-        <div id="vis"></div>
-        <script type="text/javascript" src="/static/word-cloud.js"></script>
-        <div id="blah" style="background-color:blue">
-            <br><br><br><br>
-            <p> Hi wassssup </p>
-        </div>
+        
+        <script type="text/javascript" src="/static/word-cloud2.js"></script>
+        <div id="chartdiv1" style="width: 300px; height: 300px;"></div>
+        
+			<div id="myDivID">
+			    MyDiv
+			</div>
 
-
-    <div id="chartdiv1" style="width: 300px; height: 300px;"></div>
-
-    <div id="chartdiv2" style="width: 300px; height: 300px;"></div>
-
-
-
-    <div id="chartdiv3" style="width: 300px; height: 300px;"></div>
-
-
-            
-            
 
 </body>
 </html>
+

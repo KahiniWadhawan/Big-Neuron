@@ -40,7 +40,7 @@
                 // value
                 var valueAxis = new AmCharts.ValueAxis();
                 valueAxis.axisColor = "#DADADA";
-                valueAxis.title = "Emotion summary (probability)";
+                valueAxis.title = "Income in millions, USD";
                 valueAxis.gridAlpha = 0.1;
                 chart.addValueAxis(valueAxis);
 
@@ -85,7 +85,7 @@
                 // value
                 var valueAxis = new AmCharts.ValueAxis();
                 valueAxis.axisColor = "#DADADA";
-                valueAxis.title = "Language Style summary (raw score)";
+                valueAxis.title = "Income in millions, USD";
                 valueAxis.gridAlpha = 0.1;
                 chart.addValueAxis(valueAxis);
 
@@ -110,7 +110,7 @@
  AmCharts.ready(function () {
                 // SERIAL CHART
                 chart = new AmCharts.AmSerialChart();
-                chart.dataProvider = chartData3;
+                chart.dataProvider = chartData2;
                 chart.categoryField = "year";
                 // this single line makes the chart a bar chart,
                 // try to set it to false - your bars will turn to columns
@@ -131,8 +131,7 @@
                 // value
                 var valueAxis = new AmCharts.ValueAxis();
                 valueAxis.axisColor = "#DADADA";
-                valueAxis.title = "Social summary (raw score)
-";
+                valueAxis.title = "Income in millions, USD";
                 valueAxis.gridAlpha = 0.1;
                 chart.addValueAxis(valueAxis);
 
@@ -154,7 +153,7 @@
             });
 
 
-</script>
+</script>>
 
 
 </head>
