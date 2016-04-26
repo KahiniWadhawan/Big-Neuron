@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 '''
 ============================================================================
 Name        : Tweets_cassandra.py
@@ -22,7 +24,7 @@ add yourself to the Contributer. (Maybe a little description of the function? )
 ============================================================================
 '''
 
-
+import re
 import tweepy
 import sys
 from CassandraDriver import CassandraAPI
@@ -32,7 +34,7 @@ import thread
 import time
 from pyspark import SparkContext
 from nltk.corpus import stopwords
-
+import json
 #Import secret phrase module
 
 #Reference API
@@ -50,7 +52,9 @@ class TweetAPI(CassandraAPI):
       self.access_token_secret=TOKENS.access_token_secret
       self.tweetlist=[]
       self.numb=0
-      self.repetations = 100
+      self.repetations = 30
+
+      
 
 
 
@@ -189,78 +193,153 @@ class TweetAPI(CassandraAPI):
          #self.TestTimeout2()
 
 
-   def WordCloud(self,twitter_tags_list,politician_table):
-      logFile = "/home/piyush/Big-neuron/Big-Neuron/preprocessing/Twitter_Cassandra_analytics_pipeline/Flask-Word-Cloud/static/data.json"  # Should be some file on the server
-      sc = SparkContext("local", "Simple App")
-      logData = sc.textFile(logFile).cache()
-      numAs = logData.filter(lambda s: 'a' in s).count()
-      numBs = logData.filter(lambda s: 'b' in s).count()
-      print("Lines with a: %i, lines with b: %i" % (numAs, numBs))
+   def WordCloud(self,twitter_tags_list,politician_table,repeat):
+      if(repeat == "NO"):
+      
+         logFile = "/home/piyush/Big-neuron/Big-Neuron/preprocessing/Twitter_Cassandra_analytics_pipeline/Flask-Word-Cloud/static/data.json"  # Should be some file on the server
+         sc = SparkContext("local", "Simple App")
+         logData = sc.textFile(logFile).cache()
+         numAs = logData.filter(lambda s: 'a' in s).count()
+         numBs = logData.filter(lambda s: 'b' in s).count()
+         #print("Lines with a: %i, lines with b: %i" % (numAs, numBs))
+      
 
 
       if(politician_table=="donaldtrumpttl"):
          self.prepared_insert_tweets = self.session.prepare("INSERT INTO donaldtrumpttl (tweet_id, lang, tweet_text, created_at, retweet_count) VALUES(?,?,?,?,?) USING TTL 3600")
-         self.prepared_retrive_tweets = self.session.prepare("SELECT * FROM donaldtrumpttl")
+         self.prepared_retrive_tweets = self.session.prepare("SELECT * FROM donaldtrumpttl LIMIT 100")
       elif(politician_table=="hillaryclintonttl"):
          self.prepared_insert_tweets = self.session.prepare("INSERT INTO hillaryclintonttl (tweet_id, lang, tweet_text, created_at, retweet_count) VALUES(?,?,?,?,?) USING TTL 3600")
-         self.prepared_retrive_tweets = self.session.prepare("SELECT * FROM hillaryclintonttl")
+         self.prepared_retrive_tweets = self.session.prepare("SELECT * FROM hillaryclintonttl LIMIT 100")
       elif(politician_table=="berniesandersttl"):
          self.prepared_insert_tweets = self.session.prepare("INSERT INTO berniesandersttl (tweet_id, lang, tweet_text, created_at, retweet_count) VALUES(?,?,?,?,?) USING TTL 3600")
-         self.prepared_retrive_tweets = self.session.prepare("SELECT * FROM berniesandersttl")
+         self.prepared_retrive_tweets = self.session.prepare("SELECT * FROM berniesandersttl LIMIT 100")
       elif(politician_table=="tedcruzttl"):
          self.prepared_insert_tweets = self.session.prepare("INSERT INTO tedcruzttl (tweet_id, lang, tweet_text, created_at, retweet_count) VALUES(?,?,?,?,?) USING TTL 3600")
-         self.prepared_retrive_tweets = self.session.prepare("SELECT * FROM tedcruzttl")
+         self.prepared_retrive_tweets = self.session.prepare("SELECT * FROM tedcruzttl LIMIT 100")
       elif(politician_table=="johnkasichttl"):
          self.prepared_insert_tweets = self.session.prepare("INSERT INTO johnkasichttl (tweet_id, lang, tweet_text, created_at, retweet_count) VALUES(?,?,?,?,?) USING TTL 3600")
-         self.prepared_retrive_tweets = self.session.prepare("SELECT * FROM johnkasichttl")
+         self.prepared_retrive_tweets = self.session.prepare("SELECT * FROM johnkasichttl LIMIT 100")
       values=[]
       executestmt=None
       rows=None
-   
-      try:
-         for i,tweet in enumerate(tweepy.Cursor(self.api.search,q=str(twitter_tags_list),lang="en",locale="en",count=100).items()):
-            print "Inside for ",i
-            if(i>1 and  (i%(self.repetations) == 0)):
-               if(politician_table=="donaldtrumpttl"):
-                  rows = self.session.execute("SELECT tweet_text FROM donaldtrumpttl LIMIT 3")
-                  for each in rows:
-                     print each
-               break
+      textlist=None
+      IBMToneJSON=None
+      WordCloudJSON=None
 
-
-               pass
-
-
-            print tweet.id, type(tweet.id)
-            print tweet.lang,type(tweet.lang)
-            print tweet.text,type(tweet.text.replace("'",""))
-            print tweet.created_at,type(tweet.created_at)
-            print tweet.retweet_count,type(tweet.retweet_count)
-            print "\n\n\n"
-
-
-            values=[]
-            values.append(tweet.id)
-            values.append(tweet.lang.replace("'",""))
-            values.append(tweet.text.replace("'",""))            
-            values.append(tweet.created_at)
-            values.append(tweet.retweet_count)
-
-            binding_stmt = self.prepared_insert_tweets.bind(values)
-            #print "Before execute ",i
-            executestmt=self.session.execute(binding_stmt)
+   #try:
+      for i,tweet in enumerate(tweepy.Cursor(self.api.search,q=str(twitter_tags_list),lang="en",locale="en",count=100).items()):
+         print "Inside for ",i         
+         textlist=[]
+         rows=None
+         IBMToneJSON=None
+         WordCloudJSON=None
+         if(i>2 and  (i%(self.repetations) == 0)):         
+            if(politician_table=="donaldtrumpttl"):
+               rows = self.session.execute("SELECT tweet_text FROM donaldtrumpttl")
+            elif(politician_table=="hillaryclintonttl"):
+               rows = self.session.execute("SELECT tweet_text FROM hillaryclintonttl")
+            elif(politician_table=="berniesandersttl"):
+               rows = self.session.execute("SELECT tweet_text FROM berniesandersttl")
+            elif(politician_table=="tedcruzttl"):
+               rows = self.session.execute("SELECT tweet_text FROM tedcruzttl")
+            elif(politician_table=="johnkasichttl"):
+               rows = self.session.execute("SELECT tweet_text FROM johnkasichttl")            
             
+            IBMToneJSON=None
+            WordCloudJSON=None
+            if(len(textlist)!=0):
+               textlist=[]
+            for each in rows:
+               #print each
+               textlist.append(each['tweet_text'])
+            #Filter
+            textlist= (" ").join(textlist)
+            textlist = re.sub(r'(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:\'".,<>?«»“”‘’]))', '', textlist)
+            
+            IBMToneJSON = eval(json.dumps(self.tone_analyzer.tone(text=textlist)))
+            #print IBMToneJSON['document_tone']['tone_categories'][0]['tones']
+            WordCloudJSON = [word for word in textlist if word not in stopwords.words('english')]
+
+
+            #Anger, Disgust, Fear, Joy, Sadness
+            IBMToneJSON_1= open("/home/piyush/Big-neuron/Big-Neuron/preprocessing/Twitter_Cassandra_analytics_pipeline/Flask-Word-Cloud/static/testdata1.json","w")
+            each1_list_names=[]
+            each1_list_numbers=[]
+
+
+            IBMToneJSON_2= open("/home/piyush/Big-neuron/Big-Neuron/preprocessing/Twitter_Cassandra_analytics_pipeline/Flask-Word-Cloud/static/testdata2.json","w")
+            each2_list_names=[]
+            each2_list_numbers=[]
+
+            IBMToneJSON_3= open("/home/piyush/Big-neuron/Big-Neuron/preprocessing/Twitter_Cassandra_analytics_pipeline/Flask-Word-Cloud/static/testdata3.json","w")
+            each3_list_names=[]
+            each3_list_numbers=[]
+
+
+            WordCloudJSON_1=open("data.json","w")
+            '''
+            [{"key": "fish", "value": 11},{"key": "things", "value": 12},{"key": "look", "value": 13}]
+            '''
+
+
+
+
+
+
+            #print IBMToneJSON['document_tone']['tone_categories'][2]['tones']
+            #exit()
+            for each in IBMToneJSON['document_tone']['tone_categories'][0]['tones']:
+               each1_list_names.append(each['tone_name'])
+               each1_list_numbers.append(each['score'])
+            
+            for each in IBMToneJSON['document_tone']['tone_categories'][1]['tones']:
+               each2_list_names.append(each['tone_name'])
+               each2_list_numbers.append(each['score'])
+
+            for each in IBMToneJSON['document_tone']['tone_categories'][2]['tones']:
+               each3_list_names.append(each['tone_name'])
+               each3_list_numbers.append(each['score'])
+
+
+
+            #IBMToneJSON_1.write( '[{ \"year\" : \" "+each1['tone_name']+" \", "" '    )   
+            IBMToneJSON_1.write('['+'{"year":"Anger", "income": ' +str(each1_list_numbers[0])+ ' },'+ '{"year":"Disgust", "income": ' +str(each1_list_numbers[1])+ ' },'+'{"year":"Fear", "income": ' +str(each1_list_numbers[2])+ ' },'+ '{"year":"Joy", "income": ' +str(each1_list_numbers[3])+ ' },'+ '{"year":"Saddness", "income": ' +str(each1_list_numbers[4])+ ' }'+']' )            
+            IBMToneJSON_1.close()
+
+            IBMToneJSON_2.write('['+'{"year":"Analytical", "income": ' +str(each2_list_numbers[0])+ ' },'+ '{"year":"Confident", "income": ' +str(each2_list_numbers[1])+ ' },'+'{"year":"Tentative", "income": ' +str(each2_list_numbers[2])+ ' }'+']' )            
+            IBMToneJSON_2.close()
+
+            IBMToneJSON_3.write('['+'{"year":"Openness", "income": ' +str(each3_list_numbers[0])+ ' },'+ '{"year":"Conscientiousness", "income": ' +str(each3_list_numbers[1])+ ' },'+'{"year":"Extraversion", "income": ' +str(each3_list_numbers[2])+ ' },'+ '{"year":"Agreeableness", "income": ' +str(each3_list_numbers[3])+ ' },'+ '{"year":"Emotional Range", "income": ' +str(each3_list_numbers[4])+ ' }'+']' )            
+            IBMToneJSON_3.close()
+
+            #[{"year": "Anger","income": 23.5},{"year": "Disgust","income": 26.2},{"year": "Fear","income": 30.1},{"year": "Joy","income": 29.5},{"year": "Sadness","income": 24.6}]
+
+
+            #print 
+            #exit()
+            #print json.dumps(self.tone_analyzer.tone(text=textlist), indent=2)
+         values=[]
+         rows=None
+         values.append(tweet.id)
+         values.append(tweet.lang.replace("'",""))
+         values.append(tweet.text.replace("'",""))            
+         values.append(tweet.created_at)
+         values.append(tweet.retweet_count)
+         binding_stmt = self.prepared_insert_tweets.bind(values)
+         executestmt=self.session.execute(binding_stmt)
          
-      except:
-         #print "Inside except ",i
-         if(len(set(self.tweetlist)) < 100000):
-            self.WordCloud(twitter_tags_list,politician_table)
-      finally:
-         #print "Inside finally ",i
-         #print "FINALLY len(self.tweetlist)= ",len(self.tweetlist)
-         #print "FINALLY numb = ", self.numb
-         self.tweetlist=[]
-         #self.TestTimeout2()
+      
+   #except:
+      #print "Inside except ",i
+      if(len(set(self.tweetlist)) < 100000):
+         self.WordCloud(twitter_tags_list,politician_table,"YES")
+   #finally:
+      #print "Inside finally ",i
+      #print "FINALLY len(self.tweetlist)= ",len(self.tweetlist)
+      #print "FINALLY numb = ", self.numb
+      self.tweetlist=[]
+      #self.TestTimeout2()
 
 
 if __name__ == "__main__":
@@ -268,14 +347,8 @@ if __name__ == "__main__":
    tweets.Connect()
    #tweets.TestIBM()
    #tweets.SearchAPI()
-   '''
-   logFile = "/home/piyush/Big-neuron/Big-Neuron/preprocessing/Twitter_Cassandra_analytics_pipeline/Flask-Word-Cloud/static/data.json"  # Should be some file on the server
-   sc = SparkContext("local", "Simple App")
-   logData = sc.textFile(logFile).cache()
-   numAs = logData.filter(lambda s: 'a' in s).count()
-   numBs = logData.filter(lambda s: 'b' in s).count()
+   
 
-   print("Lines with a: %i, lines with b: %i" % (numAs, numBs))
-   '''
-   tweets.WordCloud("Donald OR Trump OR DonaldTrump OR Donald trump OR trump ","donaldtrumpttl")  #REMOVE THE BREAK STATEMENT
+   #tweets.TestIBM()
+   tweets.WordCloud("Donald OR Trump OR DonaldTrump OR Donald trump OR trump ","donaldtrumpttl","NO")  #REMOVE THE BREAK STATEMENT
 
