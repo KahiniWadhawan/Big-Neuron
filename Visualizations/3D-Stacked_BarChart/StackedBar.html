@@ -49,7 +49,6 @@
                 categoryAxis.fontSize = 12;
                 categoryAxis.centerLabels = true;
 
-
                 // value
                 var valueAxis = new AmCharts.ValueAxis();
                 valueAxis.stackType = "3d"; // This line makes chart 3D stacked (columns are placed one behind another)
@@ -65,18 +64,6 @@
                 chart.addValueAxis(valueAxis);
 
                 // GRAPHS
-
-                // third graph
-                var graph2 = new AmCharts.AmGraph();
-                graph2.title = "Extraversion";
-                graph2.valueField = "E";
-                graph2.type = "column";
-                graph2.lineAlpha = 0;
-                graph2.lineColor = "#FFB300";
-                graph2.fillAlphas = 1;
-                graph2.balloonText = "<i>[[category]]</i> E: <b>[[value]]</b>";
-                chart.addGraph(graph2);
-
                 // first graph
                 var graph1 = new AmCharts.AmGraph();
                 graph1.title = "Openness";
@@ -98,7 +85,17 @@
                 graph2.fillAlphas = 1;
                 graph2.balloonText = "C: <b>[[value]]</b>";
                 chart.addGraph(graph2);
-        
+        	
+        		// third graph
+                var graph2 = new AmCharts.AmGraph();
+                graph2.title = "Extraversion";
+                graph2.valueField = "E";
+                graph2.type = "column";
+                graph2.lineAlpha = 0;
+                graph2.lineColor = "#FFB300";
+                graph2.fillAlphas = 1;
+                graph2.balloonText = "<i>[[category]]</i> E: <b>[[value]]</b>";
+                chart.addGraph(graph2);
 
                 // fourth graph
                 var graph2 = new AmCharts.AmGraph();
