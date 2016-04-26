@@ -126,6 +126,26 @@ def get_emotion_scores(emotion_json):
     return emotion_scores_dict
 
 
+def get_writing_scores(writing_json):
+    #emotion score dict  - key = emotion name, val = score
+    writing_scores_dict = {}
+    for elem in writing_json:
+         writing_scores_dict[elem['tone_name']] = elem['score']
+
+    #print ('emotion_scores_dict :: ',emotion_scores_dict)
+    return writing_scores_dict
+
+
+def get_social_scores(social_json):
+    #emotion score dict  - key = emotion name, val = score
+    social_scores_dict = {}
+    for elem in social_json:
+         social_scores_dict[elem['tone_name']] = elem['score']
+
+    #print ('emotion_scores_dict :: ',emotion_scores_dict)
+    return social_scores_dict
+
+
 #---------------------------------------------------------------------------
 # Insert all tweets returned by the Cursor API and store them in Cassandra
 # Access table by Candidate's name
@@ -182,6 +202,19 @@ def prepare_tweets_query(candname, tweet,session):
 
     return bound
 
+#Writing json -format
+#[{"tone_name": "Analytical", "score": 0.0, "tone_id": "analytical"},
+# {"tone_name": "Confident", "score": 0.0, "tone_id": "confident"},
+# {"tone_name": "Tentative", "score": 0.0, "tone_id": "tentative"}]
+
+
+#Social json - format
+#[{"tone_name": "Openness", "score": 0.829, "tone_id": "openness_big5"},
+# {"tone_name": "Conscientiousness", "score": 0.976, "tone_id": "conscientiousness_big5"},
+# {"tone_name": "Extraversion", "score": 0.933, "tone_id": "extraversion_big5"},
+# {"tone_name": "Agreeableness", "score": 0.916, "tone_id": "agreeableness_big5"},
+# {"tone_name": "Emotional Range", "score": 0.019, "tone_id": "neuroticism_big5"}]
+
 
 def prepare_sentencelevel_query(candname,tweet,session):
     #creating table name
@@ -207,6 +240,12 @@ def prepare_sentencelevel_query(candname,tweet,session):
     #processing and getting emotion scores
     emotion_scores_dict = get_emotion_scores(emotion_json)
 
+    #processing and getting emotion scores
+    writing_scores_dict = get_writing_scores(writing_json)
+
+    #processing and getting emotion scores
+    social_scores_dict = get_social_scores(social_json)
+
     sentencelevel_query = "insert into " + table_name + "(" + \
                 "tweet_id," \
                 "created_at, " \
@@ -220,11 +259,19 @@ def prepare_sentencelevel_query(candname,tweet,session):
                 "joy_score," \
                 "fear_score," \
                 "sadness_score," \
-                "disgust_score) " + \
+                "disgust_score, " + \
+                "analytical_score," \
+                "confident_score," \
+                "tentative_score," \
+                "openness_score," \
+                "conscientiousness_score," \
+                "extraversion_score," \
+                "agreeableness_score," \
+                "emotionalrange_score) " + \
                 " VALUES " + \
-                 "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+                 "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
 
-
+    print sentencelevel_query
     prepared = session.prepare(sentencelevel_query)
 
     bound = prepared.bind((str(tweet.id_str.encode('utf-8')),
@@ -239,7 +286,15 @@ def prepare_sentencelevel_query(candname,tweet,session):
                            emotion_scores_dict['Joy'],
                            emotion_scores_dict['Fear'],
                            emotion_scores_dict['Sadness'],
-                           emotion_scores_dict['Disgust']
+                           emotion_scores_dict['Disgust'],
+                           writing_scores_dict['Analytical'],
+                           writing_scores_dict['Confident'],
+                           writing_scores_dict['Tentative'],
+                           social_scores_dict['Openness'],
+                           social_scores_dict['Conscientiousness'],
+                           social_scores_dict['Extraversion'],
+                           social_scores_dict['Agreeableness'],
+                           social_scores_dict['Emotional Range']
                            ))
 
 
@@ -392,7 +447,7 @@ def gen_doclevel_json(candname, file_path):
     print 'doc_json sorted :: ', doc_json
 
     #writing doc_json to provided file_path - revisit not writing
-    #revisit - permission denied to write file 
+    #revisit - permission denied to write file
     with open(os.path.join(file_path,'doc.json'), 'wb') as outfile:
             json.dump(doc_json, outfile)
     outfile.close()
@@ -514,16 +569,16 @@ def get_tweet_tones(candname,tweet_id,file_path):
 
 
 #testing all functions here in a sequence
-#insert_data_to_table('realDonaldTrump')
+insert_data_to_table('realDonaldTrump')
 #insert_data_to_table('HillaryClinton')
 # insert_data_to_table('BernieSanders')
 # insert_data_to_table('tedcruz')
 # insert_data_to_table('JohnKasich')
 
-gen_doclevel_json('realDonaldTrump','/data')
+#gen_doclevel_json('realDonaldTrump','data/')
 #gen_doclevel_json('HillaryClinton','data/')
 #get_tweet_list('realDonaldTrump',2)
-#get_tweet_tones('realDonaldTrump','724237889886904320')
+#get_tweet_tones('realDonaldTrump','722967660833722369','data/')
 
 
 #--------------------------------
