@@ -22,9 +22,9 @@ app.secret_key = 'F12Zr47j\3yX R~X@H!jmM]Lwf/,?KT'
 
 #sys.path.append(os.path.dirname(__file__) + r"/static/data/dummy_db.py")  #append path to db api module that has the method to get list of top tweets
 # from dummy_db import get_tweet_list, get_tweet_tones  #Do we have a tone analyzer module -or- are we inserting tweets by hand into IBM tone analyzer to get the json output?
-import sys
-sys.path.insert(0, '../../databases/cassandra/')
-from bigneuron_cassandradb_api import get_tweet_list, get_tweet_tones
+# import sys
+# sys.path.insert(0, '../../databases/cassandra/')
+# from bigneuron_cassandradb_api import get_tweet_list, get_tweet_tones
 
 '''
     Renders the dashboard.

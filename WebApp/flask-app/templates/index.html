@@ -35,8 +35,9 @@
 <body id="page-top" class="index">
 
     <!-- Navigation -->
-    <nav class="navbar navbar-default navbar-fixed-bottom">
-        <!-- Brand and toggle get grouped for better mobile display -->
+    <!-- TOP Nav Bar -->
+    <nav class="navbar navbar-default navbar-fixed-top" style="padding-right: 20px; background: transparent">
+        <!-- Responsive Design -->
         <div class="navbar-header page-scroll">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                 <span class="sr-only">Toggle navigation</span>
@@ -44,92 +45,197 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{{ url_for('home')}}" style="padding-left: 20px">Big Neuron</a>
+            <a class="navbar-brand" href="#page-top" style="padding: 20px">Big Neuron</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav navbar-right" style="padding-right: 20px">
+            <ul class="nav navbar-nav navbar-right" style="padding-right: 20px; ">
                 <li class="hidden">
                     <a href="#page-top"></a>
-                </li>
-                <li class="page-scroll">
-                    <a href="#about">About</a>
-                </li>
-                <li class="page-scroll">
-                    <a href="#contact">Contact</a>
                 </li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
     </nav>
 
-    
-    
-    
-<!-- How to redo radio buttons below without using JS
-{% block content %}
-<div class="row">
-    <div class="span4 offset4">
-        <div class="well">
+    <!-- BOTTOM Nav bar -->
+    <nav class="navbar navbar-default navbar-fixed-bottom">
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right" style="height: 20px;padding-right: 20px">
+                 <li class="page-scroll">
+                    <a href="#about">About</a>
+                </li>
+                <li class="page-scroll">
+                    <a href="#team">Team</a>
+                </li>
+            </ul>
             
         </div>
-    </div>
-</div>
-{% endblock %}
--->    
-    
-    <!-- Header -->
+        <!-- /.navbar-collapse -->
+    </nav>
+    <!-- Header  >-->
     <header>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    
-                    <!-- INTRO TEXT -->
-                    <div class="intro-text">
-                        <span class="name" style="padding-top: 100px">Election Buzz</span>
-                        <hr class="star-light">
-                        <span class="skills">Select one of the 2016 presidential candidates below to gauge people's feelings<br>based on their past Tweets about the candidate.</span>
+        <!-- Carousel -->
+                 <div class="carousel fade-carousel slide" data-ride="carousel" data-interval="3000" id="bs-carousel">
+                  <!-- Overlay -->
+                    <div class="overlay">
+                        <div class="container">
+                            <div class="row" >
+                                <div class="col-lg-12">
+                                    
+                                   <!-- INTRO TEXT -->
+                                    <div class="intro-text">
+                                        <span class="name" style="padding-top: 0px;opacity: 0.6">Election Buzz</span>
+                                    </div>
+                                    <div style="padding-top: 230px">
+                                        <h3>Visualize how the world feels about ..</h3>
+                                        <!-- CANDIDATE RADIO BUTTONS -->
+                                        <!-- CANDIDATE RADIO BUTTONS -->
+                                        <form class="form-inline" action="{{ url_for('select_candidate') }}" method="post"> <!--REMOVING JS: onsubmit="window.open(whichCandidate(this), '_blank'); return false;" -->
+                                            <div class="form-group" style="padding-top: 35px; padding-bottom: 0">
+                                                <div class="radio-inline" style="font-size: 20px">
+                                                    <label><input type="radio" name="candidate" id="radio0" value="clinton" style="width: 0.9em; height: 1em">  Clinton</label>
+                                                </div>
+                                                <div class="radio-inline" style="font-size: 20px">
+                                                    <label><input type="radio" name="candidate" id="radio1" value="cruz" style="width: 0.9em; height: 1em">  Cruz</label>
+                                                </div>
+                                                <div class="radio-inline" style="font-size: 20px">
+                                                    <label><input type="radio" name="candidate" id="radio2" value="kasich" style="width: 0.9em; height: 1em">  Kasich</label>
+                                                </div>
+                                                <div class="radio-inline" style="font-size: 20px">
+                                                    <label><input type="radio" name="candidate" id="radio3" value="sanders" style="width: 0.9em; height: 1em">  Sanders</label>
+                                                </div>
+                                                <div class="radio-inline" style="font-size: 20px">
+                                                    <label><input type="radio" name="candidate" id="radio4" value="trump" style="width: 0.9em; height: 1em">Trump</label>
+                                                </div>
+                                            </div> <!-- end of form group -->
+                                            </div> <!-- /row -->
+                                         <br>
+                                         <div class="row">
+                                            <button class="btn btn-default" style="font-size: 20px;">  SUBMIT </button>
+                                            <a target="_blank" href="realtime.html" class="btn btn-default" role="button" style="font-size: 20px; font-weight: bold;">GO REALTIME</a>
+                                         </div>
+                                        </form> <!-- End: CANDIDATE RADIO BUTTONS -->              
+                        
+                                    </div>         
+                                </div>
+                                <!-- /col-lg-12 -->
+                        </div>
+                        <!-- /container -->
                     </div>
-                    
-                    <!-- CANDIDATE RADIO BUTTONS -->
-                    <form class="form-inline" action="{{ url_for('select_candidate') }}" method="post"> <!--REMOVING JS: onsubmit="window.open(whichCandidate(this), '_blank'); return false;" -->
-                        <div class="form-group" style="padding-top: 35px; padding-bottom: 0">
-                            <div class="radio-inline" style="font-size: 20px">
-                                <label><input type="radio" name="candidate" id="radio0" value="clinton" style="width: 0.9em; height: 1em">  Clinton</label>
-                            </div>
-                            <div class="radio-inline" style="font-size: 20px">
-                                <label><input type="radio" name="candidate" id="radio1" value="cruz" style="width: 0.9em; height: 1em">  Cruz</label>
-                            </div>
-                            <div class="radio-inline" style="font-size: 20px">
-                                <label><input type="radio" name="candidate" id="radio2" value="kasich" style="width: 0.9em; height: 1em">  Kasich</label>
-                            </div>
-                            <div class="radio-inline" style="font-size: 20px">
-                                <label><input type="radio" name="candidate" id="radio3" value="sanders" style="width: 0.9em; height: 1em">  Sanders</label>
-                            </div>
-                            <div class="radio-inline" style="font-size: 20px">
-                                <label><input type="radio" name="candidate" id="radio4" value="trump" style="width: 0.9em; height: 1em">Trump</label>
-                            </div>
-                        </div> 
-                        <button class="btn btn-default" style="font-size: 20px; margin-top: 35px; margin-left: 35px">SUBMIT</button>
-                    </form> <!-- End: CANDIDATE RADIO BUTTONS -->             
-                    
-                    <!-- "OR" separator -->
-                    <div class="page-header">
-                        <span class="name" style="font-size: 40px; font-weight: bold">OR</span>
+                                              
+                  <!-- Wrapper for slides -->
+                  <div class="carousel-inner">
+                  <!-- 1st Slide-->
+                    <div class="item slides active"> <!-- First Slide-->
+                        <div class="slide-1">
+                            <img src="BigDataGif/CruzHappy.gif" alt="HTML5 Icon 1" width="100%" height="100%">
+                        </div>
+                        <div class="hero">
+                        <hgroup>
+                            <h2>Ted Cruz</h2>
+                        </hgroup>
+                        <!-- <button class="btn btn-hero btn-lg" role="button">See all features</button> -->
+                        </div>
                     </div>
-                    
-                    <!-- Button link to Realtime SA page-->
-                    <a target="_blank" href="{{ url_for('realtime')  }}" class="btn btn-default" role="button" style="font-size: 20px; font-weight: bold; margin-top: 15px">GO REALTIME</a>
-
-                </div>
-                <!-- /col-lg-12 -->
-            </div>
-            <!-- /row -->
-        </div>
-        <!-- /container -->
+                    <!-- 2nd Slide-->
+                    <div class="item slides">
+                        <div class="slide-2">
+                            <img src="BigDataGif/CruzAngry.gif" alt="HTML5 Icon 2" width="100%" height="100%">
+                        </div>
+                        <div class="hero">        
+                        <hgroup>
+                            <h2>Ted Cruz</h2>
+                        </hgroup>       
+                        </div>
+                    </div>
+                    <!-- 3rd Slide-->
+                    <div class="item slides">
+                        <div class="slide-3">
+                            <img src="BigDataGif/TrumpHappy.gif" alt="HTML5 Icon 3" width="100%" height="100%">
+                        </div>
+                        <div class="hero">        
+                        <hgroup>
+                            <h2>Donald Trump</h2>
+                        </hgroup>
+                        </div>
+                    </div>
+                     <!-- 4th Slide-->
+                    <div class="item slides">
+                        <div class="slide-4">
+                            <img src="BigDataGif/TrumpAngry.gif" alt="HTML5 Icon 4" width="100%" height="100%">
+                        </div>
+                        <div class="hero">        
+                        <hgroup>
+                            <h2>Donald Trump</h2>
+                        </hgroup>
+                        </div>
+                    </div>
+                     <!-- 5th Slide-->
+                    <div class="item slides">
+                        <div class="slide-5">
+                            <img src="BigDataGif/HillaryHappy.gif" alt="HTML5 Icon " width="100%" height="100%">
+                        </div>
+                        <div class="hero">        
+                        <hgroup>
+                            <h2>Hillary Clinton</h2>
+                        </hgroup>
+                        </div>
+                    </div>
+                     <!-- 6th Slide-->
+                    <div class="item slides">
+                        <div class="slide-6">
+                            <img src="BigDataGif/HillaryAngry.gif" alt="HTML5 Icon 4" width="100%" height="100%">
+                        </div>
+                        <div class="hero">        
+                        <hgroup>
+                            <h2>Hillary Clinton</h2>
+                        </hgroup>
+                        </div>
+                    </div>
+                     <!-- 7th Slide-->
+                    <div class="item slides">
+                        <div class="slide-7">
+                            <img src="BigDataGif/KasichHappy.gif" alt="HTML5 Icon 5" width="100%" height="100%">
+                        </div>
+                        <div class="hero">        
+                        <hgroup>
+                            <h2>John Kasich</h2>
+                        </hgroup>
+                        </div>
+                    </div>
+                     <!-- 8th Slide-->
+                    <div class="item slides">
+                        <div class="slide-8">
+                            <img src="BigDataGif/KasichAngry.gif" alt="HTML5 Icon 6" width="100%" height="100%">
+                        </div>
+                        <div class="hero">        
+                        <hgroup>
+                            <h2>John Kasich</h2>
+                        </hgroup>
+                        </div>
+                    </div>
+                     <!-- 9th Slide-->
+                    <div class="item slides">
+                        <div class="slide-9">
+                            <img src="BigDataGif/SandersAngry.gif" alt="HTML5 Icon 7" width="100%" height="100%">
+                        </div>
+                        <div class="hero">        
+                        <hgroup>
+                            <h2>Bernie Sanders</h2>
+                        </hgroup>
+                        </div>
+                    </div>
+                   </div> <!--- End of Carousel Inner -->
+                </div> <!-- End of main Carousel -->
+                
     </header>
 
+
+    <!-- Header -->
+    
     <!-- Team Member Portfolio Grid Section -->
     <section id="about">
         <div class="container">
@@ -233,107 +339,17 @@
         </div>
     </section>
 
-    <!-- Contact Section -->
-    <section id="contact">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h2>Contact Us</h2>
-                    <hr class="star-primary">
-                    <p>Please contact us with any questions or feedback.</p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-8 col-lg-offset-2">
-                    <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
-                    <!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
-                    <form name="sentMessage" id="contactForm" novalidate>
-                        <div class="row control-group">
-                            <div class="form-group col-xs-12 floating-label-form-group controls">
-                                <label>Name</label>
-                                <input type="text" class="form-control" placeholder="Name" id="name" required data-validation-required-message="Please enter your name.">
-                                <p class="help-block text-danger"></p>
-                            </div>
-                        </div>
-                        <div class="row control-group">
-                            <div class="form-group col-xs-12 floating-label-form-group controls">
-                                <label>Email Address</label>
-                                <input type="email" class="form-control" placeholder="Email Address" id="email" required data-validation-required-message="Please enter your email address.">
-                                <p class="help-block text-danger"></p>
-                            </div>
-                        </div>
-                        <div class="row control-group">
-                            <div class="form-group col-xs-12 floating-label-form-group controls">
-                                <label>Phone Number</label>
-                                <input type="tel" class="form-control" placeholder="Phone Number" id="phone" required data-validation-required-message="Please enter your phone number.">
-                                <p class="help-block text-danger"></p>
-                            </div>
-                        </div>
-                        <div class="row control-group">
-                            <div class="form-group col-xs-12 floating-label-form-group controls">
-                                <label>Message</label>
-                                <textarea rows="5" class="form-control" placeholder="Message" id="message" required data-validation-required-message="Please enter a message."></textarea>
-                                <p class="help-block text-danger"></p>
-                            </div>
-                        </div>
-                        <br>
-                        <div id="success"></div>
-                        <div class="row">
-                            <div class="form-group col-xs-12">
-                                <button type="submit" class="btn btn-success btn-lg">Send</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
+    
     <!-- Footer -->
     <footer class="text-center">
-        <div class="footer-above">
-            <div class="container">
-                <div class="row">
-                    <div class="footer-col col-md-4">
-                        <h3>Location</h3>
-                        <p>University of Colorado<br>Boulder, CO  80309</p>
-                    </div>
-                    <div class="footer-col col-md-4">
-                        <h3>Share Our App</h3>
-                        <ul class="list-inline">
-                            <li>
-                                <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-facebook"></i></a>
-                            </li>
-                            <li>
-                                <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-google-plus"></i></a>
-                            </li>
-                            <li>
-                                <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-twitter"></i></a>
-                            </li>
-                            <li>
-                                <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-linkedin"></i></a>
-                            </li>
-                            <li>
-                                <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-dribbble"></i></a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="footer-col col-md-4">
-                        <!--<h3>About Freelancer</h3>-->
-                        <p><br><br><br>Copyright &copy; Big Neuron 2016</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--<div class="footer-below">
-            <div class="container">
-                <div class="row">
+        <div class="footer-below">
+             <div class="row">
                     <div class="col-lg-12">
                         Copyright &copy; Big Neuron 2016
                     </div>
+                    <br>
                 </div>
-            </div>
-        </div>-->
+         </div>
     </footer>
 
     <!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
@@ -492,10 +508,6 @@
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
     <script src="../static/js/classie.js"></script>
     <script src="../static/js/cbpAnimatedHeader.js"></script>
-
-    <!-- Contact Form JavaScript -->
-    <script src="../static/js/jqBootstrapValidation.js"></script>
-    <script src="../static/js/contact_me.js"></script>
 
     <!-- Custom Theme JavaScript -->
     <script src="../static/js/freelancer.js"></script>
