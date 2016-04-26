@@ -235,6 +235,8 @@ class TweetAPI(CassandraAPI):
 
 
 if __name__ == "__main__":
+   print "This module can be called on it's own but it won't use spark functionalities. "
+   print " Import this module into Apache spark code."
    tweets =  TweetAPI()
    tweets.Connect()
    #tweets.TestIBM()
