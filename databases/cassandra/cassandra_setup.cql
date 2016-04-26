@@ -47,8 +47,17 @@ joy_score double,
 fear_score double,
 sadness_score double,
 disgust_score double,
+analytical_score double,
+confident_score double,
+tentative_score double,
+openness_score double,
+conscientiousness_score double,
+extraversion_score double,
+agreeableness_score double,
+emotionalrange_score double,
 PRIMARY KEY (tweet_id,date));
 //revisit
+
 
 /*
 CREATE TABLE IF NOT EXISTS realDonaldTrump_wordcloud (
