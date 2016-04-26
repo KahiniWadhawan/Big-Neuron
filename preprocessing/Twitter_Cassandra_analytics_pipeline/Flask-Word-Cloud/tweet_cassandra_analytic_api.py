@@ -56,7 +56,7 @@ class TweetAPI(CassandraAPI):
       self.access_token_secret=TOKENS.access_token_secret
       self.tweetlist=[]
       self.numb=0
-      self.repetations = 30
+      self.repetations = 10
 
       
 
@@ -231,7 +231,7 @@ class TweetAPI(CassandraAPI):
       #rows_wordcloud=None
       textlist=None
       textlist_wordcloud=None
-      ftextlist_wordcloud_bigfile= open("/home/piyush/Big-neuron/Big-Neuron/preprocessing/Twitter_Cassandra_analytics_pipeline/Flask-Word-Cloud/static/BigWordCloudFile.txt","a")
+      ftextlist_wordcloud_bigfile= open("/home/piyush/Big-neuron/Big-Neuron/preprocessing/Twitter_Cassandra_analytics_pipeline/Flask-Word-Cloud/static/BigWordCloudFile.txt","w")
       IBMToneJSON=None
       WordCloudJSON=None
 
@@ -343,27 +343,28 @@ class TweetAPI(CassandraAPI):
             IBMToneJSON_3.write('['+'{"year":"Openness", "income": ' +str(each3_list_numbers[0])+ ' },'+ '{"year":"Conscientiousness", "income": ' +str(each3_list_numbers[1])+ ' },'+'{"year":"Extraversion", "income": ' +str(each3_list_numbers[2])+ ' },'+ '{"year":"Agreeableness", "income": ' +str(each3_list_numbers[3])+ ' },'+ '{"year":"Emotional Range", "income": ' +str(each3_list_numbers[4])+ ' }'+']' )            
             IBMToneJSON_3.close()
 
-            WordCloudJSON_1.write('['+'{"key": \"'  + (each4_list_names[0]).encode('utf-8')+'\", "value": ' +str(each4_list_numbers[0])+ ' },')
-            WordCloudJSON_1.write('{"key": \" '  + (each4_list_names[1]).encode('utf-8')+'\" , "value": ' +str(each4_list_numbers[1])+ ' },')
-            WordCloudJSON_1.write('{"key": \" '  + (each4_list_names[2]).encode('utf-8')+'\" , "value": ' +str(each4_list_numbers[2])+ ' },')
-            WordCloudJSON_1.write('{"key": \" '  + (each4_list_names[3]).encode('utf-8')+'\" , "value": ' +str(each4_list_numbers[3])+ ' },')
-            WordCloudJSON_1.write('{"key": \" '  + (each4_list_names[4]).encode('utf-8')+'\" , "value": ' +str(each4_list_numbers[4])+ ' },')
-            WordCloudJSON_1.write('{"key": \" '  + (each4_list_names[5]).encode('utf-8')+'\" , "value": ' +str(each4_list_numbers[5])+ ' },')
-            WordCloudJSON_1.write('{"key": \" '  + (each4_list_names[6]).encode('utf-8')+'\" , "value": ' +str(each4_list_numbers[6])+ ' },')
-            WordCloudJSON_1.write('{"key": \" '  + (each4_list_names[7]).encode('utf-8')+'\" , "value": ' +str(each4_list_numbers[7])+ ' },')
-            WordCloudJSON_1.write('{"key": \" '  + (each4_list_names[8]).encode('utf-8')+'\" , "value": ' +str(each4_list_numbers[8])+ ' },')
-            WordCloudJSON_1.write('{"key": \" '  + (each4_list_names[9]).encode('utf-8')+'\" , "value": ' +str(each4_list_numbers[9])+ ' },')
-            WordCloudJSON_1.write('{"key": \" '  + (each4_list_names[10]).encode('utf-8')+'\" , "value": ' +str(each4_list_numbers[10])+ ' },')
-            WordCloudJSON_1.write('{"key": \" '  + (each4_list_names[11]).encode('utf-8')+'\" , "value": ' +str(each4_list_numbers[11])+ ' },')
-            WordCloudJSON_1.write('{"key": \" '  + (each4_list_names[12]).encode('utf-8')+'\" , "value": ' +str(each4_list_numbers[12])+ ' },')
-            WordCloudJSON_1.write('{"key": \" '  + (each4_list_names[13]).encode('utf-8')+'\" , "value": ' +str(each4_list_numbers[13])+ ' },')
-            WordCloudJSON_1.write('{"key": \" '  + (each4_list_names[14]).encode('utf-8')+'\" , "value": ' +str(each4_list_numbers[14])+ ' },')
-            WordCloudJSON_1.write('{"key": \" '  + (each4_list_names[15]).encode('utf-8')+'\" , "value": ' +str(each4_list_numbers[15])+ ' },')
-            WordCloudJSON_1.write('{"key": \" '  + (each4_list_names[16]).encode('utf-8')+'\" , "value": ' +str(each4_list_numbers[16])+ ' },')
-            WordCloudJSON_1.write('{"key": \" '  + (each4_list_names[17]).encode('utf-8')+'\" , "value": ' +str(each4_list_numbers[17])+ ' },')
-            WordCloudJSON_1.write('{"key": \" '  + (each4_list_names[18]).encode('utf-8')+'\" , "value": ' +str(each4_list_numbers[18])+ ' },')
-            WordCloudJSON_1.write('{"key": \" '  + (each4_list_names[19]).encode('utf-8')+'\" , "value": ' +str(each4_list_numbers[19])+ ' }]')
+            WordCloudJSON_1.write('['+'{"key": \"'  + (each4_list_names[0]).replace("\"","").encode('utf-8')+'\", "value": ' +str(each4_list_numbers[0])+ ' },')
+            WordCloudJSON_1.write('{"key": \" '  + (each4_list_names[1]).replace("\"","").encode('utf-8')+'\" , "value": ' +str(each4_list_numbers[1])+ ' },')
+            WordCloudJSON_1.write('{"key": \" '  + (each4_list_names[2]).replace("\"","").encode('utf-8')+'\" , "value": ' +str(each4_list_numbers[2])+ ' },')
+            WordCloudJSON_1.write('{"key": \" '  + (each4_list_names[3]).replace("\"","").encode('utf-8')+'\" , "value": ' +str(each4_list_numbers[3])+ ' },')
+            WordCloudJSON_1.write('{"key": \" '  + (each4_list_names[4]).replace("\"","").encode('utf-8')+'\" , "value": ' +str(each4_list_numbers[4])+ ' },')
+            WordCloudJSON_1.write('{"key": \" '  + (each4_list_names[5]).replace("\"","").encode('utf-8')+'\" , "value": ' +str(each4_list_numbers[5])+ ' },')
+            WordCloudJSON_1.write('{"key": \" '  + (each4_list_names[6]).replace("\"","").encode('utf-8')+'\" , "value": ' +str(each4_list_numbers[6])+ ' },')
+            WordCloudJSON_1.write('{"key": \" '  + (each4_list_names[7]).replace("\"","").encode('utf-8')+'\" , "value": ' +str(each4_list_numbers[7])+ ' },')
+            WordCloudJSON_1.write('{"key": \" '  + (each4_list_names[8]).replace("\"","").encode('utf-8')+'\" , "value": ' +str(each4_list_numbers[8])+ ' },')
+            WordCloudJSON_1.write('{"key": \" '  + (each4_list_names[9]).replace("\"","").encode('utf-8')+'\" , "value": ' +str(each4_list_numbers[9])+ ' },')
+            WordCloudJSON_1.write('{"key": \" '  + (each4_list_names[10]).replace("\"","").encode('utf-8')+'\" , "value": ' +str(each4_list_numbers[10])+ ' },')
+            WordCloudJSON_1.write('{"key": \" '  + (each4_list_names[11]).replace("\"","").encode('utf-8')+'\" , "value": ' +str(each4_list_numbers[11])+ ' },')
+            WordCloudJSON_1.write('{"key": \" '  + (each4_list_names[12]).replace("\"","").encode('utf-8')+'\" , "value": ' +str(each4_list_numbers[12])+ ' },')
+            WordCloudJSON_1.write('{"key": \" '  + (each4_list_names[13]).replace("\"","").encode('utf-8')+'\" , "value": ' +str(each4_list_numbers[13])+ ' },')
+            WordCloudJSON_1.write('{"key": \" '  + (each4_list_names[14]).replace("\"","").encode('utf-8')+'\" , "value": ' +str(each4_list_numbers[14])+ ' },')
+            WordCloudJSON_1.write('{"key": \" '  + (each4_list_names[15]).replace("\"","").encode('utf-8')+'\" , "value": ' +str(each4_list_numbers[15])+ ' },')
+            WordCloudJSON_1.write('{"key": \" '  + (each4_list_names[16]).replace("\"","").encode('utf-8')+'\" , "value": ' +str(each4_list_numbers[16])+ ' },')
+            WordCloudJSON_1.write('{"key": \" '  + (each4_list_names[17]).replace("\"","").encode('utf-8')+'\" , "value": ' +str(each4_list_numbers[17])+ ' },')
+            WordCloudJSON_1.write('{"key": \" '  + (each4_list_names[18]).replace("\"","").encode('utf-8')+'\" , "value": ' +str(each4_list_numbers[18])+ ' },')
+            WordCloudJSON_1.write('{"key": \" '  + (each4_list_names[19]).replace("\"","").encode('utf-8')+'\" , "value": ' +str(each4_list_numbers[19])+ ' }]')
             WordCloudJSON_1.close()
+            #time.sleep(10)
       
 
 
