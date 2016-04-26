@@ -46,7 +46,7 @@ def select_candidate():
             return render_template("pages/kasich/kasich.html")
         elif radio == 'sanders':
             return render_template("pages/sanders/sanders.html")
-        elif radio == 'trump':
+        elif radio == 'realDonaldTrump':
             return render_template("pages/trump/trump.html")
         else:
             print "Error in select_candidate(). Need to make an error page"
@@ -67,7 +67,7 @@ def wordcloud():
         return render_template("pages/kasich/kasich_wordcloud.html")
     elif cand == 'sanders':
         return render_template("pages/sanders/sanders_wordcloud.html")
-    elif cand == 'trump':
+    elif cand == 'realDonaldTrump':
         return render_template("pages/trump/trump_wordcloud.html")
     else:
         print "Error in wordcloud(). Need to make an error page"
@@ -128,18 +128,24 @@ def topic():
 @app.route('/tweetlevel')
 def tweetlevel():
     print "Inside tweet level function" 
-    cand = session['candidate']
+    cand        = session['candidate']
+    tweet_num   = 3 #for testing; 
     print "In Sentence-level, session['candidate'] is - ", cand
-    if cand == 'clinton':
-        return render_template("pages/clinton/clinton_sa_sentence.html")
-    elif cand == 'cruz':
-        return render_template("pages/cruz/cruz_sa_sentence.html")
-    elif cand == 'kasich':
-        return render_template("pages/kasich/kasich_sa_sentence.html")
-    elif cand == 'sanders':
-        return render_template("pages/sanders/sanders_sa_sentence.html")
-    elif cand == 'trump':
-        return render_template("pages/trump/trump_sa_sentence.html")
+    if cand == 'HillaryClinton':
+        tweet_list = get_tweets( cand, tweet_num )
+        return render_template("pages/clinton/clinton_sa_sentence.html",tweet_list=tweet_list )
+    elif cand == 'tedcruz':
+        tweet_list = get_tweets( cand, tweet_num )
+        return render_template("pages/cruz/cruz_sa_sentence.html",tweet_list=tweet_list)
+    elif cand == 'JohnKasich':
+        tweet_list = get_tweets( cand, tweet_num )
+        return render_template("pages/kasich/kasich_sa_sentence.html",tweet_list=tweet_list)
+    elif cand == 'BernieSanders':
+        tweet_list = get_tweets( cand, tweet_num )
+        return render_template("pages/sanders/sanders_sa_sentence.html",tweet_list=tweet_list)
+    elif cand == 'realDonaldTrump':
+        tweet_list = get_tweets( cand, tweet_num )
+        return render_template("pages/trump/trump_sa_sentence.html",tweet_list=tweet_list)
     else:
         print "Error in tweetlevel(). Need to make an error page"
 

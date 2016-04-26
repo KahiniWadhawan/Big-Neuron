@@ -60,13 +60,204 @@
     </style>
     <!-- amCharts javascript code -->
     <script type="text/javascript">
+            /*--------------------------------
+                EMOTION TONE
+                input static/data/trump_doc_emotion.json
+            ---------------------------------*/
             AmCharts.makeChart("emotion",
+                {
+                    "type": "serial",
+                    "categoryField": "day",
+                    "dataDateFormat": "YYYY-MM-DD",
+                    "backgroundColor":"white",
+                    "categoryAxis": {
+                        "parseDates": true,
+                        "title": "Past 5 weeks (each day)"
+                    },
+                    "chartScrollbar": {
+                        "enabled": true
+                    },
+                    "chartCursor": {
+                        "enabled": true,
+                        "categoryBalloonEnabled": true
+                    },
+                    
+                    "trendLines": [],
+                    "graphs": [
+                        //anger
+                        {
+                            "balloonText": "[[title]] - [[category]]: <b>[[value]] </b>",
+                            "fillAlphas": 0.7,
+                            "id": "AmGraph-1",
+                            "lineAlpha": 1,
+                            "title": "Anger",
+                            "valueField": "anger"
+                        },
+                        //sadness
+                        {
+                            "balloonText": "[[title]] - [[category]]: <b>[[value]] </b>",
+                            "fillAlphas": 0.7,
+                            "id": "AmGraph-2",
+                            "lineAlpha": 1,
+                            "title": "Sadness",
+                            "valueField": "sadness"
+                        },
+                        //joy
+                        {
+                            "balloonText": "[[title]] - [[category]]: <b>[[value]] </b>",
+                            "fillAlphas": 0.7,
+                            "id": "AmGraph-3",
+                            "lineAlpha": 1,
+                            "title": "Joy",
+                            "valueField": "joy"
+                        },
+                        //disgust
+                        {
+                            "balloonText": "[[title]] - [[category]]: <b>[[value]] </b>",
+                            "fillAlphas": 0.7,
+                            "id": "AmGraph-4",
+                            "lineAlpha": 1,
+                            "title": "Disgust",
+                            "valueField": "disgust"
+                        },
+                        //fear
+                        {
+                            "balloonText": "[[title]] - [[category]]: <b>[[value]] </b>",
+                            "fillAlphas": 0.7,
+                            "id": "AmGraph-5",
+                            "lineAlpha": 1,
+                            "title": "Fear",
+                            "valueField": "fear"
+                        }
+                    ],
+                    "valueAxes": [
+                        {
+                            "id": "ValueAxis-1",
+                            "title": "Emotion Tone"
+                        }
+                    ],
+                    "legend": {
+                        "enabled": true,
+                        "color": "black",
+                        "fontSize": 15,
+                        "align":"right"
+                    },
+
+                    "dataLoader": {    
+                        "url": "static/data/trump_doc_emotion.json",
+                        "showCurtain": false
+                      }
+                    
+                }); //end of social tone
+
+            /*--------------------------------
+                WRITING TONE
+                input static/data/trump_doc_writing.json
+            ---------------------------------*/
+            AmCharts.makeChart("writing", 
+                {
+                    "type": "serial",
+                    "angle": 30,
+                    "depth3D": 30,
+                    "startDuration": 1,
+                    "backgroundColor":"white",
+                    "categoryField":"day",
+                    /*"autoMargins": false,
+                    "marginBottom": 5,
+                    "marginLeft": 5,
+                    "marginRight": 5,
+                    "marginTop": 5,*/
+                    "categoryAxis": {
+                        "gridPosition": "start",
+                        "gridAlpha":0.2,
+                        "gridColor":"transparent",
+                        "axisColor":"black",
+                        "axisAlpha":1,
+                        "dashLength": 1,
+                        "title":"Last 5 weeks - Ticks represent the days",
+                        "fontSize": 15,
+                        "centerLabels": true
+                    },
+                    "graphs": [
+                        {
+                            //
+                            "balloonText": "[[title]] - Day [[category]]: <b>[[value]] </b>",
+                            "id": "AmGraph-1",
+                            "title": "Analytical",
+                            //"bullet": "round",
+                            "type": "column",
+                            "valueField": "analytical",
+                            "lineAlpha":0,
+                            /*"lineColor":"blue",*/
+                            "fillAlphas": 1
+                        },
+                        {
+                           "balloonText": "[[title]] - Day [[category]]: <b>[[value]] </b>",
+                            "id": "AmGraph-2",
+                            "title": "Confident",
+                            //"bullet": "round",
+                            "type": "column",
+                            "valueField": "confident",
+                            "lineAlpha":0,
+                            /*"lineColor":"blue",*/
+                            "fillAlphas": 1
+                        },
+                        {
+                            "balloonText": "[[title]] - Day [[category]]: <b>[[value]] </b>",
+                            "id": "AmGraph-3",
+                            "title": "Tentative",
+                            //"bullet": "round",
+                            "type": "column",
+                            "valueField": "tentative",
+                            "lineAlpha":1,
+                            /*"lineColor":"blue",*/
+                            "fillAlphas": 1
+                        }
+                    ],
+                    "valueAxes": [
+                        {
+                            "id": "ValueAxis-1",
+                            "stackType": "3d",
+                            "gridAlpha":0.2,
+                            "gridColor":"black",
+                            "axisColor":"black",
+                            "axisAlpha":1,
+                            "dashLength":5,
+                            "title": "Writing Tone ",
+                            "titleColor":"black",
+                            "unit": "",
+                            "fontSize": 15
+                        }
+                    ],
+                    
+                    "legend": {
+                        "enabled": true,
+                        "useGraphSettings": true,
+                        "color": "black",
+                        "fontSize": 15,
+                        "align":"right"
+                    },
+                    
+                    "dataLoader": {    
+                        "url": "static/data/trump_doc_writing.json",
+                        "showCurtain": false
+                      }
+                }
+            ); //end of amcharts for writing
+
+
+            /*--------------------------------
+                SOCIAL TONE
+                input static/data/trump_doc_social.json
+            ---------------------------------*/
+
+            AmCharts.makeChart("social",
                 {
                     "type": "serial",
                     "categoryField": "category",
                     "angle": 30,
                     "depth3D": 30,
-                    "startDuration": 1.2,
+                    "startDuration": 0.8,
                     "categoryField":"day",
                     "colors": [ 
                         
@@ -83,76 +274,76 @@
                         "centerLabels": true
                     },
                     "dataLoader": {
-                        "url": "static/data/trump_emotion_doc.json",
+                        "url": "static/data/trump_doc_social.json",
                         "showCurtain": false
                       },
                     "graphs": [
                             //Add all the 5 graphs here
-                            // Anger Graph
+                            // Openness Graph
                             {   
-                            "balloonText": "Day : <b>[[category]]</b>  Anger: <b>[[value]]</b>",
+                            "balloonText": "Day : <b>[[category]]</b>  Openness: <b>[[value]]</b>",
                             "fillAlphas": 1,
                             "id": "AmGraph-1",
-                            "title": "Anger",
+                            "title": "Openness",
                             "type": "column",
-                            "valueField": "anger",
+                            "valueField": "openness_score",
                             /*"fillColors": "teal",
                             "borderAlpha":1,
                             "borderColor": "transparent", */  
                             "fillAlphas": 1
 
                         },
-                        // Digust Graph
+                        // Concientiousness Graph
                         {
-                            "balloonText": "Day : <b>[[category]]</b>  Disgust: <b>[[value]]</b>",
+                            "balloonText": "Day : <b>[[category]]</b>  Concientiousness: <b>[[value]]</b>",
                             "fillAlphas": 1,
                             "id": "AmGraph-2",
-                            "title": "Disgust",
+                            "title": "Concientiousness",
                             "type": "column",
-                            "valueField": "disgust",
+                            "valueField": "conscientiousness_score",
                             "lineAlpha":0,
                             /*"lineColor":"purple",*/
                             "fillAlphas": 1
                         },
-                        // Sadness Graph
+                        // Extraversion Graph
                         {
-                            "balloonText": "Day : <b>[[category]]</b> Sadness: <b>[[value]]</b>",
+                            "balloonText": "Day : <b>[[category]]</b> Extraversion: <b>[[value]]</b>",
                             "fillAlphas": 1,
                             "id": "AmGraph-3",
-                            "title": "Sadness",
+                            "title": "Extraversion",
                             "type": "column",
-                            "valueField": "sadness",
+                            "valueField": "extraversion_score",
                             "lineAlpha":0,
                             /*"lineColor":"green",*/
                             "fillAlphas": 1
                         },
-                        // Fear Graph
+                        // Agreeableness Graph
                         {
-                            "balloonText": "Day : <b>[[category]]</b>  Fear: <b>[[value]]</b>",
+                            "balloonText": "Day : <b>[[category]]</b>  Agreeableness: <b>[[value]]</b>",
                             "fillAlphas": 1,
                             "id": "AmGraph-4",
-                            "title": "Fear",
+                            "title": "Agreeableness",
                             "type": "column",
-                            "valueField": "fear",
+                            "valueField": "agreeableness_score",
                             "lineAlpha":0,
                             /*"lineColor":"yellow",*/
                             "fillAlphas": 1
                         },
-                        // Joy Graph
+                        // Emotional-range Graph
                         {
-                            "balloonText": "Day : <b>[[category]]</b>  Joy: <b>[[value]]</b>",
+                            "balloonText": "Day : <b>[[category]]</b>  Emotionalrange: <b>[[value]]</b>",
                             "fillAlphas": 1,
                             "id": "AmGraph-5",
-                            "title": "Joy",
+                            "title": "Emotionalrange",
                             "type": "column",
-                            "valueField": "joy",
+                            "valueField": "emotionalrange_score",
                             "lineAlpha":0,
                             /*"lineColor":"blue",*/
                             "fillAlphas": 1
                         }
                     ],  //end of the graphs definition
                     "valueAxes":  [{
-                            "stackType":"3d", // This line makes chart 3D stacked (columns are placed one behind another)
+                            "stackType":"100%", // This line makes chart 3D stacked (columns are placed one behind another)
                             "gridAlpha":0.2,
                             "gridColor":"black",
                             "axisColor":"black",
@@ -175,170 +366,8 @@
 
                 }); //end of makeChart function
     
-            AmCharts.makeChart("writing", 
-                {
-                    "type": "serial",
-                    "angle": 30,
-                    "depth3D": 30,
-                    "startDuration": 0,
-                    "categoryField":"day",
-                    "categoryAxis": {
-                        "gridPosition": "start",
-                        "gridAlpha":0.2,
-                        "gridColor":"transparent",
-                        "axisColor":"black",
-                        "axisAlpha":1,
-                        "dashLength": 1,
-                        "title":"Last 5 weeks - Ticks represent the days",
-                        "fontSize": 15,
-                        "centerLabels": true
-                    },
-                    "trendLines": [],
-                    "graphs": [
-                        {
-                            //
-                            "balloonText": "[[title]] - [[category]]:[[value]]",
-                            "id": "AmGraph-1",
-                            "title": "Anger",
-                            "type": "column",
-                            "valueField": "anger",
-                            "lineAlpha":0,
-                            /*"lineColor":"blue",*/
-                            "fillAlphas": 1
-                        },
-                        {
-                            "balloonText": "[[title]] of [[category]]:[[value]]",
-                            "id": "AmGraph-2",
-                            "title": "Sadness",
-                            "type": "column",
-                            "valueField": "sadness",
-                            "lineAlpha":0,
-                            /*"lineColor":"blue",*/
-                            "fillAlphas": 1
-                        },
-                        {
-                            "balloonText": "[[title]] of [[category]]:[[value]]",
-                            "id": "AmGraph-3",
-                            "title": "Joy",
-                            "type": "column",
-                            "valueField": "joy",
-                            "lineAlpha":0,
-                            /*"lineColor":"blue",*/
-                            "fillAlphas": 1
-                        }
-                    ],
-                    "valueAxes": [
-                        {
-                            "id": "ValueAxis-1",
-                            "stackType": "100%",
-                            "gridAlpha":0.2,
-                            "gridColor":"black",
-                            "axisColor":"black",
-                            "axisAlpha":1,
-                            "dashLength":5,
-                            "title": "Writing Tone ",
-                            "titleColor":"black",
-                            "unit": "",
-                            "fontSize": 15
-                        }
-                    ],
-                    
-                    "legend": {
-                        "enabled": true,
-                        "useGraphSettings": true,
-                        "color": "black",
-                        "fontSize": 15,
-                        "align":"right"
-                    },
-                    
-                    "dataLoader": {    
-                        "url": "static/data/trump_emotion_doc.json",
-                        "showCurtain": false
-                      }
-                }
-            ); //end of amcharts for writing
-
-            AmCharts.makeChart("social",
-                {
-                    "type": "serial",
-                    "categoryField": "date",
-                    "dataDateFormat": "YYYY-MM-DD",
-                    "categoryAxis": {
-                        "parseDates": true
-                    },
-                    "chartScrollbar": {
-                        "enabled": true
-                    },
-                    "chartCursor": {
-                        "enabled": true,
-                        "categoryBalloonEnabled": true
-                    },
-                    
-                    "trendLines": [],
-                    "graphs": [
-                        {
-                            "fillAlphas": 0.7,
-                            "id": "AmGraph-1",
-                            "lineAlpha": 1,
-                            "title": "graph 1",
-                            "valueField": "column-1"
-                        },
-                        {
-                            "fillAlphas": 0.7,
-                            "id": "AmGraph-2",
-                            "lineAlpha": 1,
-                            "title": "graph 2",
-                            "valueField": "column-2"
-                        }
-                    ],
-                    "valueAxes": [
-                        {
-                            "id": "ValueAxis-1",
-                            "title": "Axis title"
-                        }
-                    ],
-                    "legend": {
-                        "enabled": true
-                    },
-                    
-                    "dataProvider": [
-                        {
-                            "date": "2014-03-01",
-                            "column-1": 18,
-                            "column-2": 5
-                        },
-                        {
-                            "date": "2014-03-02",
-                            "column-1": 16,
-                            "column-2": 7
-                        },
-                        {
-                            "date": "2014-03-03",
-                            "column-1": 2,
-                            "column-2": 3
-                        },
-                        {
-                            "date": "2014-03-04",
-                            "column-1": 1,
-                            "column-2": 3
-                        },
-                        {
-                            "date": "2014-03-05",
-                            "column-1": 2,
-                            "column-2": 1
-                        },
-                        {
-                            "date": "2014-03-06",
-                            "column-1": 3,
-                            "column-2": 2
-                        },
-                        {
-                            "date": "2014-03-07",
-                            "column-1": 6,
-                            "column-2": 8
-                        }
-                    ]
-                }); //end of social tone
+            
+            
     </script>
 
 </head>
@@ -364,8 +393,8 @@
     </nav>
 
     <!-- Header -->
-    <header style="height: 2300px">
-        <div class="container" style="width: 100%; padding-left:50px; padding-right:50px;background-color:transparent;">
+    <header style="height: 2500px">
+        <div class="container" style="width: 100%; padding-left:50px; padding-right:50px;">
             <div class="row">
                 <div class="col-lg-12" >
                     <div class="intro-text" style="padding-bottom: 5px">
@@ -373,9 +402,10 @@
                         <hr class="star-light">
                         <!--span class="skills">Optional description goes here.</span-->
                     </div>
-                    <div id="xyz" style="background-color:transparent;">
+                    <div id="xyz" >
                          <center><h1> Emotion Tone </h1></center>
-                        <div id="emotion" style="width: 100%; height:600px"></div>
+                         <br><br><br>
+                        <div id="emotion" style="background-color:white;width: 100%; height:600px"></div>
 
                     </div>  
                  </div>
@@ -384,18 +414,17 @@
             <!-- End: /row -->   
             <div class="row">
                 <center><h1> Writing Tone </h1></center>
-                <div id="writing" style="width: 100%; height: 600px"></div>
+                <div id="writing" style="background-color:white;width: 100%; height: 600px"></div>
             </div> 
 
             <div class="row">
                 <center><h1> Social Tone </h1></center>
-                 <div id="social" style="width: 100%; height:400px"></div>         
+                 <div id="social" style="background-color:white;width: 100%; height:700px"></div>         
              </div>
         </div>
         <!-- End: /.container -->
    
     </header>
-
 
 
     <!-- Footer -->
