@@ -152,11 +152,13 @@ def get_social_scores(social_json):
 #---------------------------------------------------------------------------
 def insert_data_to_table(candname):
     #getting user tweets
-    tweets = get_user_tweets(candname,40)
+    tweets = get_user_tweets(candname)
     #setting up db
     session = db_connect()
-
+    count = 0
     for tweet in tweets:
+        count += 1
+        print count
         #inserting to tweets table
         # try:
         tweets_bound = prepare_tweets_query(candname,tweet,session)
@@ -175,7 +177,7 @@ def prepare_tweets_query(candname, tweet,session):
     date = datetime_lst[0]
     time = datetime_lst[1]
 
-    print 'tweet :: ',tweet.text
+    #print 'tweet :: ',tweet.text
 
     tweets_query = "insert into " + table_name + "(" + \
                 "tweet_id, " \
@@ -198,22 +200,9 @@ def prepare_tweets_query(candname, tweet,session):
                            str(time) ))
 
 
-    print('tweets_query', bound)
+    #print('tweets_query', bound)
 
     return bound
-
-#Writing json -format
-#[{"tone_name": "Analytical", "score": 0.0, "tone_id": "analytical"},
-# {"tone_name": "Confident", "score": 0.0, "tone_id": "confident"},
-# {"tone_name": "Tentative", "score": 0.0, "tone_id": "tentative"}]
-
-
-#Social json - format
-#[{"tone_name": "Openness", "score": 0.829, "tone_id": "openness_big5"},
-# {"tone_name": "Conscientiousness", "score": 0.976, "tone_id": "conscientiousness_big5"},
-# {"tone_name": "Extraversion", "score": 0.933, "tone_id": "extraversion_big5"},
-# {"tone_name": "Agreeableness", "score": 0.916, "tone_id": "agreeableness_big5"},
-# {"tone_name": "Emotional Range", "score": 0.019, "tone_id": "neuroticism_big5"}]
 
 
 def prepare_sentencelevel_query(candname,tweet,session):
@@ -271,7 +260,7 @@ def prepare_sentencelevel_query(candname,tweet,session):
                 " VALUES " + \
                  "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
 
-    print sentencelevel_query
+    #print sentencelevel_query
     prepared = session.prepare(sentencelevel_query)
 
     bound = prepared.bind((str(tweet.id_str.encode('utf-8')),
@@ -298,7 +287,7 @@ def prepare_sentencelevel_query(candname,tweet,session):
                            ))
 
 
-    print('sentencelevel_query :: ', bound)
+    #print('sentencelevel_query :: ', bound)
     return bound
 
 
@@ -331,7 +320,7 @@ def gen_doclevel_emotion_json(candname, file_path):
                 " from " + table_name + \
                 ";"
 
-    print 'select_query ::',select_query
+    #print 'select_query ::',select_query
     resultSet  = session.execute(select_query)
     #print ('resultSet:: ',resultSet)
 
@@ -360,11 +349,11 @@ def gen_doclevel_emotion_json(candname, file_path):
 
 
 
-    print 'anger_score_dict', anger_score_dict
-    print 'anger_score_dict', joy_score_dict
-    print 'anger_score_dict', sadness_score_dict
-    print 'anger_score_dict', fear_score_dict
-    print 'disgust_score_dict', disgust_score_dict
+    # print 'anger_score_dict', anger_score_dict
+    # print 'anger_score_dict', joy_score_dict
+    # print 'anger_score_dict', sadness_score_dict
+    # print 'anger_score_dict', fear_score_dict
+    # print 'disgust_score_dict', disgust_score_dict
 
 
     #Now we have got all emotion score dicts with day-wise data
@@ -372,7 +361,7 @@ def gen_doclevel_emotion_json(candname, file_path):
     #revisit - normalize sum/no.of days, put day number - 1,2,3 ...
     doc_json = []
     date_list = [i for i in anger_score_dict.keys()]
-    print 'date_list', date_list
+    #print 'date_list', date_list
 
     #sort date_list - increasing order
     date_list.sort()
@@ -389,13 +378,13 @@ def gen_doclevel_emotion_json(candname, file_path):
                 " ALLOW FILTERING " + \
                 ";"
 
-        print 'num of tweets per day query:: ', select_query
+        #print 'num of tweets per day query:: ', select_query
         resultSet  = session.execute(select_query)
         for row in resultSet:
             #print row
             num_tweets_date_dict[date] = row.system_count_tweet_id
 
-        print 'num_tweets_date_dict',num_tweets_date_dict
+        #print 'num_tweets_date_dict',num_tweets_date_dict
 
 
     for date_key,anger_s in anger_score_dict.iteritems():
@@ -422,17 +411,17 @@ def gen_doclevel_emotion_json(candname, file_path):
         temp["fear"] = round(fear_score_norm,2)
         temp["disgust"] = round(disgust_score_norm,2)
         #inserting date index in sorted date_list instead of its value
-        #temp["day"] = date_key
-        temp["day"] = date_list.index(date_key) + 1
+        temp["day"] = date_key
+        #temp["day"] = date_list.index(date_key) + 1
 
         doc_json.append(temp)
 
-    print doc_json
+    #print doc_json
 
     #sorting doc_json - ordering it on day value
     doc_json.sort(key=operator.itemgetter('day'))
 
-    print 'doc_json sorted :: ', doc_json
+    #print 'doc_json sorted :: ', doc_json
 
     #writing doc_json to provided file_path - revisit not writing
     #revisit - permission denied to write file
@@ -442,6 +431,11 @@ def gen_doclevel_emotion_json(candname, file_path):
 
     #return doc_json
 
+
+#Writing json -format
+#[{"tone_name": "Analytical", "score": 0.0, "tone_id": "analytical"},
+# {"tone_name": "Confident", "score": 0.0, "tone_id": "confident"},
+# {"tone_name": "Tentative", "score": 0.0, "tone_id": "tentative"}]
 
 def gen_doclevel_writing_json(candname, file_path):
     table_name = candname + '_sentencelevel'
@@ -455,7 +449,7 @@ def gen_doclevel_writing_json(candname, file_path):
                 " from " + table_name + \
                 ";"
 
-    print 'select_query ::',select_query
+    #print 'select_query ::',select_query
     resultSet  = session.execute(select_query)
     #print ('resultSet:: ',resultSet)
 
@@ -476,9 +470,9 @@ def gen_doclevel_writing_json(candname, file_path):
             tentative_score_dict[key] = val
 
 
-    print 'analytical_score_dict', analytical_score_dict
-    print 'confident_score_dict', confident_score_dict
-    print 'tentative_score_dict', tentative_score_dict
+    # print 'analytical_score_dict', analytical_score_dict
+    # print 'confident_score_dict', confident_score_dict
+    # print 'tentative_score_dict', tentative_score_dict
 
 
     #Now we have got all emotion score dicts with day-wise data
@@ -486,7 +480,7 @@ def gen_doclevel_writing_json(candname, file_path):
     #revisit - normalize sum/no.of days, put day number - 1,2,3 ...
     doc_json = []
     date_list = [i for i in analytical_score_dict.keys()]
-    print 'date_list', date_list
+    #print 'date_list', date_list
 
     #sort date_list - increasing order
     date_list.sort()
@@ -503,13 +497,13 @@ def gen_doclevel_writing_json(candname, file_path):
                 " ALLOW FILTERING " + \
                 ";"
 
-        print 'num of tweets per day query:: ', select_query
+        #print 'num of tweets per day query:: ', select_query
         resultSet  = session.execute(select_query)
         for row in resultSet:
             #print row
             num_tweets_date_dict[date] = row.system_count_tweet_id
 
-        print 'num_tweets_date_dict',num_tweets_date_dict
+        #print 'num_tweets_date_dict',num_tweets_date_dict
 
 
     for date_key,analytical_s in analytical_score_dict.iteritems():
@@ -535,12 +529,12 @@ def gen_doclevel_writing_json(candname, file_path):
 
         doc_json.append(temp)
 
-    print doc_json
+    #print doc_json
 
     #sorting doc_json - ordering it on day value
     doc_json.sort(key=operator.itemgetter('day'))
 
-    print 'doc_json sorted :: ', doc_json
+    #print 'doc_json sorted :: ', doc_json
 
     #writing doc_json to provided file_path - revisit not writing
     #revisit - permission denied to write file
@@ -551,6 +545,145 @@ def gen_doclevel_writing_json(candname, file_path):
     #return doc_json
 
 
+#Social json - format
+#[{"tone_name": "Openness", "score": 0.829, "tone_id": "openness_big5"},
+# {"tone_name": "Conscientiousness", "score": 0.976, "tone_id": "conscientiousness_big5"},
+# {"tone_name": "Extraversion", "score": 0.933, "tone_id": "extraversion_big5"},
+# {"tone_name": "Agreeableness", "score": 0.916, "tone_id": "agreeableness_big5"},
+# {"tone_name": "Emotional Range", "score": 0.019, "tone_id": "neuroticism_big5"}]
+
+# openness_score double,
+# conscientiousness_score double,
+# extraversion_score double,
+# agreeableness_score double,
+# emotionalrange_score double
+
+def gen_doclevel_social_json(candname, file_path):
+    table_name = candname + '_sentencelevel'
+    #setting up db
+    session = db_connect()
+
+    select_query = "select " + \
+                "cus_group_and_total(date, openness_score)," \
+                "cus_group_and_total(date, conscientiousness_score)," \
+                "cus_group_and_total(date, extraversion_score)," \
+                "cus_group_and_total(date, agreeableness_score)," \
+                "cus_group_and_total(date, emotionalrange_score) " \
+                " from " + table_name + \
+                ";"
+
+    #print 'select_query ::',select_query
+    resultSet  = session.execute(select_query)
+    #print ('resultSet:: ',resultSet)
+
+    #processing resultset for date:scores
+    openness_score_dict = {}
+    conscientiousness_score_dict = {}
+    extraversion_score_dict = {}
+    agreeableness_score_dict = {}
+    emotionalrange_score_dict = {}
+
+    for row in resultSet:
+        for key,val in row.twitterdataset_cus_group_and_total_date__openness_score.iteritems():
+            openness_score_dict[key] = val
+
+        for key,val in row.twitterdataset_cus_group_and_total_date__conscientiousness_score.iteritems():
+            conscientiousness_score_dict[key] = val
+
+        for key,val in row.twitterdataset_cus_group_and_total_date__extraversion_score.iteritems():
+            extraversion_score_dict[key] = val
+
+        for key,val in row.twitterdataset_cus_group_and_total_date__agreeableness_score.iteritems():
+            agreeableness_score_dict[key] = val
+
+        for key,val in row.twitterdataset_cus_group_and_total_date__emotionalrange_score.iteritems():
+            emotionalrange_score_dict[key] = val
+
+
+
+    # print 'openness_score_dict', openness_score_dict
+    # print 'conscientiousness_score_dict', conscientiousness_score_dict
+    # print 'extraversion_score_dict', extraversion_score_dict
+    # print 'agreeableness_score_dict', agreeableness_score_dict
+    # print 'emotionalrange_score_dict', emotionalrange_score_dict
+
+
+    #Now we have got all emotion score dicts with day-wise data
+    #generating doc level json format required by visualization
+    #revisit - normalize sum/no.of days, put day number - 1,2,3 ...
+    doc_json = []
+    date_list = [i for i in openness_score_dict.keys()]
+    #print 'date_list', date_list
+
+    #sort date_list - increasing order
+    date_list.sort()
+
+    #number of days
+    num_tweets_date_dict = {}
+    #select count (tweet_id) from
+    # realDonaldTrump_sentencelevel where date = '2016-04-24' ALLOW FILTERING;
+    for date in date_list:
+        select_query = "select " + \
+                "count(tweet_id)" \
+                 " from " + table_name + \
+                " where date = '" + date + "'" + \
+                " ALLOW FILTERING " + \
+                ";"
+
+        #print 'num of tweets per day query:: ', select_query
+        resultSet  = session.execute(select_query)
+        for row in resultSet:
+            #print row
+            num_tweets_date_dict[date] = row.system_count_tweet_id
+
+        #print 'num_tweets_date_dict',num_tweets_date_dict
+
+
+    for date_key,openness_s in openness_score_dict.iteritems():
+        temp = {}
+        openness_score = openness_s/float(num_tweets_date_dict[date])
+        conscientiousness_score = conscientiousness_score_dict[date_key]/float(num_tweets_date_dict[date])
+        extraversion_score = extraversion_score_dict[date_key]/float(num_tweets_date_dict[date])
+        agreeableness_score = agreeableness_score_dict[date_key]/float(num_tweets_date_dict[date])
+        emotionalrange_score = emotionalrange_score_dict[date_key]/float(num_tweets_date_dict[date])
+
+        #converting scores to %ges for pie-chart viz
+        total_score = openness_score + conscientiousness_score + extraversion_score \
+                      + agreeableness_score + emotionalrange_score
+
+        if total_score == 0:
+            total_score = 1
+        openness_score_norm = (openness_score/float(total_score)) * 100
+        conscientiousness_score_norm = (conscientiousness_score/float(total_score)) * 100
+        extraversion_score_norm = (extraversion_score/float(total_score)) * 100
+        agreeableness_score_norm = (agreeableness_score/float(total_score)) * 100
+        emotionalrange_score_norm = (emotionalrange_score/float(total_score)) * 100
+
+        temp["openness_score"] = round(openness_score_norm,2)
+        temp["conscientiousness_score"] = round(conscientiousness_score_norm,2)
+        temp["extraversion_score"] = round(extraversion_score_norm,2)
+        temp["agreeableness_score"] = round(agreeableness_score_norm,2)
+        temp["emotionalrange_score"] = round(emotionalrange_score_norm,2)
+        #inserting date index in sorted date_list instead of its value
+        #temp["day"] = date_key
+        temp["day"] = date_list.index(date_key) + 1
+
+        doc_json.append(temp)
+
+    #print doc_json
+
+    #sorting doc_json - ordering it on day value
+    doc_json.sort(key=operator.itemgetter('day'))
+
+    #print 'doc_json sorted :: ', doc_json
+
+    #writing doc_json to provided file_path - revisit not writing
+    #revisit - permission denied to write file
+    with open(os.path.join(file_path,'doc_social.json'), 'wb') as outfile:
+            json.dump(doc_json, outfile)
+    outfile.close()
+
+    #return doc_json
 
 #getting top tweets based on retweet_count
 def get_tweet_list(candname,num=20):
@@ -568,7 +701,7 @@ def get_tweet_list(candname,num=20):
                 " from " + table_name + \
                 ";"
 
-    print 'select_query ::',select_query
+    #print 'select_query ::',select_query
     resultSet  = session.execute(select_query)
 
     temp = {}
@@ -579,25 +712,25 @@ def get_tweet_list(candname,num=20):
 
     #sorting dict to get top tweets with retweet_count
     sorted_temp = sorted(temp.items(), key=operator.itemgetter(1), reverse=True)
-    print 'sorted_temp', sorted_temp
+    #print 'sorted_temp', sorted_temp
     if num < tweets_count:
         top_tweets = sorted_temp[:num]
 
-    print 'top_tweets',top_tweets
+    #print 'top_tweets',top_tweets
 
     #making top tweet_id's list to pass on to select query
     top_tweets_id_str = ""
     count = 0
     for tup in top_tweets:
         count +=1
-        print 'tup', tup
+        #print 'tup', tup
         if count == 1:
             top_tweets_id_str =  "'" + tup[0]
         else:
             top_tweets_id_str += "','" + tup[0]
 
     top_tweets_id_str += "'"
-    print 'top_tweets_id_str :: ',top_tweets_id_str
+    #print 'top_tweets_id_str :: ',top_tweets_id_str
 
     #fetching text for top tweets
     select_query = "select " + \
@@ -607,14 +740,14 @@ def get_tweet_list(candname,num=20):
                 " where tweet_id in (" + top_tweets_id_str + ")" + \
                 ";"
 
-    print 'select_query ::',select_query
+    #print 'select_query ::',select_query
     resultSet  = session.execute(select_query)
 
     #preparing tweets_dict containing tweet_id and text to be used by WebApp
     for row in resultSet:
         tweets_dict[row.tweet_id] = row.tweet_text
 
-    print tweets_dict
+    #print tweets_dict
     return tweets_dict
 
 
@@ -673,6 +806,7 @@ def get_tweet_tones(candname,tweet_id,file_path):
 
 gen_doclevel_emotion_json('realDonaldTrump','data/')
 gen_doclevel_writing_json('realDonaldTrump','data/')
+gen_doclevel_social_json('realDonaldTrump','data/')
 #gen_doclevel_json('HillaryClinton','data/')
 #get_tweet_list('realDonaldTrump',2)
 #get_tweet_tones('realDonaldTrump','722967660833722369','data/')
@@ -723,7 +857,7 @@ def test(candname):
     prepared = session.prepare(query)
 
     for i,tweet in enumerate(tweets):
-        print ('processing tweet :: ',i)
+        #print ('processing tweet :: ',i)
 
         datetime_lst = str(tweet.created_at).encode('utf-8').split()
         date = datetime_lst[0]
@@ -732,7 +866,7 @@ def test(candname):
         bound = prepared.bind((str(tweet.id_str.encode('utf-8')), str(tweet.text.encode('utf-8')),
                                str(tweet.lang),tweet.retweet_count,
                                str(tweet.created_at),date,time))
-        print 'bound :: ',bound
+        #print 'bound :: ',bound
         session.execute(bound)
 
 
