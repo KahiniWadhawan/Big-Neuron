@@ -19,11 +19,12 @@
     <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
 
+    <script src="{{ url_for('static', filename='js/serial.js') }}"></script>
     <script src="{{ url_for('static', filename='js/amcharts.js') }}"></script>
     <script src="{{ url_for('static', filename='js/serial.js') }}"></script>
 
-    <script>
-            var chart;
+    <!--<script> 
+            /*var chart;
 
             var chartData = [{"joy": 37.93927611641603, "sadness": 16.306199921938507, "disgust": 8.16120443409149, "anger": 7.850052331030436, "fear": 29.743267196523526, "day": "1"}, 
     {"joy": 24.265430999688746, "sadness": 14.54716360347416, "disgust": 27.90294342658706, "anger": 16.12151119963804, "fear": 17.162950770612, "day": 2}, 
@@ -59,14 +60,111 @@
     {"joy": 24.1388238415191, "sadness": 30.63476029406512, "disgust": 26.937008637270353, "anger": 11.761584809015819, "fear": 6.527822418129594, "day": 32},
     {"joy": 24.1388238415191, "sadness": 30.63476029406512, "disgust": 26.937008637270353, "anger": 11.761584809015819, "fear": 6.527822418129594, "day": 33},
     {"joy": 24.1388238415191, "sadness": 30.63476029406512, "disgust": 26.937008637270353, "anger": 11.761584809015819, "fear": 6.527822418129594, "day": 34},
-    {"joy": 24.1388238415191, "sadness": 30.63476029406512, "disgust": 26.937008637270353, "anger": 11.761584809015819, "fear": 6.527822418129594, "day": 35}];
+    {"joy": 24.1388238415191, "sadness": 30.63476029406512, "disgust": 26.937008637270353, "anger": 11.761584809015819, "fear": 6.527822418129594, "day": 35}];*/
 
-            console.log(AmCharts)
+            //console.log(AmCharts)
+</script> -->
+        <!-- amCharts javascript code -->
+        <script type="text/javascript">
+            AmCharts.makeChart("chartdiv",
+                {
+                    "type": "serial",
+                    "categoryField": "category",
+                    "angle": 25,
+                    "depth3D": 30,
+                    "startDuration": 1,
+                    "categoryField":"day",
+                    "categoryAxis": {
+                        "gridPosition": "start",
+                        "gridAlpha":0.2,
+                        "gridColor":"#FFFFFF",
+                        "axisColor":"#FFFFFF",
+                        "axisAlpha":0.5,
+                        "dashLength": 1,
+                        "title":"Last 5 weeks - Ticks represent the days",
+                        "fontSize":12,
+                        "centerLabels": true
+                    },
+                    "dataLoader": {
+                        "url": "static/data/trump_emotion_doc.json",
+                        "showCurtain": false
+                      },
+                    "trendLines": [],
+                    "graphs": [
+                            //Add all the 5 graphs here
+                                {
+                            "balloonText": "[[title]] of [[category]]:[[value]]",
+                            "fillAlphas": 1,
+                            "id": "AmGraph-1",
+                            "title": "graph 1",
+                            "type": "column",
+                            "valueField": "anger"
+                        },
+                        {
+                            "balloonText": "[[title]] of [[category]]:[[value]]",
+                            "fillAlphas": 1,
+                            "id": "AmGraph-2",
+                            "title": "graph 2",
+                            "type": "column",
+                            "valueField": "sadness"
+                        },
+                        {
+                            "id": "AmGraph-3",
+                            "title": "graph 3",
+                            "valueField": "joy"
+                        },
+                        {
+                            "id": "AmGraph-4",
+                            "title": "graph 4",
+                            "valueField": "disgust"
+                        },
+                        {
+                            "id": "AmGraph-5",
+                            "title": "graph 5",
+                            "valueField": "fear"
+                        }
+                    ],  //end of the graphs definition
+                    "guides": [],
+                    "valueAxes":  {
+                            valueAxis.stackType = "3d"; // This line makes chart 3D stacked (columns are placed one behind another)
+                            valueAxis.gridAlpha = 0.2;
+                            valueAxis.gridColor = "#FFFFFF";
+                            valueAxis.axisColor = "#FFFFFF";
+                            valueAxis.axisAlpha = 0.5;
+                            valueAxis.dashLength = 5;
+                            valueAxis.title = "Emotion Tone ";
+                            valueAxis.titleColor = "#FFFFFF";
+                            valueAxis.unit = "";
+                            valueAxis.fontSize = 12;
+                        },
+                    
+               
+                    "allLabels": [],
+                    "balloon": {},
+                    "legend": {
+                        "enabled": true,
+                        "useGraphSettings": true,
+                        "color": "#FFFFFF",
+                        "fontSize": 14,
+                        "align":"right"
 
-            AmCharts.ready(function () {
+                    },
+                    "titles": [
+                        {
+                            "id": "Title-1",
+                            "size": 15,
+                            "text": "Chart Title"
+                        }
+                    ]
+                }); //end of makeChart function
+                    
+
+
+
+            /*AmCharts.ready(function () {
                 // SERIAL CHART
-                chart = new AmCharts.AmSerialChart();
-                chart.dataProvider = chartData;
+                //chart = new AmCharts.AmSerialChart();
+                //chart.dataProvider = chartData;
                 chart.categoryField = "day";
                 chart.color = "#FFFFFF";
                 chart.fontSize = 10;
@@ -77,7 +175,7 @@
                 chart.depth3D = 80;
                 //chart.legend.enabled = true;
 
-                var legend = new AmCharts.AmLegend();
+               /* var legend = new AmCharts.AmLegend();
                 chart.addLegend(legend);
                 legend.color = "#FFFFFF"
                 legend.fontSize = 14
@@ -167,7 +265,7 @@
                 chart.addGraph(graph2);
 
                 chart.write("chartdiv");
-            });
+            });*/
         </script>
     </head>
 
