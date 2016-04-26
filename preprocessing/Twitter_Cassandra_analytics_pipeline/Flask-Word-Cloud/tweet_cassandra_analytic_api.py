@@ -270,8 +270,9 @@ class TweetAPI(CassandraAPI):
 
             #Filter
             textlist= (" ").join(textlist).lower()
-            textlist_wordcloud= textlist
+            #textlist_wordcloud= textlist
             textlist = re.sub(r'(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:\'".,<>?«»“”‘’]))', '', textlist)
+            textlist_wordcloud = textlist
             IBMToneJSON = eval(json.dumps(self.tone_analyzer.tone(text=textlist)))
             stop = stopwords.words('english')
             textlist_wordcloud =[i for i in textlist_wordcloud.split() if i not in stop]
