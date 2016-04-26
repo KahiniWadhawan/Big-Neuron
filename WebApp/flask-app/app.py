@@ -120,7 +120,7 @@ def topic():
     print "In Topic Modelling, session['candidate'] is - ", cand
     if cand in ['clinton', 'cruz', 'kasich', 'sanders', 'trump']:
         fpath = "pages/%s/%s_topicmodel.html" % (cand, cand)
-        retVal = render_template(fpath)
+        retVal = render_template(fpath, cand=cand)
     else:
         retVal = "Error in topic(). Need to make an error page"
     return retVal
