@@ -71,7 +71,8 @@
                     "dataDateFormat": "YYYY-MM-DD",
                     "backgroundColor":"white",
                     "categoryAxis": {
-                        "parseDates": true
+                        "parseDates": true,
+                        "title": "Past 5 weeks (each day)"
                     },
                     "chartScrollbar": {
                         "enabled": true
@@ -168,15 +169,14 @@
                         "fontSize": 15,
                         "centerLabels": true
                     },
-                    "trendLines": [],
                     "graphs": [
                         {
                             //
                             "balloonText": "[[title]] - [[category]]:[[value]]",
                             "id": "AmGraph-1",
-                            "title": "Anger",
+                            "title": "Analytical",
                             "type": "column",
-                            "valueField": "anger",
+                            "valueField": "analytical",
                             "lineAlpha":0,
                             /*"lineColor":"blue",*/
                             "fillAlphas": 1
@@ -184,9 +184,9 @@
                         {
                             "balloonText": "[[title]] of [[category]]:[[value]]",
                             "id": "AmGraph-2",
-                            "title": "Sadness",
+                            "title": "Confident",
                             "type": "column",
-                            "valueField": "sadness",
+                            "valueField": "confident",
                             "lineAlpha":0,
                             /*"lineColor":"blue",*/
                             "fillAlphas": 1
@@ -194,9 +194,9 @@
                         {
                             "balloonText": "[[title]] of [[category]]:[[value]]",
                             "id": "AmGraph-3",
-                            "title": "Joy",
+                            "title": "Tentative",
                             "type": "column",
-                            "valueField": "joy",
+                            "valueField": "tentative",
                             "lineAlpha":0,
                             /*"lineColor":"blue",*/
                             "fillAlphas": 1
@@ -227,7 +227,7 @@
                     },
                     
                     "dataLoader": {    
-                        "url": "static/data/trump_emotion_doc.json",
+                        "url": "static/data/trump_doc_writing.json",
                         "showCurtain": false
                       }
                 }
