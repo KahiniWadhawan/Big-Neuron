@@ -25,7 +25,6 @@ add yourself to the Contributer. (Maybe a little description of the function? )
 
 import tweepy
 import sys
-
 from CassandraDriver import CassandraAPI
 from CassandraDriver import TOKENS
 from CassandraDriver import time
@@ -197,7 +196,6 @@ class TweetAPI(CassandraAPI):
       numAs = logData.filter(lambda s: 'a' in s).count()
       numBs = logData.filter(lambda s: 'b' in s).count()
       print("Lines with a: %i, lines with b: %i" % (numAs, numBs))
-      exit()
 
 
       if(politician_table=="donaldtrumpttl"):
@@ -217,12 +215,19 @@ class TweetAPI(CassandraAPI):
          self.prepared_retrive_tweets = self.session.prepare("SELECT * FROM johnkasichttl")
       values=[]
       executestmt=None
+      rows=None
    
       try:
          for i,tweet in enumerate(tweepy.Cursor(self.api.search,q=str(twitter_tags_list),lang="en",locale="en",count=100).items()):
             print "Inside for ",i
             if(i>1 and  (i%(self.repetations) == 0)):
-               
+               if(politician_table=="donaldtrumpttl"):
+                  rows = self.session.execute("SELECT tweet_text FROM donaldtrumpttl LIMIT 3")
+                  for each in rows:
+                     print each
+               break
+
+
                pass
 
 
