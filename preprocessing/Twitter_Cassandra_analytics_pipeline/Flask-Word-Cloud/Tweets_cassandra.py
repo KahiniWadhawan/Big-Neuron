@@ -191,71 +191,47 @@ class TweetAPI(CassandraAPI):
 
    def WordCloud(self,name,Politician_name):
       if(Politician_name=="donaldtrumpttl"):
-         self.insert_tweets = self.session.prepare("INSERT INTO donaldtrumpttl (tweet_id, lang, tweet_text, created_at, retweet_count) VALUES(?,?,?,?,?)")
-      values=None
+         self.prepared_insert_tweets = self.session.prepare("INSERT INTO donaldtrumpttl (tweet_id, lang, tweet_text, created_at, retweet_count) VALUES(?,?,?,?,?)")
+      values=[]
       executestmt=None
-           
-      try:
+        
+   #try:
 
-         for i,tweet in enumerate(tweepy.Cursor(self.api.search,q=str(name),lang="en",locale="en",count=100).items()):
-            print "Inside for ",i
+      for i,tweet in enumerate(tweepy.Cursor(self.api.search,q=str(name),lang="en",locale="en",count=100).items()):
+         print "Inside for ",i
 
-            if(i>1 and  (i%(self.repetations) ==0)):
-               print "...Computing..."
-            if (i==1):
-               #break
-               values=[]
-               executestmt=None
-              
-            print tweet.id, type(tweet.id)
-            
-            print tweet.text,type(tweet.text.replace("'",""))
-            
-            
-            print tweet.lang,type(tweet.lang)
-
-            print tweet.created_at,type(tweet.created_at)
-
-            print tweet.retweet_count,type(tweet.retweet_count)
-            print "\n\n\n",i
+         if(i>1 and  (i%(self.repetations) ==0)):
+            print "...Computing..."
+         print tweet.id, type(tweet.id)
+         print tweet.lang,type(tweet.lang)
+         print tweet.text,type(tweet.text.replace("'",""))
+         print tweet.created_at,type(tweet.created_at)
+         print tweet.retweet_count,type(tweet.retweet_count)
+         print "\n\n\n"
 
 
+         values=[]
+         values.append(tweet.id)
+         values.append(tweet.lang.replace("'",""))
+         values.append(tweet.text.replace("'",""))            
+         values.append(tweet.created_at)
+         values.append(tweet.retweet_count)
 
-
-            
-            '''
-
-            print tweet.fav_cout,type(tweet.fav_cout)
-
-
-
-            values.append(tweet.id)
-            values.append(tweet.text.replace("'",""))
-            values.append(tweet.lang.replace("'",""))
-            values.append(tweet.retweet_count)
-            values.append(tweet.created_at)
-            values.append(tweet.source_url.replace("'",""))
-            values.append(tweet.possibly_sensitive.replace("'",""))
-            values.append(str(tweet.coordinates).replace("'",""))
-            values.append(tweet.fav_cout.replace("'",""))
-            values.append(tweet.geo.replace("'",""))
-            values.append(tweet.place.replace("'",""))
-
-            binding_stmt = self.insert_tweets.bind(values)
-            print "Before execute ",i
-            executestmt.execute(binding_stmt)
-            '''
-            
-      except:
-         print "Inside except ",i
-         if(len(set(self.tweetlist)) < 100000):
-            self.WordCloud(name,Politician_name)
-      finally:
-         #print "Inside finally ",i
-         #print "FINALLY len(self.tweetlist)= ",len(self.tweetlist)
-         #print "FINALLY numb = ", self.numb
-         self.tweetlist=[]
-         #self.TestTimeout2()
+         binding_stmt = self.prepared_insert_tweets.bind(values)
+         #print "Before execute ",i
+         executestmt=self.session.execute(binding_stmt)
+         
+         
+   #except:
+      #print "Inside except ",i
+      if(len(set(self.tweetlist)) < 100000):
+         self.WordCloud(name,Politician_name)
+   #finally:
+      #print "Inside finally ",i
+      #print "FINALLY len(self.tweetlist)= ",len(self.tweetlist)
+      #print "FINALLY numb = ", self.numb
+      self.tweetlist=[]
+      #self.TestTimeout2()
 
 
 if __name__ == "__main__":
