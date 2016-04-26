@@ -18,13 +18,17 @@
     <link href="{{ url_for('static', filename='font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
-    <script src="{{ url_for('static', filename='js/amcharts.js') }}"></script>
+    <!--<script src="{{ url_for('static', filename='js/amcharts.js') }}"></script>-->
+    <script type="text/javascript" src="http://www.amcharts.com/lib/3/amcharts.js"></script>
     <script src="{{ url_for('static', filename='js/dataloader.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/serial.js') }}"></script>
+    <!-- <script src="{{ url_for('static', filename='js/serial.js') }}"></script>-->
+    <script type="text/javascript" src="http://www.amcharts.com/lib/3/serial.js"></script>
+
     <style>
         header {
         background: linear-gradient(25deg, #013467, #044689, #0052a5, #cc172a, #960c1a, #650912);
         background-size: 300% 300%;
+
 
         -webkit-animation: USflagintense 25s ease infinite;
         -moz-animation: USflagintense 25s ease infinite;
@@ -178,7 +182,6 @@
                     "depth3D": 30,
                     "startDuration": 0,
                     "categoryField":"day",
-                    "backgroundColor": "#691A1A",   
                     "categoryAxis": {
                         "gridPosition": "start",
                         "gridAlpha":0.2,
@@ -194,7 +197,7 @@
                     "graphs": [
                         {
                             //
-                            "balloonText": "[[title]] of [[category]]:[[value]]",
+                            "balloonText": "[[title]] - [[category]]:[[value]]",
                             "id": "AmGraph-1",
                             "title": "Anger",
                             "type": "column",
@@ -263,25 +266,27 @@
                     "categoryAxis": {
                         "parseDates": true
                     },
-                    "chartCursor": {
-                        "enabled": true
-                    },
                     "chartScrollbar": {
                         "enabled": true
                     },
+                    "chartCursor": {
+                        "enabled": true,
+                        "categoryBalloonEnabled": true
+                    },
+                    
                     "trendLines": [],
                     "graphs": [
                         {
                             "fillAlphas": 0.7,
                             "id": "AmGraph-1",
-                            "lineAlpha": 0,
+                            "lineAlpha": 1,
                             "title": "graph 1",
                             "valueField": "column-1"
                         },
                         {
                             "fillAlphas": 0.7,
                             "id": "AmGraph-2",
-                            "lineAlpha": 0,
+                            "lineAlpha": 1,
                             "title": "graph 2",
                             "valueField": "column-2"
                         }
@@ -299,12 +304,12 @@
                     "dataProvider": [
                         {
                             "date": "2014-03-01",
-                            "column-1": 8,
+                            "column-1": 18,
                             "column-2": 5
                         },
                         {
                             "date": "2014-03-02",
-                            "column-1": 6,
+                            "column-1": 16,
                             "column-2": 7
                         },
                         {
@@ -333,8 +338,7 @@
                             "column-2": 8
                         }
                     ]
-                }
-            );
+                }); //end of social tone
     </script>
 
 </head>
@@ -360,7 +364,7 @@
     </nav>
 
     <!-- Header -->
-    <header style="height: 3000px">
+    <header style="height: 2300px">
         <div class="container" style="width: 100%; padding-left:50px; padding-right:50px;background-color:transparent;">
             <div class="row">
                 <div class="col-lg-12" >
@@ -385,7 +389,7 @@
 
             <div class="row">
                 <center><h1> Social Tone </h1></center>
-                 <div id="social" style="width: 100%; height:600px"></div>         
+                 <div id="social" style="width: 100%; height:400px"></div>         
              </div>
         </div>
         <!-- End: /.container -->
