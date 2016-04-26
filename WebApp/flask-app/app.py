@@ -133,19 +133,19 @@ def tweetlevel():
     print "In Sentence-level, session['candidate'] is - ", cand
     if cand == 'HillaryClinton':
         tweet_list = get_tweets( cand, tweet_num )
-        return render_template("pages/clinton/clinton_sa_sentence.html", )
+        return render_template("pages/clinton/clinton_sa_sentence.html",tweet_list=tweet_list )
     elif cand == 'tedcruz':
         tweet_list = get_tweets( cand, tweet_num )
-        return render_template("pages/cruz/cruz_sa_sentence.html")
+        return render_template("pages/cruz/cruz_sa_sentence.html",tweet_list=tweet_list)
     elif cand == 'JohnKasich':
         tweet_list = get_tweets( cand, tweet_num )
-        return render_template("pages/kasich/kasich_sa_sentence.html")
+        return render_template("pages/kasich/kasich_sa_sentence.html",tweet_list=tweet_list)
     elif cand == 'BernieSanders':
         tweet_list = get_tweets( cand, tweet_num )
-        return render_template("pages/sanders/sanders_sa_sentence.html")
+        return render_template("pages/sanders/sanders_sa_sentence.html",tweet_list=tweet_list)
     elif cand == 'realDonaldTrump':
         tweet_list = get_tweets( cand, tweet_num )
-        return render_template("pages/trump/trump_sa_sentence.html")
+        return render_template("pages/trump/trump_sa_sentence.html",tweet_list=tweet_list)
     else:
         print "Error in tweetlevel(). Need to make an error page"
 
