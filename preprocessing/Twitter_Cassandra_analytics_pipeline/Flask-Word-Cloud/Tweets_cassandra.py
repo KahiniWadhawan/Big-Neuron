@@ -29,9 +29,10 @@ import sys
 from CassandraDriver import CassandraAPI
 from CassandraDriver import TOKENS
 from CassandraDriver import time
+import thread
+import time
 
-
-
+Repetations = 300
 #Import secret phrase module
 
 #Reference API
@@ -49,6 +50,8 @@ class TweetAPI(CassandraAPI):
       self.access_token_secret=TOKENS.access_token_secret
       self.tweetlist=[]
       self.numb=0
+      self.repetations = 100
+
 
 
    def Connect(self):		
@@ -63,12 +66,12 @@ class TweetAPI(CassandraAPI):
 		    raw_input("")
 	
    def UserFollower(self):	# Get followers list, friend list
-		#user = self.api.get_user('sivapalakurthi')
-		user = self.api.get_user('sivapalakurthi')
-		print user.screen_name
-		print user.followers_count
-		for friend in user.friends():
-   			print friend.screen_name
+      #user = self.api.get_user('sivapalakurthi')
+      user = self.api.get_user('sivapalakurthi')
+      print user.screen_name
+      print user.followers_count
+      for friend in user.friends():
+         print friend.screen_name
 
    def Pagination(self):
 		for friend in tweepy.Cursor(self.api.friends).items():
@@ -122,6 +125,7 @@ class TweetAPI(CassandraAPI):
             for every in results:
                tweetlist.append(every.text)
 
+
             print i, "--- >",len(tweetlist),"--->",len(set(tweetlist))
          except:
             print "sleeping ..."
@@ -134,12 +138,26 @@ class TweetAPI(CassandraAPI):
          #for each in results:
          #   print each.text
          #raw_input("")
+
+
    def SearchAPI(self):
       
       try:
-         for i,tweet in enumerate(tweepy.Cursor(self.api.search,q="Donald OR Trump OR DonaldTrump OR Donald trump",lang="en",locale="en",count=100).items()):
+         for i,tweet in enumerate(tweepy.Cursor(self.api.search,q="Donald OR Trump OR DonaldTrump OR Donald trump OR trump ",lang="en",locale="en",count=100).items()):
+            '''
             print "i= ",i," ", "Tweet= ",tweet.text
             self.tweetlist.append(tweet.text)
+            print dir(tweet)
+            print tweet.text
+            print tweet.possibly_sensitive
+            print tweet.coordinates
+            print tweet.favorite_count
+            print tweet.geo
+            print tweet.place
+            break
+            '''
+            print i
+            #break
             #if (i%10==0):
             #print "TRY Length of tweets = ", len(self.tweetlist)
             self.numb=i
@@ -168,19 +186,84 @@ class TweetAPI(CassandraAPI):
          print "FINALLY numb = ", self.numb
          self.tweetlist=[]
          self.numb=0
-         
-         
-         
          #self.TestTimeout2()
-   
 
+
+   def WordCloud(self,name,Politician_name):
+      if(Politician_name=="donaldtrumpttl"):
+         self.insert_tweets = self.session.prepare("INSERT INTO donaldtrumpttl (tweet_id, lang, tweet_text, created_at,fav_cout) VALUES(?,?,?,?,?)")
+      values=None
+      executestmt=None
+           
+      try:
+
+         for i,tweet in enumerate(tweepy.Cursor(self.api.search,q=str(name),lang="en",locale="en",count=100).items()):
+            print "Inside for ",i
+
+            if(i>1 and  (i%(self.repetations) ==0)):
+               print "...Computing..."
+            if (i==1):
+               break
+               values=[]
+               executestmt=None
+              
+            print tweet.id, type(tweet.id)
+            
+            print tweet.text,type(tweet.text.replace("'",""))
+            
+            
+            print tweet.retweet_count,type(tweet.retweet_count)
+
+            print tweet.created_at,type(tweet.created_at)
+
+            print tweet.retweet_count,type(tweet.retweet_count)
+
+
+
+
+            
+            '''
+
+            print tweet.fav_cout,type(tweet.fav_cout)
+
+
+
+            values.append(tweet.id)
+            values.append(tweet.text.replace("'",""))
+            values.append(tweet.lang.replace("'",""))
+            values.append(tweet.retweet_count)
+            values.append(tweet.created_at)
+            values.append(tweet.source_url.replace("'",""))
+            values.append(tweet.possibly_sensitive.replace("'",""))
+            values.append(str(tweet.coordinates).replace("'",""))
+            values.append(tweet.fav_cout.replace("'",""))
+            values.append(tweet.geo.replace("'",""))
+            values.append(tweet.place.replace("'",""))
+
+            binding_stmt = self.insert_tweets.bind(values)
+            print "Before execute ",i
+            executestmt.execute(binding_stmt)
+            '''
+            
+      except:
+         print "Inside except ",i
+         if(len(set(self.tweetlist)) < 100000):
+            self.WordCloud(name,Politician_name)
+      finally:
+         #print "Inside finally ",i
+         #print "FINALLY len(self.tweetlist)= ",len(self.tweetlist)
+         #print "FINALLY numb = ", self.numb
+         self.tweetlist=[]
+         #self.TestTimeout2()
 
 
 if __name__ == "__main__":
    tweets =  TweetAPI()
    tweets.Connect()
-   tweets.TestIBM()
+   #tweets.TestIBM()
    #tweets.SearchAPI()
+   tweets.WordCloud("Donald OR Trump OR DonaldTrump OR Donald trump OR trump ","donaldtrumpttl")  #REMOVE THE BREAK STATEMENT
+
 
 else:
    print "Redo module load"
