@@ -142,9 +142,9 @@ def insert_data_to_table(candname):
         tweets_bound = prepare_tweets_query(candname,tweet,session)
         session.execute(tweets_bound)
         # except
-        # #inserting data to Sentencelevel table
-        # sentencelevel_bound = prepare_sentencelevel_query(candname,tweet,session)
-        # session.execute(sentencelevel_bound)
+        #inserting data to Sentencelevel table
+        sentencelevel_bound = prepare_sentencelevel_query(candname,tweet,session)
+        session.execute(sentencelevel_bound)
 
 
 def prepare_tweets_query(candname, tweet,session):
@@ -220,25 +220,31 @@ def prepare_sentencelevel_query(candname,tweet,session):
                 "joy_score," \
                 "fear_score," \
                 "sadness_score," \
-                "disgust_score) " + "values('" + \
-                str(tweet.id_str.encode('utf-8')) + "', '" + \
-                str(tweet.created_at) + "', '"  + \
-                str(date) + "', '"  + \
-                str(time) + "', '"  + \
-                str(tone_json_str.encode('utf-8')) + "', '" + \
-                str(emotion_json_str.encode('utf-8')) + "', '" + \
-                str(writing_json_str.encode('utf-8')) + "', '" + \
-                str(social_json_str.encode('utf-8')) + "', " + \
-                str(emotion_scores_dict['Anger']) + ", " + \
-                str(emotion_scores_dict['Joy']) + ", " + \
-                str(emotion_scores_dict['Fear']) + "," + \
-                str(emotion_scores_dict['Sadness']) + "," + \
-                str(emotion_scores_dict['Disgust']) + "" + \
-                ");"
+                "disgust_score) " + \
+                " VALUES " + \
+                 "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
 
 
-    #print('sentencelevel_query :: ', sentencelevel_query)
-    return sentencelevel_query
+    prepared = session.prepare(sentencelevel_query)
+
+    bound = prepared.bind((str(tweet.id_str.encode('utf-8')),
+                           str(tweet.created_at),
+                           str(date),
+                           str(time),
+                           str(tone_json_str.encode('utf-8')),
+                           str(emotion_json_str.encode('utf-8')),
+                           str(writing_json_str.encode('utf-8')),
+                           str(social_json_str.encode('utf-8')),
+                           emotion_scores_dict['Anger'],
+                           emotion_scores_dict['Joy'],
+                           emotion_scores_dict['Fear'],
+                           emotion_scores_dict['Sadness'],
+                           emotion_scores_dict['Disgust']
+                           ))
+
+
+    print('sentencelevel_query :: ', bound)
+    return bound
 
 
 #def prepare_topics_query():
@@ -367,11 +373,11 @@ def gen_doclevel_json(candname, file_path):
         fear_score_norm = (fear_score/float(total_score)) * 100
         disgust_score_norm = (disgust_score/float(total_score)) * 100
 
-        temp["anger"] = anger_score_norm
-        temp["joy"] = joy_score_norm
-        temp["sadness"] = sadness_score_norm
-        temp["fear"] = fear_score_norm
-        temp["disgust"] =disgust_score_norm
+        temp["anger"] = round(anger_score_norm,2)
+        temp["joy"] = round(joy_score_norm,2)
+        temp["sadness"] = round(sadness_score_norm,2)
+        temp["fear"] = round(fear_score_norm,2)
+        temp["disgust"] = round(disgust_score_norm,2)
         #inserting date index in sorted date_list instead of its value
         #temp["day"] = date_key
         temp["day"] = date_list.index(date_key) + 1
@@ -380,10 +386,16 @@ def gen_doclevel_json(candname, file_path):
 
     print doc_json
 
+    #sorting doc_json - ordering it on day value
+    doc_json.sort(key=operator.itemgetter('day'))
+
+    print 'doc_json sorted :: ', doc_json
+
     #writing doc_json to provided file_path - revisit not writing
+    #revisit - permission denied to write file 
     with open(os.path.join(file_path,'doc.json'), 'wb') as outfile:
             json.dump(doc_json, outfile)
-
+    outfile.close()
 
     #return doc_json
 
@@ -483,14 +495,17 @@ def get_tweet_tones(candname,tweet_id,file_path):
         writing_json = json.loads(row.writing_json)
         with open(os.path.join(file_path,'writing.json'), 'wb') as outfile:
             json.dump(writing_json, outfile)
+        outfile.close()
 
         emotion_json = json.loads(row.emotion_json)
         with open(os.path.join(file_path,'emotion.json'), 'wb') as outfile:
             json.dump(emotion_json, outfile)
+        outfile.close()
 
         social_json = json.loads(row.social_json)
         with open(os.path.join(file_path,'social.json'), 'wb') as outfile:
             json.dump(social_json, outfile)
+        outfile.close()
 
 
     #print 'result_jsons', result_jsons
@@ -499,13 +514,13 @@ def get_tweet_tones(candname,tweet_id,file_path):
 
 
 #testing all functions here in a sequence
-insert_data_to_table('realDonaldTrump')
+#insert_data_to_table('realDonaldTrump')
 #insert_data_to_table('HillaryClinton')
 # insert_data_to_table('BernieSanders')
 # insert_data_to_table('tedcruz')
 # insert_data_to_table('JohnKasich')
 
-#gen_doclevel_json('realDonaldTrump','/data')
+gen_doclevel_json('realDonaldTrump','/data')
 #gen_doclevel_json('HillaryClinton','data/')
 #get_tweet_list('realDonaldTrump',2)
 #get_tweet_tones('realDonaldTrump','724237889886904320')
@@ -570,4 +585,4 @@ def test(candname):
 
 
 
-test('HillaryClinton')
+#test('HillaryClinton')
