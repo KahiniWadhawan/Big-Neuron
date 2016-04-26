@@ -174,66 +174,84 @@
             AmCharts.makeChart("writing", 
                 {
                     "type": "serial",
-                    "categoryField": "category",
                     "angle": 30,
                     "depth3D": 30,
-                    "backgroundColor": "transparent",
                     "startDuration": 0,
+                    "categoryField":"day",
+                    "backgroundColor": "#691A1A",   
                     "categoryAxis": {
-                        "gridPosition": "start"
+                        "gridPosition": "start",
+                        "gridAlpha":0.2,
+                        "gridColor":"transparent",
+                        "axisColor":"black",
+                        "axisAlpha":1,
+                        "dashLength": 1,
+                        "title":"Last 5 weeks - Ticks represent the days",
+                        "fontSize": 15,
+                        "centerLabels": true
                     },
                     "trendLines": [],
                     "graphs": [
                         {
                             //
                             "balloonText": "[[title]] of [[category]]:[[value]]",
-                            "fillAlphas": 1,
                             "id": "AmGraph-1",
                             "title": "Anger",
                             "type": "column",
-                            "valueField": "anger"
+                            "valueField": "anger",
+                            "lineAlpha":0,
+                            /*"lineColor":"blue",*/
+                            "fillAlphas": 1
                         },
                         {
                             "balloonText": "[[title]] of [[category]]:[[value]]",
-                            "fillAlphas": 1,
                             "id": "AmGraph-2",
                             "title": "Sadness",
                             "type": "column",
-                            "valueField": "sadness"
+                            "valueField": "sadness",
+                            "lineAlpha":0,
+                            /*"lineColor":"blue",*/
+                            "fillAlphas": 1
                         },
                         {
-                            "fillAlphas": 1,
+                            "balloonText": "[[title]] of [[category]]:[[value]]",
                             "id": "AmGraph-3",
                             "title": "Joy",
                             "type": "column",
-                            "valueField": "joy"
+                            "valueField": "joy",
+                            "lineAlpha":0,
+                            /*"lineColor":"blue",*/
+                            "fillAlphas": 1
                         }
                     ],
-                    "guides": [],
                     "valueAxes": [
                         {
                             "id": "ValueAxis-1",
                             "stackType": "100%",
-                            "title": "Axis title"
+                            "gridAlpha":0.2,
+                            "gridColor":"black",
+                            "axisColor":"black",
+                            "axisAlpha":1,
+                            "dashLength":5,
+                            "title": "Writing Tone ",
+                            "titleColor":"black",
+                            "unit": "",
+                            "fontSize": 15
                         }
                     ],
-                    "allLabels": [],
-                    "balloon": {},
+                    
                     "legend": {
                         "enabled": true,
-                        "useGraphSettings": true
+                        "useGraphSettings": true,
+                        "color": "black",
+                        "fontSize": 15,
+                        "align":"right"
                     },
-                    "titles": [
-                        {
-                            "id": "Title-1",
-                            "size": 15,
-                            "text": "Chart Title"
-                        }
-                    ],
-                    "dataLoader": {
+                    
+                    "dataLoader": {    
                         "url": "static/data/trump_emotion_doc.json",
                         "showCurtain": false
-                      },
+                      }
                 }
             ); //end of amcharts for writing
     </script>
@@ -261,8 +279,8 @@
     </nav>
 
     <!-- Header -->
-    <header style="height: 1000px">
-        <div class="container" style="width: 100%; padding-left:50px; padding-right:50px;">
+    <header style="height: 3000px">
+        <div class="container" style="width: 100%; padding-left:50px; padding-right:50px;background-color:transparent;">
             <div class="row">
                 <div class="col-lg-12" >
                     <div class="intro-text" style="padding-bottom: 5px">
@@ -272,21 +290,22 @@
                     </div>
                     <div id="xyz" style="background-color:transparent;">
                          <center><h1> Emotion Tone </h1></center>
-                        <div id="emotion" style="width: 100%; height: 600px;"></div>
+                        <div id="emotion" style="width: 100%; height:600px"></div>
+
+                        <center><h1> Writing Tone </h1></center>
+                        <div id="writing" style="width: 100%; height: 600px"></div>
                     </div>  
                  </div>
                 <!-- End: /.col-lg-12 -->
             </div>
             <!-- End: /row -->   
             <div class="row">
-                <center><h1> Writing Tone </h1></center>
-                <div id="writing" style="width: 100%; height: 600px;"></div>
+                
             </div> 
 
-             <div class="row">
+             <div class="row" style="">
                 <center><h1> Social Tone </h1></center>
-                <div id="social" style="width: 100%; height: 600px;"></div>
-            </div>         
+                <div id="social" style="width: 100%; height:100%;background-color:transparent "></div>         
         </div>
         <!-- End: /.container -->
    
