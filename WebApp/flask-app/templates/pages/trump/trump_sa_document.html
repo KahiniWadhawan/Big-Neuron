@@ -21,7 +21,39 @@
     <script src="{{ url_for('static', filename='js/amcharts.js') }}"></script>
     <script src="{{ url_for('static', filename='js/dataloader.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/serial.js') }}"></script>
+    <style>
+        header {
+        background: linear-gradient(25deg, #013467, #044689, #0052a5, #cc172a, #960c1a, #650912);
+        background-size: 300% 300%;
 
+        -webkit-animation: USflagintense 25s ease infinite;
+        -moz-animation: USflagintense 25s ease infinite;
+        -o-animation: USflagintense 25s ease infinite;
+        animation: USflagintense 25s ease infinite;
+        }
+        /* Animations */
+        @-webkit-keyframes USflagintense {
+            0%{background-position:70% 0%}
+            50%{background-position:31% 100%}
+            100%{background-position:70% 0%}
+        }
+        @-moz-keyframes USflagintense {
+            0%{background-position:70% 0%}
+            50%{background-position:31% 100%}
+            100%{background-position:70% 0%}
+        }
+        @-o-keyframes USflagintense {
+            0%{background-position:70% 0%}
+            50%{background-position:31% 100%}
+            100%{background-position:70% 0%}
+        }
+        @keyframes USflagintense { 
+            0%{background-position:70% 0%}
+            50%{background-position:31% 100%}
+            100%{background-position:70% 0%}
+        
+       }
+    </style>
     <!-- amCharts javascript code -->
     <script type="text/javascript">
             AmCharts.makeChart("chartdiv",
@@ -29,7 +61,7 @@
                     "type": "serial",
                     "categoryField": "category",
                     "angle": 25,
-                    "depth3D": 30,
+                    "depth3D": 20,
                     "startDuration": 1,
                     "categoryField":"day",
                     "categoryAxis": {
@@ -59,7 +91,7 @@
                             "valueField": "anger",
                             "lineAlpha":0,
                             "lineColor":"#32526f",
-                            "fillAlphas": 1,
+                            "fillAlphas": 1
                         },
                         // Digust Graph
                         {
@@ -71,7 +103,7 @@
                             "valueField": "disgust",
                             "lineAlpha":0,
                             "lineColor":"#D81B60",
-                            "fillAlphas": 1,
+                            "fillAlphas": 1
                         },
                         // Sadness Graph
                         {
@@ -83,7 +115,7 @@
                             "valueField": "sadness",
                             "lineAlpha":0,
                             "lineColor":"green",
-                            "fillAlphas": 1,
+                            "fillAlphas": 1
                         },
                         // Fear Graph
                         {
@@ -95,7 +127,7 @@
                             "valueField": "fear",
                             "lineAlpha":0,
                             "lineColor":"yellow",
-                            "fillAlphas": 1,
+                            "fillAlphas": 1
                         },
                         // Joy Graph
                         {
@@ -107,11 +139,10 @@
                             "valueField": "joy",
                             "lineAlpha":0,
                             "lineColor":"blue",
-                            "fillAlphas": 1,
+                            "fillAlphas": 1
                         }
                     ],  //end of the graphs definition
-                    "guides": [],
-                    "valueAxes":  {
+                    "valueAxes":  [{
                             "stackType":"3d", // This line makes chart 3D stacked (columns are placed one behind another)
                             "gridAlpha":0.2,
                             "gridColor":"#FFFFFF",
@@ -122,7 +153,7 @@
                             "titleColor":"#FFFFFF",
                             "unit": "",
                             "fontSize": 12
-                        },
+                        }],
                     
                
                     "allLabels": [],
@@ -131,128 +162,13 @@
                         "enabled": true,
                         "useGraphSettings": true,
                         "color": "#FFFFFF",
-                        "fontSize": 14,
+                        "fontSize": 18,
                         "align":"right"
 
                     }
-                    /*"titles": [
-                        {
-                            "id": "Title-1",
-                            "size": 15,
-                            "text": "Chart Title"
-                        }
-                    ]*/
-                }); //end of makeChart function
                     
-
-
-
-            /*AmCharts.ready(function () {
-                // SERIAL CHART
-                //chart = new AmCharts.AmSerialChart();
-                //chart.dataProvider = chartData;
-                chart.categoryField = "day";
-                chart.color = "#FFFFFF";
-                chart.fontSize = 10;
-                chart.startDuration = 1.5;
-                chart.plotAreaFillAlphas = 0.2;
-                // the following two lines makes chart 3D
-                chart.angle = 25;
-                chart.depth3D = 80;
-                //chart.legend.enabled = true;
-
-               /* var legend = new AmCharts.AmLegend();
-                chart.addLegend(legend);
-                legend.color = "#FFFFFF"
-                legend.fontSize = 14
-                legend.align = "right"
-
-                // AXES
-                // category
-                var categoryAxis = chart.categoryAxis;
-                categoryAxis.gridAlpha = 0.2;
-                categoryAxis.gridPosition = "start";
-                categoryAxis.gridColor = "#FFFFFF";
-                categoryAxis.axisColor = "#FFFFFF";
-                categoryAxis.axisAlpha = 0.5;
-                categoryAxis.dashLength = 1;
-                categoryAxis.title = "Last 5 weeks - Ticks represent the days";
-                categoryAxis.fontSize = 12;
-                categoryAxis.centerLabels = true;
-
-                // value
-                var valueAxis = new AmCharts.ValueAxis();
-                valueAxis.stackType = "3d"; // This line makes chart 3D stacked (columns are placed one behind another)
-                valueAxis.gridAlpha = 0.2;
-                valueAxis.gridColor = "#FFFFFF";
-                valueAxis.axisColor = "#FFFFFF";
-                valueAxis.axisAlpha = 0.5;
-                valueAxis.dashLength = 5;
-                valueAxis.title = "Emotion Tone ";
-                valueAxis.titleColor = "#FFFFFF";
-                valueAxis.unit = "";
-                valueAxis.fontSize = 12;
-                chart.addValueAxis(valueAxis);
-
-                // GRAPHS
-                // first graph
-                var graph1 = new AmCharts.AmGraph();
-                graph1.title = "Anger";
-                graph1.valueField = "anger";
-                graph1.type = "column";
-                graph1.lineAlpha = 0;
-                graph1.lineColor = "#32526f";
-                graph1.fillAlphas = 1;
-                graph1.balloonText = "<i>[[category]]</i>  Anger: <b>[[value]]</b>";
-                chart.addGraph(graph1);
-
-                // second graph
-                var graph2 = new AmCharts.AmGraph();
-                graph2.title = "Fear";
-                graph2.valueField = "fear";
-                graph2.type = "column";
-                graph2.lineAlpha = 0;
-                graph2.lineColor = "#D81B60";
-                graph2.fillAlphas = 1;
-                graph2.balloonText = "fear: <b>[[value]]</b>";
-                chart.addGraph(graph2);
-        
-                // third graph
-                var graph2 = new AmCharts.AmGraph();
-                graph2.title = "Disgust";
-                graph2.valueField = "disgust";
-                graph2.type = "column";
-                graph2.lineAlpha = 0;
-                graph2.lineColor = "#FFB300";
-                graph2.fillAlphas = 1;
-                graph2.balloonText = "<i>[[category]]</i> Disgust: <b>[[value]]</b>";
-                chart.addGraph(graph2);
-
-                // fourth graph
-                var graph2 = new AmCharts.AmGraph();
-                graph2.title = "Joy";
-                graph2.valueField = "joy";
-                graph2.type = "column";
-                graph2.lineAlpha = 0;
-                graph2.lineColor = "#FF1744";
-                graph2.fillAlphas = 1;
-                graph2.balloonText = "Joy: <b>[[value]]</b>";
-                chart.addGraph(graph2);
-
-                // fifth graph
-                var graph2 = new AmCharts.AmGraph();
-                graph2.title = "sadness";
-                graph2.valueField = "sadness";
-                graph2.type = "column";
-                graph2.lineAlpha = 0;
-                graph2.lineColor = "#5E35B1";
-                graph2.fillAlphas = 1;
-                graph2.balloonText = "sadness: <b>[[value]]</b>";
-                chart.addGraph(graph2);
-
-                chart.write("chartdiv");
-            });*/
-     </script>
+                }); //end of makeChart function
+    </script>
 
 </head>
 
@@ -297,7 +213,7 @@
         </div>
         <!-- End: /.container -->
    
-    </header>px
+    </header>
 
 
 
