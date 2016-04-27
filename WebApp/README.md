@@ -19,8 +19,8 @@ Big Neuron's **[ELECTIONITICS](http://electionitics.press)** was created by and 
 Big Data| Spring 2016 | University of Colorado Boulder | Professor: Gregory Greenstreet
 
 ### Project Pipeline:  
-![alt tag](/flask-app/static/img/pipeline.png)  
 ![Alt text](/flask-app/static/img/pipeline.png?raw=true "Electionitics Pipeline")
+ 
 
 ### Project Tools:
 + Data Source: Twitter Streaming Api
