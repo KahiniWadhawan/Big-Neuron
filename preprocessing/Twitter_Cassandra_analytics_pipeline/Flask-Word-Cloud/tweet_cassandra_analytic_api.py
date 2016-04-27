@@ -139,15 +139,6 @@ class TweetAPI(CassandraAPI):
             print "sleeping ..."
             time.sleep(15*60)
 
-         
-         
-         #print "bankai",len(results)
-         #print i, "----> ",  len(results)
-         #for each in results:
-         #   print each.text
-         #raw_input("")
-
-
    def SearchAPI(self):
       
       try:
@@ -165,51 +156,22 @@ class TweetAPI(CassandraAPI):
             break
             '''
             print i
-            #break
-            #if (i%10==0):
-            #print "TRY Length of tweets = ", len(self.tweetlist)
-            self.numb=i
-            #print "TRY Length of unique tweets = ",len(set(self.tweetlist))            
-            #print "TRY Numb = ",self.numb,"\n\n\n"
-               #raw_input("")
-         #self.numb+=i
-         #print "TRY (FOR) Numb = ",self.numb 
-         #print "TRY (FOR) Length of tweets = ", len(self.tweetlist)
-         #print "TRY (FOR) Length of unique tweets = ",len(set(self.tweetlist))
+             self.numb=i
 
       except:
-
-         #print "EXCEPT Sleeping ..."
-         #print "EXCEPT numb= ",self.numb
-         #print "EXCEPT Length of tweets = ", len(self.tweetlist)
-         #print "EXCEPT Length of unique tweets = ",len(set(self.tweetlist)),"\n\n\n"
-
          if(len(set(self.tweetlist)) < 15000):
             self.SearchAPI()
-
-         #print "Unexpected error:", sys.exc_info()[0]
-      
       finally:
          print "FINALLY len(self.tweetlist)= ",len(self.tweetlist)
          print "FINALLY numb = ", self.numb
          self.tweetlist=[]
          self.numb=0
-         #self.TestTimeout2()
 
 
    def WordCloud(self,twitter_tags_list,politician_table,repeat):
       if(repeat == "NO"):
       
-         #logFile = "/home/piyush/Big-neuron/Big-Neuron/preprocessing/Twitter_Cassandra_analytics_pipeline/Flask-Word-Cloud/static/data.json"  # Should be some file on the server
-         sc = SparkContext("local", "Simple App")
-         #logData = sc.textFile(logFile).cache()
-         #numAs = logData.filter(lambda s: 'a' in s).count()
-         #numBs = logData.filter(lambda s: 'b' in s).count()
-         
-         #print("Lines with a: %i, lines with b: %i" % (numAs, numBs))
-      
-
-
+         sc = SparkContext("local", "Simple App")     
       if(politician_table=="donaldtrumpttl"):
          self.prepared_insert_tweets = self.session.prepare("INSERT INTO donaldtrumpttl (tweet_id, lang, tweet_text, created_at, retweet_count) VALUES(?,?,?,?,?) USING TTL 3600")
          #self.prepared_retrive_tweets = self.session.prepare("SELECT * FROM donaldtrumpttl LIMIT 100")
@@ -366,25 +328,6 @@ class TweetAPI(CassandraAPI):
                WordCloudJSON_1.write('{"key": \" '  + (each4_list_names[19]).replace("\"","").encode('utf-8')+'\" , "value": ' +str(each4_list_numbers[19])+ ' }]')
                WordCloudJSON_1.close()
                #time.sleep(10)
-         
-
-
-
-
-
-
-
-            '''
-            [{"key": "fish", "value": 11},{"key": "things", "value": 12},{"key": "look", "value": 13}]
-            '''
-
-
-            #[{"year": "Anger","income": 23.5},{"year": "Disgust","income": 26.2},{"year": "Fear","income": 30.1},{"year": "Joy","income": 29.5},{"year": "Sadness","income": 24.6}]
-
-
-            #print 
-            #exit()
-            #print json.dumps(self.tone_analyzer.tone(text=textlist), indent=2)
          values=[]
          rows=None
          values.append(tweet.id)
@@ -394,8 +337,6 @@ class TweetAPI(CassandraAPI):
          values.append(tweet.retweet_count)
          binding_stmt = self.prepared_insert_tweets.bind(values)
          executestmt=self.session.execute(binding_stmt)
-         
-      
       except:
          #print "Inside except ",i
          if(len(set(self.tweetlist)) < 100000):
@@ -407,15 +348,11 @@ class TweetAPI(CassandraAPI):
          #print "FINALLY numb = ", self.numb
          self.tweetlist=[]
          #self.TestTimeout2()
-
-
 if __name__ == "__main__":
    tweets =  TweetAPI()
    tweets.Connect()
    #tweets.TestIBM()
    #tweets.SearchAPI()
-   
-
    #tweets.TestIBM()
    tweets.WordCloud("Donald OR Trump OR DonaldTrump OR Donald trump OR trump ","donaldtrumpttl","NO")  #REMOVE THE BREAK STATEMENT
 

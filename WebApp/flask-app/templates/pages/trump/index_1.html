@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>Electionitics on Trump by Big Neuron</title>
+
+        <!-- Bootstrap Core CSS - Uses Bootswatch Flatly Theme: http://bootswatch.com/flatly/ -->
+        <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+
+        <!-- Custom CSS -->
+        <link href="{{ url_for('static', filename='css/freelancer.css') }}" rel="stylesheet">
+        <link href="{{ url_for('static', filename='css/hover.css') }}" rel="stylesheet">
+
+        <!-- Custom Fonts -->
+        <link href="{{ url_for('static', filename='font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
+        <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+        <link href="http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+
+        <!-- Scripts needed for wordcloud -->
+        <script type="text/javascript" src="/static/d3.js"></script>
+        <script type="text/javascript" src="/static/d3.layout.cloud.js"></script>
+        <script type="text/javascript" src="/static/jquery.min.js"></script>
+        <link rel="stylesheet" href="/static/style.css" type="text/css">
+        <script src="/static/amcharts.js" type="text/javascript"></script>
+        <script src="/static/serial.js" type="text/javascript"></script>
+        <style>
+
+            header {
+            background: linear-gradient(25deg, #013467, #044689, #0052a5, #cc172a, #960c1a, #650912);
+            background-size: 600% 600%;
+
+            -webkit-animation: USflagintense 25s ease infinite;
+            -moz-animation: USflagintense 25s ease infinite;
+            -o-animation: USflagintense 25s ease infinite;
+            animation: USflagintense 25s ease infinite;
+            }
+            /* Animations */
+            @-webkit-keyframes USflagintense {
+                0%{background-position:70% 0%}
+                50%{background-position:31% 100%}
+                100%{background-position:70% 0%}
+            }
+            @-moz-keyframes USflagintense {
+                0%{background-position:70% 0%}
+                50%{background-position:31% 100%}
+                100%{background-position:70% 0%}
+            }
+            @-o-keyframes USflagintense {
+                0%{background-position:70% 0%}
+                50%{background-position:31% 100%}
+                100%{background-position:70% 0%}
+            }
+            @keyframes USflagintense { 
+                0%{background-position:70% 0%}
+                50%{background-position:31% 100%}
+                100%{background-position:70% 0%}
+            
+           }
+   
+            .container {
+                margin:  30px auto;
+                width: 1000px;
+            }
+
+            .container > div {
+                width: 33%;
+            }
+            .col1 {
+                float: left;
+            }
+            .col2 {
+                float: right;
+            }
+            .col3 {
+                margin: auto;
+            }
+        </style>
+
+<script type="text/javascript">
+    
+ AmCharts.ready(function () {
+                // SERIAL CHART
+                chart = new AmCharts.AmSerialChart();
+                chart.dataProvider = chartData1;
+                chart.categoryField = "year";
+                // this single line makes the chart a bar chart,
+                // try to set it to false - your bars will turn to columns
+                chart.rotate = true;
+                // the following two lines makes chart 3D
+                chart.depth3D = 20;
+                chart.angle = 30;
+                chart.handDrawn=true;
+                chart.handDrawScatter=6;
+                chart.startDuration= 1;
+                chart.handDrawThickness= 2;
+
+                // AXES
+                // Category
+                var categoryAxis = chart.categoryAxis;
+                categoryAxis.gridPosition = "start";
+                categoryAxis.axisColor = "black";
+                categoryAxis.fillAlpha = 1;
+                categoryAxis.gridAlpha = 0;
+                categoryAxis.fillColor = "#FAFAFA";
+
+                // value
+                var valueAxis = new AmCharts.ValueAxis();
+                valueAxis.axisColor = "black";
+                valueAxis.title = "Emotion Tone";
+                valueAxis.gridAlpha = 0.1;
+                chart.addValueAxis(valueAxis);
+
+                // GRAPH
+                var graph = new AmCharts.AmGraph();
+                graph.title = "Income";
+                graph.valueField = "income";
+                graph.type = "column";
+                graph.balloonText = "<b>[[category]]:[[value]]</b>";
+                graph.lineAlpha = 0;
+                graph.fillColors = "#9999ff";       //light purple
+                graph.fillAlphas = 1;
+                chart.addGraph(graph);
+
+                chart.creditsPosition = "top-right";
+
+                // WRITE
+                chart.write("chartdiv1");
+            });
+
+ AmCharts.ready(function () {
+                // SERIAL CHART
+                chart = new AmCharts.AmSerialChart();
+                chart.dataProvider = chartData2;
+                chart.categoryField = "year";
+                // this single line makes the chart a bar chart,
+                // try to set it to false - your bars will turn to columns
+                chart.rotate = true;
+                // the following two lines makes chart 3D
+                chart.depth3D = 20;
+                chart.angle = 30;
+                chart.handDrawn=true;
+                chart.handDrawScatter=6;
+                chart.startDuration= 1;
+                chart.handDrawThickness= 2;
+
+                // AXES
+                // Category
+                var categoryAxis = chart.categoryAxis;
+                categoryAxis.gridPosition = "start";
+                categoryAxis.axisColor = "#DADADA";
+                categoryAxis.fillAlpha = 1;
+                categoryAxis.gridAlpha = 0;
+                categoryAxis.fillColor = "#FAFAFA";
+
+                // value
+                var valueAxis = new AmCharts.ValueAxis();
+                valueAxis.axisColor = "#DADADA";
+                valueAxis.title = "Social Tone";
+                valueAxis.gridAlpha = 0.1;
+                chart.addValueAxis(valueAxis);
+
+                // GRAPH
+                var graph = new AmCharts.AmGraph();
+                graph.title = "Emotion Tone";
+                graph.valueField = "income";
+                graph.type = "column";
+                graph.balloonText = "[[category]]:[[value]]";
+                graph.lineAlpha = 0;
+                graph.fillColors = "#bf1c25";       //red
+                graph.fillAlphas = 1;
+                chart.addGraph(graph);
+
+                chart.creditsPosition = "top-right";
+
+                // WRITE
+                chart.write("chartdiv2");
+            });
+
+
+ AmCharts.ready(function () {
+                // SERIAL CHART
+                chart = new AmCharts.AmSerialChart();
+                chart.dataProvider = chartData2;
+                chart.categoryField = "year";
+                // this single line makes the chart a bar chart,
+                // try to set it to false - your bars will turn to columns
+                chart.rotate = true;
+                // the following two lines makes chart 3D
+                chart.depth3D = 20;
+                chart.angle = 30;
+                chart.handDrawn=true;
+                chart.handDrawScatter=6;
+                chart.startDuration= 1;
+                chart.handDrawThickness= 2;
+
+                // AXES
+                // Category
+                var categoryAxis = chart.categoryAxis;
+                categoryAxis.gridPosition = "start";
+                categoryAxis.axisColor = "#DADADA";
+                categoryAxis.fillAlpha = 1;
+                categoryAxis.gridAlpha = 0;
+                categoryAxis.fillColor = "#FAFAFA";
+
+
+                // value
+                var valueAxis = new AmCharts.ValueAxis();
+                valueAxis.axisColor = "#DADADA";
+                valueAxis.title = "Writing Tone";
+                valueAxis.gridAlpha = 0.1;
+                chart.addValueAxis(valueAxis);
+
+                // GRAPH
+                var graph = new AmCharts.AmGraph();
+                graph.title = "Social Tone";
+                graph.valueField = "income";
+                graph.type = "column";
+                graph.balloonText = "[[category]]:[[value]]";
+                graph.lineAlpha = 0;
+                graph.fillColors = "#0052A5";       //blue
+                graph.fillAlphas = 1;
+                chart.addGraph(graph);
+
+                chart.creditsPosition = "top-right";
+
+                // WRITE
+                chart.write("chartdiv3");
+            });
+
+
+</script>>
+</head>
+<body id="page-top" class="index">
+   <!--  <!-- Navigation -->
+    <!-- TOP Nav Bar -->
+    <nav class="navbar navbar-default navbar-fixed-top" style="padding-right: 20px; background: transparent">
+        <!-- Responsive Design -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{{ url_for('home') }}" style="padding: 20px">Big Neuron</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right" style="padding-right: 20px; ">
+                <li class="hidden">
+                    <a href="#page-top"></a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </nav> -->
+
+
+
+    
+    <!-- Wordcloud -->
+    <div id="vis"></div>
+    <script type="text/javascript" src="/static/word-cloud.js"></script>
+
+    <!-- bar charts -->
+    <div class="container">
+    <div class="col1">
+         <div id="chartdiv1" style="width: 300px; height: 300px;"></div>
+    </div>
+    <div class="col2">
+         <div id="chartdiv2" style="width: 300px; height: 300px;"></div>
+    </div>
+    <div class="col3">
+        <div id="chartdiv3" style="width: 300px; height: 300px;"></div>
+    </div>
+</div>
+
+    
+
+    
+
+
+
+    
+
+
+            
+            
+
+</body>
+</html>
+
