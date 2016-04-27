@@ -8,9 +8,9 @@
 '''
 
 '''
-Realtime
+Realtime content starts
 '''
-''' UNCOMMENT THIS OUT BEFORE CHECKING IN CHANGES
+
 import tweepy
 import json
 import TOKENS
@@ -26,9 +26,9 @@ consumer_key = TOKENS.consumer_key
 consumer_secret = TOKENS.consumer_secret
 access_token = TOKENS.access_token
 access_token_secret = TOKENS.access_token_secret
+
 '''
-'''
-Realtime
+Realtime content ends
 '''
 
 
@@ -85,8 +85,7 @@ def select_candidate():
             elif radio == 'sanders':
                 return render_template("pages/sanders/sanders.html", cand=radio)
             elif radio == 'trump':
-
-                return render_template("/templates/index2.html", cand=radio)#trump.html
+                return render_template("pages/trump/trump.html", cand=radio)#trump.html
             else:
                 retVal = "Error in select_candidate(). Need to make an error page"
                 return retVal
