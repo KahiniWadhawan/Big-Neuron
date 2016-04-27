@@ -1,3 +1,7 @@
+/*
+Source: http://bl.ocks.org/mbostock/4062045
+Modified By: Kahini Wadhawan
+ */
 var width = window.innerWidth,
     height = window.innerHeight;
 
