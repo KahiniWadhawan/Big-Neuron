@@ -59,13 +59,16 @@ PRIMARY KEY (tweet_id,date));
 //revisit
 
 
-/*
-CREATE TABLE IF NOT EXISTS realDonaldTrump_wordcloud (
-counter bigint primary key,
+#------------------------------------------------------------
+#Table for Donald Trump Time to live tweets
+#------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS DonaldTrumpTTL (
+tweet_id bigint primary key,
 tweet_text varchar,
 lang varchar,
-retweet_count bigint);
-*/
+retweet_count bigint,
+created_at timestamp
+);
 
 //revisit - decide on fields
 CREATE TABLE IF NOT EXISTS realDonaldTrump_topics (
@@ -125,13 +128,16 @@ PRIMARY KEY (tweet_id,date));
 //revisit
 
 
-/*
-CREATE TABLE IF NOT EXISTS HillaryClinton_wordcloud (
-counter bigint primary key,
+#------------------------------------------------------------
+#Table for HillaryClinton Time to live tweets
+#------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS HillaryClintonTTL (
+tweet_id bigint primary key,
 tweet_text varchar,
 lang varchar,
-retweet_count bigint);
-*/
+retweet_count bigint,
+created_at timestamp
+);
 
 //revisit - decide on fields
 CREATE TABLE IF NOT EXISTS HillaryClinton_topics (
@@ -192,13 +198,17 @@ PRIMARY KEY (tweet_id,date));
 //revisit
 
 
-/*
-CREATE TABLE IF NOT EXISTS BernieSanders_wordcloud (
-counter bigint primary key,
+#------------------------------------------------------------
+#Table for BernieSanders Time to live tweets
+#------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS BernieSandersTTL (
+tweet_id bigint primary key,
 tweet_text varchar,
 lang varchar,
-retweet_count bigint);
-*/
+retweet_count bigint,
+created_at timestamp
+);
+
 
 //revisit - decide on fields
 CREATE TABLE IF NOT EXISTS BernieSanders_topics (
@@ -260,13 +270,17 @@ PRIMARY KEY (tweet_id,date));
 //revisit
 
 
-/*
-CREATE TABLE IF NOT EXISTS tedcruz_wordcloud (
-counter bigint primary key,
+#------------------------------------------------------------
+#Table for tedcruz Time to live tweets
+#------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS TedCruzTTL (
+tweet_id bigint primary key,
 tweet_text varchar,
 lang varchar,
-retweet_count bigint);
-*/
+retweet_count bigint,
+created_at timestamp
+);
+
 
 //revisit - decide on fields
 CREATE TABLE IF NOT EXISTS tedcruz_topics (
@@ -326,13 +340,17 @@ PRIMARY KEY (tweet_id,date));
 //revisit
 
 
-/*
-CREATE TABLE IF NOT EXISTS JohnKasich_wordcloud (
-counter bigint primary key,
+#------------------------------------------------------------
+#Table for JohnKasich Time to live tweets
+#------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS JohnKasichTTL (
+tweet_id bigint primary key,
 tweet_text varchar,
 lang varchar,
-retweet_count bigint);
-*/
+retweet_count bigint,
+created_at timestamp
+);
+
 
 //revisit - decide on fields
 CREATE TABLE IF NOT EXISTS JohnKasich_topics (
