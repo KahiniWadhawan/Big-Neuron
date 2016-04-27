@@ -17,6 +17,42 @@ body.clintonpage {
     background-size: cover;
 }
 
+/* JESS */
+body.cruzpage {
+    background: url(../img/candidates/cruz.png) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+/* JESS */
+body.kasichpage {
+    background: url(../img/candidates/kasich.png) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+/* JESS */
+body.sanderspage {
+    background: url(../img/candidates/sanders.png) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+/* JESS */
+body.trumppage {
+    background: url(../img/candidates/trump.png) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
 
 p {
     font-size: 20px;
