@@ -9,17 +9,16 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>The Election Buzz on Cruz by Big Neuron</title>
+    <title>The Electionitics on Cruz by Big Neuron</title>
 
     <!-- Bootstrap Core CSS - Uses Bootswatch Flatly Theme: http://bootswatch.com/flatly/ -->
     <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <!--<link href="{{ url_for('static', filename='css/freelancer.css') }}" rel="stylesheet">-->
+    <link href="{{ url_for('static', filename='css/freelancer.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', filename='css/freelancer_1.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', filename='css/hover.css') }}" rel="stylesheet">
-    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
-    
+
     <!-- Custom Fonts -->
     <link href="{{ url_for('static', filename='font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
@@ -27,42 +26,44 @@
 
 </head>
 
-<body id="page-top" class="index cruz-page">
+<body id="page-top" class="index cruzpage">
 
     <!-- Navigation -->
-    <!-- TOP Nav Bar -->
-    <nav class="navbar navbar-default navbar-fixed-top" style="padding-right: 20px; background: transparent">
-        <!-- Responsive Design -->
-        <div class="navbar-header page-scroll">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#page-top" style="padding: 20px">Big Neuron</a>
-        </div>
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container" style="width:100%">
+            <!-- Brand and toggle get grouped for better mobile display -->     
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{{ url_for('home') }}" style="padding-left:20px">Big Neuron</a>
+            </div>
 
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav navbar-right" style="padding-right: 20px; ">
-                <li class="hidden">
-                    <a href="#page-top"></a>
-                </li>
-            </ul>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav" style="padding-right: 20px">
+                    <li class="hidden">
+                        <a href="#page-top"></a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
         </div>
-        <!-- /.navbar-collapse -->
+        <!-- /.container-fluid -->
     </nav>
 
     <!-- Header -->
-    <header style="background: transparent;">
+    <header class="cand-hm-pg">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="intro-text" style="padding-top: 15px">
                         <span class="name">Ted Cruz</span>
                         <hr class="star-light">
-                        <span class="skills">The big data election buzz on Ted Cruz, 2016 Presidential Candidate.</span>
+                        <span class="skills">The big data Electionitics on Ted Cruz, 2016 Presidential Candidate.</span>
                     </div>
                     
                 </div>
@@ -81,21 +82,21 @@
                 <div class="col-sm-4">           
                     <!-- Word Cloud -->
                     <a href="{{ url_for('wordcloud') }}" target="_blank">
-                        <img class="circular--square hvr-buzz-out" id="myImg0" src="{{ url_for('static', filename='img/viz/wc.png') }}" alt="placeholder" title="Tweet Word Cloud">
+                       <img class="circular--square hvr-buzz-out" id="myImg0" src="{{ url_for('static', filename='img/viz/wc.png') }}" alt="placeholder" width="200px" height="200px" alt="placeholder" title="Tweet Word Cloud">
                     </a>
                     
                 </div>
                 <div class="col-sm-4">
                     <!-- SA at document level -->
                     <a href="{{ url_for('alltweet') }}" target="_blank">
-                       <img class="circular--square hvr-buzz-out" id="myImg1" src="{{ url_for('static', filename='img/viz/doc-level.png') }}" alt="placeholder" title="Twitter Sentiment Analysis">
+                       <img class="circular--square hvr-buzz-out" id="myImg1" src="{{ url_for('static', filename='img/viz/doc-level.png') }}" width="200px" height="200px" alt="placeholder" title="Twitter Sentiment Analysis">
                     </a>
                     
                 </div>
                 <div class="col-sm-4">
                     <!-- SA at sentence level -->
                     <a href="{{ url_for('tweetlevel') }}" target="_blank">
-                       <img class="circular--square hvr-buzz-out" id="myImg2" src="{{ url_for('static', filename='img/viz/tweet-level.png') }}" alt="placeholder" title="Tweet-Level Sentiment Analysis">
+                       <img class="circular--square hvr-buzz-out" id="myImg2" src="{{ url_for('static', filename='img/viz/tweet-level.png') }}" width="200px" height="200px" alt="placeholder" title="Tweet-Level Sentiment Analysis">
                     </a>                   
                 </div>                
             </div>
@@ -105,29 +106,30 @@
                 <div class="col-sm-4">
                     <!-- Follower Network -->
                     <a href="{{ url_for('network') }}" target="_blank">
-                       <img class="circular--square hvr-buzz-out" id="myImg3" src="{{ url_for('static', filename='img/viz/network-f.png') }}" alt="placeholder" title="Twitter Follower Network">
+                       <img class="circular--square hvr-buzz-out" id="myImg3" src="{{ url_for('static', filename='img/viz/network-f.png') }}" width="200px" height="200px" alt="placeholder" title="Twitter Follower Network">
                     </a>
                 </div>
                 <div class="col-sm-4">
                     <!-- Topic Modeling -->
                     <a href="{{ url_for('topic') }}" target="_blank">
-                       <img class="circular--square hvr-buzz-out" id="myImg4" src="{{ url_for('static', filename='img/viz/topic-m.png') }}" alt="placeholder" title="Tweet Topic Modeling">
+                       <img class="circular--square hvr-buzz-out" id="myImg4" src="{{ url_for('static', filename='img/viz/topic-m.png') }}" width="200px" height="200px" alt="placeholder" title="Tweet Topic Modeling">
                     </a>
                 </div>
                 <div class="col-sm-4">
                     <!-- Realtime SA -->
                     <a href="{{ url_for('realtime') }}" target="_blank">
-                       <img class="circular--square hvr-buzz-out" id="myImg5" src="{{ url_for('static', filename='img/viz/realtime.png') }}" alt="placeholder" title="Realtime Twitter Sentiment Analysis">
+                       <img class="circular--square hvr-buzz-out" id="myImg5" src="{{ url_for('static', filename='img/viz/realtime.png') }}" width="200px" height="200px" alt="placeholder" title="Realtime Twitter Sentiment Analysis">
                     </a>                                      
                 </div>
                 <br>
             </div>
             <!-- /row --> 
+            
         </div>
         <!-- /container -->          
-
-       
+        
     </header>
+
 
     <!-- Footer -->
     <footer class="text-center">
@@ -148,23 +150,24 @@
         </a>
     </div>
 
+    
+
     <!-- jQuery -->
-    <script src="../../js/jquery.js"></script>
+    <script src="../../static/js/jquery.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../static/js/bootstrap.min.js"></script>
 
     <!-- Plugin JavaScript -->
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
-    <script src="../../js/classie.js"></script>
-    <script src="../../js/cbpAnimatedHeader.js"></script>
+    <script src="../../static/js/classie.js"></script>
+    <script src="../../static/js/cbpAnimatedHeader.js"></script>
 
     <!-- Contact Form JavaScript -->
-    <script src="../../js/jqBootstrapValidation.js"></script>
-    <script src="../../js/contact_me.js"></script>
+    <script src="../../static/js/jqBootstrapValidation.js"></script>
 
     <!-- Custom Theme JavaScript -->
-    <script src="../../js/freelancer.js"></script>
+    <script src="../../static/js/freelancer.js"></script>
 
 </body>
 
