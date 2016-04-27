@@ -7,30 +7,30 @@
         16th April, 2016
 '''
 
-'''
-Realtime content starts
-'''
-
-import tweepy
-import json
-import TOKENS
-from multiprocessing import Process
-
-from Analytics import IBMToneAnalyzer
-from multiprocessing import Process
-
-#from pipeAppToTwitterStream import PipeIt
-import twitter_stream
-import tweet_cassandra_analytic_api
-# Authentication details. To  obtain these visit dev.twitter.com
-consumer_key = TOKENS.consumer_key
-consumer_secret = TOKENS.consumer_secret
-access_token = TOKENS.access_token
-access_token_secret = TOKENS.access_token_secret
-
-'''
-Realtime content ends
-'''
+# '''
+# # Realtime content starts
+# # '''
+#
+# import tweepy
+# import json
+# import TOKENS
+# from multiprocessing import Process
+#
+# from Analytics import IBMToneAnalyzer
+# from multiprocessing import Process
+#
+# #from pipeAppToTwitterStream import PipeIt
+# import twitter_stream
+# import tweet_cassandra_analytic_api
+# # Authentication details. To  obtain these visit dev.twitter.com
+# consumer_key = TOKENS.consumer_key
+# consumer_secret = TOKENS.consumer_secret
+# access_token = TOKENS.access_token
+# access_token_secret = TOKENS.access_token_secret
+#
+# '''
+# Realtime content ends
+# '''
 
 
 
@@ -50,9 +50,11 @@ app.secret_key = 'F12Zr47j\3yX R~X@H!jmM]Lwf/,?KT'
 
 #sys.path.append(os.path.dirname(__file__) + r"/static/data/dummy_db.py")  #append path to db api module that has the method to get list of top tweets
 # from dummy_db import get_tweet_list, get_tweet_tones  #Do we have a tone analyzer module -or- are we inserting tweets by hand into IBM tone analyzer to get the json output?
-# import sys
-# sys.path.insert(0, '../../databases/cassandra/')
-# from bigneuron_cassandradb_api import get_tweet_list, get_tweet_tones
+''' For sentence-level '''
+import sys
+sys.path.insert(0, '../../databases/cassandra/')
+from bigneuron_cassandradb_api import get_tweet_list, get_tweet_tones
+''' For sentence level ends'''
 
 '''
     Renders the dashboard.
@@ -204,6 +206,15 @@ def tweetlevel():
     cand        = session['candidate']
     if cand == "trump":
         cand = "realDonaldTrump"
+    if cand == "clinton":
+        cand = "HillaryClinton"
+    if cand == "sanders":
+        cand = "BernieSanders"
+    if cand == "cruz":
+        cand = "tedcruz"
+    if cand == "kasich":
+        cand = "JohnKasich"
+
     print "CANDIDATE NAME IS --", cand
     tweet_num = 20 #for testing;
     print "In Sentence-level, session['candidate'] is - ", cand
