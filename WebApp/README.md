@@ -28,9 +28,9 @@ Big Data| Spring 2016 | University of Colorado Boulder | Professor: Gregory Gree
 + Data Source: Twitter Streaming Api
 + Analytics Tool: IBM Tone Analyzer, Gensim for Topic Modelling, NetworkX for Graph Analytics
 + Web Framework: Flask
-+ Database: Mongo DB and Apache Cassandra
++ Database: Apache Cassandra and backup using MongoDB
 + Cloud Computing Service: AWS
-+ Data Processing: Apache Spark with Kafka
++ Data Processing: Apache Spark
 
 
 ### Legacy: 
@@ -45,16 +45,14 @@ Big Data| Spring 2016 | University of Colorado Boulder | Professor: Gregory Gree
 > wordcloud/  
 
 > d3-barchart/
- - simple
+ - stacked
  - interactive legend
+ - document level
 
 > pie-chart
- - 3D pie with animation
- - donut chart with interactive legend
+ - 3D pie charts with animation showing Tweet-level (sentence-level) social and emotional tones
 
-> US Map
-
-> D3 Zoomable Pack Layout for Topic Modelling 
+> D3 Zoomable Pack Layout for Topic Modeling 
 
 > D3 Force directed graph for Follower Network
 
