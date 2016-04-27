@@ -246,11 +246,21 @@ def tweetlevel():
 def change_viz_by_id():
     retVal   = None
     cand     = session['candidate']
-    if cand=="trump":
+    if cand == "trump":
         cand = "realDonaldTrump"
+    if cand == "clinton":
+        cand = "HillaryClinton"
+    if cand == "sanders":
+        cand = "BernieSanders"
+    if cand == "cruz":
+        cand = "tedcruz"
+    if cand == "kasich":
+        cand = "JohnKasich"
+
+
     tweet_id = request.args['id'] #serial 1,2,3..
     fpath    = "static/data/"
-    if cand in ['realDonaldTrump','clinton', 'cruz', 'kasich', 'sanders', 'trump']:
+    if cand in ['realDonaldTrump','HillaryClinton','BernieSanders','tedcruz','clinton','JohnKasich' ,'cruz', 'kasich', 'sanders', 'trump']:
         get_tweet_tones(cand, tweet_id, fpath)
         retVal = ""
     else:
