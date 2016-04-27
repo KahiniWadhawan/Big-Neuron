@@ -30,8 +30,8 @@ class StdOutListener(tweepy.StreamListener,IBMToneAnalyzer):
         IBMToneJSON = self.tone_analyzer.tone(text=tweet)
         #need to give the full system path
         #need to give the full system path
-        IBMToneJSON_1= open("/home/piyush/Big-neuron/Big-Neuron/WebApp/flask-app/static/realtimesentiment.json","w")
-        TwitterRealtimef=open("/home/piyush/Big-neuron/Big-Neuron/WebApp/flask-app/static/realtimetwitter.json","w")
+        IBMToneJSON_1= open("/home/user/Desktop/Big-Neuron/WebApp/flask-app/static/realtimesentiment.json","w")
+        TwitterRealtimef=open("/home/user/Desktop/Big-Neuron/WebApp/flask-app/static/realtimetwitter.json","w")
         each1_list_names=[]
         each1_list_numbers=[]
         TwitterRealtimef.write(tweet.encode('utf-8'))
@@ -57,51 +57,57 @@ class StdOutListener(tweepy.StreamListener,IBMToneAnalyzer):
 
 
 def loop_trump():
+    print "Inside loop trump"
+
     #need to give the full system path
-    IBMToneJSON_1= open("/home/piyush/Big-neuron/Big-Neuron/WebApp/flask-app/static/realtimesentiment.json","w")
+    IBMToneJSON_1= open("/home/user/Desktop/Big-Neuron/WebApp/flask-app/static/realtimesentiment.json","w")
     l = StdOutListener()
     auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
     auth.set_access_token(access_token, access_token_secret)
     stream = tweepy.Stream(auth, l)
-    stream.filter(track=['DonaldTrump','trump2016','trump','election'])
+    stream.filter(track=['DonaldTrump','trump2016','trump'])
 
 def loop_sanders():
+    print "Inside loop sanders"
     #need to give the full system path
-    IBMToneJSON_1= open("/home/piyush/Big-neuron/Big-Neuron/WebApp/flask-app/static/realtimesentiment.json","w")
+    IBMToneJSON_1= open("/home/user/Desktop/Big-Neuron/WebApp/flask-app/static/realtimesentiment.json","w")
     l = StdOutListener()
     auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
     auth.set_access_token(access_token, access_token_secret)
     stream = tweepy.Stream(auth, l)
-    stream.filter(track=['election','bernie','sanders','berniesanders','feelthebern','berniesander'])
+    stream.filter(track=['bernie','sanders','berniesanders','feelthebern','berniesander'])
 
 def loop_clinton():
+    print "Inside loop clinton"
     #need to give the full system path
-    IBMToneJSON_1= open("/home/piyush/Big-neuron/Big-Neuron/WebApp/flask-app/static/realtimesentiment.json","w")
+    IBMToneJSON_1= open("/home/user/Desktop/Big-Neuron/WebApp/flask-app/static/realtimesentiment.json","w")
     l = StdOutListener()
     auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
     auth.set_access_token(access_token, access_token_secret)
     stream = tweepy.Stream(auth, l)
-    stream.filter(track=['election','clinton','hillary','hillaryclinton','hillary2016'])
+    stream.filter(track=['clinton','hillary','hillaryclinton','hillary2016'])
 
 
 def loop_kasich():
+    print "Inside loop kasich"
     #need to give the full system path
-    IBMToneJSON_1= open("/home/piyush/Big-neuron/Big-Neuron/WebApp/flask-app/static/realtimesentiment.json","w")
+    IBMToneJSON_1= open("/home/user/Desktop/Big-Neuron/WebApp/flask-app/static/realtimesentiment.json","w")
     l = StdOutListener()
     auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
     auth.set_access_token(access_token, access_token_secret)
     stream = tweepy.Stream(auth, l)
-    stream.filter(track=['election','kasich','johnkasich','johnkasich','kasich4us','kasich2016'])
+    stream.filter(track=['kasich','johnkasich','johnkasich','kasich4us','kasich2016'])
 
 
 def loop_cruz():
+    print "Inside loop cruz"
     #need to give the full system path
-    IBMToneJSON_1= open("/home/piyush/Big-neuron/Big-Neuron/WebApp/flask-app/static/realtimesentiment.json","w")
+    IBMToneJSON_1= open("/home/user/Desktop/Big-Neuron/WebApp/flask-app/static/realtimesentiment.json","w")
     l = StdOutListener()
     auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
     auth.set_access_token(access_token, access_token_secret)
     stream = tweepy.Stream(auth, l)
-    stream.filter(track=['election','cruz','tedcruz','tedcruz2016'])
+    stream.filter(track=['cruz','tedcruz','tedcruz2016'])
 
 def loop_b(var2):
     if(var2=='trump'):
@@ -115,6 +121,7 @@ def loop_b(var2):
     elif(var2=='kasich'):
         Process(target=loop_kasich).start()
     else:
+        print "ERRRRROR"
         pass
 
 

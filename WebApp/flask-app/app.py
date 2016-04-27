@@ -8,8 +8,9 @@
 '''
 
 '''
-Realtime
+Realtime content starts
 '''
+
 import tweepy
 import json
 import TOKENS
@@ -28,7 +29,7 @@ access_token = TOKENS.access_token
 access_token_secret = TOKENS.access_token_secret
 
 '''
-Realtime
+Realtime content ends
 '''
 
 

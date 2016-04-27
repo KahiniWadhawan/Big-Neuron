@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>The Election Buzz on Sanders by Big Neuron</title>
+    <title>The Electionitics on Sanders by Big Neuron</title>
 
     <!-- Bootstrap Core CSS - Uses Bootswatch Flatly Theme: http://bootswatch.com/flatly/ -->
     <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
@@ -25,9 +25,9 @@
 
 </head>
 
-<body id="page-top" class="index">
+<body id="page-top" class="index sanderspage">
 
-    <!-- Navigation -->
+     <!-- Navigation -->
     <!-- TOP Nav Bar -->
     <nav class="navbar navbar-default navbar-fixed-top" style="padding-right: 20px; background: transparent">
         <!-- Responsive Design -->
@@ -51,15 +51,16 @@
         </div>
         <!-- /.navbar-collapse -->
     </nav>
+
     <!-- Header -->
-    <header>
+    <header class="cand-hm-pg">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="intro-text" style="padding-top: 15px">
                         <span class="name">Bernie Sanders</span>
                         <hr class="star-light">
-                        <span class="skills">The big data election buzz on Bernie Sanders, 2016 Presidential Candidate.</span>
+                        <span class="skills">The big data Electionitics on Bernie Sanders, 2016 Presidential Candidate.</span>
                     </div>
                     
                 </div>
@@ -98,7 +99,7 @@
             </div>
             <!-- /row --> 
             
-            <div class="row" style="padding-top: 15px">
+            <div class="row" style="padding-top: 15px; width: 1200px; margin-left: 185px;">
                 <div class="col-sm-4">
                     <!-- Follower Network -->
                     <a href="{{ url_for('network') }}" target="_blank">
@@ -111,16 +112,9 @@
                        <img class="circular--square hvr-buzz-out" id="myImg4" src="{{ url_for('static', filename='img/viz/topic-m.png') }}" width="200px" height="200px" alt="placeholder" title="Tweet Topic Modeling">
                     </a>
                 </div>
-                <div class="col-sm-4">
-                    <!-- Realtime SA -->
-                    <a href="{{ url_for('realtime') }}" target="_blank">
-                       <img class="circular--square hvr-buzz-out" id="myImg5" src="{{ url_for('static', filename='img/viz/realtime.png') }}" width="200px" height="200px" alt="placeholder" title="Realtime Twitter Sentiment Analysis">
-                    </a>                                      
-                </div>
-                <br>
             </div>
             <!-- /row --> 
-             
+            
         </div>
         <!-- /container -->          
         
@@ -147,23 +141,23 @@
     </div>
 
     
+
     <!-- jQuery -->
-    <script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
+    <script src="../../static/js/jquery.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script src="../../static/js/bootstrap.min.js"></script>
 
     <!-- Plugin JavaScript -->
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
-    <script src="{{ url_for('static', filename='js/classie.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/cbpAnimatedHeader.js') }}"></script>
+    <script src="../../static/js/classie.js"></script>
+    <script src="../../static/js/cbpAnimatedHeader.js"></script>
 
     <!-- Contact Form JavaScript -->
-    <script src="{{ url_for('static', filename='js/jqBootstrapValidation.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/contact_me.js') }}"></script>
+    <script src="../../static/js/jqBootstrapValidation.js"></script>
 
     <!-- Custom Theme JavaScript -->
-    <script src="{{ url_for('static', filename='js/freelancer.js') }}"></script>
+    <script src="../../static/js/freelancer.js"></script>
 
 </body>
 

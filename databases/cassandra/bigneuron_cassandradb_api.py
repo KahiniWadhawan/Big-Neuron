@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 #--------------------------------------------------------------------
 #Author: Kahini Wadhawan
 # This file provides Big Neuron cassandra db access functions
@@ -10,6 +11,7 @@ import time
 import os
 import sys
 import operator
+import re
 from analyze_tone import IBMToneAnalyzer
 
 from cassandra.cluster import Cluster
@@ -219,7 +221,7 @@ def insert_data_table_sentencelevel(candname):
     select_query = "select " + \
                 "tweet_id, " \
                 "tweet_text, " \
-                "created_at, " \
+                "created_at " \
                 " from " + table_tweets + \
                 ";"
 
@@ -227,14 +229,28 @@ def insert_data_table_sentencelevel(candname):
     resultSet  = session.execute(select_query)
 
     result_jsons = {}
+    count = 0
     for row in resultSet:
+        count += 1
+        print('inside sentencelevel gen processing record :: ',count)
+        #if count > 679:
+
         tweet_id = row.tweet_id
         tweet_text = row.tweet_text
+        print 'before regex :: ', tweet_text
+        tweet_text = re.sub(r'(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+'
+                        r'[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+'
+                        r'(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:\'".,<>?«»“”‘’]))',
+                        '', tweet_text)
+        print tweet_text
+        if tweet_text in ('',' '):
+            tweet_text = "no text"
+
         tweet_created_at = row.created_at
 
         #calling prepare_sentencelevel_query for every tweet
         sentencelevel_bound = prepare_sentencelevel_query(candname,tweet_id,tweet_text
-                                                          ,tweet_created_at,session)
+                                                              ,tweet_created_at,session)
         session.execute(sentencelevel_bound)
 
 
@@ -297,7 +313,7 @@ def prepare_sentencelevel_query(candname,tweet_id,tweet_text,tweet_created_at,se
     #print sentencelevel_query
     prepared = session.prepare(sentencelevel_query)
 
-    bound = prepared.bind((str(tweet_id_str.encode('utf-8')),
+    bound = prepared.bind((str(tweet_id.encode('utf-8')),
                            str(tweet_created_at),
                            str(date),
                            str(time),
@@ -777,7 +793,12 @@ def get_tweet_list(candname,num=20):
 
     #preparing tweets_dict containing tweet_id and text to be used by WebApp
     for row in resultSet:
-        tweets_dict[row.tweet_id] = row.tweet_text
+        tweet_text = row.tweet_text
+        tweet_text = re.sub(r'(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+'
+                    r'[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+'
+                    r'(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:\'".,<>?«»“”‘’]))',
+                    '', tweet_text)
+        tweets_dict[row.tweet_id] = tweet_text
 
     #print tweets_dict
     return tweets_dict
@@ -830,12 +851,20 @@ def get_tweet_tones(candname,tweet_id,file_path):
 
 
 #testing all functions here in a sequence
-insert_data_table_tweets('realDonaldTrump')
-insert_data_table_tweets('HillaryClinton')
-insert_data_table_tweets('BernieSanders')
-insert_data_table_tweets('tedcruz')
-insert_data_table_tweets('JohnKasich')
 
+#populating tweets tables
+#insert_data_table_tweets('realDonaldTrump')
+#insert_data_table_tweets('HillaryClinton')
+#insert_data_table_tweets('BernieSanders')
+#insert_data_table_tweets('tedcruz')
+#insert_data_table_tweets('JohnKasich')
+
+#populating sentencelevel tables
+#insert_data_table_sentencelevel('realDonaldTrump')
+#insert_data_table_sentencelevel('HillaryClinton')
+insert_data_table_sentencelevel('BernieSanders')
+
+#generating doc level jsons
 #gen_doclevel_emotion_json('realDonaldTrump','data/')
 #gen_doclevel_writing_json('realDonaldTrump','data/')
 #gen_doclevel_social_json('realDonaldTrump','data/')
