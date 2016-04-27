@@ -39,26 +39,51 @@ def home():
 '''
 @app.route("/{{ request.form['candidate'] }}", methods = ["GET", "POST"])
 def select_candidate():
-    retVal = None
+    print "request.form['candidate']  =",request.form['candidate'] 
     if request.method == "POST":
-        radio = request.form['candidate'] #this retrieves which radio button was pressed
-        session['candidate'] = radio
-        print "radio is -", radio
-        if radio == "trump":
-            radio = "realDonaldTrump"
-        if radio == 'clinton':
-            return render_template("pages/clinton/clinton.html", cand=radio)
-        elif radio == 'cruz':
-            return render_template("pages/cruz/cruz.html")
-        elif radio == 'kasich':
-            return render_template("pages/kasich/kasich.html")
-        elif radio == 'sanders':
-            return render_template("pages/sanders/sanders.html")
-        elif radio == 'realDonaldTrump':
-            return render_template("pages/trump/trump.html")
-        else:
-            retVal = "Error in select_candidate(). Need to make an error page"
-    return retVal
+        if request.form["action"] == "Submit":
+            print "SUBMIT"
+            radio = request.form['candidate'] #this retrieves which radio button was pressed
+            session['candidate'] = radio
+            print "radio is -", radio
+            # if radio == "trump":
+            #     radio = "realDonaldTrump"
+            if radio == 'clinton':
+                print "Inside Sub clintn"
+                return render_template("pages/clinton/clinton.html", cand=radio)
+            elif radio == 'cruz':
+                return render_template("pages/cruz/cruz.html", cand=radio)
+            elif radio == 'kasich':
+                return render_template("pages/kasich/kasich.html", cand=radio)
+            elif radio == 'sanders':
+                return render_template("pages/sanders/sanders.html", cand=radio)
+            elif radio == 'trump':
+                return render_template("pages/trump/trump.html", cand=radio)
+            else:
+                retVal = "Error in select_candidate(). Need to make an error page"
+                return retVal
+        elif request.form["action"] == "Realtime":
+            print "REALTIME"
+            radio = request.form['candidate'] #this retrieves which radio button was pressed
+            session['candidate'] = radio
+            print "Realtime radio is -", radio
+            # if radio == "trump":
+            #     radio = "realDonaldTrump"
+            if radio == 'clinton':
+                print "Inside realtime clintn"
+                return render_template("pages/clinton/clinton_realtime.html", cand=radio)
+            elif radio == 'cruz':
+                return render_template("pages/cruz/cruz_realtime.html", cand=radio)
+            elif radio == 'kasich':
+                return render_template("pages/kasich/kasich_realtime.html", cand=radio)
+            elif radio == 'sanders':
+                return render_template("pages/sanders/sanders_realtime.html", cand=radio)
+            elif radio == 'realDonaldTrump':
+                return render_template("pages/trump/trump_realtime.html", cand=radio)
+            else:
+                retVal = "Error in select_candidate(). Need to make an error page"
+                return retVal
+
 
 '''
     Load visualizations from their respective candidate pages
@@ -85,13 +110,14 @@ def wordcloud():
 
 
 '''
-    Renders the realtime dashboard for any candidate
+    Renders the realtime page for any candidate
 '''
-@app.route('/realtime')
+@app.route('/realtime', methods = ["GET", "POST"])
 def realtime():
-    print "REQUEST from realtime---", request
-    return render_template("realtime.html")
-
+    retVal = ""
+    print "Inside Realtime section! ", request
+    
+   
 '''
     Renders the Follower's Network visualization for any candidate
 '''
@@ -128,8 +154,6 @@ def topic():
 
 '''
     Renders the Sentence-level SA page for candidate selected
-'''
-'''
     Renders the SA Sentence-level visualization for any candidate
 '''
 @app.route('/tweetlevel')
