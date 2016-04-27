@@ -98,7 +98,7 @@ window.onclick = function(event) {
 
 
             xhttp.open("GET", "/static/data.json?something="+(Math.random()*10).toString(), true);
-            xhttp1.open("GET", "/static/testdata1.json?something="+(Math.random()*10).toString(), true);
+            xhttp1.open("GET", "/static/realtimesentiment.json?something="+(Math.random()*10).toString(), true);
             xhttp2.open("GET", "/static/realtimetwitter.json?something="+(Math.random()*10).toString(), true);
             xhttp3.open("GET", "/static/testdata3.json?something="+(Math.random()*10).toString(), true);
 

@@ -56,7 +56,7 @@ class TweetAPI(CassandraAPI):
       self.access_token_secret=TOKENS.access_token_secret
       self.tweetlist=[]
       self.numb=0
-      self.repetations = 10
+      self.repetations = 20
 
       
 
