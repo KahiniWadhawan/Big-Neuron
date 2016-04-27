@@ -15,6 +15,8 @@ Big Neuron's **[ELECTIONITICS](http://electionitics.press)** was created by and 
 + **JESSICA LYNCH, Web Development, UI/UX, Integration, Code Cleanup**: https://www.linkedin.com/in/jessicalynchcsci
 + Michael Muehlbradt (Deployment, Realtime, Data Processing): https://www.linkedin.com/in/michael-muehlbradt-22642011b
 
+![Alt text](https://github.com/CUBigDataClass/Big-Neuron/blob/master/WebApp/screenshots/team.png)
+
 ### Course:
 Big Data| Spring 2016 | University of Colorado Boulder | Professor: Gregory Greenstreet
 
