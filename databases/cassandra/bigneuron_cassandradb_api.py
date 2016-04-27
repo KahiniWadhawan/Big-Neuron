@@ -230,6 +230,7 @@ def insert_data_table_sentencelevel(candname):
     for row in resultSet:
         tweet_id = row.tweet_id
         tweet_text = row.tweet_text
+        tweet_text = re.sub(r'(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:\'".,<>?«»“”‘’]))', '', tweet_text)
         tweet_created_at = row.created_at
 
         #calling prepare_sentencelevel_query for every tweet
@@ -777,7 +778,9 @@ def get_tweet_list(candname,num=20):
 
     #preparing tweets_dict containing tweet_id and text to be used by WebApp
     for row in resultSet:
-        tweets_dict[row.tweet_id] = row.tweet_text
+        tweet_text = row.tweet_text
+        tweet_text = re.sub(r'(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:\'".,<>?«»“”‘’]))', '', tweet_text)
+        tweets_dict[row.tweet_id] = tweet_text
 
     #print tweets_dict
     return tweets_dict
