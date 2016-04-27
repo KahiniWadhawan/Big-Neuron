@@ -29,8 +29,8 @@ auth = tweepy.OAuthHandler(oauth['consumer_key'], oauth['consumer_secret'])
 auth.set_access_token(oauth['access_token'], oauth['access_token_secret'])
 api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
 
-first_friends_limit = 10
-second_friends_limit = 10
+first_friends_limit = 20
+second_friends_limit = 20
 node_id = str(configs['user_id'])
 
 #--revisit - write centre and first friends connection to data.edgelist also
