@@ -250,19 +250,19 @@ section.success a.active {
     }
 }
 
-#about .portfolio-item {
+#team .portfolio-item {
     right: 0;
     margin: 0 0 15px;
 }
 
-#about .portfolio-item .portfolio-link {
+#team .portfolio-item .portfolio-link {
     display: block;
     position: relative;
     margin: 0 auto;
     max-width: 400px;
 }
 
-#about .portfolio-item .portfolio-link .caption {
+#team .portfolio-item .portfolio-link .caption {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -274,11 +274,11 @@ section.success a.active {
     transition: all ease .5s;
 }
 
-#about .portfolio-item .portfolio-link .caption:hover {
+#team .portfolio-item .portfolio-link .caption:hover {
     opacity: 1;
 }
 
-#about .portfolio-item .portfolio-link .caption .caption-content {
+#team .portfolio-item .portfolio-link .caption .caption-content {
     position: absolute;
     top: 10%;
     width: 100%;
@@ -289,21 +289,21 @@ section.success a.active {
     color: #000;
 }
 
-#about .portfolio-item .portfolio-link .caption .caption-content i {
+#team .portfolio-item .portfolio-link .caption .caption-content i {
     margin-top: -12px;
 }
 
-#about .portfolio-item .portfolio-link .caption .caption-content h3,
-#about .portfolio-item .portfolio-link .caption .caption-content h4 {
+#team .portfolio-item .portfolio-link .caption .caption-content h3,
+#team .portfolio-item .portfolio-link .caption .caption-content h4 {
     margin: 0;
 }
 
-#about * {
+#team * {
     z-index: 2;
 }
 
 @media(min-width:767px) {
-    #about .portfolio-item {
+    #team .portfolio-item {
         margin: 0 0 30px;
     }
 }
@@ -464,7 +464,7 @@ footer .footer-below-indep {
     outline: 0;
 }
 
-#project {
+#about {
     background-color: #860d19; 
 
 }
