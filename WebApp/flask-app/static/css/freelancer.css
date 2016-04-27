@@ -640,7 +640,7 @@ Fade content bs-carousel with hero headers
     opacity: 0.6;
     font-weight: bold;
     margin: 0;
-    padding: 0;
+    padding-top: 300px;
 }
 
 .fade-carousel .carousel-inner .item .hero {
