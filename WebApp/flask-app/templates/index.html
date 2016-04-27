@@ -89,7 +89,7 @@
                                     <div class="intro-text">
                                         <span class="name" style="padding-top: 0px;opacity: 0.6">Electionitics</span>
                                     </div>
-                                    <div style="padding-top: 430px">
+                                    <div style="padding-top: 430px"> <!-- JESS CHANGE: originally was: <div style="padding-top: 230px">-->
                                         <h3>Visualize how the world feels about ...</h3>
                                         <!-- CANDIDATE RADIO BUTTONS -->
                                         <form class="form-inline" action="{{ url_for('select_candidate') }}" method="post">
@@ -112,7 +112,8 @@
                                             </div> <!-- end of form group -->
 
                                             
-                                            <div class="row" style="padding: 25px 0">
+                                            <div class="row" style="padding: 25px 0"> <!-- JESS CHANGE: originally was: <div class="row">-->
+                                               <!-- JESS CHANGE: I added width:110px; height:48px to style for each button below so they are now equal dimensions despite text length.  I added margin-left: 1em for rightmost button to create larger space between the two buttons. -->
                                                <input type="submit" class="btn btn-default" style="font-size: 20px; width:110px; height:48px" role="button" name="action" value="Submit">
                                                <input type="submit" class="btn btn-default" style="font-size: 20px;width:110px; height:48px; margin-left: 1em;" role="button"name="action" value="Realtime">
 

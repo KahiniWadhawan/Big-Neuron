@@ -641,7 +641,7 @@ Fade content bs-carousel with hero headers
     opacity: 0.6;
     font-weight: bold;
     margin: 0;
-    padding-top: 300px;
+    padding-top: 300px; /*JESS change*/ /* original setting --> padding: 0;*/
 }
 
 .fade-carousel .carousel-inner .item .hero {
