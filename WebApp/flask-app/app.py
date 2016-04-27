@@ -7,6 +7,31 @@
         16th April, 2016
 '''
 
+'''
+Realtime
+'''
+import tweepy
+import json
+import TOKENS
+from multiprocessing import Process
+
+from Analytics import IBMToneAnalyzer
+from multiprocessing import Process
+
+#from pipeAppToTwitterStream import PipeIt
+import twitter_stream
+# Authentication details. To  obtain these visit dev.twitter.com
+consumer_key = TOKENS.consumer_key
+consumer_secret = TOKENS.consumer_secret
+access_token = TOKENS.access_token
+access_token_secret = TOKENS.access_token_secret
+'''
+Realtime
+'''
+
+
+
+
 __author__ = "Jessica, Tanvi"
 __date__ = "$Apr 14, 2016 11:39:45 PM$"
 
@@ -58,7 +83,8 @@ def select_candidate():
             elif radio == 'sanders':
                 return render_template("pages/sanders/sanders.html", cand=radio)
             elif radio == 'trump':
-                return render_template("pages/trump/trump.html", cand=radio)
+
+                return render_template("/templates/index2.html", cand=radio)#trump.html
             else:
                 retVal = "Error in select_candidate(). Need to make an error page"
                 return retVal
@@ -71,14 +97,18 @@ def select_candidate():
             #     radio = "realDonaldTrump"
             if radio == 'clinton':
                 print "Inside realtime clintn"
-                return render_template("pages/clinton/clinton_realtime.html", cand=radio)
+                return render_template("pages/trump/trump_realtime.html", cand=radio)
             elif radio == 'cruz':
-                return render_template("pages/cruz/cruz_realtime.html", cand=radio)
+                twitter_stream.loop_b('cruz')
+                return render_template("pages/trump/trump_realtime.html", cand=radio)
             elif radio == 'kasich':
-                return render_template("pages/kasich/kasich_realtime.html", cand=radio)
+                twitter_stream.loop_b('kasich')
+                return render_template("pages/trump/trump_realtime.html", cand=radio)
             elif radio == 'sanders':
-                return render_template("pages/sanders/sanders_realtime.html", cand=radio)
+                twitter_stream.loop_b('sanders')
+                return render_template("pages/trump/trump_realtime.html", cand=radio)
             elif radio == 'trump':
+                twitter_stream.loop_b('trump')
                 return render_template("pages/trump/trump_realtime.html", cand=radio)
             else:
                 retVal = "Error in select_candidate(). Need to make an error page"
@@ -254,8 +284,8 @@ def get_tweets( candidate, tweet_num ):
 
 
 if __name__ == '__main__':
-    app.debug = True
-    app.run()
+    
+    app.run(host='0.0.0.0', debug=True, port=12345, use_reloader=True)
 
 
 
