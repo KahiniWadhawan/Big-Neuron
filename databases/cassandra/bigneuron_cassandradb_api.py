@@ -580,6 +580,7 @@ def gen_doclevel_writing_json(candname, file_path):
     #print doc_json
 
     #sorting doc_json - ordering it on day value
+    #revisit here to limit no. of records in doc_json
     doc_json.sort(key=operator.itemgetter('day'))
 
     #print 'doc_json sorted :: ', doc_json
@@ -862,7 +863,9 @@ def get_tweet_tones(candname,tweet_id,file_path):
 #populating sentencelevel tables
 #insert_data_table_sentencelevel('realDonaldTrump')
 #insert_data_table_sentencelevel('HillaryClinton')
-insert_data_table_sentencelevel('BernieSanders')
+#insert_data_table_sentencelevel('BernieSanders')
+#insert_data_table_sentencelevel('tedcruz')
+#insert_data_table_sentencelevel('JohnKasich')
 
 #generating doc level jsons
 #gen_doclevel_emotion_json('realDonaldTrump','data/')
