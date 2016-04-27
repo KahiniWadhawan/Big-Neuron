@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 #--------------------------------------------------------------------
 #Author: Kahini Wadhawan
 # This file provides Big Neuron cassandra db access functions
@@ -10,6 +11,7 @@ import time
 import os
 import sys
 import operator
+import re
 from analyze_tone import IBMToneAnalyzer
 
 from cassandra.cluster import Cluster
@@ -227,10 +229,16 @@ def insert_data_table_sentencelevel(candname):
     resultSet  = session.execute(select_query)
 
     result_jsons = {}
+    count = 0
     for row in resultSet:
+        count += 1
+        print('inside sentencelevel gen processing record :: ',count)
         tweet_id = row.tweet_id
         tweet_text = row.tweet_text
-        tweet_text = re.sub(r'(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:\'".,<>?«»“”‘’]))', '', tweet_text)
+        tweet_text = re.sub(r'(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+'
+                    r'[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+'
+                    r'(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:\'".,<>?«»“”‘’]))',
+                    '', tweet_text)
         tweet_created_at = row.created_at
 
         #calling prepare_sentencelevel_query for every tweet
@@ -779,7 +787,10 @@ def get_tweet_list(candname,num=20):
     #preparing tweets_dict containing tweet_id and text to be used by WebApp
     for row in resultSet:
         tweet_text = row.tweet_text
-        tweet_text = re.sub(r'(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:\'".,<>?«»“”‘’]))', '', tweet_text)
+        tweet_text = re.sub(r'(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+'
+                    r'[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+'
+                    r'(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:\'".,<>?«»“”‘’]))',
+                    '', tweet_text)
         tweets_dict[row.tweet_id] = tweet_text
 
     #print tweets_dict
@@ -833,12 +844,18 @@ def get_tweet_tones(candname,tweet_id,file_path):
 
 
 #testing all functions here in a sequence
-insert_data_table_tweets('realDonaldTrump')
-insert_data_table_tweets('HillaryClinton')
-insert_data_table_tweets('BernieSanders')
-insert_data_table_tweets('tedcruz')
-insert_data_table_tweets('JohnKasich')
 
+#populating tweets tables
+#insert_data_table_tweets('realDonaldTrump')
+#insert_data_table_tweets('HillaryClinton')
+#insert_data_table_tweets('BernieSanders')
+#insert_data_table_tweets('tedcruz')
+#insert_data_table_tweets('JohnKasich')
+
+#populating sentencelevel tables
+insert_data_table_sentencelevel('realDonaldTrump')
+
+#generating doc level jsons
 #gen_doclevel_emotion_json('realDonaldTrump','data/')
 #gen_doclevel_writing_json('realDonaldTrump','data/')
 #gen_doclevel_social_json('realDonaldTrump','data/')
