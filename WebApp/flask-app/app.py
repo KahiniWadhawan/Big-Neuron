@@ -7,6 +7,27 @@
         16th April, 2016
 '''
 
+'''
+Realtime
+'''
+import tweepy
+import json
+import TOKENS
+from multiprocessing import Process
+
+from Analytics import IBMToneAnalyzer
+# Authentication details. To  obtain these visit dev.twitter.com
+consumer_key = TOKENS.consumer_key
+consumer_secret = TOKENS.consumer_secret
+access_token = TOKENS.access_token
+access_token_secret = TOKENS.access_token_secret
+'''
+Realtime
+'''
+
+
+
+
 __author__ = "Jessica, Tanvi"
 __date__ = "$Apr 14, 2016 11:39:45 PM$"
 
@@ -58,7 +79,8 @@ def select_candidate():
             elif radio == 'sanders':
                 return render_template("pages/sanders/sanders.html", cand=radio)
             elif radio == 'trump':
-                return render_template("pages/trump/trump.html", cand=radio)
+
+                return render_template("/templates/index2.html", cand=radio)#trump.html
             else:
                 retVal = "Error in select_candidate(). Need to make an error page"
                 return retVal
@@ -79,6 +101,7 @@ def select_candidate():
             elif radio == 'sanders':
                 return render_template("pages/sanders/sanders_realtime.html", cand=radio)
             elif radio == 'trump':
+                import twitter_stream
                 return render_template("pages/trump/trump_realtime.html", cand=radio)
             else:
                 retVal = "Error in select_candidate(). Need to make an error page"
