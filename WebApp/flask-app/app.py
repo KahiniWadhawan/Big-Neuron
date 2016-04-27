@@ -7,6 +7,34 @@
         16th April, 2016
 '''
 
+'''
+Realtime content starts
+'''
+
+import tweepy
+import json
+import TOKENS
+from multiprocessing import Process
+
+from Analytics import IBMToneAnalyzer
+from multiprocessing import Process
+
+#from pipeAppToTwitterStream import PipeIt
+import twitter_stream
+import tweet_cassandra_analytic_api
+# Authentication details. To  obtain these visit dev.twitter.com
+consumer_key = TOKENS.consumer_key
+consumer_secret = TOKENS.consumer_secret
+access_token = TOKENS.access_token
+access_token_secret = TOKENS.access_token_secret
+
+'''
+Realtime content ends
+'''
+
+
+
+
 __author__ = "Jessica, Tanvi"
 __date__ = "$Apr 14, 2016 11:39:45 PM$"
 
@@ -22,9 +50,9 @@ app.secret_key = 'F12Zr47j\3yX R~X@H!jmM]Lwf/,?KT'
 
 #sys.path.append(os.path.dirname(__file__) + r"/static/data/dummy_db.py")  #append path to db api module that has the method to get list of top tweets
 # from dummy_db import get_tweet_list, get_tweet_tones  #Do we have a tone analyzer module -or- are we inserting tweets by hand into IBM tone analyzer to get the json output?
-import sys
-sys.path.insert(0, '../../databases/cassandra/')
-from bigneuron_cassandradb_api import get_tweet_list, get_tweet_tones
+# import sys
+# sys.path.insert(0, '../../databases/cassandra/')
+# from bigneuron_cassandradb_api import get_tweet_list, get_tweet_tones
 
 '''
     Renders the dashboard.
@@ -39,26 +67,55 @@ def home():
 '''
 @app.route("/{{ request.form['candidate'] }}", methods = ["GET", "POST"])
 def select_candidate():
-    retVal = None
+    print "request.form['candidate']  =",request.form['candidate'] 
     if request.method == "POST":
-        radio = request.form['candidate'] #this retrieves which radio button was pressed
-        session['candidate'] = radio
-        print "radio is -", radio
-        if radio == "trump":
-            radio = "realDonaldTrump"
-        if radio == 'clinton':
-            return render_template("pages/clinton/clinton.html", cand=radio)
-        elif radio == 'cruz':
-            return render_template("pages/cruz/cruz.html")
-        elif radio == 'kasich':
-            return render_template("pages/kasich/kasich.html")
-        elif radio == 'sanders':
-            return render_template("pages/sanders/sanders.html")
-        elif radio == 'realDonaldTrump':
-            return render_template("pages/trump/trump.html")
-        else:
-            retVal = "Error in select_candidate(). Need to make an error page"
-    return retVal
+        if request.form["action"] == "Submit":
+            print "SUBMIT"
+            radio = request.form['candidate'] #this retrieves which radio button was pressed
+            session['candidate'] = radio
+            print "radio is -", radio
+            # if radio == "trump":
+            #     radio = "realDonaldTrump"
+            if radio == 'clinton':
+                print "Inside clintn"
+                return render_template("pages/clinton/clinton.html", cand=radio)
+            elif radio == 'cruz':
+                return render_template("pages/cruz/cruz.html", cand=radio)
+            elif radio == 'kasich':
+                return render_template("pages/kasich/kasich.html", cand=radio)
+            elif radio == 'sanders':
+                return render_template("pages/sanders/sanders.html", cand=radio)
+            elif radio == 'trump':
+                return render_template("pages/trump/trump.html", cand=radio)#trump.html
+            else:
+                retVal = "Error in select_candidate(). Need to make an error page"
+                return retVal
+        elif request.form["action"] == "Realtime":
+            print "REALTIME"
+            radio = request.form['candidate'] #this retrieves which radio button was pressed
+            session['candidate'] = radio
+            print "Realtime radio is -", radio
+            # if radio == "trump":
+            #     radio = "realDonaldTrump"
+            if radio == 'clinton':
+                print "Inside realtime clintn"
+                return render_template("pages/trump/trump_realtime.html", cand=radio)
+            elif radio == 'cruz':
+                twitter_stream.loop_b('cruz')
+                return render_template("pages/trump/trump_realtime.html", cand=radio)
+            elif radio == 'kasich':
+                twitter_stream.loop_b('kasich')
+                return render_template("pages/trump/trump_realtime.html", cand=radio)
+            elif radio == 'sanders':
+                twitter_stream.loop_b('sanders')
+                return render_template("pages/trump/trump_realtime.html", cand=radio)
+            elif radio == 'trump':
+                twitter_stream.loop_b('trump')
+                return render_template("pages/trump/trump_realtime.html", cand=radio)
+            else:
+                retVal = "Error in select_candidate(). Need to make an error page"
+                return retVal
+
 
 '''
     Load visualizations from their respective candidate pages
@@ -70,28 +127,39 @@ def wordcloud():
     cand   = session['candidate']
     print "In wordcloud, session['candidate'] is - ", cand
     if cand == 'clinton':
-        return render_template("pages/clinton/clinton_wordcloud.html")
+        tweet_cassandra_analytic_api.loop_b(cand)
+        #return render_template("pages/clinton/clinton_wordcloud.html")
+        return render_template("pages/trump/index_1.html")
     elif cand == 'cruz':
-        return render_template("pages/cruz/cruz_wordcloud.html")
+        tweet_cassandra_analytic_api.loop_b(cand)
+        #return render_template("pages/cruz/cruz_wordcloud.html")
+        return render_template("pages/trump/index_1.html")
     elif cand == 'kasich':
-        return render_template("pages/kasich/kasich_wordcloud.html")
+        tweet_cassandra_analytic_api.loop_b(cand)
+        #return render_template("pages/kasich/kasich_wordcloud.html")
+        return render_template("pages/trump/index_1.html")
     elif cand == 'sanders':
-        return render_template("pages/sanders/sanders_wordcloud.html")
-    elif cand == 'realDonaldTrump':
-        return render_template("pages/trump/trump_wordcloud.html")
+        tweet_cassandra_analytic_api.loop_b(cand)
+        return render_template("pages/trump/index_1.html")
+        #return render_template("pages/sanders/sanders_wordcloud.html")
+    elif cand == 'trump':
+        tweet_cassandra_analytic_api.loop_b(cand)        
+        return render_template("pages/trump/index_1.html")
+        #return render_template("templates/index_1.html")
     else:
         retVal = "Error in topic(). Need to make an error page"
     return retVal
 
 
 '''
-    Renders the realtime dashboard for any candidate
+    Renders the realtime page for any candidate
 '''
-@app.route('/realtime')
+@app.route('/realtime', methods = ["GET", "POST"])
 def realtime():
-    print "REQUEST from realtime---", request
-    return render_template("realtime.html")
-
+    retVal = ""
+    print "Inside Realtime section! ", request
+    
+   
 '''
     Renders the Follower's Network visualization for any candidate
 '''
@@ -120,7 +188,7 @@ def topic():
     print "In Topic Modelling, session['candidate'] is - ", cand
     if cand in ['clinton', 'cruz', 'kasich', 'sanders', 'trump']:
         fpath = "pages/%s/%s_topicmodel.html" % (cand, cand)
-        retVal = render_template(fpath)
+        retVal = render_template(fpath, cand=cand)
     else:
         retVal = "Error in topic(). Need to make an error page"
     return retVal
@@ -128,8 +196,6 @@ def topic():
 
 '''
     Renders the Sentence-level SA page for candidate selected
-'''
-'''
     Renders the SA Sentence-level visualization for any candidate
 '''
 @app.route('/tweetlevel')
@@ -162,6 +228,7 @@ def tweetlevel():
 
 
 '''
+    For tweetlevel()
     Ensures proper json files are stored for Sentence-level SA Amcharts chart per candidate tweet
 '''
 @app.route('/change_viz_by_id', methods=['GET','POST'])
@@ -204,6 +271,7 @@ def alltweet():
 
 ############### Helper Functions #################
 '''
+    For tweetlevel()
     Fetch tweet dictionary from db
     Parameter(s): candidate (Type: string; Descr: Candidate name), tweet_num (Type: int; Descr: Number of tweets in dictionary, e.g. 20)
     Return: List of Tuples, specifically [(tweet_id, tweet_text), ...]
@@ -228,8 +296,8 @@ def get_tweets( candidate, tweet_num ):
 
 
 if __name__ == '__main__':
-    app.debug = True
-    app.run()
+    
+    app.run(host='0.0.0.0', debug=True, port=12345, use_reloader=True)
 
 
 
