@@ -7,30 +7,28 @@
         16th April, 2016
 '''
 
-'''
-# Realtime content starts
 # '''
-
+# # Realtime content starts
+# # '''
+#
 import tweepy
 import json
 import TOKENS
 from multiprocessing import Process
-
 from Analytics import IBMToneAnalyzer
 from multiprocessing import Process
-
-#from pipeAppToTwitterStream import PipeIt
+from pipeAppToTwitterStream import PipeIt
 import twitter_stream
 import tweet_cassandra_analytic_api
-# Authentication details. To  obtain these visit dev.twitter.com
+#Authentication details. To  obtain these visit dev.twitter.com
 consumer_key = TOKENS.consumer_key
 consumer_secret = TOKENS.consumer_secret
 access_token = TOKENS.access_token
 access_token_secret = TOKENS.access_token_secret
 
-'''
-Realtime content ends
-'''
+# '''
+# Realtime content ends
+
 
 
 
@@ -319,7 +317,7 @@ def get_tweets( candidate, tweet_num ):
 
 if __name__ == '__main__':
     
-    app.run(host='0.0.0.0', debug=True, port=12345, use_reloader=True)
+    app.run(host='0.0.0.0', debug=True, port=8000, use_reloader=True)
 
 
 

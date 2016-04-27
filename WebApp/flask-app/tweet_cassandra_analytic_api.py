@@ -241,7 +241,7 @@ class TweetAPI(CassandraAPI):
       rows=None
       textlist=None
       textlist_wordcloud=None
-      ftextlist_wordcloud_bigfile= open("/home/piyush/Big-neuron/Big-Neuron/WebApp/flask-app/static/BigWordCloudFile.txt","w")
+      ftextlist_wordcloud_bigfile= open("/home/ubuntu/BigDataProject/Big-Neuron/WebApp/flask-app/static/BigWordCloudFile.txt","w")
       IBMToneJSON=None
       WordCloudJSON=None
 
@@ -294,7 +294,7 @@ class TweetAPI(CassandraAPI):
             ftextlist_wordcloud_bigfile.write(textlist_wordcloud.encode('utf-8'))
             textlist_wordcloud=[]
 
-            lines = sc.textFile("/home/piyush/Big-neuron/Big-Neuron/WebApp/flask-app/static/BigWordCloudFile.txt")
+            lines = sc.textFile("/home/ubuntu/BigDataProject/Big-Neuron/WebApp/flask-app/static/BigWordCloudFile.txt")
             counts = lines.flatMap(lambda x: x.split(' ')) \
                   .map(lambda x: (x, 1)) \
                   .reduceByKey(add)
@@ -304,23 +304,23 @@ class TweetAPI(CassandraAPI):
             
 
 
-            WordCloudJSON_1=open("/home/piyush/Big-neuron/Big-Neuron/WebApp/flask-app/static/data.json","w")
+            WordCloudJSON_1=open("/home/ubuntu/BigDataProject/Big-Neuron/WebApp/flask-app/static/data.json","w")
             each4_list_names=[]
             each4_list_numbers=[]
 
 
 
             #Anger, Disgust, Fear, Joy, Sadness
-            IBMToneJSON_1= open("/home/piyush/Big-neuron/Big-Neuron/WebApp/flask-app/static/testdata1.json","w")
+            IBMToneJSON_1= open("/home/ubuntu/BigDataProject/Big-Neuron/WebApp/flask-app/static/testdata1.json","w")
             each1_list_names=[]
             each1_list_numbers=[]
 
 
-            IBMToneJSON_2= open("/home/piyush/Big-neuron/Big-Neuron/WebApp/flask-app/static/testdata2.json","w")
+            IBMToneJSON_2= open("/home/ubuntu/BigDataProject/Big-Neuron/WebApp/flask-app/static/testdata2.json","w")
             each2_list_names=[]
             each2_list_numbers=[]
 
-            IBMToneJSON_3= open("/home/piyush/Big-neuron/Big-Neuron/WebApp/flask-app/static/testdata3.json","w")
+            IBMToneJSON_3= open("/home/ubuntu/BigDataProject/Big-Neuron/WebApp/flask-app/static/testdata3.json","w")
             each3_list_names=[]
             each3_list_numbers=[]
 
