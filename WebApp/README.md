@@ -21,12 +21,12 @@ Big Neuron's **[ELECTIONITICS](http://electionitics.press)** was created by and 
 Big Data| Spring 2016 | University of Colorado Boulder | Professor: Gregory Greenstreet
 
 ### Project Pipeline:  
-![Alt text](/flask-app/static/img/pipeline.png?raw=true "Electionitics Pipeline")
+![Alt text](https://github.com/CUBigDataClass/Big-Neuron/blob/master/WebApp/flask-app/static/img/pipeline.png)
  
 
 ### Project Tools:
 + Data Source: Twitter Streaming Api
-+ Analytics tool: IBM Tone Analyzer, Gensim for Topic Modelling, NetworkX for Graph Analytics
++ Analytics Tool: IBM Tone Analyzer, Gensim for Topic Modelling, NetworkX for Graph Analytics
 + Web Framework: Flask
 + Database: Mongo DB and Apache Cassandra
 + Cloud Computing Service: AWS
