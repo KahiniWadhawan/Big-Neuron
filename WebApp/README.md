@@ -1,25 +1,28 @@
-# [Visit Our App](http://big-neuron.github.io) - [Big Neuron](http://big-neuron.github.io)
-
-
-
-## Powered by: Big-Neuron
+# Visit Our App [Electionitics](http://electionitics.press)
+## Powered by: Big-Neuron  
+--- 
+  
 ### Project Objective:
 
-[ELECTIONITICS](http://electionitics.press) is an interactive web application that allows the user to visualize Twitter Big Data in an easy to understand and appealing manner.  The data visualized is specifically focused on the 2016 presidential race.  Electionitics shows the user what the nation feels about each candidate through Twitter and Tweet-level sentiment analysis, provides visualizations for each candidate's follower network, and Twitter data topic modeling per candidate.
+**[ELECTIONITICS](http://electionitics.press)** is an interactive web application that allows the user to visualize Twitter Big Data in an easy to understand and appealing manner.  The data visualized is specifically focused on the 2016 presidential race.  **Electionitics** shows the user what the nation is feeling regarding each candidate through Twitter and Tweet-level sentiment analysis.  It provides visualizations for each candidate's follower network as well as Twitter data topic modeling per candidate.
 
-### Team Members:
-+ Kahini Wadhawan: https://www.linkedin.com/in/kahiniwadhawan
-+ Tanvi Parikh: https://www.linkedin.com/in/tanviparikh91
-+ Jessica Lynch: https://www.linkedin.com/in/jessicalynchcsci
-+ Piyush Patel: https://www.linkedin.com/in/piyushpatel90
-+ Michael Muehlbradt: https://www.linkedin.com/in/michael-muehlbradt-22642011b
+### Team Members:  
 
-Big Neuron was created by and is maintained by **Tanvi Parikh** and **Jessica Lynch** along with their teammates on backend and systems development: **Piyush Sudip Patel**, **Kahini Wadhawan** and **Michael D. Muehlbradt**.
+Big Neuron's **[ELECTIONITICS](http://electionitics.press)** was created by and is maintained by **Tanvi Parikh** and **Jessica Lynch** along with their teammates who created and maintain the backend systems of our big data pipeline: **Piyush Sudip Patel**, **Kahini Wadhawan** and **Michael D. Muehlbradt**.  
+
++ **TANVI PARIKH (Lead UI/UX, Integration, Sentiment Analysis Visualizations - Sentence-level and Document-level**: https://www.linkedin.com/in/tanviparikh91
++ **PIYUSH PATEL, Data Processing and Analytics - Word Cloud, Realtime**: https://www.linkedin.com/in/piyushpatel90
++ **KAHINI WADHAWAN, Data Processing and Analytics - Topic Modeling, Follower Network, Data Storage**: https://www.linkedin.com/in/kahiniwadhawan
++ **JESSICA LYNCH, Web Development, UI/UX, Integration, Code Cleanup**: https://www.linkedin.com/in/jessicalynchcsci
++ Michael Muehlbradt (Deployment, Realtime, Data Processing): https://www.linkedin.com/in/michael-muehlbradt-22642011b
 
 ### Course:
 Big Data| Spring 2016 | University of Colorado Boulder | Professor: Gregory Greenstreet
 
-###Project Tools:
+### Project Pipeline:  
+![alt tag](http://flask-app/static/img/pipeline.png)
+
+### Project Tools:
 + Data Source: Twitter Streaming Api
 + Analytics tool: IBM Tone Analyzer, Gensim for Topic Modelling, NetworkX for Graph Analytics
 + Web Framework: Flask
@@ -28,7 +31,7 @@ Big Data| Spring 2016 | University of Colorado Boulder | Professor: Gregory Gree
 + Data Processing: Apache Spark with Kafka
 
 
-## Legacy
+### Legacy: 
 ##### analytics/  
 > sentimentAnalysis/ 
 
@@ -72,8 +75,7 @@ Big Data| Spring 2016 | University of Colorado Boulder | Professor: Gregory Gree
 
 
 
-
-## Copyright and License
+### Copyright and License:
 
 Copyright 2016 Big Neuron
 
