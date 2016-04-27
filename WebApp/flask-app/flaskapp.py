@@ -28,7 +28,6 @@ access_token_secret = TOKENS.access_token_secret
 
 # '''
 # Realtime content ends
-# '''
 
 
 
@@ -52,7 +51,9 @@ app.secret_key = 'F12Zr47j\3yX R~X@H!jmM]Lwf/,?KT'
 import sys
 sys.path.insert(0, '../../databases/cassandra/')
 from bigneuron_cassandradb_api import get_tweet_list, get_tweet_tones
-''' For sentence level ends'''
+''' 
+    For sentence level ends
+'''
 
 '''
     Renders the dashboard.
