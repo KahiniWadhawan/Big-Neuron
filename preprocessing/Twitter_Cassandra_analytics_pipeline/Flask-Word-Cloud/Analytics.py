@@ -1,5 +1,6 @@
 import TOKENS
 import json
+
 class IBMToneAnalyzer(object):
 	def __init__(self):
 		from watson_developer_cloud import ToneAnalyzerV3Beta as ToneAnalyzer
