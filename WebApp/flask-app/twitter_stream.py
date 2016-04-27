@@ -30,8 +30,8 @@ class StdOutListener(tweepy.StreamListener,IBMToneAnalyzer):
         IBMToneJSON = self.tone_analyzer.tone(text=tweet)
         #need to give the full system path
         #need to give the full system path
-        IBMToneJSON_1= open("/home/user/Desktop/Big-Neuron/WebApp/flask-app/static/realtimesentiment.json","w")
-        TwitterRealtimef=open("/home/user/Desktop/Big-Neuron/WebApp/flask-app/static/realtimetwitter.json","w")
+        IBMToneJSON_1= open("/home/ubuntu/BigDataProject/Big-Neuron/WebApp/flask-app/static/realtimesentiment.json","w")
+        TwitterRealtimef=open("/home/ubuntu/BigDataProject/Big-Neuron/WebApp/flask-app/static/realtimetwitter.json","w")
         each1_list_names=[]
         each1_list_numbers=[]
         TwitterRealtimef.write(tweet.encode('utf-8'))
@@ -60,7 +60,7 @@ def loop_trump():
     print "Inside loop trump"
 
     #need to give the full system path
-    IBMToneJSON_1= open("/home/user/Desktop/Big-Neuron/WebApp/flask-app/static/realtimesentiment.json","w")
+    IBMToneJSON_1= open("/home/ubuntu/BigDataProject/Big-Neuron/WebApp/flask-app/static/realtimesentiment.json","w")
     l = StdOutListener()
     auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
     auth.set_access_token(access_token, access_token_secret)
@@ -70,7 +70,7 @@ def loop_trump():
 def loop_sanders():
     print "Inside loop sanders"
     #need to give the full system path
-    IBMToneJSON_1= open("/home/user/Desktop/Big-Neuron/WebApp/flask-app/static/realtimesentiment.json","w")
+    IBMToneJSON_1= open("/home/ubuntu/BigDataProject/Big-Neuron/WebApp/flask-app/static/realtimesentiment.json","w")
     l = StdOutListener()
     auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
     auth.set_access_token(access_token, access_token_secret)
@@ -80,7 +80,7 @@ def loop_sanders():
 def loop_clinton():
     print "Inside loop clinton"
     #need to give the full system path
-    IBMToneJSON_1= open("/home/user/Desktop/Big-Neuron/WebApp/flask-app/static/realtimesentiment.json","w")
+    IBMToneJSON_1= open("/home/ubuntu/BigDataProject/Big-Neuron/WebApp/flask-app/static/realtimesentiment.json","w")
     l = StdOutListener()
     auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
     auth.set_access_token(access_token, access_token_secret)
@@ -91,7 +91,7 @@ def loop_clinton():
 def loop_kasich():
     print "Inside loop kasich"
     #need to give the full system path
-    IBMToneJSON_1= open("/home/user/Desktop/Big-Neuron/WebApp/flask-app/static/realtimesentiment.json","w")
+    IBMToneJSON_1= open("/home/ubuntu/BigDataProject/Big-Neuron/WebApp/flask-app/static/realtimesentiment.json","w")
     l = StdOutListener()
     auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
     auth.set_access_token(access_token, access_token_secret)
@@ -102,7 +102,7 @@ def loop_kasich():
 def loop_cruz():
     print "Inside loop cruz"
     #need to give the full system path
-    IBMToneJSON_1= open("/home/user/Desktop/Big-Neuron/WebApp/flask-app/static/realtimesentiment.json","w")
+    IBMToneJSON_1= open("/home/ubuntu/BigDataProject/Big-Neuron/WebApp/flask-app/static/realtimesentiment.json","w")
     l = StdOutListener()
     auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
     auth.set_access_token(access_token, access_token_secret)
