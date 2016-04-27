@@ -218,7 +218,7 @@ function draw(data, bounds) {
 // This function is responsible for pulling the updated JSON file from the server.
 function update() {
     //console.log("tags.length"+tags.length)
-    //console.log("word-cloud"+tags)
+    console.log("word-cloud"+tags)
     layout.font('impact').spiral('rectangular');
     fontSize = d3.scale['sqrt']().range([30,70]);   //This is to change the range of font size
     //console.log("fontSize = "+fontSize)
@@ -239,31 +239,35 @@ function update1() {
                 // the following two lines makes chart 3D
                 chart.depth3D = 20;
                 chart.angle = 30;
+                chart.handDrawn=true;
+                chart.handDrawScatter=6;
+                chart.startDuration= 1;
+                chart.handDrawThickness= 2;
 
                 // AXES
                 // Category
                 var categoryAxis = chart.categoryAxis;
                 categoryAxis.gridPosition = "start";
-                categoryAxis.axisColor = "#DADADA";
+                categoryAxis.axisColor = "black";
                 categoryAxis.fillAlpha = 1;
                 categoryAxis.gridAlpha = 0;
                 categoryAxis.fillColor = "#FAFAFA";
 
                 // value
                 var valueAxis = new AmCharts.ValueAxis();
-                valueAxis.axisColor = "#DADADA";
-                valueAxis.title = "Income in millions, USD";
+                valueAxis.axisColor = "black";
+                valueAxis.title = "Emotion Tone";
                 valueAxis.gridAlpha = 0.1;
                 chart.addValueAxis(valueAxis);
 
                 // GRAPH
                 var graph = new AmCharts.AmGraph();
-                graph.title = "Income";
+                graph.title = "Emotion Tone";
                 graph.valueField = "income";
                 graph.type = "column";
-                graph.balloonText = "Income in [[category]]:[[value]]";
+                graph.balloonText = "<b>[[category]]:[[value]]</b>";
                 graph.lineAlpha = 0;
-                graph.fillColors = "#bf1c25";
+                graph.fillColors = "#9999ff";   //light purple
                 graph.fillAlphas = 1;
                 chart.addGraph(graph);
 
@@ -284,12 +288,16 @@ function update2() {
                 // the following two lines makes chart 3D
                 chart.depth3D = 20;
                 chart.angle = 30;
+                chart.handDrawn=true;
+                chart.handDrawScatter=6;
+                chart.startDuration= 1;
+                chart.handDrawThickness= 2;
 
                 // AXES
                 // Category
                 var categoryAxis = chart.categoryAxis;
                 categoryAxis.gridPosition = "start";
-                categoryAxis.axisColor = "#DADADA";
+                categoryAxis.axisColor = "black";
                 categoryAxis.fillAlpha = 1;
                 categoryAxis.gridAlpha = 0;
                 categoryAxis.fillColor = "#FAFAFA";
@@ -297,18 +305,18 @@ function update2() {
                 // value
                 var valueAxis = new AmCharts.ValueAxis();
                 valueAxis.axisColor = "#DADADA";
-                valueAxis.title = "Income in millions, USD";
+                valueAxis.title = "Social Tone";
                 valueAxis.gridAlpha = 0.1;
                 chart.addValueAxis(valueAxis);
 
                 // GRAPH
                 var graph = new AmCharts.AmGraph();
-                graph.title = "Income";
+                graph.title = "Social Tone";
                 graph.valueField = "income";
                 graph.type = "column";
-                graph.balloonText = "Income in [[category]]:[[value]]";
+                graph.balloonText = "[[category]]:[[value]]";
                 graph.lineAlpha = 0;
-                graph.fillColors = "#bf1c25";
+                graph.fillColors = "#bf1c25";   //red
                 graph.fillAlphas = 1;
                 chart.addGraph(graph);
 
@@ -330,6 +338,10 @@ function update3() {
                 // the following two lines makes chart 3D
                 chart.depth3D = 20;
                 chart.angle = 30;
+                chart.handDrawn=true;
+                chart.handDrawScatter=6;
+                chart.startDuration= 1;
+                chart.handDrawThickness= 2;
 
                 // AXES
                 // Category
@@ -342,19 +354,19 @@ function update3() {
 
                 // value
                 var valueAxis = new AmCharts.ValueAxis();
-                valueAxis.axisColor = "#DADADA";
-                valueAxis.title = "Income in millions, USD";
+                valueAxis.axisColor = "black";
+                valueAxis.title = "Writing tone";
                 valueAxis.gridAlpha = 0.1;
                 chart.addValueAxis(valueAxis);
 
                 // GRAPH
                 var graph = new AmCharts.AmGraph();
-                graph.title = "Income";
+                graph.title = "Writing Tone";
                 graph.valueField = "income";
                 graph.type = "column";
-                graph.balloonText = "Income in [[category]]:[[value]]";
+                graph.balloonText = "[[category]]:[[value]]";
                 graph.lineAlpha = 0;
-                graph.fillColors = "#bf1c25";
+                graph.fillColors = "#0052A5";   //blue
                 graph.fillAlphas = 1;
                 chart.addGraph(graph);
 

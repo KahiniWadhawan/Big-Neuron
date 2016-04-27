@@ -2,8 +2,26 @@
 
 <html>
     <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>Electionitics on Trump by Big Neuron</title>
+
+        <!-- Bootstrap Core CSS - Uses Bootswatch Flatly Theme: http://bootswatch.com/flatly/ -->
+        <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+
+        <!-- Custom CSS -->
+        <link href="{{ url_for('static', filename='css/freelancer.css') }}" rel="stylesheet">
+        <link href="{{ url_for('static', filename='css/hover.css') }}" rel="stylesheet">
+
+        <!-- Custom Fonts -->
+        <link href="{{ url_for('static', filename='font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
+        <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+        <link href="http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+
         <script type="text/javascript" src="/static/d3.js"></script>
         <script type="text/javascript" src="/static/d3.layout.cloud.js"></script>
         <script type="text/javascript" src="/static/jquery.min.js"></script>
@@ -157,22 +175,42 @@
 
 
 </head>
-<body>
-        <div id="vis"></div>
-        <script type="text/javascript" src="/static/word-cloud.js"></script>
-        <div id="blah" style="background-color:blue">
-            <br><br><br><br>
-            <p> Hi wassssup </p>
+<body id="page-top" class="index">
+    <!-- Navigation -->
+    <!-- TOP Nav Bar -->
+    <nav class="navbar navbar-default navbar-fixed-top" style="padding-right: 20px; background: transparent">
+        <!-- Responsive Design -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{{ url_for('home') }}" style="padding: 20px">Big Neuron</a>
         </div>
 
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right" style="padding-right: 20px; ">
+                <li class="hidden">
+                    <a href="#page-top"></a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </nav>
+        <div id="vis"></div>
+        <script type="text/javascript" src="/static/word-cloud.js"></script>
+            
 
-    <div id="chartdiv1" style="width: 300px; height: 300px;"></div>
+        <div id="chartdiv1" style="width: 300px; height: 300px;"></div>
 
-    <div id="chartdiv2" style="width: 300px; height: 300px;"></div>
+        <div id="chartdiv2" style="width: 300px; height: 300px;"></div>
 
 
 
-    <div id="chartdiv3" style="width: 300px; height: 300px;"></div>
+        <div id="chartdiv3" style="width: 300px; height: 300px;"></div>
 
 
             
