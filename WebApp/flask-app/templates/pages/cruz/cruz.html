@@ -15,18 +15,19 @@
     <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="{{ url_for('static', filename='css/freelancer.css') }}" rel="stylesheet">
-     <link href="{{ url_for('static', filename='css/hover.css') }}" rel="stylesheet">
-
+    <!--<link href="{{ url_for('static', filename='css/freelancer.css') }}" rel="stylesheet">-->
+    <link href="{{ url_for('static', filename='css/freelancer_1.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/hover.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+    
     <!-- Custom Fonts -->
     <link href="{{ url_for('static', filename='font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
 
-
 </head>
 
-<body id="page-top" class="index">
+<body id="page-top" class="index cruz-page">
 
     <!-- Navigation -->
     <!-- TOP Nav Bar -->
@@ -39,7 +40,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{{ url_for('home') }}" style="padding: 20px">Big Neuron</a>
+            <a class="navbar-brand" href="#page-top" style="padding: 20px">Big Neuron</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -54,7 +55,7 @@
     </nav>
 
     <!-- Header -->
-    <header>
+    <header style="background: transparent;">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -80,21 +81,21 @@
                 <div class="col-sm-4">           
                     <!-- Word Cloud -->
                     <a href="{{ url_for('wordcloud') }}" target="_blank">
-                       <img class="circular--square hvr-buzz-out" id="myImg0" src="{{ url_for('static', filename='img/viz/wc.png') }}" alt="placeholder" width="200px" height="200px" alt="placeholder" title="Tweet Word Cloud">
+                        <img class="circular--square hvr-buzz-out" id="myImg0" src="{{ url_for('static', filename='img/viz/wc.png') }}" alt="placeholder" title="Tweet Word Cloud">
                     </a>
                     
                 </div>
                 <div class="col-sm-4">
                     <!-- SA at document level -->
                     <a href="{{ url_for('alltweet') }}" target="_blank">
-                       <img class="circular--square hvr-buzz-out" id="myImg1" src="{{ url_for('static', filename='img/viz/doc-level.png') }}" width="200px" height="200px" alt="placeholder" title="Twitter Sentiment Analysis">
+                       <img class="circular--square hvr-buzz-out" id="myImg1" src="{{ url_for('static', filename='img/viz/doc-level.png') }}" alt="placeholder" title="Twitter Sentiment Analysis">
                     </a>
                     
                 </div>
                 <div class="col-sm-4">
                     <!-- SA at sentence level -->
                     <a href="{{ url_for('tweetlevel') }}" target="_blank">
-                       <img class="circular--square hvr-buzz-out" id="myImg2" src="{{ url_for('static', filename='img/viz/tweet-level.png') }}" width="200px" height="200px" alt="placeholder" title="Tweet-Level Sentiment Analysis">
+                       <img class="circular--square hvr-buzz-out" id="myImg2" src="{{ url_for('static', filename='img/viz/tweet-level.png') }}" alt="placeholder" title="Tweet-Level Sentiment Analysis">
                     </a>                   
                 </div>                
             </div>
@@ -104,29 +105,29 @@
                 <div class="col-sm-4">
                     <!-- Follower Network -->
                     <a href="{{ url_for('network') }}" target="_blank">
-                       <img class="circular--square hvr-buzz-out" id="myImg3" src="{{ url_for('static', filename='img/viz/network-f.png') }}" width="200px" height="200px" alt="placeholder" title="Twitter Follower Network">
+                       <img class="circular--square hvr-buzz-out" id="myImg3" src="{{ url_for('static', filename='img/viz/network-f.png') }}" alt="placeholder" title="Twitter Follower Network">
                     </a>
                 </div>
                 <div class="col-sm-4">
                     <!-- Topic Modeling -->
                     <a href="{{ url_for('topic') }}" target="_blank">
-                       <img class="circular--square hvr-buzz-out" id="myImg4" src="{{ url_for('static', filename='img/viz/topic-m.png') }}" width="200px" height="200px" alt="placeholder" title="Tweet Topic Modeling">
+                       <img class="circular--square hvr-buzz-out" id="myImg4" src="{{ url_for('static', filename='img/viz/topic-m.png') }}" alt="placeholder" title="Tweet Topic Modeling">
                     </a>
                 </div>
                 <div class="col-sm-4">
                     <!-- Realtime SA -->
                     <a href="{{ url_for('realtime') }}" target="_blank">
-                       <img class="circular--square hvr-buzz-out" id="myImg5" src="{{ url_for('static', filename='img/viz/realtime.png') }}" width="200px" height="200px" alt="placeholder" title="Realtime Twitter Sentiment Analysis">
+                       <img class="circular--square hvr-buzz-out" id="myImg5" src="{{ url_for('static', filename='img/viz/realtime.png') }}" alt="placeholder" title="Realtime Twitter Sentiment Analysis">
                     </a>                                      
                 </div>
                 <br>
             </div>
             <!-- /row --> 
-
         </div>
         <!-- /container -->          
-    </header>
 
+       
+    </header>
 
     <!-- Footer -->
     <footer class="text-center">
@@ -146,25 +147,24 @@
             <i class="fa fa-chevron-up"></i>
         </a>
     </div>
-   
 
     <!-- jQuery -->
-    <script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
+    <script src="../../js/jquery.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script src="../../js/bootstrap.min.js"></script>
 
     <!-- Plugin JavaScript -->
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
-    <script src="{{ url_for('static', filename='js/classie.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/cbpAnimatedHeader.js') }}"></script>
+    <script src="../../js/classie.js"></script>
+    <script src="../../js/cbpAnimatedHeader.js"></script>
 
     <!-- Contact Form JavaScript -->
-    <script src="{{ url_for('static', filename='js/jqBootstrapValidation.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/contact_me.js') }}"></script>
+    <script src="../../js/jqBootstrapValidation.js"></script>
+    <script src="../../js/contact_me.js"></script>
 
     <!-- Custom Theme JavaScript -->
-    <script src="{{ url_for('static', filename='js/freelancer.js') }}"></script>
+    <script src="../../js/freelancer.js"></script>
 
 </body>
 
