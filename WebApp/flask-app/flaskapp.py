@@ -7,31 +7,30 @@
         16th April, 2016
 '''
 
-# '''
-# # Realtime content starts
-# # '''
-#
-# import tweepy
-# import json
-# import TOKENS
-# from multiprocessing import Process
-#
-# from Analytics import IBMToneAnalyzer
-# from multiprocessing import Process
-#
-# #from pipeAppToTwitterStream import PipeIt
-# import twitter_stream
-# import tweet_cassandra_analytic_api
-# # Authentication details. To  obtain these visit dev.twitter.com
-# consumer_key = TOKENS.consumer_key
-# consumer_secret = TOKENS.consumer_secret
-# access_token = TOKENS.access_token
-# access_token_secret = TOKENS.access_token_secret
-#
-# '''
-# Realtime content ends
+'''
+# Realtime content starts
 # '''
 
+import tweepy
+import json
+import TOKENS
+from multiprocessing import Process
+
+from Analytics import IBMToneAnalyzer
+from multiprocessing import Process
+
+#from pipeAppToTwitterStream import PipeIt
+import twitter_stream
+import tweet_cassandra_analytic_api
+# Authentication details. To  obtain these visit dev.twitter.com
+consumer_key = TOKENS.consumer_key
+consumer_secret = TOKENS.consumer_secret
+access_token = TOKENS.access_token
+access_token_secret = TOKENS.access_token_secret
+
+'''
+Realtime content ends
+'''
 
 
 
@@ -54,7 +53,9 @@ app.secret_key = 'F12Zr47j\3yX R~X@H!jmM]Lwf/,?KT'
 import sys
 sys.path.insert(0, '../../databases/cassandra/')
 from bigneuron_cassandradb_api import get_tweet_list, get_tweet_tones
-''' For sentence level ends'''
+''' 
+    For sentence level ends
+'''
 
 '''
     Renders the dashboard.
