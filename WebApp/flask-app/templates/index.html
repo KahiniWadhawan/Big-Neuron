@@ -89,8 +89,8 @@
                                     <div class="intro-text">
                                         <span class="name" style="padding-top: 0px;opacity: 0.6">Electionitics</span>
                                     </div>
-                                    <div style="padding-top: 430px"> <!-- JESS CHANGE: originally was: <div style="padding-top: 230px">-->
-                                        <h3>Visualize how the world feels about ...</h3>
+                                    <div style="padding-top: 230px">
+                                        <h3>Visualize how the world feels about ..</h3>
                                         <!-- CANDIDATE RADIO BUTTONS -->
                                         <form class="form-inline" action="{{ url_for('select_candidate') }}" method="post">
                                             <div class="form-group" style="background: black; padding-top:10px;border-radius: 25px; padding-bottom:10px; padding-left:40px;padding-right:40px;opacity: 0.7">
@@ -111,15 +111,15 @@
                                                 </div>
                                             </div> <!-- end of form group -->
 
+                                         <br>
+                                         <div class="row">
+                                            <input type="submit" class="btn btn-default" style="font-size: 20px;" role="button" name="action" value="Submit">
+                                            <input type="submit" class="btn btn-default" style="font-size: 20px;" role="button"name="action" value="Realtime">
                                             
-                                            <div class="row" style="padding: 25px 0"> <!-- JESS CHANGE: originally was: <div class="row">-->
-                                               <!-- JESS CHANGE: I added width:110px; height:48px to style for each button below so they are now equal dimensions despite text length.  I added margin-left: 1em for rightmost button to create larger space between the two buttons. -->
-                                               <input type="submit" class="btn btn-default" style="font-size: 20px; width:110px; height:48px" role="button" name="action" value="Submit">
-                                               <input type="submit" class="btn btn-default" style="font-size: 20px;width:110px; height:48px; margin-left: 1em;" role="button"name="action" value="Realtime">
-
                                             </div> <!-- /row -->
+                                         
                                         
-                                        </div> <!-- This /div is needed for carousel!!! -->           
+                                        </div>            
                                         </form><!-- end of stupid form-->   
                                     </div>         
                                 </div>
@@ -236,9 +236,9 @@
 <!-- Header -->
     
     <!-- Team Member Portfolio Grid Section -->
-    <section id="team">
+    <section id="about">
         <div class="container">
-            <div class="row" style="padding-bottom: 30px;">
+            <div class="row">
                 <div class="col-lg-12 text-center">
                     <h2>The Team</h2>
                     <hr class="star-primary">
@@ -246,60 +246,7 @@
             </div>
             <div class="row">
                 <div class="col-sm-4 portfolio-item">
-                    <a target="_blank" href="https://www.linkedin.com/in/tanviparikh91" class="portfolio-link">
-                        <div class="caption">
-                            <div class="caption-content">
-                                <h4 style="margin-top:150px; font-size:24px">Tanvi Parikh</h4>
-                            </div>
-                        </div>
-                        <img src="{{ url_for('static', filename='img/team/tanvi.png') }}"  class="img-responsive" alt="">
-                    </a>
-                </div>
-                <div class="col-sm-4 portfolio-item">
-                    <a target="_blank" href="https://www.linkedin.com/in/piyushpatel90" class="portfolio-link">
-                        <div class="caption">
-                            <div class="caption-content">
-                                <h4 style="margin-top:150px; font-size:24px">Piyush Patel</h4>
-                            </div>
-                        </div>
-                        <img src="{{ url_for('static', filename='img/team/piyush.png') }}" class="img-responsive" alt="">
-                    </a>
-                </div>
-                <div class="col-sm-4 portfolio-item">
-                    <a target="_blank" href="https://www.linkedin.com/in/kahiniwadhawan" class="portfolio-link">
-                        <div class="caption">
-                            <div class="caption-content">
-                                <h4 style="margin-top:150px; font-size:24px">Kahini Wadhawan</h4>
-                            </div>
-                        </div>
-                        <img src="{{ url_for('static', filename='img/team/kahini.png') }}"  class="img-responsive" alt="">
-                    </a>
-                </div>
-            </div> <!-- ./row -->
-            <div class="row" style="width: 100%; margin-left: 190px">
-                <div class="col-sm-4 portfolio-item">
-                    <a target="_blank" href="https://www.linkedin.com/in/jessicalynchcsci" class="portfolio-link">
-                        <div class="caption">
-                            <div class="caption-content">
-                                <h4 style="margin-top:150px; font-size:24px">Jessica Lynch</h4>
-                            </div>
-                        </div>
-                        <img src="{{ url_for('static', filename='img/team/jessica.png') }}"  class="img-responsive" alt="">
-                    </a>
-                </div>
-                <div class="col-sm-4 portfolio-item">
-                    <a target="_blank" href="https://www.linkedin.com/in/michael-muehlbradt-22642011b" class="portfolio-link">
-                        <div class="caption">
-                            <div class="caption-content">
-                                <h4 style="margin-top:150px; font-size:24px">Michael Muehlbradt</h4>
-                            </div>
-                        </div>
-                        <img src="{{ url_for('static', filename='img/team/generic.png') }}"  class="img-responsive" alt="">
-                    </a>
-                </div>
-                <!-- Original div per teammate -->
-                <!--div class="col-sm-4 portfolio-item">
-                    <a href="" class="portfolio-link" data-toggle="modal">
+                    <a href="#teammateModal1" class="portfolio-link" data-toggle="modal">
                         <div class="caption">
                             <div class="caption-content">
                                 <i class="fa fa-search-plus fa-3x"></i>
@@ -307,9 +254,49 @@
                         </div>
                         <img src="static/img/team/generic.png" class="img-responsive" alt="">
                     </a>
-                </div-->
+                </div>
+                <div class="col-sm-4 portfolio-item">
+                    <a href="#teammateModal2" class="portfolio-link" data-toggle="modal">
+                        <div class="caption">
+                            <div class="caption-content">
+                                <i class="fa fa-search-plus fa-3x"></i>
+                            </div>
+                        </div>
+                        <img src="static/img/team/generic.png" class="img-responsive" alt="">
+                    </a>
+                </div>
+                <div class="col-sm-4 portfolio-item">
+                    <a href="#teammateModal3" class="portfolio-link" data-toggle="modal">
+                        <div class="caption">
+                            <div class="caption-content">
+                                <i class="fa fa-search-plus fa-3x"></i>
+                            </div>
+                        </div>
+                        <img src="static/img/team/generic.png" class="img-responsive" alt="">
+                    </a>
+                </div>
+                <div class="col-sm-4 portfolio-item">
+                    <a href="#teammateModal4" class="portfolio-link" data-toggle="modal">
+                        <div class="caption">
+                            <div class="caption-content">
+                                <i class="fa fa-search-plus fa-3x"></i>
+                            </div>
+                        </div>
+                        <img src="static/img/team/generic.png" class="img-responsive" alt="">
+                    </a>
+                </div>
+                <div class="col-sm-4 portfolio-item">
+                    <a href="#teammateModal5" class="portfolio-link" data-toggle="modal">
+                        <div class="caption">
+                            <div class="caption-content">
+                                <i class="fa fa-search-plus fa-3x"></i>
+                            </div>
+                        </div>
+                        <img src="static/img/team/generic.png" class="img-responsive" alt="">
+                    </a>
+                </div>
                 
-            </div> <!-- ./row -->
+            </div>
         </div>
     </section>
 
@@ -322,30 +309,13 @@
                     <hr class="star-light">
                 </div>
             </div>
-            <div class="row" style="padding-bottom: 30px;">
-                <div class="col-lg-12 text-center">
-                    <p style="font-size: 30px; font-weight: bold; padding-bottom:15px;">Election Buzz powered by Big Neuron is an interactive web application that<br>allows the user to visualize big data pertaining to the 2016 Presidential Election, which is collected from Twitter and analyzed in our system.  The data visualized in our application is based on the user's selected candidate.</p>
-                    <p style="font-size: 30px; font-weight: bold;">Requirements for our project are as follows:</p>
+            <div class="row">
+                <div class="col-lg-4 col-lg-offset-2">
+                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium.</p>
                 </div>
-            </div>
-        </div> <!-- ./container -->
-        <div class="container" style="width:2000px; margin:auto;">
-            <div class="row" >
-                <div class="col-lg-4" style="width:500px">
-                    <h4 style="font-size:26px;">Data Processing</h4>
-                    <ul style="font-size:20px;">
-                        <li>Tweepy API to pull Twitter data (batch processing)</li>
-                        <li>Cassandra to ensure data persistence</li>
-                        <li>Spark Streaming to generate realtime data</li>
-                        <li>list item 1 Aenean commodo ligula eget dolor.</li>
-                        <li>list item 2 Aenean commodo ligula eget dolor.</li>
-                        <li>list item 3 Aenean commodo ligula eget dolor.</li>
-                        <li>list item 4 Aenean commodo ligula eget dolor.</li>
-                    </ul>
-                </div>                
-                <div class="col-lg-4" style="width:500px">
-                    <h4 style="font-size: 26px;">Data Analytics</h4>
-                    <ul style="font-size:20px;">
+                <div class="col-lg-4">
+                    <p>Subsection - more description:</p>
+                    <ul>
                         <li>list item 1 Aenean commodo ligula eget dolor.</li>
                         <li>list item 2 Aenean commodo ligula eget dolor.</li>
                         <li>list item 3 Aenean commodo ligula eget dolor.</li>
@@ -357,47 +327,15 @@
                         <li>list item 9 Aenean commodo ligula eget dolor.</li>
                     </ul>
                 </div>
-                <div class="col-lg-4" style="width:500px">
-                    <h4 style="font-size: 26px;">Visualization</h4>
-                    <ul style="font-size:20px;">
-                        <li>list item 1 Aenean commodo ligula eget dolor.</li>
-                        <li>list item 2 Aenean commodo ligula eget dolor.</li>
-                        <li>list item 3 Aenean commodo ligula eget dolor.</li>
-                        <li>list item 4 Aenean commodo ligula eget dolor.</li>
-                        <li>list item 5 Aenean commodo ligula eget dolor.</li>
-                        <li>list item 6 Aenean commodo ligula eget dolor.</li>
-                        <li>list item 7 Aenean commodo ligula eget dolor.</li>
-                        <li>list item 8 Aenean commodo ligula eget dolor.</li>
-                        <li>list item 9 Aenean commodo ligula eget dolor.</li>
-                    </ul>
-                </div> 
-                <div class="col-lg-4" style="width:500px">
-                    <h4 style="font-size: 26px;">Deployment</h4>
-                    <ul style="font-size:20px;">
-                        <li>list item 1 Aenean commodo ligula eget dolor.</li>
-                        <li>list item 2 Aenean commodo ligula eget dolor.</li>
-                        <li>list item 3 Aenean commodo ligula eget dolor.</li>
-                        <li>list item 4 Aenean commodo ligula eget dolor.</li>
-                        <li>list item 5 Aenean commodo ligula eget dolor.</li>
-                        <li>list item 6 Aenean commodo ligula eget dolor.</li>
-                        <li>list item 7 Aenean commodo ligula eget dolor.</li>
-                        <li>list item 8 Aenean commodo ligula eget dolor.</li>
-                        <li>list item 9 Aenean commodo ligula eget dolor.</li>
-                    </ul>
+                <div class="col-lg-8 col-lg-offset-2 text-center">
+                    <h3 align="middle" style="padding-bottom:10px">Big Neuron Pipeline</h3>
+                    <img src="static/img/placeholder-pipeline.png" align="middle" alt="" style="padding-bottom:50px">
                 </div>
-            </div> <!-- ./row -->
-        </div> <!-- ./container -->
-            <div class="row" style="margin:auto">
-                <div class="container" style="width:925px; margin:auto;">
-                    <h3 align="middle" style="padding-top: 30px; padding-bottom:10px; text-align: center;">Big Neuron Pipeline</h3>
-                    <img src="static/img/pipeline.png" align="middle" alt="" style="padding: 30px 0px;">
+                <div class="col-lg-8 col-lg-offset-2 text-center">
+                    <a href="https://github.com/CUBigDataClass/Big-Neuron" class="btn btn-lg btn-outline" target="_blank" style="font-weight:bold; font-size:22px">View On Github</a>
                 </div>
             </div>
-            <div class="row" style="margin:auto">
-                <div class="container" style="width:300px; margin:auto; text-align: center;">
-                    <a href="https://github.com/CUBigDataClass/Big-Neuron" class="btn btn-lg btn-outline" target="_blank" style="font-weight:bold; font-size:22px; color:#ffffff;">View On Github</a>
-                </div>
-            </div>
+        </div>
     </section>
 
     
@@ -419,10 +357,148 @@
             <i class="fa fa-chevron-up"></i>
         </a>
     </div>
-  
+
+    <!-- Team Member Modals -->
+    <div class="teammate-modal modal fade" id="teammateModal1" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-content">
+            <div class="close-modal" data-dismiss="modal">
+                <div class="lr">
+                    <div class="rl">
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2">
+                        <div class="modal-body">
+                            <h2>Team Member Name</h2>
+                            <hr class="star-primary">
+                            <img src="img/team/generic.png" class="img-responsive img-centered" alt="">
+                            <p>Use this area to deliver your personal elevator pitch/ personal branding.</p>
+                            <p><a href="">LinkedIn Page or Personal Website<br><br></a></p>
+                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="teammate-modal modal fade" id="teammateModal2" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-content">
+            <div class="close-modal" data-dismiss="modal">
+                <div class="lr">
+                    <div class="rl">
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2">
+                        <div class="modal-body">
+                            <h2>Team Member Name</h2>
+                            <hr class="star-primary">
+                            <img src="img/team/generic.png" class="img-responsive img-centered" alt="">
+                            <p>Use this area to deliver your personal elevator pitch/ personal branding.</p>
+                            <p><a href="">LinkedIn Page or Personal Website<br><br></a></p>
+                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="teammate-modal modal fade" id="teammateModal3" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-content">
+            <div class="close-modal" data-dismiss="modal">
+                <div class="lr">
+                    <div class="rl">
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2">
+                        <div class="modal-body">
+                            <h2>Team Member Name</h2>
+                            <hr class="star-primary">
+                            <img src="img/team/generic.png" class="img-responsive img-centered" alt="">
+                            <p>Use this area to deliver your personal elevator pitch/ personal branding.</p>
+                            <p><a href="">LinkedIn Page or Personal Website<br><br></a></p>
+                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="teammate-modal modal fade" id="teammateModal4" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-content">
+            <div class="close-modal" data-dismiss="modal">
+                <div class="lr">
+                    <div class="rl">
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2">
+                        <div class="modal-body">
+                            <h2>Team Member Name</h2>
+                            <hr class="star-primary">
+                            <img src="img/team/generic.png" class="img-responsive img-centered" alt="">
+                            <p>Use this area to deliver your personal elevator pitch/ personal branding.</p>
+                            <p><a href="">LinkedIn Page or Personal Website<br><br></a></p>
+                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="teammate-modal modal fade" id="teammateModal5" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-content">
+            <div class="close-modal" data-dismiss="modal">
+                <div class="lr">
+                    <div class="rl">
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2">
+                        <div class="modal-body">
+                            <h2>Team Member Name</h2>
+                            <hr class="star-primary">
+                            <img src="img/team/generic.png" class="img-responsive img-centered" alt="">
+                            <p>Use this area to deliver your personal elevator pitch/ personal branding.</p>
+                            <p><a href="">LinkedIn Page or Personal Website<br><br></a></p>
+                            <!--<ul class="list-inline item-details">
+                                <li>Highlight 1
+                                    <strong><a href="http://startbootstrap.com">link</a>
+                                    </strong>
+                                </li>
+                                <li>Highlight 2
+                                    <strong><a href="http://startbootstrap.com">link</a>
+                                    </strong>
+                                </li>
+                                <li>Highlight 3
+                                    <strong><a href="http://startbootstrap.com">link</a>
+                                    </strong>
+                                </li>
+                            </ul>-->
+                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    <!-- jQuery <script src="../static/js/jquery.js"></script>-->
     
     <script type=text/javascript src="{{
-       url_for('static', filename='js/jquery.js') }}"></script>
+       url_for('static', filename='jquery.js') }}"></script>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="../static/js/bootstrap.min.js"></script>
