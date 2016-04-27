@@ -16,6 +16,10 @@ import TOKENS
 from multiprocessing import Process
 
 from Analytics import IBMToneAnalyzer
+from multiprocessing import Process
+
+#from pipeAppToTwitterStream import PipeIt
+import twitter_stream
 # Authentication details. To  obtain these visit dev.twitter.com
 consumer_key = TOKENS.consumer_key
 consumer_secret = TOKENS.consumer_secret
@@ -93,15 +97,18 @@ def select_candidate():
             #     radio = "realDonaldTrump"
             if radio == 'clinton':
                 print "Inside realtime clintn"
-                return render_template("pages/clinton/clinton_realtime.html", cand=radio)
+                return render_template("pages/trump/trump_realtime.html", cand=radio)
             elif radio == 'cruz':
-                return render_template("pages/cruz/cruz_realtime.html", cand=radio)
+                twitter_stream.loop_b('cruz')
+                return render_template("pages/trump/trump_realtime.html", cand=radio)
             elif radio == 'kasich':
-                return render_template("pages/kasich/kasich_realtime.html", cand=radio)
+                twitter_stream.loop_b('kasich')
+                return render_template("pages/trump/trump_realtime.html", cand=radio)
             elif radio == 'sanders':
-                return render_template("pages/sanders/sanders_realtime.html", cand=radio)
+                twitter_stream.loop_b('sanders')
+                return render_template("pages/trump/trump_realtime.html", cand=radio)
             elif radio == 'trump':
-                import twitter_stream
+                twitter_stream.loop_b('trump')
                 return render_template("pages/trump/trump_realtime.html", cand=radio)
             else:
                 retVal = "Error in select_candidate(). Need to make an error page"
@@ -277,8 +284,8 @@ def get_tweets( candidate, tweet_num ):
 
 
 if __name__ == '__main__':
-    app.debug = True
-    app.run()
+    
+    app.run(host='0.0.0.0', debug=True, port=12345, use_reloader=True)
 
 
 

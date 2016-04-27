@@ -51,6 +51,7 @@ var chartData1 =
 
 // This function calls the update function on window click
 window.onclick = function(event) {
+    console.log("heyyy")
 
             var xhttp = new XMLHttpRequest();
             var xhttp1 = new XMLHttpRequest();
