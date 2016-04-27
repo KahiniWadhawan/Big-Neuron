@@ -2,21 +2,17 @@
 
 
 
-## Big-Neuron
+## Powered by: Big-Neuron
 ### Project Objective:
 
-[Electionitics](http://electionitics.press) is an interactive web application that allows the user to visualize Twitter Big Data in an easy to understand and appealing manner.  The data visualized is specifically focused on the 2016 presidential race.  Electionitics shows the user what the nation feels about each candidate through Twitter and Tweet-level sentiment analysis, provides visualizations for each candidate's follower network, and Twitter data topic modeling per candidate.
+[ELECTIONITICS](http://electionitics.press) is an interactive web application that allows the user to visualize Twitter Big Data in an easy to understand and appealing manner.  The data visualized is specifically focused on the 2016 presidential race.  Electionitics shows the user what the nation feels about each candidate through Twitter and Tweet-level sentiment analysis, provides visualizations for each candidate's follower network, and Twitter data topic modeling per candidate.
 
 ### Team Members:
-+ Kahini Wadhawan
-* https://www.linkedin.com/in/kahiniwadhawan
-+ Tanvi Parikh
-* https://www.linkedin.com/in/tanviparikh91
-+ Jessica Lynch
-* https://www.linkedin.com/in/jessicalynchcsci
-+ Piyush Patel
-* https://www.linkedin.com/in/piyushpatel90
-+ Michael Muehlbradt
++ Kahini Wadhawan: https://www.linkedin.com/in/kahiniwadhawan
++ Tanvi Parikh: https://www.linkedin.com/in/tanviparikh91
++ Jessica Lynch: https://www.linkedin.com/in/jessicalynchcsci
++ Piyush Patel: https://www.linkedin.com/in/piyushpatel90
++ Michael Muehlbradt: https://www.linkedin.com/in/michael-muehlbradt-22642011b
 
 Big Neuron was created by and is maintained by **Tanvi Parikh** and **Jessica Lynch** along with their teammates on backend and systems development: **Piyush Sudip Patel**, **Kahini Wadhawan** and **Michael D. Muehlbradt**.
 
