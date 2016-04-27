@@ -78,7 +78,7 @@ def select_candidate():
                 return render_template("pages/kasich/kasich_realtime.html", cand=radio)
             elif radio == 'sanders':
                 return render_template("pages/sanders/sanders_realtime.html", cand=radio)
-            elif radio == 'realDonaldTrump':
+            elif radio == 'trump':
                 return render_template("pages/trump/trump_realtime.html", cand=radio)
             else:
                 retVal = "Error in select_candidate(). Need to make an error page"
