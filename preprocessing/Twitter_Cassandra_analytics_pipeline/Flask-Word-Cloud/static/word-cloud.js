@@ -182,7 +182,7 @@ function draw(data, bounds) {
                 return d.text.toLowerCase();
             });
     text.transition()
-            .duration(500)
+            .duration(2500)
             .attr("transform", function(d) {
                 return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
             })
