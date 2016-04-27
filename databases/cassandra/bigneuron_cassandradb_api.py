@@ -221,7 +221,7 @@ def insert_data_table_sentencelevel(candname):
     select_query = "select " + \
                 "tweet_id, " \
                 "tweet_text, " \
-                "created_at, " \
+                "created_at " \
                 " from " + table_tweets + \
                 ";"
 
@@ -233,17 +233,24 @@ def insert_data_table_sentencelevel(candname):
     for row in resultSet:
         count += 1
         print('inside sentencelevel gen processing record :: ',count)
+        #if count > 679:
+
         tweet_id = row.tweet_id
         tweet_text = row.tweet_text
+        print 'before regex :: ', tweet_text
         tweet_text = re.sub(r'(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+'
-                    r'[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+'
-                    r'(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:\'".,<>?«»“”‘’]))',
-                    '', tweet_text)
+                        r'[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+'
+                        r'(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:\'".,<>?«»“”‘’]))',
+                        '', tweet_text)
+        print tweet_text
+        if tweet_text in ('',' '):
+            tweet_text = "no text"
+
         tweet_created_at = row.created_at
 
         #calling prepare_sentencelevel_query for every tweet
         sentencelevel_bound = prepare_sentencelevel_query(candname,tweet_id,tweet_text
-                                                          ,tweet_created_at,session)
+                                                              ,tweet_created_at,session)
         session.execute(sentencelevel_bound)
 
 
@@ -306,7 +313,7 @@ def prepare_sentencelevel_query(candname,tweet_id,tweet_text,tweet_created_at,se
     #print sentencelevel_query
     prepared = session.prepare(sentencelevel_query)
 
-    bound = prepared.bind((str(tweet_id_str.encode('utf-8')),
+    bound = prepared.bind((str(tweet_id.encode('utf-8')),
                            str(tweet_created_at),
                            str(date),
                            str(time),
@@ -853,7 +860,9 @@ def get_tweet_tones(candname,tweet_id,file_path):
 #insert_data_table_tweets('JohnKasich')
 
 #populating sentencelevel tables
-insert_data_table_sentencelevel('realDonaldTrump')
+#insert_data_table_sentencelevel('realDonaldTrump')
+#insert_data_table_sentencelevel('HillaryClinton')
+insert_data_table_sentencelevel('BernieSanders')
 
 #generating doc level jsons
 #gen_doclevel_emotion_json('realDonaldTrump','data/')

@@ -27,7 +27,7 @@ class IBMToneAnalyzer(object):
 
 
 	def get_sentiment(self, text):
-		print "tweet : text :: ", text
+		#print "tweet : text :: ", text
 		sentiment_json = json.dumps(self.tone_analyzer.tone(text=text), indent=2)
 		return sentiment_json
 

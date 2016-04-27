@@ -1,4 +1,5 @@
 //http://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_onclick_win
+//yo yo yo
 var fill = d3.scale.category20b();
 var w = window.innerWidth,h = window.innerHeight;
 var max,fontSize;
@@ -80,11 +81,9 @@ window.onclick = function(event) {
                 var temp2=xhttp2.responseText
                 chartData2 = temp2
                     $('#myDivID').fadeOut('slow', function() {
-                    $('#myDivID').html('RealTime Tweets ('+chartData2+')')
+                    $('#myDivID').html(chartData2)
                     $('#myDivID').fadeIn('slow');
-    });    
-         
-
+                });    
             }
           };
 
@@ -109,12 +108,6 @@ window.onclick = function(event) {
             xhttp1.send();
             xhttp2.send();
             xhttp3.send();
-
-
-
-
-     
-
     update1();
     
 
@@ -193,10 +186,15 @@ function update1() {
                 chart.categoryField = "year";
                 // this single line makes the chart a bar chart,
                 // try to set it to false - your bars will turn to columns
-                chart.rotate = true;
+                chart.rotate = false;
                 // the following two lines makes chart 3D
                 chart.depth3D = 20;
                 chart.angle = 30;
+                chart.fontSize= 25;
+                chart.handDrawn=true;
+                chart.handDrawScatter=6;
+                chart.startDuration= 1;
+                chart.handDrawThickness= 2;
 
                 // AXES
                 // Category
@@ -205,12 +203,12 @@ function update1() {
                 categoryAxis.axisColor = "#DADADA";
                 categoryAxis.fillAlpha = 1;
                 categoryAxis.gridAlpha = 0;
-                categoryAxis.fillColor = "#FAFAFA";
+                categoryAxis.fillColor = "transparent";
 
                 // value
                 var valueAxis = new AmCharts.ValueAxis();
                 valueAxis.axisColor = "#DADADA";
-                valueAxis.title = "Income in millions, USD";
+                valueAxis.title = "Emotion Tone";
                 valueAxis.gridAlpha = 0.1;
                 chart.addValueAxis(valueAxis);
 
@@ -219,9 +217,9 @@ function update1() {
                 graph.title = "Income";
                 graph.valueField = "income";
                 graph.type = "column";
-                graph.balloonText = "Income in [[category]]:[[value]]";
+                graph.balloonText = "<b>[[category]]:[[value]]</b>";
                 graph.lineAlpha = 0;
-                graph.fillColors = "#bf1c25";
+                graph.fillColors = "#9999ff";
                 graph.fillAlphas = 1;
                 chart.addGraph(graph);
 
