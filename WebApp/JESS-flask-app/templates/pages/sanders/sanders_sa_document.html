@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <title>The Election Buzz on Trump by Big Neuron</title>
+
+    <!-- Bootstrap Core CSS - Uses Bootswatch Flatly Theme: http://bootswatch.com/flatly/ -->
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="{{ url_for('static', filename='css/freelancer.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+   
+    <script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=" crossorigin="anonymous"></script>
+
+    <!-- Custom Fonts -->
+    <link href="{{ url_for('static', filename='font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <!--<script src="{{ url_for('static', filename='js/amcharts.js') }}"></script>-->
+    <script type="text/javascript" src="http://www.amcharts.com/lib/3/amcharts.js"></script>
+    <script src="{{ url_for('static', filename='js/dataloader.min.js') }}"></script>
+    <!-- <script src="{{ url_for('static', filename='js/serial.js') }}"></script>-->
+    <script type="text/javascript" src="http://www.amcharts.com/lib/3/serial.js"></script>
+
+    <style>
+        header {
+        background: linear-gradient(25deg, #013467, #044689, #0052a5, #cc172a, #960c1a, #650912);
+        background-size: 300% 300%;
+
+
+        -webkit-animation: USflagintense 25s ease infinite;
+        -moz-animation: USflagintense 25s ease infinite;
+        -o-animation: USflagintense 25s ease infinite;
+        animation: USflagintense 25s ease infinite;
+        }
+        /* Animations */
+        @-webkit-keyframes USflagintense {
+            0%{background-position:70% 0%}
+            50%{background-position:31% 100%}
+            100%{background-position:70% 0%}
+        }
+        @-moz-keyframes USflagintense {
+            0%{background-position:70% 0%}
+            50%{background-position:31% 100%}
+            100%{background-position:70% 0%}
+        }
+        @-o-keyframes USflagintense {
+            0%{background-position:70% 0%}
+            50%{background-position:31% 100%}
+            100%{background-position:70% 0%}
+        }
+        @keyframes USflagintense { 
+            0%{background-position:70% 0%}
+            50%{background-position:31% 100%}
+            100%{background-position:70% 0%}
+        
+       }
+    </style>
+    <!-- amCharts javascript code -->
+    <script type="text/javascript">
+            /*--------------------------------
+                EMOTION TONE
+                input static/data/sanders_doc_emotion.json
+            ---------------------------------*/
+            AmCharts.makeChart("emotion",
+                {
+                    "type": "serial",
+                    "categoryField": "day",
+                    "dataDateFormat": "YYYY-MM-DD",
+                    "backgroundColor":"white",
+                    "categoryAxis": {
+                        "parseDates": true,
+                        "title": "Past 5 weeks (each day)"
+                    },
+                    "chartScrollbar": {
+                        "enabled": true
+                    },
+                    "chartCursor": {
+                        "enabled": true,
+                        "categoryBalloonEnabled": true
+                    },
+                    
+                    "trendLines": [],
+                    "graphs": [
+                        //anger
+                        {
+                            "balloonText": "[[title]] - [[category]]: <b>[[value]] </b>",
+                            "fillAlphas": 0.7,
+                            "id": "AmGraph-1",
+                            "lineAlpha": 1,
+                            "title": "Anger",
+                            "valueField": "anger"
+                        },
+                        //sadness
+                        {
+                            "balloonText": "[[title]] - [[category]]: <b>[[value]] </b>",
+                            "fillAlphas": 0.7,
+                            "id": "AmGraph-2",
+                            "lineAlpha": 1,
+                            "title": "Sadness",
+                            "valueField": "sadness"
+                        },
+                        //joy
+                        {
+                            "balloonText": "[[title]] - [[category]]: <b>[[value]] </b>",
+                            "fillAlphas": 0.7,
+                            "id": "AmGraph-3",
+                            "lineAlpha": 1,
+                            "title": "Joy",
+                            "valueField": "joy"
+                        },
+                        //disgust
+                        {
+                            "balloonText": "[[title]] - [[category]]: <b>[[value]] </b>",
+                            "fillAlphas": 0.7,
+                            "id": "AmGraph-4",
+                            "lineAlpha": 1,
+                            "title": "Disgust",
+                            "valueField": "disgust"
+                        },
+                        //fear
+                        {
+                            "balloonText": "[[title]] - [[category]]: <b>[[value]] </b>",
+                            "fillAlphas": 0.7,
+                            "id": "AmGraph-5",
+                            "lineAlpha": 1,
+                            "title": "Fear",
+                            "valueField": "fear"
+                        }
+                    ],
+                    "valueAxes": [
+                        {
+                            "id": "ValueAxis-1",
+                            "title": "Emotion Tone"
+                        }
+                    ],
+                    "legend": {
+                        "enabled": true,
+                        "color": "black",
+                        "fontSize": 15,
+                        "align":"right"
+                    },
+
+                    "dataLoader": {    
+                        "url": "static/data/sanders_doc_emotion.json",
+                        "showCurtain": false
+                      }
+                    
+                }); //end of social tone
+
+            /*--------------------------------
+                WRITING TONE
+                input static/data/sanders_doc_writing.json
+            ---------------------------------*/
+            AmCharts.makeChart("writing", 
+                {
+                    "type": "serial",
+                    "angle": 30,
+                    "depth3D": 30,
+                    "startDuration": 1,
+                    "backgroundColor":"white",
+                    "categoryField":"day",
+                    /*"autoMargins": false,
+                    "marginBottom": 5,
+                    "marginLeft": 5,
+                    "marginRight": 5,
+                    "marginTop": 5,*/
+                    "categoryAxis": {
+                        "gridPosition": "start",
+                        "gridAlpha":0.2,
+                        "gridColor":"transparent",
+                        "axisColor":"black",
+                        "axisAlpha":1,
+                        "dashLength": 1,
+                        "title":"Last 5 weeks - Ticks represent the days",
+                        "fontSize": 15,
+                        "centerLabels": true
+                    },
+                    "graphs": [
+                        {
+                            //
+                            "balloonText": "[[title]] - Day [[category]]: <b>[[value]] </b>",
+                            "id": "AmGraph-1",
+                            "title": "Analytical",
+                            //"bullet": "round",
+                            "type": "column",
+                            "valueField": "analytical",
+                            "lineAlpha":0,
+                            /*"lineColor":"blue",*/
+                            "fillAlphas": 1
+                        },
+                        {
+                           "balloonText": "[[title]] - Day [[category]]: <b>[[value]] </b>",
+                            "id": "AmGraph-2",
+                            "title": "Confident",
+                            //"bullet": "round",
+                            "type": "column",
+                            "valueField": "confident",
+                            "lineAlpha":0,
+                            /*"lineColor":"blue",*/
+                            "fillAlphas": 1
+                        },
+                        {
+                            "balloonText": "[[title]] - Day [[category]]: <b>[[value]] </b>",
+                            "id": "AmGraph-3",
+                            "title": "Tentative",
+                            //"bullet": "round",
+                            "type": "column",
+                            "valueField": "tentative",
+                            "lineAlpha":1,
+                            /*"lineColor":"blue",*/
+                            "fillAlphas": 1
+                        }
+                    ],
+                    "valueAxes": [
+                        {
+                            "id": "ValueAxis-1",
+                            "stackType": "3d",
+                            "gridAlpha":0.2,
+                            "gridColor":"black",
+                            "axisColor":"black",
+                            "axisAlpha":1,
+                            "dashLength":5,
+                            "title": "Writing Tone ",
+                            "titleColor":"black",
+                            "unit": "",
+                            "fontSize": 15
+                        }
+                    ],
+                    
+                    "legend": {
+                        "enabled": true,
+                        "useGraphSettings": true,
+                        "color": "black",
+                        "fontSize": 15,
+                        "align":"right"
+                    },
+                    
+                    "dataLoader": {    
+                        "url": "static/data/sanders_doc_writing.json",
+                        "showCurtain": false
+                      }
+                }
+            ); //end of amcharts for writing
+
+
+            /*--------------------------------
+                SOCIAL TONE
+                input static/data/sanders_doc_social.json
+            ---------------------------------*/
+
+            AmCharts.makeChart("social",
+                {
+                    "type": "serial",
+                    "categoryField": "category",
+                    "angle": 30,
+                    "depth3D": 30,
+                    "startDuration": 0.8,
+                    "categoryField":"day",
+                    "colors": [ 
+                        
+                    ],
+                    "categoryAxis": {
+                        "gridPosition": "start",
+                        "gridAlpha":0.2,
+                        "gridColor":"transparent",
+                        "axisColor":"black",
+                        "axisAlpha":1,
+                        "dashLength": 1,
+                        "title":"Last 5 weeks - Ticks represent the days",
+                        "fontSize": 15,
+                        "centerLabels": true
+                    },
+                    "dataLoader": {
+                        "url": "static/data/sanders_doc_social.json",
+                        "showCurtain": false
+                      },
+                    "graphs": [
+                            //Add all the 5 graphs here
+                            // Openness Graph
+                            {   
+                            "balloonText": "Day : <b>[[category]]</b>  Openness: <b>[[value]]</b>",
+                            "fillAlphas": 1,
+                            "id": "AmGraph-1",
+                            "title": "Openness",
+                            "type": "column",
+                            "valueField": "openness_score",
+                            /*"fillColors": "teal",
+                            "borderAlpha":1,
+                            "borderColor": "transparent", */  
+                            "fillAlphas": 1
+
+                        },
+                        // Concientiousness Graph
+                        {
+                            "balloonText": "Day : <b>[[category]]</b>  Concientiousness: <b>[[value]]</b>",
+                            "fillAlphas": 1,
+                            "id": "AmGraph-2",
+                            "title": "Concientiousness",
+                            "type": "column",
+                            "valueField": "conscientiousness_score",
+                            "lineAlpha":0,
+                            /*"lineColor":"purple",*/
+                            "fillAlphas": 1
+                        },
+                        // Extraversion Graph
+                        {
+                            "balloonText": "Day : <b>[[category]]</b> Extraversion: <b>[[value]]</b>",
+                            "fillAlphas": 1,
+                            "id": "AmGraph-3",
+                            "title": "Extraversion",
+                            "type": "column",
+                            "valueField": "extraversion_score",
+                            "lineAlpha":0,
+                            /*"lineColor":"green",*/
+                            "fillAlphas": 1
+                        },
+                        // Agreeableness Graph
+                        {
+                            "balloonText": "Day : <b>[[category]]</b>  Agreeableness: <b>[[value]]</b>",
+                            "fillAlphas": 1,
+                            "id": "AmGraph-4",
+                            "title": "Agreeableness",
+                            "type": "column",
+                            "valueField": "agreeableness_score",
+                            "lineAlpha":0,
+                            /*"lineColor":"yellow",*/
+                            "fillAlphas": 1
+                        },
+                        // Emotional-range Graph
+                        {
+                            "balloonText": "Day : <b>[[category]]</b>  Emotionalrange: <b>[[value]]</b>",
+                            "fillAlphas": 1,
+                            "id": "AmGraph-5",
+                            "title": "Emotionalrange",
+                            "type": "column",
+                            "valueField": "emotionalrange_score",
+                            "lineAlpha":0,
+                            /*"lineColor":"blue",*/
+                            "fillAlphas": 1
+                        }
+                    ],  //end of the graphs definition
+                    "valueAxes":  [{
+                            "stackType":"100%", // This line makes chart 3D stacked (columns are placed one behind another)
+                            "gridAlpha":0.2,
+                            "gridColor":"black",
+                            "axisColor":"black",
+                            "axisAlpha":1,
+                            "dashLength":5,
+                            "title": "Emotion Tone ",
+                            "titleColor":"black",
+                            "unit": "",
+                            "fontSize": 15
+                        }],
+                   
+                    "legend": {
+                        "enabled": true,
+                        "useGraphSettings": true,
+                        "color": "black",
+                        "fontSize": 15,
+                        "align":"right"
+                    }
+
+
+                }); //end of makeChart function
+    
+            
+            
+    </script>
+
+</head>
+
+    
+
+<body id="page-top" class="index">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+ 
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{{ url_for('home') }}" style="padding-left:20px">Big Neuron</a>
+        </div>
+
+    </nav>
+
+    <!-- Header -->
+    <header style="height: 2500px">
+        <div class="container" style="width: 100%; padding-left:50px; padding-right:50px;">
+            <div class="row">
+                <div class="col-lg-12" >
+                    <div class="intro-text" style="padding-bottom: 5px">
+                        <h2 style="padding-bottom:5px">Sentiment Analysis for Bernie Sanders</h2>
+                        <hr class="star-light">
+                        <!--span class="skills">Optional description goes here.</span-->
+                    </div>
+                    <div id="xyz" >
+                         <center><h1> Emotion Tone </h1></center>
+                         <br><br><br>
+                        <div id="emotion" style="background-color:white;width: 100%; height:600px"></div>
+
+                    </div>  
+                 </div>
+                <!-- End: /.col-lg-12 -->
+            </div>
+            <!-- End: /row -->   
+            <div class="row">
+                <center><h1> Writing Tone </h1></center>
+                <div id="writing" style="background-color:white;width: 100%; height: 600px"></div>
+            </div> 
+
+            <div class="row">
+                <center><h1> Social Tone </h1></center>
+                 <div id="social" style="background-color:white;width: 100%; height:700px"></div>         
+             </div>
+        </div>
+        <!-- End: /.container -->
+   
+    </header>
+
+
+    <!-- Footer -->
+        
+
+    <!-- jQuery -->
+    <script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+    <script src="{{ url_for('static', filename='js/classie.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/cbpAnimatedHeader.js') }}"></script>
+    
+
+    <!-- Custom Theme JavaScript -->
+    <script src="{{ url_for('static', filename='js/freelancer.js') }}"></script>
+
+</body>
+
+</html>
