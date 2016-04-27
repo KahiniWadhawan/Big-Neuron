@@ -1,5 +1,6 @@
 /* ---------------------------------------------------------------------
-Author: Kahini
+Author: Kahini Wadhawan
+Contributor: Piyush Patel
 This script creates keyspace and tables for db setup
 DBSchema: Tables are maintained candidate per se
 One General table for Tweets and 4 Tables for each analysis
@@ -12,6 +13,23 @@ CREATE KEYSPACE IF NOT EXISTS TwitterDataSet WITH replication = {'class': 'Simpl
 'replication_factor': '1'} AND durable_writes = true;
 
 USE TwitterDataSet;
+
+/* ---------------------------------------------------------------------------------
+Custom aggregate functions
+Note: Cassandra has no default aggregate functions like group by or order by
+----------------------------------------------------------------------------------- */
+CREATE FUNCTION cusstate_group_and_total( state map<text, double>, type text, amount double )
+CALLED ON NULL INPUT
+RETURNS map<text, double>
+LANGUAGE java AS '
+Double count = (Double) state.get(type);  if (count == null) count = amount; else count = count + amount; state.put(type, count); return state; ' ;
+
+
+CREATE OR REPLACE AGGREGATE cus_group_and_total(text, double)
+SFUNC cusstate_group_and_total
+STYPE map<text, double>
+INITCOND {};
+
 
 /* ------------------------------------------------------------
 Tables for Donald Trump
@@ -59,9 +77,9 @@ PRIMARY KEY (tweet_id,date));
 //revisit
 
 
-#------------------------------------------------------------
-#Table for Donald Trump Time to live tweets
-#------------------------------------------------------------
+/*------------------------------------------------------------
+Table for Donald Trump Time to live tweets
+------------------------------------------------------------*/
 CREATE TABLE IF NOT EXISTS DonaldTrumpTTL (
 tweet_id bigint primary key,
 tweet_text varchar,
@@ -128,9 +146,9 @@ PRIMARY KEY (tweet_id,date));
 //revisit
 
 
-#------------------------------------------------------------
-#Table for HillaryClinton Time to live tweets
-#------------------------------------------------------------
+/*------------------------------------------------------------
+Table for HillaryClinton Time to live tweets
+------------------------------------------------------------*/
 CREATE TABLE IF NOT EXISTS HillaryClintonTTL (
 tweet_id bigint primary key,
 tweet_text varchar,
@@ -198,9 +216,9 @@ PRIMARY KEY (tweet_id,date));
 //revisit
 
 
-#------------------------------------------------------------
-#Table for BernieSanders Time to live tweets
-#------------------------------------------------------------
+/*------------------------------------------------------------
+Table for BernieSanders Time to live tweets
+------------------------------------------------------------*/
 CREATE TABLE IF NOT EXISTS BernieSandersTTL (
 tweet_id bigint primary key,
 tweet_text varchar,
@@ -270,9 +288,9 @@ PRIMARY KEY (tweet_id,date));
 //revisit
 
 
-#------------------------------------------------------------
-#Table for tedcruz Time to live tweets
-#------------------------------------------------------------
+/*------------------------------------------------------------
+Table for tedcruz Time to live tweets
+------------------------------------------------------------*/
 CREATE TABLE IF NOT EXISTS TedCruzTTL (
 tweet_id bigint primary key,
 tweet_text varchar,
@@ -340,9 +358,9 @@ PRIMARY KEY (tweet_id,date));
 //revisit
 
 
-#------------------------------------------------------------
-#Table for JohnKasich Time to live tweets
-#------------------------------------------------------------
+/*------------------------------------------------------------
+Table for JohnKasich Time to live tweets
+------------------------------------------------------------*/
 CREATE TABLE IF NOT EXISTS JohnKasichTTL (
 tweet_id bigint primary key,
 tweet_text varchar,

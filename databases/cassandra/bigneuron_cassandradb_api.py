@@ -18,6 +18,7 @@ from cassandra.cluster import Cluster
 #-----------------------------------------------------------
 #Loading configs for Tweepy
 #-----------------------------------------------------------
+#print ('current path :', sys.path[0])
 oauth = json.loads(open('../../config/oauth.json','r').read())
 
 #------------------------------------------------------------
@@ -164,9 +165,9 @@ def insert_data_to_table(candname):
         tweets_bound = prepare_tweets_query(candname,tweet,session)
         session.execute(tweets_bound)
         # except
-        #inserting data to Sentencelevel table
-        sentencelevel_bound = prepare_sentencelevel_query(candname,tweet,session)
-        session.execute(sentencelevel_bound)
+        # #inserting data to Sentencelevel table
+        # sentencelevel_bound = prepare_sentencelevel_query(candname,tweet,session)
+        # session.execute(sentencelevel_bound)
 
 
 def prepare_tweets_query(candname, tweet,session):
@@ -204,6 +205,36 @@ def prepare_tweets_query(candname, tweet,session):
 
     return bound
 
+
+
+
+#revisit - session close() on function closing
+def insert_data_table_sentencelevel(candname):
+    table_tweets = candname + '_tweets'
+    table_sentencelevel = candname + '_sentencelevel'
+    #setting up db
+    session = db_connect()
+
+    #getting tweets from tweets table to send to toneAnalyzer
+    select_query = "select " + \
+                "tweet_id, " \
+                "tweet_text, " \
+                "created_at, " \
+                " from " + table_tweets + \
+                ";"
+
+    #print 'select_query ::',select_query
+    resultSet  = session.execute(select_query)
+
+    result_jsons = {}
+    for row in resultSet:
+        tweet_id = row.tweet_id
+        tweet_text = row.tweet_text
+        created_at = row.created_at
+
+        #calling prepare_sentencelevel_query for every tweet
+        sentencelevel_bound = prepare_sentencelevel_query(candname,tweet,session)
+        session.execute(sentencelevel_bound)
 
 def prepare_sentencelevel_query(candname,tweet,session):
     #creating table name
@@ -289,8 +320,6 @@ def prepare_sentencelevel_query(candname,tweet,session):
 
     #print('sentencelevel_query :: ', bound)
     return bound
-
-
 #def prepare_topics_query():
 #def prepare_graph_query():
 
@@ -799,14 +828,14 @@ def get_tweet_tones(candname,tweet_id,file_path):
 
 #testing all functions here in a sequence
 #insert_data_to_table('realDonaldTrump')
-#insert_data_to_table('HillaryClinton')
+insert_data_to_table('HillaryClinton')
 # insert_data_to_table('BernieSanders')
 # insert_data_to_table('tedcruz')
 # insert_data_to_table('JohnKasich')
 
-gen_doclevel_emotion_json('realDonaldTrump','data/')
-gen_doclevel_writing_json('realDonaldTrump','data/')
-gen_doclevel_social_json('realDonaldTrump','data/')
+#gen_doclevel_emotion_json('realDonaldTrump','data/')
+#gen_doclevel_writing_json('realDonaldTrump','data/')
+#gen_doclevel_social_json('realDonaldTrump','data/')
 #gen_doclevel_json('HillaryClinton','data/')
 #get_tweet_list('realDonaldTrump',2)
 #get_tweet_tones('realDonaldTrump','722967660833722369','data/')
