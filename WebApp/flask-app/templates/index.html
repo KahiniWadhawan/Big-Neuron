@@ -78,7 +78,7 @@
     <!-- Header  >-->
     <header>
         <!-- Carousel -->
-                 <div class="carousel fade-carousel slide" data-ride="carousel" data-interval="3000" id="bs-carousel">
+                 <div class="carousel fade-carousel slide" data-ride="carousel" data-interval="5000" id="bs-carousel">
                   <!-- Overlay -->
                     <div class="overlay">
                         <div class="container">
@@ -318,61 +318,59 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2>The Project</h2>
+                    <h2>About us</h2>
                     <hr class="star-light">
                 </div>
             </div>
             <div class="row" style="padding-bottom: 30px;">
                 <div class="col-lg-12 text-center">
-                    <p style="font-size: 30px; font-weight: bold; padding-bottom:15px;">Election Buzz powered by Big Neuron is an interactive web application that<br>allows the user to visualize big data pertaining to the 2016 Presidential Election, which is collected from Twitter and analyzed in our system.  The data visualized in our application is based on the user's selected candidate.</p>
-                    <p style="font-size: 30px; font-weight: bold;">Requirements for our project are as follows:</p>
+                    <p style="font-size: 30px; font-weight: bold; padding-bottom:15px;">'Electionitics' - powered by Big Neuron - is an interactive web application that<br>allows the user to <i>visualize</i> big data and <i>deep analytics</i> pertaining to the 2016 Presidential Election, which is collected from Twitter.  </p>
+                    <!-- <p style="font-size: 30px; font-weight: bold;">Requirements for our project are as follows:</p> -->
                 </div>
             </div>
         </div> <!-- ./container -->
         <div class="container" style="width:2000px; margin:auto;">
             <div class="row" >
-                <div class="col-lg-4" style="width:500px">
-                    <h4 style="font-size:26px;">Data Processing</h4>
+                <div class="col-lg-3" >
+                    <h4 style="font-size:26px;text-align: center">Data Processing</h4>
                     <ul style="font-size:20px;">
-                        <li>Tweepy API to pull Twitter data (realtime and batch processing)</li>
+                        <li>Tweepy API to pull Twitter data (realtime & batch processing)</li>
                         <li>Cassandra to ensure data persistence</li>
-                        <li>Spark Streaming to generate realtime data</li>
-                        <li>list item 1 Aenean commodo ligula eget dolor.</li>
-                        <li>list item 2 Aenean commodo ligula eget dolor.</li>
-                        <li>list item 3 Aenean commodo ligula eget dolor.</li>
-                        <li>list item 4 Aenean commodo ligula eget dolor.</li>
+                        <li>Aynchronous data fetching</li>
+                        <li>Data munching using NLTK, RegEx</li>
+                        <li>Vector Space Model using Gensim</li>
+                        <li>Scraping social network from Twitter</li>
+                        
                     </ul>
                 </div>                
-                <div class="col-lg-4" style="width:500px">
-                    <h4 style="font-size: 26px;">Data Analytics</h4>
+                <div class="col-lg-3" >
+                    <h4 style="font-size: 26px;text-align: center">Data Analytics</h4>
                     <ul style="font-size:20px;">
-                        <li>list item 1 Aenean commodo ligula eget dolor.</li>
-                        <li>list item 2 Aenean commodo ligula eget dolor.</li>
-                        <li>list item 3 Aenean commodo ligula eget dolor.</li>
-                        <li>list item 4 Aenean commodo ligula eget dolor.</li>
-                        <li>list item 5 Aenean commodo ligula eget dolor.</li>
-                        <li>list item 6 Aenean commodo ligula eget dolor.</li>
-                        <li>list item 7 Aenean commodo ligula eget dolor.</li>
-                        <li>list item 8 Aenean commodo ligula eget dolor.</li>
-                        <li>list item 9 Aenean commodo ligula eget dolor.</li>
+                        <li>Sentiment Analysis using IBM Tone Anayser</li>
+                        <li>Emotion tone analysed for realtime data</li>
+                        <li>Emotion, writing and social tone analysed for near-realtime & batch processed data</li>
+                        <li>Topic Modelling</li>
+                        <li>Graph analysis</li>
+                        <li>Spark streaming</li>
+                        
                     </ul>
                 </div>
-                <div class="col-lg-4" style="width:500px">
-                    <h4 style="font-size: 26px;">Visualization</h4>
+                <div class="col-lg-3">
+                    <h4 style="font-size: 26px;text-align: center">Visualizations</h4>
                     <ul style="font-size:20px;">
-                        <li>list item 1 Aenean commodo ligula eget dolor.</li>
-                        <li>list item 2 Aenean commodo ligula eget dolor.</li>
-                        <li>list item 3 Aenean commodo ligula eget dolor.</li>
-                        <li>list item 4 Aenean commodo ligula eget dolor.</li>
-                        <li>list item 5 Aenean commodo ligula eget dolor.</li>
-                        <li>list item 6 Aenean commodo ligula eget dolor.</li>
-                        <li>list item 7 Aenean commodo ligula eget dolor.</li>
-                        <li>list item 8 Aenean commodo ligula eget dolor.</li>
-                        <li>list item 9 Aenean commodo ligula eget dolor.</li>
+                        <li>D3.js and Amcharts.js extensively used</li>
+                        <li>Mapping both realtime and batch processed data to bar, pie aand area graphs</li>
+                        <li>Barchart rendition of past 4 months tweet sentiments</li>
+                        <li>Individual Pie chart display of top 20 tweets sentiments</li>
+                        <li>Interactive Wordcloud of tags from near-realtime data</li>
+                        <li>Interactive sentiment bar graphs of near-realtime data</li>
+                        <li>Zoomable pack-layout of clustered topics</li>
+                        <li>Force-directed graph for Follower Network</li>
+                        <li>Emotion Tone bar graph of Realtime data using Spark</li>
                     </ul>
                 </div> 
-                <div class="col-lg-4" style="width:500px">
-                    <h4 style="font-size: 26px;">Deployment</h4>
+                <div class="col-lg-3" >
+                    <h4 style="font-size: 26px;text-align: center">Deployment</h4>
                     <ul style="font-size:20px;">
                         <li>list item 1 Aenean commodo ligula eget dolor.</li>
                         <li>list item 2 Aenean commodo ligula eget dolor.</li>
@@ -389,7 +387,7 @@
         </div> <!-- ./container -->
             <div class="row" style="margin:auto">
                 <div class="container" style="width:925px; margin:auto;">
-                    <h3 align="middle" style="padding-top: 30px; padding-bottom:10px; text-align: center;">Big Neuron Pipeline</h3>
+                    <h2 align="middle" style="padding-top: 30px; padding-bottom:10px; text-align: center;">Big Neuron Pipeline</h2>
                     <img src="static/img/pipeline.png" align="middle" alt="" style="padding: 30px 0px;">
                 </div>
             </div>
