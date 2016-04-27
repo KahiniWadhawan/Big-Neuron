@@ -821,7 +821,7 @@ def get_tweet_tones(candname,tweet_id,file_path):
                 " where tweet_id = '" + tweet_id + "'" + \
                 ";"
 
-    #print 'select_query ::',select_query
+    print 'select_query ::',select_query
     resultSet  = session.execute(select_query)
 
     result_jsons = {}
@@ -832,6 +832,7 @@ def get_tweet_tones(candname,tweet_id,file_path):
 
         writing_json = json.loads(row.writing_json)
         with open(os.path.join(file_path,'writing.json'), 'wb') as outfile:
+            print 'inside GET TWEET TONES function wirting json'
             json.dump(writing_json, outfile)
         outfile.close()
 
