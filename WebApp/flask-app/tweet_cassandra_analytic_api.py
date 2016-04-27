@@ -39,6 +39,8 @@ import json
 import sys
 from operator import add
 from operator import itemgetter
+from multiprocessing import Process
+
 #Import secret phrase module
 
 #Reference API
@@ -56,7 +58,7 @@ class TweetAPI(CassandraAPI):
       self.access_token_secret=TOKENS.access_token_secret
       self.tweetlist=[]
       self.numb=0
-      self.repetations = 20
+      self.repetations = 50
 
       
 
@@ -139,6 +141,15 @@ class TweetAPI(CassandraAPI):
             print "sleeping ..."
             time.sleep(15*60)
 
+         
+         
+         #print "bankai",len(results)
+         #print i, "----> ",  len(results)
+         #for each in results:
+         #   print each.text
+         #raw_input("")
+
+
    def SearchAPI(self):
       
       try:
@@ -156,22 +167,60 @@ class TweetAPI(CassandraAPI):
             break
             '''
             print i
-             self.numb=i
+            #break
+            #if (i%10==0):
+            #print "TRY Length of tweets = ", len(self.tweetlist)
+            self.numb=i
+            #print "TRY Length of unique tweets = ",len(set(self.tweetlist))            
+            #print "TRY Numb = ",self.numb,"\n\n\n"
+               #raw_input("")
+         #self.numb+=i
+         #print "TRY (FOR) Numb = ",self.numb 
+         #print "TRY (FOR) Length of tweets = ", len(self.tweetlist)
+         #print "TRY (FOR) Length of unique tweets = ",len(set(self.tweetlist))
 
       except:
+
+         #print "EXCEPT Sleeping ..."
+         #print "EXCEPT numb= ",self.numb
+         #print "EXCEPT Length of tweets = ", len(self.tweetlist)
+         #print "EXCEPT Length of unique tweets = ",len(set(self.tweetlist)),"\n\n\n"
+
          if(len(set(self.tweetlist)) < 15000):
             self.SearchAPI()
+
+         #print "Unexpected error:", sys.exc_info()[0]
+      
       finally:
          print "FINALLY len(self.tweetlist)= ",len(self.tweetlist)
          print "FINALLY numb = ", self.numb
          self.tweetlist=[]
          self.numb=0
+         #self.TestTimeout2()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
    def WordCloud(self,twitter_tags_list,politician_table,repeat):
-      if(repeat == "NO"):
-      
-         sc = SparkContext("local", "Simple App")     
+      print "twitter_tags_list==> ", twitter_tags_list
+      if(repeat == "NO"):      
+         #logFile = "/home/piyush/Big-neuron/Big-Neuron/preprocessing/Twitter_Cassandra_analytics_pipeline/Flask-Word-Cloud/static/data.json"  # Should be some file on the server
+         sc = SparkContext("local", "Simple App")
+
       if(politician_table=="donaldtrumpttl"):
          self.prepared_insert_tweets = self.session.prepare("INSERT INTO donaldtrumpttl (tweet_id, lang, tweet_text, created_at, retweet_count) VALUES(?,?,?,?,?) USING TTL 3600")
          #self.prepared_retrive_tweets = self.session.prepare("SELECT * FROM donaldtrumpttl LIMIT 100")
@@ -190,10 +239,9 @@ class TweetAPI(CassandraAPI):
       values=[]
       executestmt=None
       rows=None
-      #rows_wordcloud=None
       textlist=None
       textlist_wordcloud=None
-      ftextlist_wordcloud_bigfile= open("/home/piyush/Big-neuron/Big-Neuron/preprocessing/Twitter_Cassandra_analytics_pipeline/Flask-Word-Cloud/static/BigWordCloudFile.txt","w")
+      ftextlist_wordcloud_bigfile= open("/home/piyush/Big-neuron/Big-Neuron/WebApp/flask-app/static/BigWordCloudFile.txt","w")
       IBMToneJSON=None
       WordCloudJSON=None
 
@@ -205,6 +253,7 @@ class TweetAPI(CassandraAPI):
             #rows_wordcloud=None
             IBMToneJSON=None
             WordCloudJSON=None
+            #print tweet.text
             if(i>2 and  (i%(self.repetations) == 0)):         
                if(politician_table=="donaldtrumpttl"):
                   rows = self.session.execute("SELECT tweet_text FROM donaldtrumpttl LIMIT 100")
@@ -229,12 +278,14 @@ class TweetAPI(CassandraAPI):
                for each in rows:
                   textlist.append(each['tweet_text'])
 
+               #print "textlist==>",textlist
 
                #Filter
                textlist= (" ").join(textlist).lower()
                #textlist_wordcloud= textlist
                textlist = re.sub(r'(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:\'".,<>?«»“”‘’]))', '', textlist)
                textlist_wordcloud = textlist
+               #print "textlist_wordcloud ===>",textlist_wordcloud
                IBMToneJSON = eval(json.dumps(self.tone_analyzer.tone(text=textlist)))
                stop = stopwords.words('english')
                textlist_wordcloud =[i for i in textlist_wordcloud.split() if i not in stop]
@@ -243,7 +294,7 @@ class TweetAPI(CassandraAPI):
                ftextlist_wordcloud_bigfile.write(textlist_wordcloud.encode('utf-8'))
                textlist_wordcloud=[]
 
-               lines = sc.textFile("/home/piyush/Big-neuron/Big-Neuron/preprocessing/Twitter_Cassandra_analytics_pipeline/Flask-Word-Cloud/static/BigWordCloudFile.txt")
+               lines = sc.textFile("/home/piyush/Big-neuron/Big-Neuron/WebApp/flask-app/static/BigWordCloudFile.txt")
                counts = lines.flatMap(lambda x: x.split(' ')) \
                      .map(lambda x: (x, 1)) \
                      .reduceByKey(add)
@@ -253,23 +304,23 @@ class TweetAPI(CassandraAPI):
                
 
 
-               WordCloudJSON_1=open("/home/piyush/Big-neuron/Big-Neuron/preprocessing/Twitter_Cassandra_analytics_pipeline/Flask-Word-Cloud/static/data.json","w")
+               WordCloudJSON_1=open("/home/piyush/Big-neuron/Big-Neuron/WebApp/flask-app/static/data.json","w")
                each4_list_names=[]
                each4_list_numbers=[]
 
 
 
                #Anger, Disgust, Fear, Joy, Sadness
-               IBMToneJSON_1= open("/home/piyush/Big-neuron/Big-Neuron/preprocessing/Twitter_Cassandra_analytics_pipeline/Flask-Word-Cloud/static/testdata1.json","w")
+               IBMToneJSON_1= open("/home/piyush/Big-neuron/Big-Neuron/WebApp/flask-app/static/testdata1.json","w")
                each1_list_names=[]
                each1_list_numbers=[]
 
 
-               IBMToneJSON_2= open("/home/piyush/Big-neuron/Big-Neuron/preprocessing/Twitter_Cassandra_analytics_pipeline/Flask-Word-Cloud/static/testdata2.json","w")
+               IBMToneJSON_2= open("/home/piyush/Big-neuron/Big-Neuron/WebApp/flask-app/static/testdata2.json","w")
                each2_list_names=[]
                each2_list_numbers=[]
 
-               IBMToneJSON_3= open("/home/piyush/Big-neuron/Big-Neuron/preprocessing/Twitter_Cassandra_analytics_pipeline/Flask-Word-Cloud/static/testdata3.json","w")
+               IBMToneJSON_3= open("/home/piyush/Big-neuron/Big-Neuron/WebApp/flask-app/static/testdata3.json","w")
                each3_list_names=[]
                each3_list_numbers=[]
 
@@ -327,32 +378,83 @@ class TweetAPI(CassandraAPI):
                WordCloudJSON_1.write('{"key": \" '  + (each4_list_names[18]).replace("\"","").encode('utf-8')+'\" , "value": ' +str(each4_list_numbers[18])+ ' },')
                WordCloudJSON_1.write('{"key": \" '  + (each4_list_names[19]).replace("\"","").encode('utf-8')+'\" , "value": ' +str(each4_list_numbers[19])+ ' }]')
                WordCloudJSON_1.close()
-               #time.sleep(10)
-         values=[]
-         rows=None
-         values.append(tweet.id)
-         values.append(tweet.lang.replace("'",""))
-         values.append(tweet.text.replace("'",""))            
-         values.append(tweet.created_at)
-         values.append(tweet.retweet_count)
-         binding_stmt = self.prepared_insert_tweets.bind(values)
-         executestmt=self.session.execute(binding_stmt)
+               #time.sleep(10)      
+            values=[]
+            rows=None
+            values.append(tweet.id)
+            values.append(tweet.lang.replace("'",""))
+            values.append(tweet.text.replace("'",""))            
+            values.append(tweet.created_at)
+            values.append(tweet.retweet_count)
+            binding_stmt = self.prepared_insert_tweets.bind(values)
+            executestmt=self.session.execute(binding_stmt)
+      
+   
       except:
          #print "Inside except ",i
-         if(len(set(self.tweetlist)) < 100000):
-            time.sleep(10)
-            self.WordCloud(twitter_tags_list,politician_table,"YES")
+            if(len(set(self.tweetlist)) < 500000):
+               time.sleep(10)
+               self.WordCloud(twitter_tags_list,politician_table,"YES")
       finally:
          #print "Inside finally ",i
          #print "FINALLY len(self.tweetlist)= ",len(self.tweetlist)
          #print "FINALLY numb = ", self.numb
-         self.tweetlist=[]
+            self.tweetlist=[]
          #self.TestTimeout2()
-if __name__ == "__main__":
+
+def loop_trump():
    tweets =  TweetAPI()
    tweets.Connect()
-   #tweets.TestIBM()
-   #tweets.SearchAPI()
-   #tweets.TestIBM()
    tweets.WordCloud("Donald OR Trump OR DonaldTrump OR Donald trump OR trump ","donaldtrumpttl","NO")  #REMOVE THE BREAK STATEMENT
+
+
+
+def loop_clinton():
+   tweets =  TweetAPI()
+   tweets.Connect()
+   tweets.WordCloud("Hillary OR Clinton OR HillaryClinton OR clinton2016","hillaryclintonttl","NO")  #REMOVE THE BREAK STATEMENT
+
+
+def loop_cruz():
+   tweets =  TweetAPI()
+   tweets.Connect()
+   tweets.WordCloud("cruz OR tedcruz OR cruzted OR tedcruz2016 ","tedcruzttl","NO")  #REMOVE THE BREAK STATEMENT
+
+
+
+
+def loop_kasich():
+   tweets =  TweetAPI()
+   tweets.Connect()
+   tweets.WordCloud("kasich OR johnkasich OR kasich4us OR kasich2016 OR johnkasich2016","johnkasichttl","NO")  #REMOVE THE BREAK STATEMENT
+
+
+
+def loop_sanders():
+   tweets =  TweetAPI()
+   tweets.Connect()
+   tweets.WordCloud("bernie OR sanders OR berniesanders OR feelthebern OR berniesander ","berniesandersttl","NO")  #REMOVE THE BREAK STATEMENT
+
+
+
+
+def loop_b(var):   
+   if(var=='trump'):
+      print "Inside trump loop"
+      Process(target=loop_trump).start()
+      #need to give the full system path
+   elif(var=='clinton'):
+      print "Inside clinton loop"
+      Process(target=loop_clinton).start()
+   elif(var=='cruz'):
+      print "Inside cruz loop"
+      Process(target=loop_cruz).start()
+   elif(var=='kasich'):
+      print "Inside kasich loop"
+      Process(target=loop_kasich).start()
+   elif(var=='sanders'):
+      print "Inside sanders loop"
+      Process(target=loop_sanders).start()
+
+
 

@@ -20,11 +20,13 @@ from multiprocessing import Process
 
 #from pipeAppToTwitterStream import PipeIt
 import twitter_stream
+import tweet_cassandra_analytic_api
 # Authentication details. To  obtain these visit dev.twitter.com
 consumer_key = TOKENS.consumer_key
 consumer_secret = TOKENS.consumer_secret
 access_token = TOKENS.access_token
 access_token_secret = TOKENS.access_token_secret
+
 '''
 Realtime
 '''
@@ -74,7 +76,7 @@ def select_candidate():
             # if radio == "trump":
             #     radio = "realDonaldTrump"
             if radio == 'clinton':
-                print "Inside Sub clintn"
+                print "Inside clintn"
                 return render_template("pages/clinton/clinton.html", cand=radio)
             elif radio == 'cruz':
                 return render_template("pages/cruz/cruz.html", cand=radio)
@@ -83,8 +85,7 @@ def select_candidate():
             elif radio == 'sanders':
                 return render_template("pages/sanders/sanders.html", cand=radio)
             elif radio == 'trump':
-
-                return render_template("/templates/index2.html", cand=radio)#trump.html
+                return render_template("pages/trump/trump.html", cand=radio)#trump.html
             else:
                 retVal = "Error in select_candidate(). Need to make an error page"
                 return retVal
@@ -125,15 +126,25 @@ def wordcloud():
     cand   = session['candidate']
     print "In wordcloud, session['candidate'] is - ", cand
     if cand == 'clinton':
-        return render_template("pages/clinton/clinton_wordcloud.html")
+        tweet_cassandra_analytic_api.loop_b(cand)
+        #return render_template("pages/clinton/clinton_wordcloud.html")
+        return render_template("pages/trump/index_1.html")
     elif cand == 'cruz':
-        return render_template("pages/cruz/cruz_wordcloud.html")
+        tweet_cassandra_analytic_api.loop_b(cand)
+        #return render_template("pages/cruz/cruz_wordcloud.html")
+        return render_template("pages/trump/index_1.html")
     elif cand == 'kasich':
-        return render_template("pages/kasich/kasich_wordcloud.html")
+        tweet_cassandra_analytic_api.loop_b(cand)
+        #return render_template("pages/kasich/kasich_wordcloud.html")
+        return render_template("pages/trump/index_1.html")
     elif cand == 'sanders':
-        return render_template("pages/sanders/sanders_wordcloud.html")
-    elif cand == 'realDonaldTrump':
-        return render_template("pages/trump/trump_wordcloud.html")
+        tweet_cassandra_analytic_api.loop_b(cand)
+        return render_template("pages/trump/index_1.html")
+        #return render_template("pages/sanders/sanders_wordcloud.html")
+    elif cand == 'trump':
+        tweet_cassandra_analytic_api.loop_b(cand)        
+        return render_template("pages/trump/index_1.html")
+        #return render_template("templates/index_1.html")
     else:
         retVal = "Error in topic(). Need to make an error page"
     return retVal
