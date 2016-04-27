@@ -11,7 +11,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>The Election Buzz on Trump by Big Neuron</title>
+    <title>Electionitics on Trump by Big Neuron</title>
 
     <!-- Bootstrap Core CSS - Uses Bootswatch Flatly Theme: http://bootswatch.com/flatly/ -->
     <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
@@ -42,26 +42,59 @@
           font-size: 12px;
         }
         #chartdiv1 {
+            padding-right: 200px;
           width: 100%;
           height: 500px;
-          background-color: black;
+          background-color: transparent;
         }
 
         #chartdiv2 {
+            padding-left: 150px;
           width: 100%;
           height: 500px;
-          background-color: white;
+          background-color: transparent;
         }
 
+        header {
+        background: linear-gradient(25deg, #013467, #044689, #0052a5, #cc172a, #960c1a, #650912);
+        background-size: 600% 600%;
+
+        -webkit-animation: USflagintense 25s ease infinite;
+        -moz-animation: USflagintense 25s ease infinite;
+        -o-animation: USflagintense 25s ease infinite;
+        animation: USflagintense 25s ease infinite;
+        }
+        /* Animations */
+        @-webkit-keyframes USflagintense {
+            0%{background-position:70% 0%}
+            50%{background-position:31% 100%}
+            100%{background-position:70% 0%}
+        }
+        @-moz-keyframes USflagintense {
+            0%{background-position:70% 0%}
+            50%{background-position:31% 100%}
+            100%{background-position:70% 0%}
+        }
+        @-o-keyframes USflagintense {
+            0%{background-position:70% 0%}
+            50%{background-position:31% 100%}
+            100%{background-position:70% 0%}
+        }
+        @keyframes USflagintense {
+            0%{background-position:70% 0%}
+            50%{background-position:31% 100%}
+            100%{background-position:70% 0%}
+
+       }
       </style>
 </head>
 
 <body id="page-top" class="index">
 
     <!-- Navigation -->
-    <nav class="navbar navbar-default navbar-fixed-top">
-
-        <!-- Brand and toggle get grouped for better mobile display -->
+    <!-- TOP Nav Bar -->
+    <nav class="navbar navbar-default navbar-fixed-top" style="padding-right: 20px; background: transparent">
+        <!-- Responsive Design -->
         <div class="navbar-header page-scroll">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                 <span class="sr-only">Toggle navigation</span>
@@ -69,14 +102,23 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{{ url_for('home') }}" style="padding-left:20px">Big Neuron</a>
+            <a class="navbar-brand" href="{{ url_for('home')}}" style="padding: 20px">Big Neuron</a>
         </div>
 
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right" style="padding-right: 20px; ">
+                <li class="hidden">
+                    <a href="#page-top"></a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
     </nav>
 
     <!-- Header -->
     <header style="height: 1000px">
-        <div class="container" style="width: 100%; height:1000; padding-left:50px; padding-right:50px; background-color: #18bc9c">
+        <div class="container" style="width: 100%; height:1000; padding-left:50px; padding-right:50px;">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="intro-text" style="padding-top: 5px; padding-bottom: 30px">
@@ -86,14 +128,14 @@
                         <!-- Button link to Realtime SA page-->
                     </div>
                     <div class="row">
-                        <div class="col-lg-6" style="overflow-y:scroll; height:645px;">
+                        <div class="col-lg-6" style="overflow-y:scroll; height:845px;">
                             <form role="form">
                                 <div class="form-group" >
                                     <div class="radio-button">
                                         <div style="color:#000000; text-align:left; padding-left:5px;">
                                             {% for tweet in tweet_list %}
-                                            <div class="radio">
-                                                <label style="background-color: #cccccc; padding:3px 3px; font-size: 24px" id="{{tweet[0]}}" onclick="changeVizById(this)">
+                                            <div class="radio" style="background-color: dimgrey;opacity:0.8;padding:3px 3px; font-size: 24px">
+                                                <label style= "" id="{{tweet[0]}}" onclick="changeVizById(this)">
                                                     <input type="radio" name="optionsRadios"><a href="{{ url_for('tweetlevel') }}" target="viz"></a>{{tweet[1]}}
                                                 </label>
                                             </div>
@@ -111,9 +153,9 @@
 
                         <!-- Visualization display section -->
                         <div class="col-lg-6" id="viz" style="left:20px; overflow-y:scroll; height:645px;">
-                            <center><h1> Emotion Tone - Sentiment Analysis </h1>
-                            <h3> Sentence-Level </h3></center>
+                            <center><h3>Emotion Tone</h3></center>
                             <div id="chartdiv1"></div>
+                            <center><h3>Social Tone</h3></center>
                             <div id="chartdiv2" ></div>
                             <!--<iframe name="viz" width="900" height="645">
                                 Sorry your browser does not support inline frames.
@@ -133,11 +175,21 @@
     </header>
 
     <!-- Footer -->
+    <footer class="text-center">
+        <div class="footer-below-indep">
+             <div class="row">
+                    <div class="col-lg-12">
+                        Copyright &copy; Big Neuron 2016
+                    </div>
+                    <br>
+                </div>
+         </div>
+    </footer>
 
 
 
     <!-- Jquery JS -->
-    <!-- <script src="../dist/js/jquery-1.12.0.min.js"></script> -->
+
     <script src="../../static/js/jquery.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
@@ -149,47 +201,10 @@
     <script src="../../static/js/classie.js"></script>
     <script src="../../static/js/cbpAnimatedHeader.js"></script>
 
-    <!-- Contact Form JavaScript -->
-    <script src="../../static/js/jqBootstrapValidation.js"></script>
-    <script src="../../static/js/contact_me.js"></script>
-
     <!-- Custom Theme JavaScript -->
     <script src="../../static/js/freelancer.js"></script>
 
-
-    <!--script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=" crossorigin="anonymous"></script-->
-
-    <!-- Latest compiled and minified JavaScript -->
-    <!--script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>-->
-
     <script type="text/javascript">
-        /*function changeBackgroundColor() {
-            var labels = ["0",  "1",  "2"];
-            //var labels = ["lbl0",  "lbl1",  "lbl2",  "lbl3",  "lbl4",  "lbl5",  "lbl6",  "lbl7",  "lbl8",  "lbl9", "lbl10", "lbl11", "lbl12", "lbl13", "lbl14", "lbl15", "lbl16", "lbl17", "lbl18", "lbl19"];
-
-            var radios = document.getElementsByName( "optionsRadios" );
-            if( radios === null )
-            {
-                alert( "Radios is null" );
-            }
-            for( var l = 0; l < labels.length; l++ )
-            {
-                var elmnt = document.getElementById( labels[l] );
-                if( elmnt === null )
-                {
-                    alert( "element " + l + " was not found." );
-                }
-
-                if( radios[l].checked === true )
-                {
-                    elmnt.style.backgroundColor = "cadetblue";
-                }
-                else
-                {
-                    elmnt.style.backgroundColor = "lightgray";
-                }
-            }
-        }*/
 
         function changeVizById(elm) {
             //changeBackgroundColor();
@@ -206,24 +221,23 @@
             });
 
             AmCharts.makeChart("chartdiv1", {
-                "type": "pie",
+                 "type": "pie",
                 "theme":"chalk",
                 "dataLoader": {
-                  "url": "static/data/emotion.json",
-                  //with open(os.path.join(app.config['DATA_DIR'], 'data.json')) as json_file:
-                  //    json_data = json.load(json_file)
-                  "showCurtain": false,
+                    "url": "static/data/emotion.json",
+                    "showCurtain": false,
                     "timestamp":true
                 },
 
                 "titleField": "tone_name",
                 "valueField": "score",
+                "fontSize": 25,
                 "balloonText": "[[title]]<br><span style='font-size:14px'><b>[[value]]</b> ([[percents]]%)</span>",
                 "innerRadius": "30%",
                 "pullOutEffect": "easeOutSine",
                 "startEffect": "easeOutSine",
                 "legend": {
-                  "align": "center",
+                  "align": "left",
                   "markerType": "circle",
                   "valueWidth": "left",
                   "valueText" : "[[value]]",
@@ -234,19 +248,21 @@
               });
 
               AmCharts.makeChart("chartdiv2", {
+                  "theme":"chalk",
                 "type": "pie",
                 "dataLoader": {
                   "url": "static/data/social.json",
                   "showCurtain": false,
-                    "timestamp":true
+                  "timestamp":true
                 },
                 "titleField": "tone_name",
                 "valueField": "score",
+                  "fontSize": 25,
                 "balloonText": "[[title]]<br><span style='font-size:14px'><b>[[value]]</b> ([[percents]]%)</span>",
                 "innerRadius": "30%",
                 "legend": {
-                  "align": "center",
-                  "markerType": "square",
+                  "align": "right",
+                  "markerType": "circle",
                   "valueWidth": "left",
                   "valueText" : "[[value]]",
                   "equalWidths": false,
