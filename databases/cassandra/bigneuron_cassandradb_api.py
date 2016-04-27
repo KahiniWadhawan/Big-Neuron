@@ -151,7 +151,7 @@ def get_social_scores(social_json):
 # Insert all tweets returned by the Cursor API and store them in Cassandra
 # Access table by Candidate's name
 #---------------------------------------------------------------------------
-def insert_data_to_table(candname):
+def insert_data_table_tweets(candname):
     #getting user tweets
     tweets = get_user_tweets(candname)
     #setting up db
@@ -230,24 +230,27 @@ def insert_data_table_sentencelevel(candname):
     for row in resultSet:
         tweet_id = row.tweet_id
         tweet_text = row.tweet_text
-        created_at = row.created_at
+        tweet_created_at = row.created_at
 
         #calling prepare_sentencelevel_query for every tweet
-        sentencelevel_bound = prepare_sentencelevel_query(candname,tweet,session)
+        sentencelevel_bound = prepare_sentencelevel_query(candname,tweet_id,tweet_text
+                                                          ,tweet_created_at,session)
         session.execute(sentencelevel_bound)
 
-def prepare_sentencelevel_query(candname,tweet,session):
+
+
+def prepare_sentencelevel_query(candname,tweet_id,tweet_text,tweet_created_at,session):
     #creating table name
     table_name = candname + '_sentencelevel'
 
     #processing date and time
-    datetime_lst = str(tweet.created_at).encode('utf-8').split()
+    datetime_lst = str(tweet_created_at).encode('utf-8').split()
     date = datetime_lst[0]
     time = datetime_lst[1]
 
 
     #processing and getting jsons - test
-    tone_json = call_ibmToneAnalyzer(tweet.text.encode('utf-8'))
+    tone_json = call_ibmToneAnalyzer(tweet_text.encode('utf-8'))
     emotion_json,writing_json,social_json = gen_EWS_json(tone_json)
 
     #converting json to string in order to store in db table text field
@@ -294,8 +297,8 @@ def prepare_sentencelevel_query(candname,tweet,session):
     #print sentencelevel_query
     prepared = session.prepare(sentencelevel_query)
 
-    bound = prepared.bind((str(tweet.id_str.encode('utf-8')),
-                           str(tweet.created_at),
+    bound = prepared.bind((str(tweet_id_str.encode('utf-8')),
+                           str(tweet_created_at),
                            str(date),
                            str(time),
                            str(tone_json_str.encode('utf-8')),
@@ -827,11 +830,11 @@ def get_tweet_tones(candname,tweet_id,file_path):
 
 
 #testing all functions here in a sequence
-#insert_data_to_table('realDonaldTrump')
-insert_data_to_table('HillaryClinton')
-# insert_data_to_table('BernieSanders')
-# insert_data_to_table('tedcruz')
-# insert_data_to_table('JohnKasich')
+insert_data_table_tweets('realDonaldTrump')
+insert_data_table_tweets('HillaryClinton')
+insert_data_table_tweets('BernieSanders')
+insert_data_table_tweets('tedcruz')
+insert_data_table_tweets('JohnKasich')
 
 #gen_doclevel_emotion_json('realDonaldTrump','data/')
 #gen_doclevel_writing_json('realDonaldTrump','data/')
